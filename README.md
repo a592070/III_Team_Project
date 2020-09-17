@@ -12,6 +12,7 @@
 ## 分支名稱對應
 dev_a592070 詠嘉
 dev_iring29 佳伶
+dev_azaz4498 宇河
 
 ## 參考
 https://gitee.com/all-about-git
