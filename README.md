@@ -17,6 +17,7 @@
 
 ## git指令
 ```
+# name、email 改成自己的
 git config --global user.name "a592070"
 git config --global user.email "a592070@gmail.com"
 ```
