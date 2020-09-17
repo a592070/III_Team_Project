@@ -10,9 +10,16 @@
   - 解決衝突後必須測試，測試有問題，立刻po上群
 
 ## 分支名稱對應
-dev_a592070 詠嘉
-dev_iring29 佳伶
-dev_azaz4498 宇河
+- dev_a592070 詠嘉
+- dev_iring29 佳伶
+- dev_azaz4498 宇河
+
+
+## git指令
+```
+git config --global user.name "a592070"
+git config --global user.email "a592070@gmail.com"
+```
 
 ## 參考
 https://gitee.com/all-about-git
