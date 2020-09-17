@@ -27,3 +27,23 @@ hs_err_pid*
 *.iml
 out/
 target/
+
+
+# eclipse
+.settings/
+bin/
+gen/
+.classpath
+.project
+.DS_Store
+
+.metadata
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
