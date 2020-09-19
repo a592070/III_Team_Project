@@ -21,13 +21,15 @@
 git config --global user.name "a592070"
 git config --global user.email "a592070@gmail.com"
 ```
+
+```
 或是在(舉例路徑) C:\Users\Student\
 下的.gitconfig
 直接右鍵編輯加入
 [user]
 	name = a592070
 	email = a592070@gmail.com
-
+```
 
 **跟上面的指令是同樣效果**
 
