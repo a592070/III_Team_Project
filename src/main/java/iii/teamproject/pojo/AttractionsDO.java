@@ -1,8 +1,13 @@
 package iii.teamproject.pojo;
 
-import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.math.BigDecimal;
 
+@JsonDeserialize(using = AttractionsDOJsonDeserializer.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AttractionsDO{
     // type 1 is scenic_spot
     // type 3 is restaurant
@@ -143,5 +148,24 @@ public class AttractionsDO{
 
     public void setTravelingInfo(String travelingInfo) {
         this.travelingInfo = travelingInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", address='" + address + '\'' +
+                ", region='" + region + '\'' +
+                ", tel='" + tel + '\'' +
+                ", openTime='" + openTime + '\'' +
+                ", px=" + px +
+                ", py=" + py +
+                ", travelingInfo='" + travelingInfo + '\'' +
+                ", totalNumberRooms='" + totalNumberRooms + '\'' +
+                ", serviceInfo='" + serviceInfo + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
