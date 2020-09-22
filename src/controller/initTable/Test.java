@@ -12,7 +12,6 @@ import pojo.AttractionsDO;
 //    	System.out.println(list);
 //    }
 //}
-//try
 
 import java.sql.SQLException;
 
