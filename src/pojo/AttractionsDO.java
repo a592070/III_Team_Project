@@ -17,15 +17,15 @@ public class AttractionsDO{
     private String name;
     private String description;
     private String address;
-    private String region;
     private String tel;
-    private String openTime;			// for type 1 3
     private BigDecimal px;
     private BigDecimal py;
+    private String openTime;			// for type 1 3
     private String travelingInfo;       // for type1
     private String totalNumberRooms;    // for type4
     private String serviceInfo;         // for type4
-    private int type;
+    private String region;              // FK
+    private int type;                   // FK
 
     public AttractionsDO(String id, String name, String description, String address, String region, String tel, String openTime, BigDecimal px, BigDecimal py, String travelingInfo, String totalNumberRooms, String serviceInfo, int type) {
         this.id = id;

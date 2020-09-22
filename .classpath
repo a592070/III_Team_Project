@@ -13,12 +13,16 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="libs/jackson-annotations-2.11.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-core-2.11.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-databind-2.11.2.jar"/>
-	<classpathentry kind="lib" path="libs/javax.servlet.jsp-api-2.3.3.jar"/>
-	<classpathentry kind="lib" path="libs/javax.servlet-api-4.0.1.jar"/>
-	<classpathentry kind="lib" path="libs/jstl-api-1.2.jar"/>
-	<classpathentry kind="lib" path="libs/taglibs-standard-impl-1.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-dbcp2-2.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool2-2.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.11.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.11.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.11.2.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet.jsp-api-2.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet-api-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jstl-api-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/ojdbc8-19.7.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
