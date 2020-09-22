@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import iii.teamproject.pojo.AttractionsDO;
-import iii.teamproject.utils.StringUtil;
+import pojo.AttractionsDO;
+import utils.StringUtil;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;

@@ -1,6 +1,6 @@
 package controller.initTable;
 
-import iii.teamproject.pojo.AttractionsDO;
+import pojo.AttractionsDO;
 
 public abstract class TableInit {
     protected AttractionsDO attractionsDO;
