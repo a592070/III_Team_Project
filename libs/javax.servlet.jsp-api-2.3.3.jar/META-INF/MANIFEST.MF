@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Export-Package: javax.servlet.jsp.el;uses:="javax.servlet,javax.el,jav
+ ax.servlet.jsp,javax.servlet.http";version="2.3.3",javax.servlet.jsp.
+ tagext;uses:="javax.servlet.jsp";version="2.3.3",javax.servlet.jsp;us
+ es:="javax.servlet,javax.el,javax.servlet.jsp.el,javax.servlet.jsp.ta
+ gext,javax.servlet.http";version="2.3.3"
+Implementation-Version: 2.3.3
+Specification-Vendor: Oracle Corporation
+Built-By: vinay
+Tool: Bnd-0.0.255
+Bundle-Name: JavaServer Pages(TM) API
+Created-By: 1.7.0_80 (Oracle Corporation)
+Bundle-Vendor: Oracle
+Implementation-Vendor: Oracle Corporation
+Bundle-Version: 2.3.3
+Build-Jdk: 1.7.0_80
+Bnd-LastModified: 1533108124599
+Bundle-ManifestVersion: 2
+Bundle-Description: Java.net - The Source for Java Technology Collabor
+ ation
+Bundle-License: ://oss.oracle.com/licenses/CDDL+GPL-1.1
+Import-Package: javax.el,javax.servlet,javax.servlet.http,javax.servle
+ t.jsp;version="2.3.3",javax.servlet.jsp.el;version="2.3.3",javax.serv
+ let.jsp.tagext;version="2.3.3"
+Bundle-SymbolicName: javax.servlet.jsp-api
+Bundle-DocURL: http://www.oracle.com
+Specification-Version: 2.3
+Extension-Name: javax.servlet.jsp
+
