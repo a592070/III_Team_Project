@@ -13,6 +13,9 @@
 - dev_a592070 詠嘉
 - dev_iring29 佳伶
 - dev_azaz4498 宇河
+- dev_innocence741 柏翔
+- dev_rambo0021 之軒
+- dev_asx54630 柏皓
 
 
 ## git指令
