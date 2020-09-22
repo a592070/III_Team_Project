@@ -19,7 +19,7 @@ public class AttractionsDO{
     private String address;
     private String region;
     private String tel;
-    private String openTime;
+    private String openTime;			// for type 1 3
     private BigDecimal px;
     private BigDecimal py;
     private String travelingInfo;       // for type1
