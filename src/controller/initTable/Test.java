@@ -8,5 +8,6 @@ public class Test {
 //        new AttractionsInit(AttractionsInit.Scenic_Spot_URL).initTable();
 //        new AttractionsInit(AttractionsInit.Restaurant_URL).initTable();
 //        new AttractionsInit(AttractionsInit.Hotel_URL).initTable();
+
     }
 }

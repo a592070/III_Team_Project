@@ -15,7 +15,7 @@
 - dev_azaz4498 宇河
 - dev_innocence741 柏翔
 - dev_rambo0021 之軒
-- dev_asx54630 柏皓
+- dev_asx54630 柏澔
 
 
 ## git指令
