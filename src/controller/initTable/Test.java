@@ -1,13 +1,13 @@
 package controller.initTable;
 
 import java.io.IOException;
-import java.util.List;
-
-import pojo.AttractionsDO;
+import java.sql.SQLException;
 
 public class Test {
-    public static void main(String[] args) throws IOException {
-    	List<AttractionsDO> list = new DataInit("https://gis.taiwan.net.tw/XMLReleaseALL_public/scenic_spot_C_f.json").getListDO();
-    	System.out.println(list);
+    public static void main(String[] args) throws IOException, SQLException {
+//        new AttractionsInit(AttractionsInit.Scenic_Spot_URL).initTable();
+//        new AttractionsInit(AttractionsInit.Restaurant_URL).initTable();
+//        new AttractionsInit(AttractionsInit.Hotel_URL).initTable();
+
     }
 }
