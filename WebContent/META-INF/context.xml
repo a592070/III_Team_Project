@@ -2,7 +2,7 @@
 <Context>
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
 
-    <Resource  name="com.gaga.jdbc.connections.DBConnectionPool"
+    <Resource  name="controller.ConnectionPool"
                url="jdbc:oracle:thin:@//localhost:1521/XEPDB1"
                driverClassName="oracle.jdbc.OracleDriver"
                username="iiidba"
