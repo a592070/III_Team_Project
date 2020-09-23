@@ -28,9 +28,9 @@ public class Test {
          *
           */
 
-        ObjectMapper mapper = new ObjectMapper();
+//        ObjectMapper mapper = new ObjectMapper();
 
-        JsonNode jsonNode = mapper.readTree(str);
+//        JsonNode jsonNode = mapper.readTree(str);
 
 //        JsonNode node = jsonNode.path("qwe");
 //        System.out.println(node);
@@ -40,7 +40,6 @@ public class Test {
 //            System.out.println(iterator.next().textValue());
 //        }
 //        System.out.println(node.get(0));
-
 
 
     }

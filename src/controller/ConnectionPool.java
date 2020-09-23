@@ -77,6 +77,8 @@ public class ConnectionPool {
         basicDataSource.setMaxIdle(sMaxIdle);            // 最大空閒連線數量
         basicDataSource.setMaxWaitMillis(sMaxWait);      // 最大等待時間
         basicDataSource.setRemoveAbandonedTimeout(sRemoveAbandonedTimeout);  // 回收時間
-        basicDataSource.setDefaultAutoCommit(false);
+
+        boolean isAutoCommit = "true".equals(sAutoCommit);
+        basicDataSource.setDefaultAutoCommit(isAutoCommit);
     }
 }

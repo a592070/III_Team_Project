@@ -55,7 +55,7 @@ public class AttractionsInit extends TableInit{
 
             conn = dataSource.getConnection();
 
-            sql = "insert into ATTRACTIONS(ID, NAME, DESCRIPTION, ADDRESS, TEL, PX, PY, OPENTIME, TRAVELING_INFO, TOTAL_NUMBER_ROOMS, SERVICE_INFO, REGION_NAME, TYPE) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            sql = "insert into ATTRACTIONS values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             predStmt = conn.prepareStatement(sql);
 
             for (AttractionsDO attDO : listDO) {
@@ -89,11 +89,14 @@ public class AttractionsInit extends TableInit{
                 temp = attDO.getServiceInfo();
                 predStmt.setString(11, String.valueOf(temp));
 
-                temp = attDO.getRegion();
-                predStmt.setString(12, String.valueOf(temp));
+                predStmt.setBigDecimal(12,rndRation());
 
-                decimal = BigDecimal.valueOf(attDO.getType());
-                if(decimal != null) predStmt.setBigDecimal(13, decimal);
+                temp = attDO.getRegion();
+                predStmt.setString(13, String.valueOf(temp));
+
+                decimal = attDO.getType();
+                if(decimal != null) predStmt.setBigDecimal(14, decimal);
+
 
                 predStmt.addBatch();
                 predStmt.clearParameters();
@@ -113,4 +116,9 @@ public class AttractionsInit extends TableInit{
         }
         return isSuccess;
     }
+
+    private BigDecimal rndRation(){
+        return new BigDecimal(Math.random()*5).setScale(1, BigDecimal.ROUND_DOWN);
+    }
+
 }
