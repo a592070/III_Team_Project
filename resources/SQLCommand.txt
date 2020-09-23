@@ -6,8 +6,6 @@ TEMPORARY TABLESPACE "TEMP";
 GRANT DBA TO iii_team_dba ;
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -30,7 +28,6 @@ create table type
 	type_name varchar2(255)
 )
 
->>>>>>> branch 'master' of https://github.com/a592070/III_Team_Project.git
 create table attractions
 (
 	id varchar2(255) not null
