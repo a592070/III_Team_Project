@@ -5,7 +5,7 @@
     <Resource  name="ConnectionPool"
                url="jdbc:oracle:thin:@//localhost:1521/XEPDB1"
                driverClassName="oracle.jdbc.OracleDriver"
-               username="iiidba"
+               username="iii_team_dba"
                password="iiidba"
                auth="Container"
                type="javax.sql.DataSource"
