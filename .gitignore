@@ -17,6 +17,9 @@
 *.zip
 *.tar.gz
 *.rar
+*.jar
+libs/
+lib/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -42,7 +45,6 @@ tmp/
 *.bak
 *.swp
 *~.nib
-local.properties
 .settings/
 .loadpath
 .recommenders

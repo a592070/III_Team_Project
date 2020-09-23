@@ -1,6 +1,152 @@
-CREATE USER iiidba IDENTIFIED BY "iiidba"
+// 創建user
+
+CREATE USER iii_team_dba IDENTIFIED BY "iiidba"
 DEFAULT TABLESPACE "USERS"
 TEMPORARY TABLESPACE "TEMP";
-GRANT DBA TO iiidba ;
+GRANT DBA TO iii_team_dba ;
 
 
+
+
+
+// 創建 table
+
+create table region
+(
+	region_name varchar2(255) not null
+		constraint REGION_PK
+			primary key,
+	region_id varchar2(255),
+	area varchar2(255)
+)
+
+create table type
+(
+	type number(1) not null
+		constraint TYPE_PK
+			primary key,
+	type_name varchar2(255)
+)
+
+create table attractions
+(
+	id varchar2(255) not null
+		constraint ATTRACTIONS_PK
+			primary key,
+	name varchar2(255),
+	description NVARCHAR2(2000),
+	address varchar2(255),
+	tel varchar2(255),
+	px number(10,7),
+	py number(10,7),
+	opentime varchar2(1024),
+	traveling_info varchar2(1024),
+	total_number_rooms varchar2(1024),
+	service_info varchar2(1024),
+	region_name varchar2(255)
+		constraint ATTRACTIONS_REGION_REGION_ID_FK
+			references REGION,
+	type number(1)
+		constraint ATTRACTIONS_TYPE_TYPE_FK
+			references TYPE
+)
+
+
+
+
+
+// REGION 表格初始化
+
+insert into REGION (REGION_NAME, AREA)
+values ('null', 'Northern');
+
+insert into REGION (REGION_NAME, AREA)
+values ('基隆市', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('新北市', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('臺北市', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('桃園市', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('新竹市', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('新竹縣', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('苗栗縣', 'Northern');
+insert into REGION (REGION_NAME, AREA)
+values ('宜蘭縣', 'Northern');
+
+insert into REGION (REGION_NAME, AREA)
+values ('臺中市', 'Central');
+insert into REGION (REGION_NAME, AREA)
+values ('彰化縣', 'Central');
+insert into REGION (REGION_NAME, AREA)
+values ('南投縣', 'Central');
+insert into REGION (REGION_NAME, AREA)
+values ('雲林縣', 'Central');
+
+insert into REGION (REGION_NAME, AREA)
+values ('嘉義市', 'Southern');
+insert into REGION (REGION_NAME, AREA)
+values ('嘉義縣', 'Southern');
+insert into REGION (REGION_NAME, AREA)
+values ('臺南市', 'Southern');
+insert into REGION (REGION_NAME, AREA)
+values ('高雄市', 'Southern');
+insert into REGION (REGION_NAME, AREA)
+values ('屏東縣', 'Southern');
+
+insert into REGION (REGION_NAME, AREA)
+values ('花蓮縣', 'Eastern');
+insert into REGION (REGION_NAME, AREA)
+values ('臺東縣', 'Eastern');
+
+insert into REGION (REGION_NAME, AREA)
+values ('澎湖縣', 'Outer');
+insert into REGION (REGION_NAME, AREA)
+values ('金門縣', 'Outer');
+insert into REGION (REGION_NAME, AREA)
+values ('連江縣', 'Outer');
+
+
+
+// TYPE 表格初始化
+
+insert into TYPE(TYPE, TYPE_NAME)
+VALUES (1, 'scenic_spot');
+insert into TYPE(TYPE, TYPE_NAME)
+VALUES (3, 'restaurant');
+insert into TYPE(TYPE, TYPE_NAME)
+VALUES (4, 'hotel');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table account
+(
+	username varchar2(255) not null
+		constraint ACCOUNT_PK
+			primary key,
+	password varchar2(255) not null,
+	identity number(1),
+	email varchar2(255),
+	picture blob,
+	modify_date date,
+	nickname varchar2(255),
+	register date,
+	favorite varchar2(4000),
+	attractions_id varchar2(255)
+		constraint ACCOUNT_ATTRACTIONS_ID_FK
+			references ATTRACTIONS
+)
