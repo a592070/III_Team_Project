@@ -4,7 +4,6 @@ TEMPORARY TABLESPACE "TEMP";
 GRANT DBA TO iiidba ;
 
 
-
 create table attractions
 (
 	id varchar2(255) not null
