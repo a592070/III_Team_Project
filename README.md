@@ -33,6 +33,9 @@ git config --global user.email "a592070@gmail.com"
 	name = a592070
 	email = a592070@gmail.com
 ```
+## daily report 
+https://docs.google.com/spreadsheets/d/1egigzOKLIRzai1F34R0_k81WJGZqktPArumL7VikPXI/edit?usp=sharing
+
 
 **跟上面的指令是同樣效果**
 
