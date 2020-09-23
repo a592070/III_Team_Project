@@ -1,9 +1,32 @@
-CREATE USER iiidba IDENTIFIED BY "iiidba"
+// 創建user
+
+CREATE USER iii_team_dba IDENTIFIED BY "iiidba"
 DEFAULT TABLESPACE "USERS"
 TEMPORARY TABLESPACE "TEMP";
-GRANT DBA TO iiidba ;
+GRANT DBA TO iii_team_dba ;
 
 
+
+
+
+// 創建 table
+
+create table region
+(
+	region_name varchar2(255) not null
+		constraint REGION_PK
+			primary key,
+	region_id varchar2(255),
+	area varchar2(255)
+)
+
+create table type
+(
+	type number(1) not null
+		constraint TYPE_PK
+			primary key,
+	type_name varchar2(255)
+)
 
 create table attractions
 (
@@ -29,24 +52,10 @@ create table attractions
 )
 
 
-create table region
-(
-	region_name varchar2(255) not null
-		constraint REGION_PK
-			primary key,
-	region_id varchar2(255),
-	area varchar2(255)
-)
 
 
-create table type
-(
-	type number(1) not null
-		constraint TYPE_PK
-			primary key,
-	type_name varchar2(255)
-)
 
+// REGION 表格初始化
 
 insert into REGION (REGION_NAME, AREA)
 values ('null', 'Northern');
@@ -102,6 +111,7 @@ values ('連江縣', 'Outer');
 
 
 
+// TYPE 表格初始化
 
 insert into TYPE(TYPE, TYPE_NAME)
 VALUES (1, 'scenic_spot');
