@@ -6,7 +6,7 @@ import java.sql.Date;
 public class AccountDO {
     private String username;
     private String password;
-    private BigDecimal identity;
+    private BigDecimal identity;  //1:admin 2:user 3:stores
     private String email;
 
     private byte[] picture;
