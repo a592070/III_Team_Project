@@ -8,6 +8,16 @@
   - 再對master進行merge
   - 有衝突必須馬上解決
   - 解決衝突後必須測試，測試有問題，立刻po上群
+  
+## 分工
+- 詠嘉 清單+查詢
+- 佳伶 個人店家homepage
+- 宇河 景點頁面
+- 柏翔 首頁+天氣
+- 之軒 登入+註冊頁面
+- 柏澔 管理員頁面
+  
+
 
 ## 分支名稱對應
 - dev_a592070 詠嘉
@@ -54,6 +64,9 @@ git config --global user.email "a592070@gmail.com"
 ## 進度條
 - a592070 https://hackmd.io/@dDJmilUhRLq-s4ljZ9qvWw/SyJPutDSP
 
+
+## daily report 
+https://docs.google.com/spreadsheets/d/1egigzOKLIRzai1F34R0_k81WJGZqktPArumL7VikPXI/edit?usp=sharing
 
 
 ## 參考指令大全

@@ -20,26 +20,28 @@ public class AttractionsDO{
     private String tel;
     private BigDecimal px;
     private BigDecimal py;
+    private BigDecimal rating;
     private String openTime;			// for type 1 3
     private String travelingInfo;       // for type1
     private String totalNumberRooms;    // for type4
     private String serviceInfo;         // for type4
     private String region;              // FK
-    private int type;                   // FK
+    private BigDecimal type;                   // FK
 
-    public AttractionsDO(String id, String name, String description, String address, String region, String tel, String openTime, BigDecimal px, BigDecimal py, String travelingInfo, String totalNumberRooms, String serviceInfo, int type) {
+    public AttractionsDO(String id, String name, String description, String address, String tel, BigDecimal px, BigDecimal py, BigDecimal rating, String openTime, String travelingInfo, String totalNumberRooms, String serviceInfo, String region, BigDecimal type) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.address = address;
-        this.region = region;
         this.tel = tel;
-        this.openTime = openTime;
         this.px = px;
         this.py = py;
+        this.rating = rating;
+        this.openTime = openTime;
         this.travelingInfo = travelingInfo;
         this.totalNumberRooms = totalNumberRooms;
         this.serviceInfo = serviceInfo;
+        this.region = region;
         this.type = type;
     }
 
@@ -134,20 +136,28 @@ public class AttractionsDO{
         this.region = region;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public String getTravelingInfo() {
         return travelingInfo;
     }
 
     public void setTravelingInfo(String travelingInfo) {
         this.travelingInfo = travelingInfo;
+    }
+
+    public BigDecimal getRating() {
+        return rating;
+    }
+
+    public void setRating(BigDecimal rating) {
+        this.rating = rating;
+    }
+
+    public BigDecimal getType() {
+        return type;
+    }
+
+    public void setType(BigDecimal type) {
+        this.type = type;
     }
 
     @Override

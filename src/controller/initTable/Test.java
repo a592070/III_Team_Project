@@ -29,7 +29,7 @@ public class Test {
           */
 
 //        ObjectMapper mapper = new ObjectMapper();
-//
+
 //        JsonNode jsonNode = mapper.readTree(str);
 
 //        JsonNode node = jsonNode.path("qwe");
@@ -40,7 +40,6 @@ public class Test {
 //            System.out.println(iterator.next().textValue());
 //        }
 //        System.out.println(node.get(0));
-
 
 
     }

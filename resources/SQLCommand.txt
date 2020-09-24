@@ -43,6 +43,7 @@ create table attractions
 	traveling_info varchar2(1024),
 	total_number_rooms varchar2(1024),
 	service_info varchar2(1024),
+	rating number(2,1),
 	region_name varchar2(255)
 		constraint ATTRACTIONS_REGION_REGION_ID_FK
 			references REGION,
@@ -51,7 +52,23 @@ create table attractions
 			references TYPE
 )
 
-
+create table account
+(
+	username varchar2(255) not null
+		constraint ACCOUNT_PK
+			primary key,
+	password varchar2(255) not null,
+	identity number(1),
+	email varchar2(255),
+	picture blob,
+	modify_date date,
+	nickname varchar2(255),
+	register date,
+	favorite varchar2(4000),
+	attractions_id varchar2(255)
+		constraint ACCOUNT_ATTRACTIONS_ID_FK
+			references ATTRACTIONS
+)
 
 
 
@@ -120,33 +137,3 @@ VALUES (3, 'restaurant');
 insert into TYPE(TYPE, TYPE_NAME)
 VALUES (4, 'hotel');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-create table account
-(
-	username varchar2(255) not null
-		constraint ACCOUNT_PK
-			primary key,
-	password varchar2(255) not null,
-	identity number(1),
-	email varchar2(255),
-	picture blob,
-	modify_date date,
-	nickname varchar2(255),
-	register date,
-	favorite varchar2(4000),
-	attractions_id varchar2(255)
-		constraint ACCOUNT_ATTRACTIONS_ID_FK
-			references ATTRACTIONS
-)

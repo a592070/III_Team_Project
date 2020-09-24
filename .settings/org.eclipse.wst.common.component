@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="III_Team_Project">
+
+    <wb-module deploy-name="III_project">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="III_Team_Project"/>
-        <property name="java-output-path" value="/III_Team_Project/build/classes"/>
+        <property name="context-root" value="III_project"/>
+        <property name="java-output-path" value="/III_project/build/classes"/>
+
     </wb-module>
 </project-modules>

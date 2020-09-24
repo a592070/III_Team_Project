@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import controller.initTable.DataInit;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class AttractionsDOJsonDeserializer extends JsonDeserializer<AttractionsDO> {
 
@@ -24,7 +25,7 @@ public class AttractionsDOJsonDeserializer extends JsonDeserializer<AttractionsD
 
         String id = node.get("Id").textValue();
 
-        attractionsDO.setType(Character.getNumericValue(id.charAt(1)));
+        attractionsDO.setType(new BigDecimal(id.substring(1,2)));
         attractionsDO.setId(id);
 
         attractionsDO.setName(node.get("Name").textValue());
