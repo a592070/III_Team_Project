@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AttractionsInit extends TableInit{
     public static final String Scenic_Spot_URL = "https://gis.taiwan.net.tw/XMLReleaseALL_public/scenic_spot_C_f.json";
@@ -22,10 +23,12 @@ public class AttractionsInit extends TableInit{
     private String sql;
     private Statement stmt;
     private PreparedStatement predStmt;
+    private List<AttractionsDO> listDO;
 
     public AttractionsInit(String sourceURLType) throws IOException {
         super();
         this.sourceURL = sourceURLType;
+        listDO = new DataInit(sourceURL).getListDO();
     }
 
     private Map<String, String> getRegionMap() throws SQLException {
@@ -52,8 +55,6 @@ public class AttractionsInit extends TableInit{
     public boolean initTable() throws IOException, SQLException {
         boolean isSuccess = false;
         try{
-            List<AttractionsDO> listDO = new DataInit(sourceURL).getListDO();
-
             conn = dataSource.getConnection();
 
             sql = "insert into ATTRACTIONS(ID, NAME, DESCRIPTION, ADDRESS, TEL, PX, PY, OPENTIME, TRAVELING_INFO, TOTAL_NUMBER_ROOMS, SERVICE_INFO, REGION_NAME, TYPE) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -113,5 +114,40 @@ public class AttractionsInit extends TableInit{
             if(conn != null) conn.close();
         }
         return isSuccess;
+    }
+    public boolean updateRating() throws SQLException {
+        boolean isSuccess = false;
+        try{
+            conn = dataSource.getConnection();
+
+            sql = "update ATTRACTIONS set RATING = ? where ID=?";
+            predStmt = conn.prepareStatement(sql);
+
+            for (AttractionsDO attDO : listDO) {
+                predStmt.setBigDecimal(1, rndRation());
+                predStmt.setString(2, attDO.getId());
+
+                predStmt.addBatch();
+                predStmt.clearParameters();
+            }
+            int[] ints = predStmt.executeBatch();
+            if(ints!=null && ints.length!=0) isSuccess = true;
+            conn.commit();
+        }catch (SQLException e){
+            if(conn != null) conn.rollback();
+            e.printStackTrace();
+        }finally {
+            if(predStmt != null) {
+                predStmt.clearBatch();
+                predStmt.close();
+            }
+            if(conn != null) conn.close();
+        }
+        return isSuccess;
+    }
+    private BigDecimal rndRation(){
+        double rnd = ThreadLocalRandom.current().nextDouble(1,5.1);
+        if(rnd >= 5.0) rnd = 5.0;
+        return new BigDecimal(rnd).setScale(1, BigDecimal.ROUND_HALF_UP);
     }
 }
