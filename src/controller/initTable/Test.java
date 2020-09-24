@@ -10,11 +10,11 @@ import java.util.Iterator;
 
 public class Test {
     public static void main(String[] args) throws IOException, SQLException {
-        new AttractionsInit(AttractionsInit.Scenic_Spot_URL).initTable();
-        new AttractionsInit(AttractionsInit.Restaurant_URL).initTable();
-        new AttractionsInit(AttractionsInit.Hotel_URL).initTable();
+//        new AttractionsInit(AttractionsInit.Scenic_Spot_URL).initTable();
+//        new AttractionsInit(AttractionsInit.Restaurant_URL).initTable();
+//        new AttractionsInit(AttractionsInit.Hotel_URL).initTable();
 
-//        String str = "{\"abc\":\"123\", \"def\":[\"1\", \"2\"], \"qwe\":{\"a\":[\"1\", \"2\"], \"b\":\"3\"}}";
+        String str = "{\"abc\":\"123\", \"def\":[\"1\", \"2\"], \"qwe\":{\"a\":[\"1\", \"2\"], \"b\":\"3\"}}";
 
         /**
          * {
@@ -28,12 +28,12 @@ public class Test {
          *
           */
 
-//        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
-//        JsonNode jsonNode = mapper.readTree(str);
+        JsonNode jsonNode = mapper.readTree(str);
 
-//        JsonNode node = jsonNode.path("qwe");
-//        System.out.println(node);
+        JsonNode node = jsonNode.path("qwe");
+        System.out.println(node);
 
 //        Iterator<JsonNode> iterator = node.iterator();
 //        while(iterator.hasNext()){
