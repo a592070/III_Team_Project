@@ -54,7 +54,6 @@ git config --global user.email "a592070@gmail.com"
 - 測試
 
 ## github上傳步驟
-- add
 - commit
 - push到你的分支
 - pull merge request
