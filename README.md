@@ -43,11 +43,31 @@ git config --global user.email "a592070@gmail.com"
 	name = a592070
 	email = a592070@gmail.com
 ```
-
 **跟上面的指令是同樣效果**
+
+
+## 建立專案步驟
+- 先在Eclipse下創建WEB專案
+- 將MASTER主分支clone到任意資料夾
+- 複製內容到專案裡
+- 導入lib依賴
+- 測試
+
+## github上傳步驟
+- add
+- commit
+- push到你的分支
+- pull merge request
+- 解決衝突
+- merge
+
+## 進度條
+- a592070 https://hackmd.io/@dDJmilUhRLq-s4ljZ9qvWw/SyJPutDSP
+
 
 ## daily report 
 https://docs.google.com/spreadsheets/d/1egigzOKLIRzai1F34R0_k81WJGZqktPArumL7VikPXI/edit?usp=sharing
+
 
 ## 參考指令大全
 https://gitee.com/all-about-git
