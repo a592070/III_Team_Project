@@ -10,16 +10,16 @@ import java.util.Iterator;
 
 public class Test {
     public static void main(String[] args) throws IOException, SQLException {
-        AttractionsInit attractionsInit = new AttractionsInit(AttractionsInit.Scenic_Spot_URL);
-        attractionsInit.initTable();
+//        AttractionsInit attractionsInit = new AttractionsInit(AttractionsInit.Scenic_Spot_URL);
+//        attractionsInit.initTable();
 //        attractionsInit.updateRating();
 
-        attractionsInit = new AttractionsInit(AttractionsInit.Restaurant_URL);
-        attractionsInit.initTable();
+//        attractionsInit = new AttractionsInit(AttractionsInit.Restaurant_URL);
+//        attractionsInit.initTable();
 //        attractionsInit.updateRating();
 
-        attractionsInit = new AttractionsInit(AttractionsInit.Hotel_URL);
-        attractionsInit.initTable();
+//        attractionsInit = new AttractionsInit(AttractionsInit.Hotel_URL);
+//        attractionsInit.initTable();
 //        attractionsInit.updateRating();
 
 
