@@ -2,16 +2,16 @@ package pojo;
 
 import java.math.BigDecimal;
 
-public class Type {
+public class TypeDO {
     private BigDecimal type;
     private String typeName;
 
-    public Type(BigDecimal type, String typeName) {
+    public TypeDO(BigDecimal type, String typeName) {
         this.type = type;
         this.typeName = typeName;
     }
 
-    public Type() {
+    public TypeDO() {
     }
 
     public BigDecimal getType() {
