@@ -93,7 +93,7 @@ public class AttractionsInit extends TableInit{
                 temp = attDO.getRegion();
                 predStmt.setString(12, String.valueOf(temp));
 
-                decimal = BigDecimal.valueOf(attDO.getType());
+                decimal = attDO.getType();
                 if(decimal != null) predStmt.setBigDecimal(13, decimal);
 
                 predStmt.addBatch();
