@@ -60,9 +60,9 @@ public class HomepageServlet extends HttpServlet {
 			if (request.getParameter("QUERY") != null) {
 				processQuery(request, response, homepageDAO);
 			}
-			if (request.getParameter("UPDATE") != null) {
-				processUpdate(request, response, homepageDAO);
-			}
+//			if (request.getParameter("UPDATE") != null) {
+//				processUpdate(request, response, homepageDAO);
+//			}
 
 		} catch (Exception e) {
 			System.out.println("Connection Pool Error!");
@@ -71,7 +71,7 @@ public class HomepageServlet extends HttpServlet {
 	}
 
 	private void processQuery(HttpServletRequest request, HttpServletResponse response, HomepageDAO homepageDAO)
-			throws IOException {
+			throws IOException, SQLException {
 
 		// 讀取username
 		String username = request.getParameter("username");
@@ -85,22 +85,24 @@ public class HomepageServlet extends HttpServlet {
 
 	}
 
-	private void processUpdate(HttpServletRequest request, HttpServletResponse response, HomepageDAO homepageDAO)
-			throws SQLException, IOException {
-
-		// 讀取username
-		String username = request.getParameter("username");
-
-		AccountDO accDo = homepageDAO.UserinfoUpdate(username);
-		if (username == null)
-			showError(response, " can not find this use");
-		else {
-			accDo.setUsername(username);
-			homepageDAO.UserinfoUpdate(username);
-			showForm(response, accDo);
-
-		}
-	}
+//	private void processUpdate(HttpServletRequest request, HttpServletResponse response, HomepageDAO homepageDAO)
+//			throws SQLException, IOException {
+//
+//		// 讀取username
+//		String username = request.getParameter("username");
+//
+//		AccountDO accDo = homepageDAO.UserinfoUpdate(username);
+////		AccountDO accDo = new AccountDO();
+//		
+//		if (username == null)
+//			showError(response, " can not find this use");
+//		else {
+//			accDo.setUsername(username);
+//			homepageDAO.UserinfoUpdate(username);
+//			showForm(response, accDo);
+//
+//		}
+//	}
 
 	private void showError(HttpServletResponse response, String message) throws IOException {
 		PrintWriter out = response.getWriter();

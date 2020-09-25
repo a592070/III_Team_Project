@@ -20,7 +20,8 @@ public class Test_iring29 {
 //		String param1 = hpInit.password;
 //		System.out.println(param1);
 		
-
-
+		HomepageDAO homepageDAO = new HomepageDAO();
+		
+		
 	}
 }
