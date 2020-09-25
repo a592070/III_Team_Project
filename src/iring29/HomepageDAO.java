@@ -15,18 +15,22 @@ import javax.sql.DataSource;
 
 import controller.ConnectionPool;
 import pojo.AccountDO;
+import pojo.AttractionsDO;
 
 public class HomepageDAO {
 	private Connection conn;
 	private DataSource ds;
-	private static List<AccountDO> list;
+//	static List<AccountDO> list;
 
-	public HomepageDAO() throws IOException {
+	public HomepageDAO() throws IOException, SQLException {
 		ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
+//		if (list == null || list.size() == 0) {
+//			listAcc();
+//		}
 	}
 
-	public void listAcc() throws SQLException {
-		list = new ArrayList<>();
+	public List<AccountDO> listAcc() throws SQLException  {
+		List<AccountDO> list = new ArrayList<>();
 		try {
 			String sql = "select * from account order by 1";
 			conn = ds.getConnection();
@@ -56,12 +60,19 @@ public class HomepageDAO {
 				conn.close();
 			}
 		}
+		return list;
 	}
 
+
+//	public List<AccountDO> listAccDO(){
+//		return list;
+//	}
+	
+
+
 	// 尋找user info
-	public AccountDO findUser(String username) {
+	public AccountDO findUser(String username) throws SQLException {
 		try {
-//			AccountDO accDO = null;
 			String password;
 			BigDecimal identity;
 			String email;
@@ -72,7 +83,6 @@ public class HomepageDAO {
 			String favorite;
 			String attractionsId;
 
-			System.out.println("start");
 			String sql = "select * from account where username = ?";
 			conn = ds.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -103,12 +113,67 @@ public class HomepageDAO {
 		} catch (Exception e) {
 			System.err.println("尋找部門資料時發生錯誤:" + e);
 			return null;
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 
 	}
 
-	public AccountDO UserinfoUpdate(String username) {
+
+	//update user info
+	public AccountDO UserinfoUpdate(String username) throws SQLException {
+		try {
+			String sql = "update account set PASSWORD = ?, EMAIL = ?, PICTURE= ?, MODIFY_DATE= ? , NICKNAME = ?" ;
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			
+			
+			
+		}finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 		return null;
-		
+
 	}
+
+	// 從ID找名稱attraction name
+	public AttractionsDO findAttracion(String id) throws SQLException {
+		try {
+			String sql = "select name from attractions where id = ?";
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+			
+				
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+
+		}
+
+		return null;
+
+
+//	public AccountDO UserinfoUpdate(String username) {
+//		return null;
+
+//	}
+
+	}
+	
+	
 }
