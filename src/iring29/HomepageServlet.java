@@ -74,6 +74,7 @@ public class HomepageServlet extends HttpServlet {
 			throws IOException {
 
 		// 讀取username
+		
 		String username = request.getParameter("username");
 
 		AccountDO accDo = homepageDAO.findUser(username);

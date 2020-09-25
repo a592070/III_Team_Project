@@ -19,14 +19,14 @@ import pojo.AccountDO;
 public class HomepageDAO {
 	private Connection conn;
 	private DataSource ds;
-	private static List<AccountDO> list;
+//	static List<AccountDO> list;
 
 	public HomepageDAO() throws IOException {
 		ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
 	}
 
-	public void listAcc() throws SQLException {
-		list = new ArrayList<>();
+	public List<AccountDO> listAcc() throws SQLException  {
+		List<AccountDO> list = new ArrayList<>();
 		try {
 			String sql = "select * from account order by 1";
 			conn = ds.getConnection();
@@ -56,8 +56,13 @@ public class HomepageDAO {
 				conn.close();
 			}
 		}
+		return list;
 	}
 
+//	public List<AccountDO> listAccDO(){
+//		return list;
+//	}
+	
 	// 尋找user info
 	public AccountDO findUser(String username) {
 		try {
@@ -107,8 +112,23 @@ public class HomepageDAO {
 
 	}
 
-	public AccountDO UserinfoUpdate(String username) {
+	//update user info
+	public AccountDO UserinfoUpdate(String username) throws SQLException {
+		try {
+			String sql = "update account set PASSWORD = ?, EMAIL = ?, PICTURE= ?, MODIFY_DATE= ? , NICKNAME = ?" ;
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			
+			
+			
+		}finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}	
 		return null;
-		
 	}
+	
+	
 }
