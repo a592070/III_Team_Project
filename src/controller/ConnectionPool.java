@@ -33,8 +33,8 @@ public class ConnectionPool {
     public void init() throws IOException {
         try {
             Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            dataSource = (DataSource) envContext.lookup("ConnectionPool");
+            dataSource =  (DataSource) initContext.lookup("java:/comp/env/ConnectionPool");
+            
         }catch (NamingException e) {
             e.printStackTrace();
         }
