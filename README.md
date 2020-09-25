@@ -60,7 +60,7 @@ git config --global user.email "a592070@gmail.com"
 - 解決衝突
 - merge
 
-## 進度條
+## QA
 - a592070 https://hackmd.io/@dDJmilUhRLq-s4ljZ9qvWw/SyJPutDSP
 
 
