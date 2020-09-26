@@ -11,6 +11,6 @@ public class Test {
     public static void main(String[] args) throws IOException, SQLException {
         AttractionsDAO attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 
-        System.out.println();
+        System.out.println(attractionsDAO.listAttractionsDO().get(0));
     }
 }
