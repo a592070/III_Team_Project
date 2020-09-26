@@ -1,18 +1,17 @@
 package a592070.dao;
 
-import a592070.vo.AttractiionsInfoVO;
+import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 import pojo.AttractionsDO;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
 
 public class AttractionsDAO {
     private static List<AttractionsDO> list;
-    private static List<AttractiionsInfoVO> listVO;
+    private static List<AttractionsInfoVO> listVO;
     private static Map<String, List<String>> regionMap;
 
     private static final int Attraction_Scenic_Spot = 1;
@@ -42,7 +41,7 @@ public class AttractionsDAO {
         try{
             conn = dataSource.getConnection();
             stmt = conn.createStatement();
-            sql = "select * from attractions";
+            sql = "select * from attractions order by rating desc";
             ResultSet resultSet = stmt.executeQuery(sql);
 
             while (resultSet.next()){
@@ -104,38 +103,38 @@ public class AttractionsDAO {
     public Map<String, List<String>> mapRegion(){
         return regionMap;
     }
-    public List<AttractiionsInfoVO> listInfoVO(){
+    public List<AttractionsInfoVO> listInfoVO(){
         listVO = new ArrayList<>();
         if(list != null || list.size() != 0){
             for (AttractionsDO ele : list) {
-                AttractiionsInfoVO attractiionsInfoVO = new AttractiionsInfoVO();
-                attractiionsInfoVO.setName(ele.getName());
-                attractiionsInfoVO.setAddress(ele.getAddress());
-                attractiionsInfoVO.setOpentime(ele.getOpenTime());
-                attractiionsInfoVO.setRating(ele.getRating());
+                AttractionsInfoVO attractionsInfoVO = new AttractionsInfoVO();
+                attractionsInfoVO.setName(ele.getName());
+                attractionsInfoVO.setAddress(ele.getAddress());
+                attractionsInfoVO.setOpentime(ele.getOpenTime());
+                attractionsInfoVO.setRating(ele.getRating());
 
                 int type = ele.getType().intValue();
                 switch (type){
                     case Attraction_Scenic_Spot:
-                        attractiionsInfoVO.setType(sScenic_Spot);
+                        attractionsInfoVO.setType(sScenic_Spot);
                         break;
                     case Attraction_Restaurant:
-                        attractiionsInfoVO.setType(sRestaurant);
+                        attractionsInfoVO.setType(sRestaurant);
                         break;
                     case Attraction_Hotel:
-                        attractiionsInfoVO.setType(sHotel);
+                        attractionsInfoVO.setType(sHotel);
                         break;
                 }
 
                 String region = ele.getRegion();
-                attractiionsInfoVO.setRegion(region);
+                attractionsInfoVO.setRegion(region);
                 if(regionMap != null || regionMap.size() != 0){
                     regionMap.forEach((key,value) -> {
-                        if(value.contains(region)) attractiionsInfoVO.setArea(key);
+                        if(value.contains(region)) attractionsInfoVO.setArea(key);
                     });
                 }
 
-                listVO.add(attractiionsInfoVO);
+                listVO.add(attractionsInfoVO);
             }
         }
         return listVO;

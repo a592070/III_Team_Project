@@ -2,7 +2,7 @@ package a592070.vo;
 
 import java.math.BigDecimal;
 
-public class AttractiionsInfoVO {
+public class AttractionsInfoVO {
     private String name;
     private String address;
     private String opentime;
@@ -11,10 +11,10 @@ public class AttractiionsInfoVO {
     private String area;
     private String type;
 
-    public AttractiionsInfoVO() {
+    public AttractionsInfoVO() {
     }
 
-    public AttractiionsInfoVO(String name, String address, String opentime, BigDecimal rating, String region, String area, String type) {
+    public AttractionsInfoVO(String name, String address, String opentime, BigDecimal rating, String region, String area, String type) {
         this.name = name;
         this.address = address;
         this.opentime = opentime;
