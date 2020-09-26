@@ -47,4 +47,6 @@ public class AttractionsPageVO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	
 }

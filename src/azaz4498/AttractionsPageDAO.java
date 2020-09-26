@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -16,11 +17,11 @@ import pojo.AttractionsDO;
 public class AttractionsPageDAO {
 	private Connection conn;
 	private DataSource ds;
-	private static List<AttractionsDO> list;
-	AttractionsDO attracionsDO = new AttractionsDO();
+	private static List<AttractionsPageVO> list;
+	AttractionsPageVO attracionsPageVO = new AttractionsPageVO();
 
-	public AttractionsPageDAO() throws IOException {
-		ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
+	public AttractionsPageDAO(int datasourceType) throws IOException {
+		ds = ConnectionPool.getDataSource(datasourceType);
 	}
 
 	public void pageListInit() throws SQLException {
@@ -30,15 +31,19 @@ public class AttractionsPageDAO {
 			conn = ds.getConnection();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			if (rs.next()) {
-				AttractionsDO attractionsDO = new AttractionsDO();
-				attractionsDO.setName(rs.getString("name"));
-				attractionsDO.setPx(rs.getBigDecimal("px"));
-				attractionsDO.setPy(rs.getBigDecimal("py"));
-				attractionsDO.setDescription(rs.getString("description"));
+			while (rs.next()) {
+				AttractionsPageVO attractionsPageVO = new AttractionsPageVO();
+				AttractionsPageVO.setName(rs.getString("name"));
+				AttractionsPageVO.setPx(rs.getBigDecimal("px"));
+				AttractionsPageVO.setPy(rs.getBigDecimal("py"));
+				AttractionsPageVO.setDescription(rs.getString("description"));
+
+				list.add(AttractionsPageVO);
 				
-				list.add(attractionsDO);
+				
 			}
+			//print測試是否取得資料庫資料
+			System.out.println(list);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,14 +54,22 @@ public class AttractionsPageDAO {
 		}
 	}
 
+	public List<AttractionsDO> listAtrractionsPageDO() {
+		return list;
+	}
+
 	public void addIntoList() throws SQLException {
-		
+
 		try {
-			conn=ds.getConnection();
-			
+			conn = ds.getConnection();
+
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 
 	}
+
+
+
+
 }
