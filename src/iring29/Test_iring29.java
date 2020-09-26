@@ -22,13 +22,11 @@ public class Test_iring29 {
 //		System.out.println(param1);
 
 		//TEST2
-		HomepageDAO homepageDAO = new HomepageDAO();
+		HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 		//記得要改LOADING_WITHOUT_SERVER
-		List<AccountDO> listAcc = homepageDAO.listAcc();
+		 System.out.println(homepageDAO.listAccDO().get(0));
+//homepageDAO.listAccInit();
 
-		for (AccountDO accDo : listAcc) {
-			System.out.println(accDo.getUsername());
-		}
 
 		
 	}

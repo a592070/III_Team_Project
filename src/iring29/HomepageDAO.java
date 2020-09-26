@@ -20,25 +20,27 @@ import pojo.AttractionsDO;
 public class HomepageDAO {
 	private Connection conn;
 	private DataSource ds;
-//	static List<AccountDO> list;
+	private String sql;
+	private static List<AccountDO> list;
 
-	public HomepageDAO() throws IOException, SQLException {
-		ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
-//		if (list == null || list.size() == 0) {
-//			listAcc();
-//		}
+	public HomepageDAO(int dataSourceType) throws IOException, SQLException {
+		ds = ConnectionPool.getDataSource(dataSourceType);
+		if (list == null || list.size() == 0) {
+			listAccInit();
+		}
 	}
 
-	public List<AccountDO> listAcc() throws SQLException  {
-		List<AccountDO> list = new ArrayList<>();
+	public void listAccInit() throws SQLException  {
+		list = new ArrayList<>();
 		try {
-			String sql = "select * from account order by 1";
+			sql = "select * from account";
 			conn = ds.getConnection();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				AccountDO accDO = new AccountDO();
+				
 				accDO.setUsername(rs.getString("USERNAME"));
 				accDO.setPassword(rs.getString("PASSWORD"));
 				accDO.setIdentity(rs.getBigDecimal("IDENTITY"));
@@ -52,6 +54,8 @@ public class HomepageDAO {
 
 				list.add(accDO);
 			}
+			//test 
+//			System.out.println(list);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,13 +64,12 @@ public class HomepageDAO {
 				conn.close();
 			}
 		}
-		return list;
 	}
 
 
-//	public List<AccountDO> listAccDO(){
-//		return list;
-//	}
+	public List<AccountDO> listAccDO(){
+		return list;
+	}
 	
 
 
