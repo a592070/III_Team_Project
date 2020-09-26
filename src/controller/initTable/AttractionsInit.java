@@ -106,6 +106,7 @@ public class AttractionsInit extends TableInit{
         }catch (SQLException e){
             if(conn != null) conn.rollback();
             e.printStackTrace();
+            throw e;
         }finally {
             if(predStmt != null) {
                 predStmt.clearBatch();
