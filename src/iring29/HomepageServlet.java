@@ -50,7 +50,6 @@ public class HomepageServlet extends HttpServlet {
 		Connection conn = null;
 
 		try {
-//			System.out.println("start");
 
 			HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITH_SERVER);
 
