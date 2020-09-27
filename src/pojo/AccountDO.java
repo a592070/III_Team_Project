@@ -112,4 +112,21 @@ public class AccountDO {
     public void setAttractionsId(String attractionsId) {
         this.attractionsId = attractionsId;
     }
+    
+    @Override
+    public String toString() {
+        return "{" +
+                "username='" + username + '\'' +
+                ", name='" + password + '\'' +
+                ", password ='" + identity+ '\'' +
+                ", email='" + email+ '\'' +
+                ", picture='" + picture+ '\'' +
+                ", nickname=" + nickname+
+                ", modifyDate=" + modifyDate +
+                ", register+=" + register+
+                ", favorite ='" + favorite + '\'' +
+                ", attractionsId ='" + attractionsId +
+                '}';
+    }
+
 }
