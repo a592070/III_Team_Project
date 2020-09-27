@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "AttractionsInfoServlet", urlPatterns = "/AttractionsInfoServlet")
 public class AttractionsInfoServlet extends HttpServlet {
     private List<AttractionsInfoVO> listInfoVO;
     private AttractionsDAO attractionsDAO;
+    private List<AttractionsInfoVO> currentList;
 
     @Override
     public void init() throws ServletException {
@@ -43,10 +45,20 @@ public class AttractionsInfoServlet extends HttpServlet {
         ObjectNode objectNode = mapper.createObjectNode();
 
         String showPage = req.getParameter("nowPage");
+        String area = req.getParameter("area");
+        if(area != null){
+            currentList = new ArrayList<>();
+            for (AttractionsInfoVO attractionsInfoVO : listInfoVO) {
+                if(attractionsInfoVO.getArea().equals(area)){
+                    currentList.add(attractionsInfoVO);
+                }
+            }
+        }
+
 
         if(showPage == null){
             objectNode.put("totalPage", listInfoVO.size()/50);
-            objectNode.put("nowPageInfo", mapper.writeValueAsString(listInfoVO.subList(0, 50)));
+            objectNode.put("nowPageInfo", mapper.writeValueAsString(currentList.subList(0, 50)));
             mapper.writeValue(resp.getWriter(), objectNode);
         }else{
             // page = 0,1,2,3,...

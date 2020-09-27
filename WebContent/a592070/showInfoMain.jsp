@@ -16,6 +16,7 @@
     <script type="text/javascript">
         window.onload = $.get({
                 url: "${pageContext.servletContext.contextPath}/AttractionsInfoServlet",
+                data: {"area": "${param.area}"},
                 success: function (data){
                     let dataJSON = JSON.parse(data);
                     var totalNum = dataJSON.totalPage;
@@ -76,7 +77,7 @@
 </script>
 
 <div>
-    <table>
+    <table style="width: 1600px;">
         <tr>
             <%--  name address opentime region area type rating; --%>
             <th>名稱</th>
