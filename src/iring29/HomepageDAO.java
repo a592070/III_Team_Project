@@ -33,9 +33,9 @@ public class HomepageDAO {
 	public void listAccInit() throws SQLException  {
 		list = new ArrayList<>();
 		try {
-			sql = "select * from account";
 			conn = ds.getConnection();
 			Statement stmt = conn.createStatement();
+			sql = "select * from account";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
