@@ -13,11 +13,11 @@
 <body>
 
 <form action="${pageContext.servletContext.contextPath}/a592070/showInfoMain.jsp">
-<button type="submit" id="btn1">a592070</button>
+    area: <input type="text" name="area" value="Southern"/>
+    <button type="submit" id="btn1">a592070</button>
 </form>
 
 <script type="text/javascript">
-
 </script>
 </body>
 </html>

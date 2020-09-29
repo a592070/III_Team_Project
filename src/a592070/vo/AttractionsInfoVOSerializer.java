@@ -8,6 +8,8 @@ import java.io.IOException;
 
 public class AttractionsInfoVOSerializer extends JsonSerializer<AttractionsInfoVO> {
 
+    // mapping AttractionsInfoVO to json
+    // output likes {"name":xxx, "address":xxx, "opentime":xxx, "region":xxx, "area":xxx, "type":xxx, "rating":xxx}
     // name address opentime region area type rating
     @Override
     public void serialize(AttractionsInfoVO value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
