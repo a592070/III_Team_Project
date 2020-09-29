@@ -1,5 +1,7 @@
 package a592070.vo;
 
+import utils.StringUtil;
+
 import java.math.BigDecimal;
 
 public class AttractionsInfoVO {
@@ -37,7 +39,11 @@ public class AttractionsInfoVO {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        if(StringUtil.isEmpty(address)){
+            this.address = "暫時沒有資料";
+        }else{
+            this.address = address;
+        }
     }
 
     public String getOpentime() {
@@ -45,7 +51,11 @@ public class AttractionsInfoVO {
     }
 
     public void setOpentime(String opentime) {
-        this.opentime = opentime;
+        if(StringUtil.isEmpty(opentime)){
+            this.opentime = "暫時沒有資料";
+        }else{
+            this.opentime = opentime;
+        }
     }
 
     public BigDecimal getRating() {
@@ -61,7 +71,11 @@ public class AttractionsInfoVO {
     }
 
     public void setRegion(String region) {
-        this.region = region;
+        if(StringUtil.isEmpty(region)){
+            this.region = "暫時沒有資料";
+        }else{
+            this.region = region;
+        }
     }
 
     public String getArea() {
@@ -69,7 +83,17 @@ public class AttractionsInfoVO {
     }
 
     public void setArea(String area) {
-        this.area = area;
+        if(StringUtil.isEmpty(area)){
+            this.area = "暫時沒有資料";
+        }else if("Northern".toUpperCase().equals(area.toUpperCase())){
+            this.area = "北部";
+        }else if("Central".toUpperCase().equals(area.toUpperCase())){
+            this.area = "中部";
+        }else if("Southern".toUpperCase().equals(area.toUpperCase())){
+            this.area = "南部";
+        }else if("Outer".toUpperCase().equals(area.toUpperCase())){
+            this.area = "外島";
+        }
     }
 
     public String getType() {
@@ -77,7 +101,15 @@ public class AttractionsInfoVO {
     }
 
     public void setType(String type) {
-        this.type = type;
+        if(StringUtil.isEmpty(type)){
+            this.type = "暫時沒有資料";
+        }else if("scenic_spot".toUpperCase().equals(type.toUpperCase())){
+            this.type = "景點";
+        }else if("restaurant".toUpperCase().equals(type.toUpperCase())){
+            this.type = "餐廳";
+        }else if("hotel".toUpperCase().equals(type.toUpperCase())){
+            this.type = "旅館";
+        }
     }
 
     @Override

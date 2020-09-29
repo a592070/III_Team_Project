@@ -5,6 +5,7 @@ import a592070.vo.AttractionsInfoVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import controller.ConnectionPool;
+import utils.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,7 @@ public class AttractionsInfoServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
-            attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITH_SERVER);
+            attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 
         } catch (IOException | SQLException e) {
             e.printStackTrace();
@@ -46,7 +47,9 @@ public class AttractionsInfoServlet extends HttpServlet {
 
         String showPage = req.getParameter("nowPage");
         String area = req.getParameter("area");
-        if(area != null){
+        if(StringUtil.isEmpty(area)){
+            currentList = listInfoVO;
+        }else{
             currentList = new ArrayList<>();
             for (AttractionsInfoVO attractionsInfoVO : listInfoVO) {
                 if(attractionsInfoVO.getArea().equals(area)){

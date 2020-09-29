@@ -7,9 +7,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.io.DataInput;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConnectionPool {
@@ -18,7 +18,8 @@ public class ConnectionPool {
     public static final int LOADING_WITHOUT_SERVER = 2;
 
     private static BasicDataSource basicDataSource;
-    private String sConnInfo;
+    private String sUrl;
+    private String sDriver;
     private String sUser;
     private String sPassword;
     private int sInitialSize;
@@ -55,9 +56,14 @@ public class ConnectionPool {
     }
 
     private void readProperties() throws IOException {
+        String sConfigFile = "db.properties";
         Properties properties = new Properties();
-        properties.load(new FileReader("resources/db.properties"));
-        sConnInfo = properties.getProperty("ConnInfo");
+        InputStream in = ConnectionPool.class.getClassLoader().getResourceAsStream(sConfigFile);
+//        properties.load(new FileReader("resources/db.properties"));
+        properties.load(in);
+
+        sUrl = properties.getProperty("url");
+        sDriver = properties.getProperty("driver");
         sUser = properties.getProperty("User");
         sPassword = properties.getProperty("Password");
         sInitialSize = Integer.parseInt(properties.getProperty("InitialSize"));
@@ -69,8 +75,8 @@ public class ConnectionPool {
         sAutoCommit = properties.getProperty("AutoCommit");
     }
     private void setPool(){
-//        dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-        basicDataSource.setUrl(sConnInfo);
+        basicDataSource.setDriverClassName(sDriver);
+        basicDataSource.setUrl(sUrl);
         basicDataSource.setUsername(sUser);
         basicDataSource.setPassword(sPassword);
         basicDataSource.setInitialSize(sInitialSize);    // 初始連線數量
@@ -79,7 +85,7 @@ public class ConnectionPool {
         basicDataSource.setMaxWaitMillis(sMaxWait);      // 最大等待時間
         basicDataSource.setRemoveAbandonedTimeout(sRemoveAbandonedTimeout);  // 回收時間
 
-        boolean isAutoCommit = "true".equals(sAutoCommit);
+        boolean isAutoCommit = "true".equals(sAutoCommit.toLowerCase());
         basicDataSource.setDefaultAutoCommit(isAutoCommit);
     }
 }
