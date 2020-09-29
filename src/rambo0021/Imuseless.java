@@ -7,6 +7,9 @@ public class Imuseless {
 	public static void main(String[] args) {
 		Date date = new Date();
 		System.out.println(date);
+		RegisterDAO registerDAO = new RegisterDAO();
+//		registerDAO.selectPicture();
+		
 	}
 
 }
