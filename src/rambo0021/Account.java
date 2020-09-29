@@ -1,20 +1,42 @@
 package rambo0021;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 
-public class AccountDO {
+public class Account {
 
 	private String username;
 	private String password;
 	private int identity;
 	private String email;
-	private File picture;
+	private InputStream picture;
 	private Date modify_Date;
 	private String nickname;
 	private Date register;
 	private String favorite;
 	private String attractions_Id;
+	
+	public Account() {
+		
+	}
+	
+	
+	public Account(String username, String password, int identity, String email, InputStream picture, Date modify_Date,
+			String nickname, Date register, String favorite, String attractions_Id) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.identity = identity;
+		this.email = email;
+		this.picture = picture;
+		this.modify_Date = modify_Date;
+		this.nickname = nickname;
+		this.register = register;
+		this.favorite = favorite;
+		this.attractions_Id = attractions_Id;
+	}
+	
 	
 	public String getUsername() {
 		return username;
@@ -22,6 +44,7 @@ public class AccountDO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -40,10 +63,10 @@ public class AccountDO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public File getPicture() {
+	public InputStream getPicture() {
 		return picture;
 	}
-	public void setPicture(File picture) {
+	public void setPicture(InputStream picture) {
 		this.picture = picture;
 	}
 	public Date getModify_Date() {
