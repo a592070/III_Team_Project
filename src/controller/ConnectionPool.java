@@ -10,6 +10,10 @@ import javax.sql.DataSource;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionPool {
@@ -53,6 +57,55 @@ public class ConnectionPool {
             }
         }
         return dataSource;
+    }
+
+    public static ResultSet execute(Connection conn, PreparedStatement predStmt, ResultSet rs, String sql, Object[] params) throws IOException, SQLException {
+        predStmt = conn.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            predStmt.setObject(i+1, params[i]);
+        }
+        rs = predStmt.executeQuery();
+        return rs;
+    }
+    public static int execute(Connection conn, PreparedStatement predStmt, String sql, Object[] params) throws IOException, SQLException {
+        int updateRows = 0;
+        predStmt = conn.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            predStmt.setObject(i+1, params[i]);
+        }
+        updateRows = predStmt.executeUpdate();
+        return updateRows;
+    }
+    public static boolean closeResources(Connection conn, PreparedStatement predStmt, ResultSet rs){
+        boolean flag = true;
+        if(rs != null){
+            try {
+                rs.close();
+                rs = null;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                flag = false;
+            }
+        }
+        if(predStmt != null){
+            try {
+                predStmt.close();
+                predStmt = null;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                flag = false;
+            }
+        }
+        if(conn != null){
+            try {
+                conn.close();
+                conn = null;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                flag = false;
+            }
+        }
+        return flag;
     }
 
     private void readProperties() throws IOException {
