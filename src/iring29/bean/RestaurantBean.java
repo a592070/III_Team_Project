@@ -22,6 +22,12 @@ public class RestaurantBean {
 
 	}
 	// constructor
+		public RestaurantBean(String name, String type, String region) {
+			this.name = name;
+			this.type = type;
+			this.region = region;
+		}
+	// constructor
 	public RestaurantBean(String name, String address, String opentime, String description, String transportation,
 			String type, BigDecimal rating, String region, String tel, byte[] picture, String serviceinfo,
 			String booking_id) {
@@ -37,7 +43,6 @@ public class RestaurantBean {
 		this.picture = picture;
 		this.serviceinfo = serviceinfo;
 		this.booking_id = booking_id;
-
 	}
 
 	public String getName() {

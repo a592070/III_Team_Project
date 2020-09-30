@@ -3,6 +3,7 @@ package iring29;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,9 +45,9 @@ public class RestaurantServlet extends HttpServlet {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 		
-		if (request.getParameter("QUERY") != null) {
+		if (request.getParameter("QUERY1") != null) {
 			try {
-				processQuery(request, response);
+				processQueryRestaurant(request, response);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ServletException e) {
@@ -54,12 +55,20 @@ public class RestaurantServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			}
+		else if(request.getParameter("QUERY2") != null) {
+			try {
+				processQueryRegion(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
 	}
 	
-	public void processQuery(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
 		String name = request.getParameter("name").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		RestaurantBean res_data = restaurantDAO.findRestaurant(name);
@@ -67,4 +76,11 @@ public class RestaurantServlet extends HttpServlet {
 		request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
 	}
 
+	
+	public void processQueryRegion(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		String region = request.getParameter("region").trim();
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		List<RestaurantBean> res_data = restaurantDAO.findRegion(region);
+		//多筆資料怎麼顯示出在頁面上->動態新增？
+	}
 }

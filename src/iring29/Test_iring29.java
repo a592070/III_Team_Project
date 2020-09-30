@@ -24,16 +24,24 @@ public class Test_iring29 {
 
 		//TEST2
 //		HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-//		//記得要改LOADING_WITHOUT_SERVER
+		//記得要改LOADING_WITHOUT_SERVER
 //		 System.out.println(homepageDAO.listAccDO().get(0));
 //homepageDAO.listAccInit();
 //System.out.println(homepageDAO.findUser("test"));
 		
-		//TEST3
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		RestaurantBean findRes= restaurantDAO.findRestaurant("宮原眼科醉月樓");
-		System.out.println(findRes);
+		//TEST3 findRestaurant
+//		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		RestaurantBean findRes= restaurantDAO.findRestaurant("宮原眼科醉月樓");
+//		System.out.println(findRes);
+		
+		//TEST4 findRegion
+//		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		List<RestaurantBean> findRegion = restaurantDAO.findRegion("台中");
+//		System.out.println(findRegion.size());
 
+		//TEST5 update picture
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		restaurantDAO.updateimg("宮原眼科醉月樓");
 		
 	}
 }
