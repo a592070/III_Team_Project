@@ -79,6 +79,4 @@ public class DataInit {
 
         return list;
     }
-
-
 }
