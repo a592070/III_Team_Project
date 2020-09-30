@@ -1,5 +1,6 @@
 package a592070.dao;
 
+import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 
 import java.io.IOException;
@@ -8,9 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Test {
-    public static void main(String[] args) throws IOException, SQLException {
-        AttractionsDAO attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-
-        System.out.println(attractionsDAO.listAttractionsDO().get(0));
+    @org.junit.Test
+    public void testListInfoVO(){
+        try {
+            List<AttractionsInfoVO> attractionsInfoVOS = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER).listInfoVO();
+            System.out.println(attractionsInfoVOS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

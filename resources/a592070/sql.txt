@@ -1,0 +1,42 @@
+// 創建景點table
+create table attraction
+(
+	id varchar2(255) not null
+		constraint ATTRACTION_PK
+			primary key,
+	name varchar2(255),
+	toldescribe clob,
+	description nvarchar2(2000),
+	tel varchar2(255),
+	address varchar2(1024),
+	region varchar2(255),
+	travellinginfo varchar2(1024),
+	opentime varchar2(255),
+	picture blob,
+	px number(10,7),
+	py number(10,7),
+	ticketinfo varchar2(255),
+	keywords varchar2(255),
+	remarks varchar2(1024),
+	rating number(1)
+)
+
+// 創建景點行程table
+create table attractions_set
+(
+	id int generated as identity
+		constraint ATTRACTIONS_SET_PK
+			primary key,
+	attractions_1_id varchar2(255)
+		constraint ATTRACTIONS_SET_ATTRACTION_ID_FK
+			references ATTRACTION,
+	attractions_1_date date,
+	attractions_2_id varchar2(255)
+		constraint ATTRACTIONS_SET_ATTRACTION_ID_FK_2
+			references ATTRACTION,
+	attractions_2_date date,
+	attractions_3_id varchar2(255)
+		constraint ATTRACTIONS_SET_ATTRACTION_ID_FK_3
+			references ATTRACTION,
+	attractions_3_date date
+)
