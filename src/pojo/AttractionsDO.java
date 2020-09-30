@@ -16,8 +16,8 @@ public class AttractionsDO{
     private String id;
     private String name;
     private String description;
-    private String address;
     private String tel;
+    private String address;
     private BigDecimal px;
     private BigDecimal py;
     private BigDecimal rating;
