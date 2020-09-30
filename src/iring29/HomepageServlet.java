@@ -50,9 +50,8 @@ public class HomepageServlet extends HttpServlet {
 		Connection conn = null;
 
 		try {
-//			System.out.println("start");
 
-			HomepageDAO homepageDAO = new HomepageDAO();
+			HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITH_SERVER);
 
 			// 編碼值為UTF-8
 			request.setCharacterEncoding("UTF-8");

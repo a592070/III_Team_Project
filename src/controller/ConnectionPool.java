@@ -1,4 +1,3 @@
-
 package controller;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -111,9 +110,9 @@ public class ConnectionPool {
     private void readProperties() throws IOException {
         String sConfigFile = "db.properties";
         Properties properties = new Properties();
-        InputStream in = ConnectionPool.class.getClassLoader().getResourceAsStream(sConfigFile);
-//        properties.load(new FileReader("resources/db.properties"));
-        properties.load(in);
+//        InputStream in = ConnectionPool.class.getClassLoader().getResourceAsStream(sConfigFile);
+        properties.load(new FileReader("resources/db.properties"));
+//        properties.load(in);
 
         sUrl = properties.getProperty("url");
         sDriver = properties.getProperty("driver");
@@ -142,4 +141,3 @@ public class ConnectionPool {
         basicDataSource.setDefaultAutoCommit(isAutoCommit);
     }
 }
-

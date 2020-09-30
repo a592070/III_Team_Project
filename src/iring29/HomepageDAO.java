@@ -20,25 +20,31 @@ import pojo.AttractionsDO;
 public class HomepageDAO {
 	private Connection conn;
 	private DataSource ds;
-//	static List<AccountDO> list;
+	private String sql;
+	
+	private static List<AccountDO> list;
+//	private static List<HPUserInfoVO> listUserVO;
+//	private static List<HPAttractionInfoVO> listAttractionVO;
 
-	public HomepageDAO() throws IOException, SQLException {
-		ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
-//		if (list == null || list.size() == 0) {
-//			listAcc();
-//		}
+	public HomepageDAO(int dataSourceType) throws IOException, SQLException {
+		ds = ConnectionPool.getDataSource(dataSourceType);
+		if (list == null || list.size() == 0) {
+			listAccInit();
+		}
 	}
 
-	public List<AccountDO> listAcc() throws SQLException  {
-		List<AccountDO> list = new ArrayList<>();
+	//get data from DB
+	public void listAccInit() throws SQLException  {
+		list = new ArrayList<>();
 		try {
-			String sql = "select * from account order by 1";
 			conn = ds.getConnection();
 			Statement stmt = conn.createStatement();
+			sql = "select * from account";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				AccountDO accDO = new AccountDO();
+				
 				accDO.setUsername(rs.getString("USERNAME"));
 				accDO.setPassword(rs.getString("PASSWORD"));
 				accDO.setIdentity(rs.getBigDecimal("IDENTITY"));
@@ -52,6 +58,8 @@ public class HomepageDAO {
 
 				list.add(accDO);
 			}
+			//test 
+//			System.out.println(list);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,16 +68,35 @@ public class HomepageDAO {
 				conn.close();
 			}
 		}
-		return list;
 	}
 
 
-//	public List<AccountDO> listAccDO(){
-//		return list;
-//	}
+	public List<AccountDO> listAccDO(){
+		return list;
+	}
 	
+	//get user info from list 
+//	public List<HPUserInfoVO> listHPUserVO(){
+//		listUserVO = new ArrayList<>();
+//		if(list != null || list.size() != 0) {
+//			for (AccountDO acc : list) {
+//				HPUserInfoVO hpUserInfoVO = new HPUserInfoVO();
+//				hpUserInfoVO.setUsername(acc.getUsername());
+//				hpUserInfoVO.setPassword(acc.getPassword());
+//				hpUserInfoVO.setEmail(acc.getEmail());
+//				hpUserInfoVO.setPicture(acc.getPicture());
+//				hpUserInfoVO.setNickname(acc.getNickname());
+//				hpUserInfoVO.setRegister(acc.getRegister());
+//				hpUserInfoVO.setFavorite(acc.getFavorite());
+//				
+//				listUserVO.add(hpUserInfoVO);
+//			}
+//		}
+//		return listUserVO;
+//	}
 
-
+	
+	
 	// 尋找user info
 	public AccountDO findUser(String username) throws SQLException {
 		try {

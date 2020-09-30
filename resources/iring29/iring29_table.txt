@@ -1,0 +1,63 @@
+// create restaurant table
+CREATE TABLE iii_team_dba.restaurant (
+    r_id             VARCHAR2(255 BYTE) NOT NULL,
+    name             VARCHAR2(255 BYTE),
+    address          VARCHAR2(255 BYTE),
+    opentime         VARCHAR2(255 BYTE),
+    description      VARCHAR2(1024 BYTE),
+    transportation   VARCHAR2(1024 BYTE),
+    type             VARCHAR2(255 BYTE),
+    rating           NUMBER(10, 7),
+    region           VARCHAR2(255 BYTE),
+    tel              VARCHAR2(255 BYTE),
+    picture          VARCHAR2(255 BYTE),
+    serviceinfo      VARCHAR2(1024 BYTE),
+    booking_id       VARCHAR2(255 BYTE)
+)
+PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING
+    STORAGE ( PCTINCREASE 0 MINEXTENTS 1 MAXEXTENTS UNLIMITED FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT );
+
+CREATE UNIQUE INDEX iii_team_dba.restaurant_pk ON
+    iii_team_dba.restaurant (
+        r_id
+    ASC )
+        TABLESPACE users PCTFREE 10
+            STORAGE ( PCTINCREASE 0 MINEXTENTS 1 MAXEXTENTS UNLIMITED FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT )
+        LOGGING;
+
+ALTER TABLE iii_team_dba.restaurant
+    ADD CONSTRAINT restaurant_pk PRIMARY KEY ( r_id )
+        USING INDEX iii_team_dba.restaurant_pk;
+        
+        
+        
+ // create restaurant order list table
+ 
+ CREATE TABLE iii_team_dba.order_list (
+    order_id        VARCHAR2(255 BYTE) NOT NULL,
+    r_id            VARCHAR2(255 BYTE) NOT NULL,
+    user_id         VARCHAR2(255 BYTE) NOT NULL,
+    cusstomer_num   NUMBER(3),
+    book_time       DATE,
+    order_date      DATE
+)
+PCTFREE 10 PCTUSED 40 TABLESPACE users LOGGING
+    STORAGE ( PCTINCREASE 0 MINEXTENTS 1 MAXEXTENTS UNLIMITED FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT );
+
+CREATE UNIQUE INDEX iii_team_dba.order_list__pkv1 ON
+    iii_team_dba.order_list (
+        order_id
+    ASC )
+        TABLESPACE users LOGGING;
+
+ALTER TABLE iii_team_dba.order_list ADD CONSTRAINT order_list_pk PRIMARY KEY ( order_id );
+
+ALTER TABLE iii_team_dba.order_list
+    ADD CONSTRAINT order_list_account_fk FOREIGN KEY ( user_id )
+        REFERENCES iii_team_dba.account ( username )
+    NOT DEFERRABLE;
+
+ALTER TABLE iii_team_dba.order_list
+    ADD CONSTRAINT order_list_restaurant_fk FOREIGN KEY ( r_id )
+        REFERENCES iii_team_dba.restaurant ( r_id )
+    NOT DEFERRABLE;
