@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
+import iring29.bean.RestaurantBean;
 import pojo.AccountDO;
 
 public class Test_iring29 {
@@ -22,14 +23,25 @@ public class Test_iring29 {
 //		System.out.println(param1);
 
 		//TEST2
-		HomepageDAO homepageDAO = new HomepageDAO();
+//		HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 		//記得要改LOADING_WITHOUT_SERVER
-		List<AccountDO> listAcc = homepageDAO.listAcc();
+//		 System.out.println(homepageDAO.listAccDO().get(0));
+//homepageDAO.listAccInit();
+//System.out.println(homepageDAO.findUser("test"));
+		
+		//TEST3 findRestaurant
+//		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		RestaurantBean findRes= restaurantDAO.findRestaurant("宮原眼科醉月樓");
+//		System.out.println(findRes);
+		
+		//TEST4 findRegion
+//		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		List<RestaurantBean> findRegion = restaurantDAO.findRegion("台中");
+//		System.out.println(findRegion.size());
 
-		for (AccountDO accDo : listAcc) {
-			System.out.println(accDo.getUsername());
-		}
-
+		//TEST5 update picture
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		restaurantDAO.updateimg("宮原眼科醉月樓");
 		
 	}
 }
