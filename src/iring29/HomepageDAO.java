@@ -23,8 +23,8 @@ public class HomepageDAO {
 	private String sql;
 	
 	private static List<AccountDO> list;
-	private static List<HPUserInfoVO> listUserVO;
-	private static List<HPAttractionInfoVO> listAttractionVO;
+//	private static List<HPUserInfoVO> listUserVO;
+//	private static List<HPAttractionInfoVO> listAttractionVO;
 
 	public HomepageDAO(int dataSourceType) throws IOException, SQLException {
 		ds = ConnectionPool.getDataSource(dataSourceType);
@@ -76,24 +76,24 @@ public class HomepageDAO {
 	}
 	
 	//get user info from list 
-	public List<HPUserInfoVO> listHPUserVO(){
-		listUserVO = new ArrayList<>();
-		if(list != null || list.size() != 0) {
-			for (AccountDO acc : list) {
-				HPUserInfoVO hpUserInfoVO = new HPUserInfoVO();
-				hpUserInfoVO.setUsername(acc.getUsername());
-				hpUserInfoVO.setPassword(acc.getPassword());
-				hpUserInfoVO.setEmail(acc.getEmail());
-				hpUserInfoVO.setPicture(acc.getPicture());
-				hpUserInfoVO.setNickname(acc.getNickname());
-				hpUserInfoVO.setRegister(acc.getRegister());
-				hpUserInfoVO.setFavorite(acc.getFavorite());
-				
-				listUserVO.add(hpUserInfoVO);
-			}
-		}
-		return listUserVO;
-	}
+//	public List<HPUserInfoVO> listHPUserVO(){
+//		listUserVO = new ArrayList<>();
+//		if(list != null || list.size() != 0) {
+//			for (AccountDO acc : list) {
+//				HPUserInfoVO hpUserInfoVO = new HPUserInfoVO();
+//				hpUserInfoVO.setUsername(acc.getUsername());
+//				hpUserInfoVO.setPassword(acc.getPassword());
+//				hpUserInfoVO.setEmail(acc.getEmail());
+//				hpUserInfoVO.setPicture(acc.getPicture());
+//				hpUserInfoVO.setNickname(acc.getNickname());
+//				hpUserInfoVO.setRegister(acc.getRegister());
+//				hpUserInfoVO.setFavorite(acc.getFavorite());
+//				
+//				listUserVO.add(hpUserInfoVO);
+//			}
+//		}
+//		return listUserVO;
+//	}
 
 	
 	
@@ -168,6 +168,31 @@ public class HomepageDAO {
 
 	}
 
+	// 從ID找名稱attraction name
+	public AttractionsDO findAttracion(String id) throws SQLException {
+		try {
+			String sql = "select name from attractions where id = ?";
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+			
+				
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+
+		}
+
+		return null;
 
 
 //	public AccountDO UserinfoUpdate(String username) {
@@ -175,7 +200,7 @@ public class HomepageDAO {
 
 //	}
 
-	
+	}
 	
 	
 }

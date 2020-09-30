@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
+import iring29.bean.RestaurantBean;
 import pojo.AccountDO;
 
 public class Test_iring29 {
@@ -22,11 +23,16 @@ public class Test_iring29 {
 //		System.out.println(param1);
 
 		//TEST2
-		HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		//記得要改LOADING_WITHOUT_SERVER
-		 System.out.println(homepageDAO.listAccDO().get(0));
-homepageDAO.listAccInit();
+//		HomepageDAO homepageDAO = new HomepageDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		//記得要改LOADING_WITHOUT_SERVER
+//		 System.out.println(homepageDAO.listAccDO().get(0));
+//homepageDAO.listAccInit();
 //System.out.println(homepageDAO.findUser("test"));
+		
+		//TEST3
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		RestaurantBean findRes= restaurantDAO.findRestaurant("宮原眼科醉月樓");
+		System.out.println(findRes);
 
 		
 	}
