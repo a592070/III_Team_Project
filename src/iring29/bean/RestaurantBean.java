@@ -13,7 +13,7 @@ public class RestaurantBean {
 	BigDecimal rating;
 	String region;
 	String tel;
-	byte[] picture;
+	String picture; 
 	String serviceinfo;
 	String booking_id;
 
@@ -29,7 +29,7 @@ public class RestaurantBean {
 		}
 	// constructor
 	public RestaurantBean(String name, String address, String opentime, String description, String transportation,
-			String type, BigDecimal rating, String region, String tel, byte[] picture, String serviceinfo,
+			String type, BigDecimal rating, String region, String tel, String picture, String serviceinfo,
 			String booking_id) {
 		this.name = name;
 		this.address = address;
@@ -117,11 +117,11 @@ public class RestaurantBean {
 		this.tel = tel;
 	}
 
-	public byte[] getPicture() {
+	public String getPicture() {
 		return picture;
 	}
 
-	public void setPicture(byte[] picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 

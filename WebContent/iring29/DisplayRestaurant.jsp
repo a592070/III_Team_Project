@@ -54,6 +54,7 @@
         }
         .booking{
             text-align: center;
+            overflow:hidden;
         }
         span{
             text-align: left;
@@ -68,7 +69,7 @@
         </div>
             <div>
                 <div class="booking">
-                    <img src="" alt=""> 
+                    <img src="<jsp:getProperty name="res_data" property="picture"/>" alt=""> 
                     <div>
                     </div>
                     <div>
