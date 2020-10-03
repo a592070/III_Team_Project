@@ -15,5 +15,8 @@
 		<BR>
 		Region name : <INPUT TYPE="TEXT" NAME="region">
 		<button name="QUERY2" type="SUBMIT" value="QUERY2">QUERY</button>
+		<BR>
+		Restaurant ID : <INPUT TYPE="TEXT" NAME="id">
+		<button name="DELETE" type="SUBMIT" value="DELETE">DELETE</button>
 </body>
 </html>

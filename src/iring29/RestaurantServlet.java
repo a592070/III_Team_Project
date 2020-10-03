@@ -63,7 +63,13 @@ public class RestaurantServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+		else if(request.getParameter("DELETE") != null) {
+			try {
+				processDeleteRestaurant(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
@@ -82,5 +88,15 @@ public class RestaurantServlet extends HttpServlet {
 		List<RestaurantBean> res_data_region = restaurantDAO.findRegion(region);
 		request.setAttribute("res_data_region", res_data_region);
 		request.getRequestDispatcher("iring29/Region_Restaurant.jsp").forward(request, response);
+	}
+	
+	public void processDeleteRestaurant(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
+		String id = request.getParameter("id").trim();
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		boolean deleteRestaurant = restaurantDAO.deleteRestaurant(id);
+		if(deleteRestaurant) {
+			request.getRequestDispatcher("iring29/bye.jsp").forward(request, response);
+		}
+		
 	}
 }
