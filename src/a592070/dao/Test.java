@@ -1,5 +1,7 @@
 package a592070.dao;
 
+import a592070.pojo.AttractionDO;
+import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 
 import java.io.IOException;
@@ -8,9 +10,23 @@ import java.util.List;
 import java.util.Map;
 
 public class Test {
-    public static void main(String[] args) throws IOException, SQLException {
-        AttractionsDAO attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+    @org.junit.Test
+    public void testListInfoVO(){
+        try {
+            List<AttractionsInfoVO> attractionsInfoVOS = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER).listInfoVO();
+            System.out.println(attractionsInfoVOS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
-        System.out.println();
+    @org.junit.Test
+    public void testDAO() throws IOException, SQLException {
+        AttractionDAO attractionDAO = new AttractionDAO();
+//        AttractionDO ele = attractionDAO.getEle("name", "大棟山");
+//        System.out.println(ele);
+        System.out.println(attractionDAO.listEleLike("巧克力"));
     }
 }

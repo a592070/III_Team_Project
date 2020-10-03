@@ -6,7 +6,7 @@ import java.sql.Date;
 public class AccountDO {
     private String username;
     private String password;
-    private BigDecimal identity;
+    private BigDecimal identity;  //1:admin 2:user 3:stores
     private String email;
 
     private byte[] picture;
@@ -112,4 +112,21 @@ public class AccountDO {
     public void setAttractionsId(String attractionsId) {
         this.attractionsId = attractionsId;
     }
+    
+    @Override
+    public String toString() {
+        return "{" +
+                "username='" + username + '\'' +
+                ", name='" + password + '\'' +
+                ", password ='" + identity+ '\'' +
+                ", email='" + email+ '\'' +
+                ", picture='" + picture+ '\'' +
+                ", nickname=" + nickname+
+                ", modifyDate=" + modifyDate +
+                ", register+=" + register+
+                ", favorite ='" + favorite + '\'' +
+                ", attractionsId ='" + attractionsId +
+                '}';
+    }
+
 }

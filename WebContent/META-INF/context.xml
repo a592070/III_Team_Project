@@ -12,6 +12,5 @@
                MaxTotal="10"
                maxIdle="8"
                maxWaitMillis="10000"
-               initialSize="1"
                defaultAutoCommit="false"/>
 </Context>

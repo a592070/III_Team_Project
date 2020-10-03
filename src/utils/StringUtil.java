@@ -7,5 +7,4 @@ public class StringUtil {
         str = String.valueOf(str).trim().toLowerCase();
         return Objects.equals(str,null) || Objects.equals(str,"") || Objects.equals(str,"n/a");
     }
-
 }

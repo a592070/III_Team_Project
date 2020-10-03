@@ -10,13 +10,13 @@
   - 解決衝突後必須測試，測試有問題，立刻po上群
   
 ## 分工
-- 詠嘉 清單+查詢
-- 佳伶 個人店家homepage
-- 宇河 景點頁面
-- 柏翔 首頁+天氣
-- 之軒 登入+註冊頁面
-- 柏澔 管理員頁面
-  
+- 謝詠嘉：主頁面，套裝行程，客制化行程，關鍵字搜尋，評價系統，推薦系統
+- 高之軒：登入 註冊 會員資料維護 店家資料填寫 查詢會員訂單
+- 陳宇河：論壇->旅遊心得分享、廠商寫手業配置入、套裝行程使用回饋、二手旅遊商品刊登、會員已發佈文章查詢
+- 黃柏澔：飯店->查詢飯店/旅館/民宿 資訊、提供訂房、飯店業者資料維護
+- 鍾佳伶：餐廳->查詢飯餐廳 資訊、提供訂餐廳、餐廳業者資料維護、餐廳評價/留言
+- 王柏翔：交通->查詢租車行/高鐵/台鐵 資訊、提供訂台/高鐵票、租車服務、租車行業者資料維護
+![avatar](https://i.imgur.com/gZ3hYgi_d.webp?maxwidth=728&fidelity=grand)
 
 
 ## 分支名稱對應
@@ -60,7 +60,7 @@ git config --global user.email "a592070@gmail.com"
 - 解決衝突
 - merge
 
-## 進度條
+## QA
 - a592070 https://hackmd.io/@dDJmilUhRLq-s4ljZ9qvWw/SyJPutDSP
 
 
@@ -72,4 +72,3 @@ https://docs.google.com/presentation/d/1bpWz1AS-grcitMZ5UtEGaHH5Zuwsy8VLRYjBXPJA
 
 ## 參考指令大全
 https://gitee.com/all-about-git
-  

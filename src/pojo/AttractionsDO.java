@@ -16,8 +16,8 @@ public class AttractionsDO{
     private String id;
     private String name;
     private String description;
-    private String address;
     private String tel;
+    private String address;
     private BigDecimal px;
     private BigDecimal py;
     private BigDecimal rating;
@@ -167,14 +167,15 @@ public class AttractionsDO{
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", address='" + address + '\'' +
-                ", region='" + region + '\'' +
                 ", tel='" + tel + '\'' +
-                ", openTime='" + openTime + '\'' +
                 ", px=" + px +
                 ", py=" + py +
+                ", rating=" + rating +
+                ", openTime='" + openTime + '\'' +
                 ", travelingInfo='" + travelingInfo + '\'' +
                 ", totalNumberRooms='" + totalNumberRooms + '\'' +
                 ", serviceInfo='" + serviceInfo + '\'' +
+                ", region='" + region + '\'' +
                 ", type=" + type +
                 '}';
     }
