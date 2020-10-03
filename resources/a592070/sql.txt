@@ -48,7 +48,8 @@ create table TRAFFIC_SET
     		constraint TRAFFIC_SET_PK
     			primary key,
     BOOKING_ID   VARCHAR2(255),
-    BOOKING_DATE DATE
+    BOOKING_DATE DATE,
+    priority number(1)
 )
 
 
@@ -59,7 +60,8 @@ create table restaurant_set
        		constraint restaurant_set_pk
        			primary key,
 	booking_id varchar2(255),
-	booking_date date
+	booking_date date,
+	priority number(1)
 )
 
 
@@ -70,7 +72,8 @@ create table hotel_set
        		constraint hotel_set_pk
        			primary key,
 	booking_id varchar2(255),
-	booking_date date
+	booking_date date,
+	priority number(1)
 )
 
 
@@ -135,3 +138,4 @@ create table travel_set_2day
 		constraint TRAVEL_SET_2DAY_HOTEL_SET_ID_FK_2
 			references HOTEL_SET
 )
+
