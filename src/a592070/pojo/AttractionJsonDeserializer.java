@@ -5,20 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import pojo.AttractionsDO;
-import utils.IOUtils;
-import utils.SslUtil;
-import utils.StringUtil;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 
 
 public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
@@ -59,7 +47,7 @@ public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
 
 
         attractionDO.setOpenTime(node.get("Opentime").textValue());
-        attractionDO.setTravelingInfo(node.get("Travellinginfo").textValue());
+        attractionDO.setTravellingInfo(node.get("Travellinginfo").textValue());
         attractionDO.setTicketInfo(node.get("Ticketinfo").textValue());
         attractionDO.setKeywords(node.get("Keyword").textValue());
         attractionDO.setRemarks(node.get("Remarks").textValue());
