@@ -2,9 +2,6 @@ package a592070.initTable;
 
 import a592070.pojo.AttractionDO;
 import controller.ConnectionPool;
-import oracle.sql.CLOB;
-import pojo.AttractionsDO;
-import utils.StringUtil;
 
 import javax.sql.DataSource;
 import java.io.*;
@@ -47,7 +44,7 @@ public class AttractionTableInit {
                 predStmt.setString(5, attDO.getTel());
                 predStmt.setString(6, attDO.getAddress());
                 predStmt.setString(7, attDO.getRegion());
-                predStmt.setString(8, attDO.getTravelingInfo());
+                predStmt.setString(8, attDO.getTravellingInfo());
                 predStmt.setString(9, attDO.getOpenTime());
                 predStmt.setString(10, attDO.getPicture());
 

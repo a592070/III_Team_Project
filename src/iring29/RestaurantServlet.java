@@ -1,7 +1,6 @@
 package iring29;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -77,10 +76,11 @@ public class RestaurantServlet extends HttpServlet {
 	}
 
 	
-	public void processQueryRegion(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+	public void processQueryRegion(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
 		String region = request.getParameter("region").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
-		List<RestaurantBean> res_data = restaurantDAO.findRegion(region);
-		//多筆資料怎麼顯示出在頁面上->動態新增？
+		List<RestaurantBean> res_data_region = restaurantDAO.findRegion(region);
+		request.setAttribute("res_data_region", res_data_region);
+		request.getRequestDispatcher("iring29/Region_Restaurant.jsp").forward(request, response);
 	}
 }

@@ -35,13 +35,19 @@ public class Test_iring29 {
 //		System.out.println(findRes);
 		
 		//TEST4 findRegion
-//		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-//		List<RestaurantBean> findRegion = restaurantDAO.findRegion("台中");
-//		System.out.println(findRegion.size());
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		List<RestaurantBean> findRegion = restaurantDAO.findRegion("台中");
+//		System.out.println(findRegion.get(0));
+		for(RestaurantBean restaurantBean :findRegion) {
+			System.out.println(restaurantBean.getName());
+			System.out.println(restaurantBean.getType());
+			System.out.println(restaurantBean.getRegion());
+		}
+		
 
 		//TEST5 update picture
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		restaurantDAO.updateimg("宮原眼科醉月樓");
+//		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		restaurantDAO.updateimg("宮原眼科醉月樓");
 		
 	}
 }

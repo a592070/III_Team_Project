@@ -31,10 +31,10 @@ public class RestaurantDAO {
 	//find specific restaurant
 	public RestaurantBean findRestaurant(String name) throws SQLException {
 		try {
-		sql = "select * from restaurant where name = ?";
+		sql = "select * from restaurant where name like ?";
 		conn = ds.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, name);
+		pstmt.setString(1, "%"+ name+"%");
 		ResultSet rs = pstmt.executeQuery();
 		pstmt.clearBatch();
 		RestaurantBean restaurantdata = new RestaurantBean();
@@ -48,7 +48,7 @@ public class RestaurantDAO {
 			BigDecimal rating = rs.getBigDecimal("RATING");
 			String region = rs.getString("REGION");
 			String tel= rs.getString("TEL");
-			byte[] picture = rs.getBytes("PICTURE");
+			String picture = rs.getString("PICTURE");
 			String serviceinfo = rs.getString("SERVICEINFO");
 			String booking_id = rs.getString("BOOKING_ID");
 			
@@ -97,7 +97,6 @@ public class RestaurantDAO {
 		} finally {
 			if (conn != null) {
 				conn.close();
-				System.out.println("done");
 			}
 		}
 		
