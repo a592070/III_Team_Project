@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		AccountDO account = new AccountDO();
+		AccountBean account = new AccountBean();
 		RegisterDAO registerDAO = new RegisterDAO();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   

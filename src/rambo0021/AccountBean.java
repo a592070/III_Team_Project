@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 
-public class AccountDO {
+public class AccountBean {
 
 	private String userName;
 	private String password;
@@ -17,12 +17,12 @@ public class AccountDO {
 	private String favorite;
 	private String attractions_Id;
 	
-	public AccountDO() {
+	public AccountBean() {
 		
 	}
 	
 	
-	public AccountDO(String username, String password, int identity, String email, InputStream picture, Date modify_Date,
+	public AccountBean(String username, String password, int identity, String email, InputStream picture, Date modify_Date,
 			String nickname, Date register, String favorite, String attractions_Id) {
 		super();
 		this.userName = username;
