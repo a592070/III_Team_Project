@@ -5,6 +5,7 @@ import a592070.vo.AttractionsInfoVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import controller.ConnectionPool;
+import utils.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,18 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "AttractionsInfoServlet", urlPatterns = "/AttractionsInfoServlet")
 public class AttractionsInfoServlet extends HttpServlet {
     private List<AttractionsInfoVO> listInfoVO;
     private AttractionsDAO attractionsDAO;
+    private List<AttractionsInfoVO> currentList;
 
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITH_SERVER);
+            attractionsDAO = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 
         } catch (IOException | SQLException e) {
             e.printStackTrace();
@@ -43,10 +46,22 @@ public class AttractionsInfoServlet extends HttpServlet {
         ObjectNode objectNode = mapper.createObjectNode();
 
         String showPage = req.getParameter("nowPage");
+        String area = req.getParameter("area");
+        if(StringUtil.isEmpty(area)){
+            currentList = listInfoVO;
+        }else{
+            currentList = new ArrayList<>();
+            for (AttractionsInfoVO attractionsInfoVO : listInfoVO) {
+                if(attractionsInfoVO.getArea().equals(area)){
+                    currentList.add(attractionsInfoVO);
+                }
+            }
+        }
+
 
         if(showPage == null){
             objectNode.put("totalPage", listInfoVO.size()/50);
-            objectNode.put("nowPageInfo", mapper.writeValueAsString(listInfoVO.subList(0, 50)));
+            objectNode.put("nowPageInfo", mapper.writeValueAsString(currentList.subList(0, 50)));
             mapper.writeValue(resp.getWriter(), objectNode);
         }else{
             // page = 0,1,2,3,...
