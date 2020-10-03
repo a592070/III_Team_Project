@@ -1,3 +1,4 @@
+
 package controller;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -9,10 +10,7 @@ import javax.sql.DataSource;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class ConnectionPool {
@@ -75,7 +73,7 @@ public class ConnectionPool {
         updateRows = predStmt.executeUpdate();
         return updateRows;
     }
-    public static boolean closeResources(Connection conn, PreparedStatement predStmt, ResultSet rs){
+    public static boolean closeResources(Connection conn, Statement stmt, ResultSet rs){
         boolean flag = true;
         if(rs != null){
             try {
@@ -86,10 +84,10 @@ public class ConnectionPool {
                 flag = false;
             }
         }
-        if(predStmt != null){
+        if(stmt != null){
             try {
-                predStmt.close();
-                predStmt = null;
+                stmt.close();
+                stmt = null;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 flag = false;
@@ -111,8 +109,8 @@ public class ConnectionPool {
         String sConfigFile = "db.properties";
         Properties properties = new Properties();
 //        InputStream in = ConnectionPool.class.getClassLoader().getResourceAsStream(sConfigFile);
-        properties.load(new FileReader("resources/db.properties"));
 //        properties.load(in);
+        properties.load(new FileReader("resources/db.properties"));
 
         sUrl = properties.getProperty("url");
         sDriver = properties.getProperty("driver");
@@ -141,3 +139,4 @@ public class ConnectionPool {
         basicDataSource.setDefaultAutoCommit(isAutoCommit);
     }
 }
+

@@ -11,12 +11,12 @@ create table attraction
 	address varchar2(1024),
 	region varchar2(255),
 	travellinginfo varchar2(1024),
-	opentime varchar2(255),
+	opentime varchar2(1024),
 	picture varchar2(1024),
 	px number(10,7),
 	py number(10,7),
-	ticketinfo varchar2(255),
-	keywords varchar2(255),
+	ticketinfo varchar2(1024),
+	keywords varchar2(1024),
 	remarks varchar2(1024),
 	rating number(2,1)
 )
@@ -24,9 +24,9 @@ create table attraction
 // 創建景點行程table
 create table attractions_set
 (
-	id int generated as identity
-		constraint ATTRACTIONS_SET_PK
-			primary key,
+	id varchar2(255) not null
+       		constraint attractions_set_pk
+       			primary key,
 	attractions_1_id varchar2(255)
 		constraint ATTRACTIONS_SET_ATTRACTION_ID_FK
 			references ATTRACTION,
@@ -44,55 +44,61 @@ create table attractions_set
 // 交通行程table
 create table TRAFFIC_SET
 (
-    ID           NUMBER generated as identity
-        constraint TRAFFIC_SET_PK
-            primary key,
+    id varchar2(255) not null
+    		constraint TRAFFIC_SET_PK
+    			primary key,
     BOOKING_ID   VARCHAR2(255),
-    BOOKING_DATE DATE
+    BOOKING_DATE DATE,
+    priority number(1)
 )
 
 
 // 餐廳行程table
 create table restaurant_set
 (
-	id int generated as identity
-		constraint RESTAURANT_SET_PK
-			primary key,
+	id varchar2(255) not null
+       		constraint restaurant_set_pk
+       			primary key,
 	booking_id varchar2(255),
-	booking_date date
+	booking_date date,
+	priority number(1)
 )
 
 
 // 旅館行程
 create table hotel_set
 (
-	id int generated as identity
-		constraint HOTEL_SET_PK
-			primary key,
+	id varchar2(255) not null
+       		constraint hotel_set_pk
+       			primary key,
 	booking_id varchar2(255),
-	booking_date date
+	booking_date date,
+	priority number(1)
 )
 
 
 // 套裝行程1DAY TABLE
 create table travel_set_1day
 (
-	id int generated as identity
-		constraint TRAVEL_SET_1DAY_PK
-			primary key,
-	traffic_go_id int
+	id varchar2(255) not null
+       		constraint travel_set_1day_pk
+       			primary key,
+	traffic_go_id varchar2(255)
 		constraint TRAVEL_SET_1DAY_TRAFFIC_SET_ID_FK
 			references TRAFFIC_SET,
-	traffic_back_id int
+	traffic_back_id varchar2(255)
 		constraint TRAVEL_SET_1DAY_TRAFFIC_SET_ID_FK_2
 			references TRAFFIC_SET,
-	restaurant_id int
+	traffic_rent_id varchar2(255)
+            constraint TRAVEL_SET_1DAY_TRAFFIC_SET_ID_FK_3
+                references TRAFFIC_SET,
+	restaurant_id varchar2(255)
 		constraint TRAVEL_SET_1DAY_RESTAURANT_SET_ID_FK
 			references RESTAURANT_SET,
-	attractions_id int
+	attractions_id varchar2(255)
 		constraint TRAVEL_SET_1DAY_ATTRACTIONS_SET_ID_FK
 			references ATTRACTIONS_SET,
-	hotel_id int
+	hotel_id varchar2(255)
 		constraint TRAVEL_SET_1DAY_HOTEL_SET_ID_FK
 			references HOTEL_SET
 )
@@ -101,31 +107,35 @@ create table travel_set_1day
 // 套裝行程2DAY TABLE
 create table travel_set_2day
 (
-	id int generated as identity
-		constraint TRAVEL_SET_2DAY_PK
-			primary key,
-	traffic_go_id int
+	id varchar2(255) not null
+       		constraint TABLE_NAME_PK
+       			primary key,
+	traffic_go_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_TRAFFIC_SET_ID_FK
 			references TRAFFIC_SET,
-	traffic_back_id int
+	traffic_back_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_TRAFFIC_SET_ID_FK_2
 			references TRAFFIC_SET,
-	restaurant_1day_id int
+	traffic_other_id varchar2(255)
+                constraint TRAVEL_SET_1DAY_TRAFFIC_SET_ID_FK_3
+                    references TRAFFIC_SET,
+	restaurant_1day_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_RESTAURANT_SET_ID_FK
 			references RESTAURANT_SET,
-	restaurant_2day_id int
+	restaurant_2day_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_RESTAURANT_SET_ID_FK_2
 			references RESTAURANT_SET,
-	attractions_1day_id int
+	attractions_1day_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_ATTRACTIONS_SET_ID_FK
 			references ATTRACTIONS_SET,
-	attractions_2day_id int
+	attractions_2day_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_ATTRACTIONS_SET_ID_FK_2
 			references ATTRACTIONS_SET,
-	hotel_1day_id int
+	hotel_1day_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_HOTEL_SET_ID_FK
 			references HOTEL_SET,
-	hotel_2day_id int
+	hotel_2day_id varchar2(255)
 		constraint TRAVEL_SET_2DAY_HOTEL_SET_ID_FK_2
 			references HOTEL_SET
 )
+
