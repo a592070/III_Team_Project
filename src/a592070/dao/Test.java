@@ -5,6 +5,7 @@ import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -28,5 +29,7 @@ public class Test {
 //        AttractionDO ele = attractionDAO.getEle("name", "大棟山");
 //        System.out.println(ele);
         System.out.println(attractionDAO.listEleLike("巧克力"));
+
+
     }
 }
