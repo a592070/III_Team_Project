@@ -20,7 +20,7 @@ public class AttractionDO {
     private String openTime;
     private String picture;
     private String ticketInfo;
-    private String travelingInfo;
+    private String travellingInfo;
     private String keywords;
     private String remarks;
     private BigDecimal rating;
@@ -42,7 +42,7 @@ public class AttractionDO {
                 ", py=" + py +
                 ", openTime='" + openTime + '\'' +
                 ", ticketInfo='" + ticketInfo + '\'' +
-                ", travelingInfo='" + travelingInfo + '\'' +
+                ", travelingInfo='" + travellingInfo + '\'' +
                 ", keywords='" + keywords + '\'' +
                 ", remarks='" + remarks + '\'' +
                 ", rating=" + rating +
@@ -136,13 +136,13 @@ public class AttractionDO {
         this.ticketInfo = ticketInfo;
     }
 
-    public String getTravelingInfo() {
-        return travelingInfo;
+    public String getTravellingInfo() {
+        return travellingInfo;
     }
 
-    public void setTravelingInfo(String travelingInfo) {
-        if(StringUtil.isEmpty(travelingInfo)) travelingInfo=null;
-        this.travelingInfo = travelingInfo;
+    public void setTravellingInfo(String travellingInfo) {
+        if(StringUtil.isEmpty(travellingInfo)) travellingInfo =null;
+        this.travellingInfo = travellingInfo;
     }
 
     public String getKeywords() {

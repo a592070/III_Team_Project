@@ -1,5 +1,6 @@
 package a592070.dao;
 
+import a592070.pojo.AttractionDO;
 import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 
@@ -19,5 +20,13 @@ public class Test {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    @org.junit.Test
+    public void testDAO() throws IOException, SQLException {
+        AttractionDAO attractionDAO = new AttractionDAO();
+//        AttractionDO ele = attractionDAO.getEle("name", "大棟山");
+//        System.out.println(ele);
+        System.out.println(attractionDAO.listEleLike("巧克力"));
     }
 }
