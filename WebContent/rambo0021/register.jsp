@@ -41,16 +41,16 @@
             <fieldset>
                 <legend>註冊</legend>
                 <div>
-                    我是:<select name="member">
-                        <option value="generalmember">一般會員</option>
-                        <option value="restaurantowner">餐廳業者</option>
-                        <option value="hotelowner">住宿業者</option>
-                        <option value="transportationowner">交通業者</option>
+                    我是:<select name="identity">
+                        <option value="2">一般會員</option>
+                        <option value="3">餐廳業者</option>
+                        <option value="4">住宿業者</option>
+                        <option value="5">交通業者</option>
                     </select>
                 </div>
                 <div class="st1">
                     <label for="username">帳號:</label>
-                    <input type="text" id="username" name="username" placeholder="王大明">
+                    <input type="text" id="username" name="username" placeholder="請輸入帳號">
                     <!-- onblur="checkusr()"> -->
                     <img class="img" id="idfimg" src=""><span id="idsp"></span><br />
 
