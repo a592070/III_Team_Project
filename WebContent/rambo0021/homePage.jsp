@@ -1,4 +1,4 @@
-<%@page import="rambo0021.AccountDO"%>
+<%@page import="rambo0021.AccountBean"%>
 <%@page import="rambo0021.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat;;"%>
@@ -10,19 +10,12 @@
 <meta charset="UTF-8">
 <title>個人頁面</title>
 
-<% 
-RegisterDAO registerDAO= new RegisterDAO();
+<%
 SimpleDateFormat dateformat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-String path=request.getServletContext().getRealPath("")+"images";
-ArrayList<AccountDO> list=registerDAO.selectUserData(path);
-AccountDO account=(AccountDO)list.get(0);
-//String identity=String.valueOf(account.getIdentity());
-String username=account.getUserName();
-String password=account.getPassword();
-String nickname=account.getNickName();
-String email=account.getEmail();
-String register =dateformat.format(account.getRegister());
-String modify_date= dateformat.format(account.getModify_Date());
+AccountBean account=(AccountBean)request.getAttribute("account");
+//String register =dateformat.format(account.getRegister());
+//String modify_date= dateformat.format(account.getModify_Date());
+
 %>
 </head>
 <body>
@@ -30,32 +23,36 @@ String modify_date= dateformat.format(account.getModify_Date());
 <tr bgcolor="#FFFFE1">
 <td>
 身分:
-<%=String.valueOf(account.getIdentity())%>
+<%=account.getIdentity()%>
 </td>
 <td>
 照片:
-<img src="<%=request.getContextPath()%>/images/""<%=username%>.png">
+<%=account.getPicture()%>
 </td>
 <td>
 帳號:
+<%=account.getUserName()%>
 </td>
 <td>
 密碼:
+<%=account.getPassword()%>
 </td>
 <td>
 暱稱:
+<%=account.getNickName()%>
 </td>
 <td>
 email:
+<%=account.getEmail()%>
 </td>
 <td>
 註冊日期
+<%=dateformat.format(account.getRegister())%>
 </td>
 <td>
 最後修改日期
+<%=dateformat.format(account.getModify_Date())%>
 </td>
-
-
 </tr>
 </table>
 
