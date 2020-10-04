@@ -2,7 +2,10 @@ package rambo0021;
 
 import java.io.File;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import oracle.sql.DATE;
 
 public class AccountBean {
 
@@ -102,6 +105,12 @@ public class AccountBean {
 	public Date getModify_Date() {
 		return modify_Date;
 	}
+//	public String getModify_Date() {
+//		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+//		sdf.setLenient(false);
+//		String Date = sdf.format(modify_Date);
+//		return Date;
+//	}
 
 
 	public void setModify_Date(Date modify_Date) {
@@ -122,6 +131,12 @@ public class AccountBean {
 	public Date getRegister() {
 		return register;
 	}
+//	public String getRegister() {
+//		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+//		sdf.setLenient(false);
+//		String Date = sdf.format(register);
+//		return Date;
+//	}
 
 
 	public void setRegister(Date register) {
