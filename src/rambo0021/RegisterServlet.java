@@ -2,6 +2,7 @@ package rambo0021;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -9,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
 
 /**
  * Servlet implementation class registerServlet
@@ -41,20 +42,27 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Account account = new Account();
+		AccountBean account = new AccountBean();
 		RegisterDAO registerDAO = new RegisterDAO();
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html");   //setup response content type
-		response.setCharacterEncoding("UTF-8"); //setup response character encoding type
+		response.setContentType("text/html");   
+		response.setCharacterEncoding("UTF-8"); 
 		
-		String username = request.getParameter("username");
-		account.setUsername(username);	
-		String password = request.getParameter("password");
+		String username = request.getParameter("username").trim();
+		account.setUserName(username);	
+		String password = request.getParameter("password").trim();
 		account.setPassword(password);	
-		String email = request.getParameter("email");
+		int identity = Integer.parseInt(request.getParameter("identity").trim());
+		account.setIdentity(identity);
+		String email = request.getParameter("email").trim();
 		account.setEmail(email);
 		InputStream pictrure = request.getPart("picture").getInputStream();
 		account.setPicture(pictrure);
+		Date date = new Date();
+		account.setModify_Date(date);
+		account.setRegister(date);
+		String nickname = request.getParameter("nickname").trim();
+		account.setNickName(nickname);
 		System.out.println("Servlet is on");
 		registerDAO.insertData(account);
 		pictrure.close();
