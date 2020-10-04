@@ -32,7 +32,10 @@ public class ConnectionPool {
     private String sAutoCommit;
 
 
-    public void init() throws IOException {
+    private ConnectionPool(){
+    }
+
+    private void init() throws IOException {
         try {
             Context initContext = new InitialContext();
             dataSource =  (DataSource) initContext.lookup("java:/comp/env/ConnectionPool");
@@ -44,13 +47,16 @@ public class ConnectionPool {
 
     public static DataSource getDataSource(int type) throws IOException {
         if(dataSource == null) {
-            if(type == LOADING_WITH_SERVER) new ConnectionPool().init();
-            if(type == LOADING_WITHOUT_SERVER){
-                ConnectionPool pool = new ConnectionPool();
-                basicDataSource = new BasicDataSource();
-                pool.readProperties();
-                pool.setPool();
-                dataSource = basicDataSource;
+            synchronized (ConnectionPool.class) {
+                if(dataSource!=null) return dataSource;
+                if (type == LOADING_WITH_SERVER) new ConnectionPool().init();
+                if (type == LOADING_WITHOUT_SERVER) {
+                    ConnectionPool pool = new ConnectionPool();
+                    basicDataSource = new BasicDataSource();
+                    pool.readProperties();
+                    pool.setPool();
+                    dataSource = basicDataSource;
+                }
             }
         }
         return dataSource;
