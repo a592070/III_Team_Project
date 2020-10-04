@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Homepage")
 public class HomepagServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     String homepage="homePage.jsp";  
+     String homepage="/rambo0021/homePage.jsp";  
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,14 +34,15 @@ public class HomepagServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
 		response.setCharacterEncoding("UTF-8"); 
-		String username = request.getParameter("username"); 
+		String username = request.getParameter("userName"); 
 		account.setUserName(username);
 		homePageDAO.selectUserData(account);
 		request.setAttribute("account",account);
 	  RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-	  if (dispatcher != null) {
+	  System.out.println(account);
+	 
 		  dispatcher.forward(request, response);
-	  }
+	  
 	}
 
 	/**
