@@ -11,7 +11,7 @@ public class Imuseless {
 		System.out.println(date);
 		RegisterDAO registerDAO = new RegisterDAO();
 //		registerDAO.selectPicture();
-		ArrayList<AccountBean> selectUserData = registerDAO.selectUserData("");
+//		ArrayList<AccountBean> selectUserData = registerDAO.selectUserData("");
 		SimpleDateFormat aaa=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	}
 
