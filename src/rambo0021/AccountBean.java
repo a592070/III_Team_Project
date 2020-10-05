@@ -102,15 +102,15 @@ public class AccountBean {
 	}
 
 
-	public Date getModify_Date() {
-		return modify_Date;
-	}
-//	public String getModify_Date() {
-//		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
-//		sdf.setLenient(false);
-//		String Date = sdf.format(modify_Date);
-//		return Date;
+//	public Date getModify_Date() {
+//		return modify_Date;
 //	}
+	public String getModify_Date() {
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		sdf.setLenient(false);
+		String Date = sdf.format(modify_Date);
+		return Date;
+	}
 
 
 	public void setModify_Date(Date modify_Date) {
@@ -128,15 +128,15 @@ public class AccountBean {
 	}
 
 
-	public Date getRegister() {
-		return register;
-	}
-//	public String getRegister() {
-//		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
-//		sdf.setLenient(false);
-//		String Date = sdf.format(register);
-//		return Date;
+//	public Date getRegister() {
+//		return register;
 //	}
+	public String getRegister() {
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		sdf.setLenient(false);
+		String Date2 = sdf.format(register);
+		return Date2;
+	}
 
 
 	public void setRegister(Date register) {

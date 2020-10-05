@@ -29,7 +29,7 @@ public class RegisterDAO {
 		prepareStatement.setInt(3, account.getIdentity());
 		prepareStatement.setString(4, account.getEmail());
 		prepareStatement.setBinaryStream(5, account.getPicture());
-		Date date = new Date(account.getModify_Date().getTime());
+		Date date = java.sql.Date.valueOf(account.getModify_Date());
 		prepareStatement.setDate(6, date);
 		prepareStatement.setString(7, account.getNickName());
 		prepareStatement.setDate(8, date);

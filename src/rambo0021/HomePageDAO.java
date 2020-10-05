@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
 import controller.ConnectionPool;
 
 public class HomePageDAO {
@@ -31,11 +33,14 @@ public class HomePageDAO {
 			account.setIdentity(identity);
 			String email = rs.getString("email");
 			account.setEmail(email);
+			String nickname = rs.getString("nickname");
+			account.setNickName(nickname);
 			Date modify_date = rs.getDate("modify_date");
 			account.setModify_Date(modify_date);
 			Date register = rs.getDate("register");
 			account.setRegister(register);
-			InputStream picture= (InputStream) rs.getBlob("picture");
+			Blob blob = rs.getBlob("picture");
+			InputStream picture=  blob.getBinaryStream();
 			account.setPicture(picture);
 //			FileOutputStream fileOutputStream = new FileOutputStream(path+"/"+username+".png");
 //			fileOutputStream.write(blob.getBytes(1, (int)blob.length()));
