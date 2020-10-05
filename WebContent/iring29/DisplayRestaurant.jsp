@@ -95,7 +95,7 @@
                 <hr>
                 <p>serviceInfo</p> <jsp:getProperty name="res_data" property="serviceinfo"/>
             </div>
-            <!-- <a href="/iring29/Restaurant_index.jsp">Home Page</a> -->
+            <a href="iring29/Restaurant_index.jsp">Home Page</a>
         </fieldset>
     </div>
 </body>

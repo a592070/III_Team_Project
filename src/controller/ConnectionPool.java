@@ -31,7 +31,8 @@ public class ConnectionPool {
     private int sAis_batch_num;
     private String sAutoCommit;
 
-    private ConnectionPool() {
+
+    private ConnectionPool(){
     }
 
     private void init() throws IOException {
@@ -48,15 +49,14 @@ public class ConnectionPool {
         if(dataSource == null) {
             // prevent multiple thread created more then one ConnectionPool instance
             synchronized (ConnectionPool.class) {
-                if(dataSource == null) {
-                    if (type == LOADING_WITH_SERVER) new ConnectionPool().init();
-                    if (type == LOADING_WITHOUT_SERVER) {
-                        ConnectionPool pool = new ConnectionPool();
-                        basicDataSource = new BasicDataSource();
-                        pool.readProperties();
-                        pool.setPool();
-                        dataSource = basicDataSource;
-                    }
+                if(dataSource!=null) return dataSource;
+                if (type == LOADING_WITH_SERVER) new ConnectionPool().init();
+                if (type == LOADING_WITHOUT_SERVER) {
+                    ConnectionPool pool = new ConnectionPool();
+                    basicDataSource = new BasicDataSource();
+                    pool.readProperties();
+                    pool.setPool();
+                    dataSource = basicDataSource;
                 }
             }
         }

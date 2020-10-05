@@ -17,10 +17,8 @@ public class Test {
         try {
             List<AttractionsInfoVO> attractionsInfoVOS = new AttractionsDAO(ConnectionPool.LOADING_WITHOUT_SERVER).listInfoVO();
             System.out.println(attractionsInfoVOS);
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
