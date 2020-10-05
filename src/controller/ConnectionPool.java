@@ -47,6 +47,7 @@ public class ConnectionPool {
 
     public static DataSource getDataSource(int type) throws IOException {
         if(dataSource == null) {
+            // prevent multiple thread created more then one ConnectionPool instance
             synchronized (ConnectionPool.class) {
                 if(dataSource!=null) return dataSource;
                 if (type == LOADING_WITH_SERVER) new ConnectionPool().init();
