@@ -1,7 +1,9 @@
 <%@page import="rambo0021.AccountBean"%>
 <%@page import="rambo0021.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.text.SimpleDateFormat;;"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
