@@ -1,0 +1,44 @@
+﻿create table hotel
+(
+	SN number generated as identity /*飯店編號*/
+		constraint hotel_PK
+			primary key,
+	name varchar2(255), /*飯店名稱*/
+    region varchar2(255) /*所在地區*/
+         constraint HOTEL_REGION_REGION_ID_FK
+			references REGION,
+    address varchar2(255),/*飯店地址*/
+    tel varchar2(255),/*電話*/
+    double_room number(*),/*雙人房*/
+    quadruple_room number(*),/*四人房*/
+	description NVARCHAR2(2000),/*飯店簡介*/
+	opentime varchar2(1024),/*營業時間*/
+	type varchar2(255),/*飯店類型*/
+	rating number(2,1),/*飯店評分*/
+    account varchar(255) /*飯店業者*/
+)
+
+create table H_ORDER_LIST
+(
+	SN_ORDER number generated as identity /*小訂單編號*/
+        constraint H_ORDER_LIST_PK
+            primary key,
+    order_id number(*) /*大訂單編號*/
+        constraint H_ORDER_LIST_ORDER_TABLE_ORDER_ID_FK
+			references ORDER_TABLE,
+    order_hotel_id number(*) /*預訂飯店編號*/
+        constraint H_ORDER_LIST_HOTEL_SN_FK
+			references HOTEL,
+    order_hotel_name varchar2(255), /*預訂飯店名稱*/
+    client_name varchar2(255), /*客戶名稱*/
+    client_phone varchar2(255), /*客戶電話*/
+    double_room number(*) /*雙人房*/
+     constraint H_ORDER_LIST_HOTEL_double_room_FK
+			references HOTEL,
+    quadruple_room number(*) /*四人房*/
+        constraint H_ORDER_LIST_HOTEL_quadruple_room_FK
+			references HOTEL,      
+    check_in date, /*入住日期*/
+    check_out date, /*退房日期*/
+    H_PRICE number(*) /*價格結算*/
+)

@@ -23,89 +23,105 @@ public class AttractionDAO {
     public AttractionDO getEle(String columnName, String columnValue) throws SQLException, IOException {
         sql = "select * from attraction where \""+columnName.toUpperCase()+"\"=?";
         Object[] params = {columnValue};
-        conn = ds.getConnection();
-        rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
         AttractionDO attractionDO = null;
-        if(rs.next()){
-            attractionDO = new AttractionDO();
-            attractionDO.setId(rs.getString("id"));
-            attractionDO.setName(rs.getString("name"));
-            attractionDO.setToldescribe(rs.getNString("toldescribe"));
-            attractionDO.setDescription(rs.getNString("description"));
-            attractionDO.setTel(rs.getString("tel"));
-            attractionDO.setAddress(rs.getString("address"));
-            attractionDO.setRegion(rs.getString("region"));
-            attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
-            attractionDO.setOpenTime(rs.getString("opentime"));
-            attractionDO.setPicture(rs.getString("picture"));
-            attractionDO.setPx(rs.getBigDecimal("px"));
-            attractionDO.setPy(rs.getBigDecimal("py"));
-            attractionDO.setTicketInfo(rs.getString("ticketinfo"));
-            attractionDO.setKeywords(rs.getString("keywords"));
-            attractionDO.setRemarks(rs.getString("remarks"));
-            attractionDO.setRating(rs.getBigDecimal("rating"));
+        try {
+            conn = ds.getConnection();
+            rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
+            if (rs.next()) {
+                attractionDO = new AttractionDO();
+                attractionDO.setId(rs.getString("id"));
+                attractionDO.setName(rs.getString("name"));
+                attractionDO.setToldescribe(rs.getNString("toldescribe"));
+                attractionDO.setDescription(rs.getNString("description"));
+                attractionDO.setTel(rs.getString("tel"));
+                attractionDO.setAddress(rs.getString("address"));
+                attractionDO.setRegion(rs.getString("region"));
+                attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
+                attractionDO.setOpenTime(rs.getString("opentime"));
+                attractionDO.setPicture(rs.getString("picture"));
+                attractionDO.setPx(rs.getBigDecimal("px"));
+                attractionDO.setPy(rs.getBigDecimal("py"));
+                attractionDO.setTicketInfo(rs.getString("ticketinfo"));
+                attractionDO.setKeywords(rs.getString("keywords"));
+                attractionDO.setRemarks(rs.getString("remarks"));
+                attractionDO.setRating(rs.getBigDecimal("rating"));
+            }
+        }catch (SQLException| IOException e){
+            throw e;
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
         }
-        ConnectionPool.closeResources(conn, predStmt, rs);
         return attractionDO;
     }
     public List<AttractionDO> listEleLike(String columnName, String columnValue) throws SQLException, IOException {
         sql = "select * from attraction where \""+columnName.toUpperCase()+"\" like ?";
         Object[] params = {"%"+columnValue+"%"};
-        conn = ds.getConnection();
-        rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
-        AttractionDO attractionDO = null;
         List<AttractionDO> list = new ArrayList<>();
-        while(rs.next()){
-            attractionDO = new AttractionDO();
-            attractionDO.setId(rs.getString("id"));
-            attractionDO.setName(rs.getString("name"));
-            attractionDO.setToldescribe(rs.getNString("toldescribe"));
-            attractionDO.setDescription(rs.getNString("description"));
-            attractionDO.setTel(rs.getString("tel"));
-            attractionDO.setAddress(rs.getString("address"));
-            attractionDO.setRegion(rs.getString("region"));
-            attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
-            attractionDO.setOpenTime(rs.getString("opentime"));
-            attractionDO.setPicture(rs.getString("picture"));
-            attractionDO.setPx(rs.getBigDecimal("px"));
-            attractionDO.setPy(rs.getBigDecimal("py"));
-            attractionDO.setTicketInfo(rs.getString("ticketinfo"));
-            attractionDO.setKeywords(rs.getString("keywords"));
-            attractionDO.setRemarks(rs.getString("remarks"));
-            attractionDO.setRating(rs.getBigDecimal("rating"));
-            list.add(attractionDO);
+        try {
+            conn = ds.getConnection();
+            rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
+            AttractionDO attractionDO = null;
+            while (rs.next()) {
+                attractionDO = new AttractionDO();
+                attractionDO.setId(rs.getString("id"));
+                attractionDO.setName(rs.getString("name"));
+                attractionDO.setToldescribe(rs.getNString("toldescribe"));
+                attractionDO.setDescription(rs.getNString("description"));
+                attractionDO.setTel(rs.getString("tel"));
+                attractionDO.setAddress(rs.getString("address"));
+                attractionDO.setRegion(rs.getString("region"));
+                attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
+                attractionDO.setOpenTime(rs.getString("opentime"));
+                attractionDO.setPicture(rs.getString("picture"));
+                attractionDO.setPx(rs.getBigDecimal("px"));
+                attractionDO.setPy(rs.getBigDecimal("py"));
+                attractionDO.setTicketInfo(rs.getString("ticketinfo"));
+                attractionDO.setKeywords(rs.getString("keywords"));
+                attractionDO.setRemarks(rs.getString("remarks"));
+                attractionDO.setRating(rs.getBigDecimal("rating"));
+                list.add(attractionDO);
+            }
+        }catch (SQLException| IOException e){
+            throw e;
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
         }
-        ConnectionPool.closeResources(conn, predStmt, rs);
         return list;
     }
     public List<AttractionDO> listEleLike(String keyWords) throws SQLException, IOException {
         sql = "select * from attraction where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ?";
         Object[] params = {"%"+keyWords+"%", "%"+keyWords+"%", "%"+keyWords+"%", "%"+keyWords+"%", "%"+keyWords+"%"};
-        conn = ds.getConnection();
-        rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
-        AttractionDO attractionDO = null;
+
         List<AttractionDO> list = new ArrayList<>();
-        while(rs.next()){
-            attractionDO = new AttractionDO();
-            attractionDO.setId(rs.getString("id"));
-            attractionDO.setName(rs.getString("name"));
-            attractionDO.setToldescribe(rs.getNString("toldescribe"));
-            attractionDO.setDescription(rs.getNString("description"));
-            attractionDO.setTel(rs.getString("tel"));
-            attractionDO.setAddress(rs.getString("address"));
-            attractionDO.setRegion(rs.getString("region"));
-            attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
-            attractionDO.setOpenTime(rs.getString("opentime"));
-            attractionDO.setPicture(rs.getString("picture"));
-            attractionDO.setPx(rs.getBigDecimal("px"));
-            attractionDO.setPy(rs.getBigDecimal("py"));
-            attractionDO.setTicketInfo(rs.getString("ticketinfo"));
-            attractionDO.setKeywords(rs.getString("keywords"));
-            attractionDO.setRemarks(rs.getString("remarks"));
-            attractionDO.setRating(rs.getBigDecimal("rating"));
-            list.add(attractionDO);
+        try {
+            conn = ds.getConnection();
+            rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
+            AttractionDO attractionDO = null;
+            while (rs.next()) {
+                attractionDO = new AttractionDO();
+                attractionDO.setId(rs.getString("id"));
+                attractionDO.setName(rs.getString("name"));
+                attractionDO.setToldescribe(rs.getNString("toldescribe"));
+                attractionDO.setDescription(rs.getNString("description"));
+                attractionDO.setTel(rs.getString("tel"));
+                attractionDO.setAddress(rs.getString("address"));
+                attractionDO.setRegion(rs.getString("region"));
+                attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
+                attractionDO.setOpenTime(rs.getString("opentime"));
+                attractionDO.setPicture(rs.getString("picture"));
+                attractionDO.setPx(rs.getBigDecimal("px"));
+                attractionDO.setPy(rs.getBigDecimal("py"));
+                attractionDO.setTicketInfo(rs.getString("ticketinfo"));
+                attractionDO.setKeywords(rs.getString("keywords"));
+                attractionDO.setRemarks(rs.getString("remarks"));
+                attractionDO.setRating(rs.getBigDecimal("rating"));
+                list.add(attractionDO);
+            }
+        }catch (SQLException| IOException e){
+            throw e;
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
         }
-        ConnectionPool.closeResources(conn, predStmt, rs);
         return list;
     }
 

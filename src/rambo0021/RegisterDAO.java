@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 
 public class RegisterDAO {
-	public void insertData(AccountDO account) {
+	public void insertData(AccountBean account) {
 	try {
 		DataSource dataSource = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
 		Connection connection = dataSource.getConnection();
@@ -28,14 +28,14 @@ public class RegisterDAO {
 		prepareStatement.setString(2, account.getPassword());
 		prepareStatement.setInt(3, account.getIdentity());
 		prepareStatement.setString(4, account.getEmail());
-		prepareStatement.setBinaryStream(5, account.getPicture());
-		Date date = new Date(account.getModify_Date().getTime());
+		prepareStatement.setBlob(5, account.getPicture());
+		Date date = java.sql.Date.valueOf(account.getModify_Date());
 		prepareStatement.setDate(6, date);
 		prepareStatement.setString(7, account.getNickName());
 		prepareStatement.setDate(8, date);
 		
 		int updatecount = prepareStatement.executeUpdate();
-		System.out.println("DB is on");
+		
 		
 		if (updatecount==1) {
 			connection.commit();
@@ -56,47 +56,5 @@ public class RegisterDAO {
 		e.printStackTrace();
 	}
 	}
-	public ArrayList<AccountDO> selectUserData(String path) {
-		 ArrayList<AccountDO> list = new ArrayList<>();
-		 Blob blob=null;
-		try {
-			DataSource dataSource = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
-			Connection connection = dataSource.getConnection();
-			PreparedStatement prepareStatement = connection.prepareStatement("select * from account where username=?");
-			System.out.println("db2 is on");
-			prepareStatement.setString(1, "test");
-			ResultSet rs = prepareStatement.executeQuery();
-			while(rs.next()) {
-			AccountDO account = new AccountDO();
-			String username = rs.getString("username");
-			account.setUserName(username);
-			String password = rs.getString("password");
-			account.setPassword(password);
-			int identity = rs.getInt("identity");
-			account.setIdentity(identity);
-			String email = rs.getString("email");
-			account.setEmail(email);
-			Date modify_date = rs.getDate("modify_date");
-			account.setModify_Date(modify_date);
-			Date register = rs.getDate("register");
-			account.setRegister(register);
-			blob = rs.getBlob("picture");
-			list.add(account);
-			}
-			FileOutputStream fileOutputStream = new FileOutputStream(path+"/123.png");
-			fileOutputStream.write(blob.getBytes(1, (int)blob.length()));
-			fileOutputStream.flush();
-			fileOutputStream.close();
-			prepareStatement.clearParameters();
-			prepareStatement.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}return list;
-		
-
-	}
+	public void selectUserData(String path) {}
 }

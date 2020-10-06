@@ -12,7 +12,6 @@ public class RestaurantBean {
 	String type;
 	BigDecimal rating;
 	String region;
-	String tel;
 	String picture; 
 	String serviceinfo;
 	String booking_id;
@@ -29,7 +28,7 @@ public class RestaurantBean {
 		}
 	// constructor
 	public RestaurantBean(String name, String address, String opentime, String description, String transportation,
-			String type, BigDecimal rating, String region, String tel, String picture, String serviceinfo,
+			String type, BigDecimal rating, String region, String picture, String serviceinfo,
 			String booking_id) {
 		this.name = name;
 		this.address = address;
@@ -39,7 +38,6 @@ public class RestaurantBean {
 		this.type = type;
 		this.rating = rating;
 		this.region = region;
-		this.tel = tel;
 		this.picture = picture;
 		this.serviceinfo = serviceinfo;
 		this.booking_id = booking_id;
@@ -109,14 +107,6 @@ public class RestaurantBean {
 		this.region = region;
 	}
 
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
 	public String getPicture() {
 		return picture;
 	}
@@ -142,21 +132,34 @@ public class RestaurantBean {
 	}
 	
 	@Override
-    public String toString() {
-        return "{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", opentime='" + opentime + '\'' +
-                ", description='" + description + '\'' +
-                ",transportation='" + transportation + '\'' +
-                ", type=" + type +
-                ", rating=" + rating +
-                ", region=" + region+
-                ", tel ='" + tel + '\'' +
-                ", picture='" + picture + '\'' +
-                ", tserviceinfo='" +serviceinfo+ '\'' +
-                ", booking_id='" + booking_id +
-                '}';
-    }
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RestaurantBean [name=");
+		builder.append(name);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", opentime=");
+		builder.append(opentime);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", transportation=");
+		builder.append(transportation);
+		builder.append(", type=");
+		builder.append(type);
+		builder.append(", rating=");
+		builder.append(rating);
+		builder.append(", region=");
+		builder.append(region);
+		builder.append(", picture=");
+		builder.append(picture);
+		builder.append(", serviceinfo=");
+		builder.append(serviceinfo);
+		builder.append(", booking_id=");
+		builder.append(booking_id);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+
 
 }

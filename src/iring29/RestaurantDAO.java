@@ -22,6 +22,7 @@ public class RestaurantDAO {
 	private Connection conn;
 	private DataSource ds;
 	private String sql;
+	private PreparedStatement pstmt;
 	
 	//constructor
 	public RestaurantDAO(int dataSourceType) throws IOException {
@@ -31,9 +32,9 @@ public class RestaurantDAO {
 	//find specific restaurant
 	public RestaurantBean findRestaurant(String name) throws SQLException {
 		try {
-		sql = "select * from restaurant where name like ?";
+		sql = "select * from restaurant where name like ? ";
 		conn = ds.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, "%"+ name+"%");
 		ResultSet rs = pstmt.executeQuery();
 		pstmt.clearBatch();
@@ -47,13 +48,12 @@ public class RestaurantDAO {
 			String type = rs.getString("TYPE");
 			BigDecimal rating = rs.getBigDecimal("RATING");
 			String region = rs.getString("REGION");
-			String tel= rs.getString("TEL");
 			String picture = rs.getString("PICTURE");
 			String serviceinfo = rs.getString("SERVICEINFO");
 			String booking_id = rs.getString("BOOKING_ID");
 			
 			restaurantdata = new RestaurantBean(name, address, opentime, description, transportation,
-					type, rating, region, tel, picture, serviceinfo,booking_id);
+					type, rating, region, picture, serviceinfo,booking_id);
 		}
 		rs.close();
 		pstmt.close();
@@ -75,7 +75,7 @@ public class RestaurantDAO {
 		try {
 			sql = "select name, region, type from restaurant where region = ?";
 			conn = ds.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, region);
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
@@ -103,24 +103,19 @@ public class RestaurantDAO {
 	}
 	
 	//update img
-	public void updateimg(String name) throws SQLException, FileNotFoundException {
+	public void updateimg(String url, String id) throws SQLException, FileNotFoundException {
 		try {
-		sql = "update restaurant set picture = ? where name = ?";
+		sql = "update restaurant set picture = ? where id = ?";
 		conn = ds.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		System.out.println("start");
-//		File file = new File("/Users/irene/Desktop/food.jpg");
-//		FileInputStream fis = new FileInputStream(file);
-//		pstmt.setBinaryStream(1, fis, (byte)file.length());
-		FileInputStream in = new FileInputStream("/Users/irene/Desktop/food.jpg"); //cannot import into DB??
-		pstmt.setBlob(1, in);
-		pstmt.setString(2, name);
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, url);
+		pstmt.setString(2, id);
 		ResultSet rs = pstmt.executeQuery();
 		System.out.println("start");
 		conn.commit();
 		pstmt.clearBatch();
 		}catch (Exception e) {
-			System.err.println("尋找部門資料時發生錯誤:" + e);
+			System.err.println("更新資料時發生錯誤:" + e);
 			conn.rollback();
 		} finally {
 			if (conn != null) {
@@ -131,5 +126,30 @@ public class RestaurantDAO {
 		
 	}
 	
-	
+	//delete restaurant
+	public boolean deleteRestaurant(String id) throws SQLException {
+		try {
+		sql = "delete restaurant where r_id = ?";
+		conn = ds.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		pstmt.clearBatch();
+		conn.commit();
+		
+		System.out.println("delete");
+		rs.close();
+		pstmt.close();
+		}catch (Exception e) {
+			System.err.println("刪除資料時發生錯誤:" + e);
+			conn.rollback();
+		
+		}finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return true;
+		
+	}
 }

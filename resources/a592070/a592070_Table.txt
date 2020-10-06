@@ -38,18 +38,21 @@ travel_set_id	套裝行程ID	PK
 交通行程id
 交通訂單ID			FK
 訂位日期
+優先級別
 
 
 餐廳行程table
 餐廳行程id
 餐廳訂單ID			FK
 訂位日期
+優先級別
 
 
 飯店行程table
 飯店行程id
 飯店訂單ID			FK
 訂位日期
+優先級別
 
 
 景點行程table
