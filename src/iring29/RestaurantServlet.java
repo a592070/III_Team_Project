@@ -69,21 +69,7 @@ public class RestaurantServlet extends HttpServlet {
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		List<RestaurantBean> res_data_region = restaurantDAO.findRegion(region);
 		request.setAttribute("res_data_region", res_data_region );
-//		List<String> name = new ArrayList<>();
-//		List<BigDecimal> rating = new ArrayList<>();
-//		List<String> type = new ArrayList<>();
-//		for(RestaurantBean res :res_data_region ) {
-//			String res_name = res.getName();
-//			BigDecimal res_rating = res.getRating();
-//			String res_type = res.getType();
-//			name.add(res_name);
-//			rating.add(res_rating);
-//			type.add(res_type);
-//		}
-//		
-//		request.setAttribute("res_name", name);
-//		request.setAttribute("res_rating", rating);
-//		request.setAttribute("res_type", type);
+
 		request.getRequestDispatcher("/iring29/Region_Restaurant.jsp").forward(request, response);
 	}
 

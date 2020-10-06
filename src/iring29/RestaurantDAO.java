@@ -51,9 +51,10 @@ public class RestaurantDAO {
 			String picture = rs.getString("PICTURE");
 			String serviceinfo = rs.getString("SERVICEINFO");
 			String booking_id = rs.getString("BOOKING_ID");
+			String account = rs.getString("ACCOUNT");
 			
 			restaurantdata = new RestaurantBean(name, address, opentime, description, transportation,
-					type, rating, region, picture, serviceinfo,booking_id);
+					type, rating, region, picture, serviceinfo,booking_id, account);
 		}
 		rs.close();
 		pstmt.close();
@@ -151,5 +152,41 @@ public class RestaurantDAO {
 		}
 		return true;
 		
+	}
+	
+	//insert data for Restaurant
+	public void createRestaurant(RestaurantBean ResBean) throws SQLException {
+		try {
+			sql = "insert into RESTAURANT (NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) "
+					+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ResBean.getName());
+			pstmt.setString(2, ResBean.getAddress());
+			pstmt.setString(3, ResBean.getOpentime());
+			pstmt.setString(4, ResBean.getDescription());
+			pstmt.setString(5, ResBean.getTransportation());
+			pstmt.setString(6, ResBean.getType());
+			pstmt.setBigDecimal(7, ResBean.getRating());
+			pstmt.setString(8, ResBean.getRegion());
+			pstmt.setString(9, ResBean.getPicture());
+			pstmt.setString(10, ResBean.getServiceinfo());
+			pstmt.setString(11, ResBean.getBooking_id());
+			pstmt.setString(12, ResBean.getAccount());
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			conn.commit();
+			
+			rs.close();
+			pstmt.close();
+			}catch (Exception e) {
+				System.err.println("新增資料時發生錯誤:" + e);
+				conn.rollback();
+			
+			}finally {
+				if (conn != null) {
+					conn.close();
+				}
+			}
 	}
 }

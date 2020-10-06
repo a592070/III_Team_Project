@@ -15,6 +15,7 @@ public class RestaurantBean {
 	String picture; 
 	String serviceinfo;
 	String booking_id;
+	String account;
 
 	// constructor
 	public RestaurantBean() {
@@ -29,7 +30,7 @@ public class RestaurantBean {
 	// constructor
 	public RestaurantBean(String name, String address, String opentime, String description, String transportation,
 			String type, BigDecimal rating, String region, String picture, String serviceinfo,
-			String booking_id) {
+			String booking_id, String account) {
 		this.name = name;
 		this.address = address;
 		this.opentime = opentime;
@@ -41,6 +42,7 @@ public class RestaurantBean {
 		this.picture = picture;
 		this.serviceinfo = serviceinfo;
 		this.booking_id = booking_id;
+		this.account = account;
 	}
 
 	public String getName() {
@@ -131,6 +133,13 @@ public class RestaurantBean {
 		this.booking_id = booking_id;
 	}
 	
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -156,6 +165,8 @@ public class RestaurantBean {
 		builder.append(serviceinfo);
 		builder.append(", booking_id=");
 		builder.append(booking_id);
+		builder.append(", account=");
+		builder.append(account);
 		builder.append("]");
 		return builder.toString();
 	}
