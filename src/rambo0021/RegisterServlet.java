@@ -2,6 +2,7 @@ package rambo0021;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
 
 import utils.IOUtils;
 
@@ -60,7 +62,12 @@ public class RegisterServlet extends HttpServlet {
 		account.setEmail(email);
 		InputStream pictrure = request.getPart("picture").getInputStream();
 		// TODO
-		account.setPicture(null);
+		try {
+			account.setPicture(new SerialBlob(IOUtils.toByteArray(pictrure)));
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Date date = new Date();
 		account.setModify_Date(date);

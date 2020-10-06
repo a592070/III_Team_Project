@@ -1,0 +1,37 @@
+create table hotel
+(
+	hotel_id varchar2(255) not null /*飯店編號*/
+		constraint hotel_PK
+			primary key,
+	name varchar2(255), /*飯店名稱*/
+    region varchar2(255) /*所在地區*/
+         constraint HOTEL_REGION_REGION_ID_FK
+			references REGION,
+    address varchar2(255),/*飯店地址*/
+    tel varchar2(255),/*電話*/
+    room_type varchar2(255),/*房型*/
+	description NVARCHAR2(2000),/*飯店簡介*/
+	opentime varchar2(1024),/*營業時間*/
+	type varchar2(255),/*飯店類型*/
+	rating number(2,1)/*飯店評分*/
+)
+
+create table hotel_order
+(
+	order_id varchar2(255) not null /*訂單編號*/
+        constraint HOTEL_ORDER_PK
+            primary key,
+    order_hotel_id varchar2(255) /*預訂飯店編號*/
+        constraint HOTEL_ORDER_HOTEL_HOTEL_ID_FK
+			references HOTEL,
+    order_hotel_name varchar2(255) /*預訂飯店名稱*/
+        constraint HOTEL_ORDER_HOTEL_NAME_FK
+			references HOTEL,
+    client_name varchar2(255), /*客戶名稱*/
+    client_phone varchar2(255), /*客戶電話*/
+    room_type varchar2(255) /*房型*/
+        constraint HOTEL_ORDER_HOTEL_ROOM_TYPE_FK
+			references HOTEL,
+    check_in date, /*入住日期*/
+    check_out date /*退房日期*/
+)

@@ -40,14 +40,14 @@ public class HomePageDAO {
 			account.setModify_Date(modify_date);
 			Date register = rs.getDate("register");
 			account.setRegister(register);
-			InputStream is = rs.getBlob("picture");
+//			InputStream is = rs.getBlob("picture");
 //			InputStream picture=  blob.getBinaryStream();
-			account.setPicture(is);
+			account.setPicture(rs.getBlob("picture"));
 //			FileOutputStream fileOutputStream = new FileOutputStream(path+"/"+username+".png");
 //			fileOutputStream.write(blob.getBytes(1, (int)blob.length()));
 //			fileOutputStream.flush();
 //			fileOutputStream.close();
-			is.close();
+//			is.close();
 			}
 			prepareStatement.clearParameters();
 			prepareStatement.close();

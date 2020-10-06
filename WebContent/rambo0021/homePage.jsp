@@ -1,18 +1,18 @@
 <%@page import="rambo0021.AccountBean"%>
 <%@page import="rambo0021.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>個人頁面</title>
-<% out.clear();%>
 </head>
 <body>
+
 	<table border="1">
 		<tr bgcolor="#FFFFE1">
 			<td>

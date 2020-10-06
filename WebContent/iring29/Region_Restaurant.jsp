@@ -31,5 +31,6 @@ for(RestaurantBean res : res_data_region){
 </tr>
 <%} %>
 </table>
+<a href="iring29/Restaurant_index.jsp">Home Page</a>
 </body>
 </html>

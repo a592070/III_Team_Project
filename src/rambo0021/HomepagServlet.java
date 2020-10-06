@@ -67,7 +67,7 @@ public class HomepagServlet extends HttpServlet {
 		while ((len = is.read(bytes)) != -1) {
 			os.write(bytes, 0, len);
 		}
-		request.getSession().setAttribute("account",account);
+//		request.getSession().setAttribute("account",account);
 //		request.setAttribute("account",account);
 //		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
 //		dispatcher.forward(request, response);
