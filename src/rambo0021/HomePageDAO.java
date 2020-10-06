@@ -40,7 +40,7 @@ public class HomePageDAO {
 			account.setModify_Date(modify_date);
 			Date register = rs.getDate("register");
 			account.setRegister(register);
-			InputStream is = rs.getBlob("picture").getBinaryStream();
+			InputStream is = rs.getBlob("picture");
 //			InputStream picture=  blob.getBinaryStream();
 			account.setPicture(is);
 //			FileOutputStream fileOutputStream = new FileOutputStream(path+"/"+username+".png");
