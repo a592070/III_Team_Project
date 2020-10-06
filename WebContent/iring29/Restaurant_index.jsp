@@ -67,11 +67,11 @@
         <div class="div_search">
             <div class="search">
                 <span class="sp_search">餐廳地區搜尋</span>
-                <input type="text" name="restaurant_name" placeholder="請輸入關鍵字">
+                <input type="text" name="region_name" placeholder="請輸入關鍵字">
             </div>
             <div class="search">
                 <span class="sp_search">餐廳名稱搜尋</span>
-               <input type="text" name="region_name" placeholder="請輸入關鍵字">
+               <input type="text" name="restaurant_name" placeholder="請輸入關鍵字">
             </div>
             <div class="search_date">
                 <span class="sp_search">日期</span>

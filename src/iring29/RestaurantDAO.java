@@ -32,7 +32,7 @@ public class RestaurantDAO {
 	//find specific restaurant
 	public RestaurantBean findRestaurant(String name) throws SQLException {
 		try {
-		sql = "select * from restaurant where name like ?";
+		sql = "select * from restaurant where name like ? ";
 		conn = ds.getConnection();
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, "%"+ name+"%");

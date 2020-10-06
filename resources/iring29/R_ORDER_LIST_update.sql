@@ -1,23 +1,18 @@
 --------------------------------------------------------
---  已建立檔案 - 星期二-十月-06-2020   
---------------------------------------------------------
---------------------------------------------------------
 --  DDL for Table R_ORDER_LIST
 --------------------------------------------------------
 
   CREATE TABLE "III_TEAM_DBA"."R_ORDER_LIST" 
-   (	"R_SN_ORDER" NUMBER, 
-	"ORDER_ID" NUMBER, 
-	"R_SN" NUMBER, 
-	"CUSTOMER_NUM" NUMBER(3,0), 
-	"BOOK_TIME" TIMESTAMP (6), 
-	"DEPOSIT" NUMBER
+   (  "R_SN_ORDER" NUMBER, 
+  "ORDER_ID" NUMBER, 
+  "R_SN" NUMBER, 
+  "CUSTOMER_NUM" NUMBER(3,0), 
+  "BOOK_TIME" TIMESTAMP (6), 
+  "DEPOSIT" NUMBER
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
-REM INSERTING into III_TEAM_DBA.R_ORDER_LIST
-SET DEFINE OFF;
 --------------------------------------------------------
 --  DDL for Index R_ORDER_PK
 --------------------------------------------------------
@@ -25,6 +20,12 @@ SET DEFINE OFF;
   CREATE UNIQUE INDEX "III_TEAM_DBA"."R_ORDER_PK" ON "III_TEAM_DBA"."R_ORDER_LIST" ("R_SN_ORDER") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Sequence R_ORDER_LIST_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "III_TEAM_DBA"."R_ORDER_LIST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+
 --------------------------------------------------------
 --  DDL for Trigger R_ORDER_LIST_TRG
 --------------------------------------------------------
@@ -40,6 +41,7 @@ BEGIN
     END IF;
   END COLUMN_SEQUENCES;
 END;
+
 /
 ALTER TRIGGER "III_TEAM_DBA"."R_ORDER_LIST_TRG" ENABLE;
 --------------------------------------------------------
@@ -55,4 +57,6 @@ ALTER TRIGGER "III_TEAM_DBA"."R_ORDER_LIST_TRG" ENABLE;
 --------------------------------------------------------
 
   ALTER TABLE "III_TEAM_DBA"."R_ORDER_LIST" ADD CONSTRAINT "R_ORDER_LIST_FK1" FOREIGN KEY ("ORDER_ID")
-	  REFERENCES "III_TEAM_DBA"."ORDER_TABLE" ("ORDER_ID") ENABLE;
+    REFERENCES "III_TEAM_DBA"."ORDER_TABLE" ("ORDER_ID") ENABLE;
+  ALTER TABLE "III_TEAM_DBA"."R_ORDER_LIST" ADD CONSTRAINT "R_ORDER_LIST_FK2" FOREIGN KEY ("R_SN")
+    REFERENCES "III_TEAM_DBA"."RESTAURANT" ("R_SN") ENABLE;

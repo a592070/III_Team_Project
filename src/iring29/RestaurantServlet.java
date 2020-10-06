@@ -1,7 +1,9 @@
 package iring29;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -35,13 +37,14 @@ public class RestaurantServlet extends HttpServlet {
 		response.setContentType(CONTENT_TYPE);
 
 		if (request.getParameter("QUERY") != null) {
-			if (request.getParameter("restaurant_name") != null) {
-				try {
-					processQueryRestaurant(request, response);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (request.getParameter("region_name") != null) {
+//			if (request.getParameter("restaurant_name") != null) {
+//				try {
+//					processQueryRestaurant(request, response);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			} 
+			if (request.getParameter("region_name") != null) {
 				try {
 					processQueryRegion(request, response);
 				} catch (Exception e) {
@@ -65,8 +68,23 @@ public class RestaurantServlet extends HttpServlet {
 		String region = request.getParameter("region_name").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		List<RestaurantBean> res_data_region = restaurantDAO.findRegion(region);
-		request.setAttribute("res_data_region", res_data_region);
-		request.getRequestDispatcher("iring29/Region_Restaurant.jsp").forward(request, response);
+		request.setAttribute("res_data_region", res_data_region );
+//		List<String> name = new ArrayList<>();
+//		List<BigDecimal> rating = new ArrayList<>();
+//		List<String> type = new ArrayList<>();
+//		for(RestaurantBean res :res_data_region ) {
+//			String res_name = res.getName();
+//			BigDecimal res_rating = res.getRating();
+//			String res_type = res.getType();
+//			name.add(res_name);
+//			rating.add(res_rating);
+//			type.add(res_type);
+//		}
+//		
+//		request.setAttribute("res_name", name);
+//		request.setAttribute("res_rating", rating);
+//		request.setAttribute("res_type", type);
+		request.getRequestDispatcher("/iring29/Region_Restaurant.jsp").forward(request, response);
 	}
 
 
