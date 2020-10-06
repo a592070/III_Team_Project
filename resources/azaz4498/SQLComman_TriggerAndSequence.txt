@@ -1,0 +1,36 @@
+﻿//文章id觸發
+
+create or replace trigger ART_ID_TRIGGER  
+   before insert on "III_TEAM_DBA"."F_ARTICLE" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."ART_ID" is null then 
+         select ARTID_SEQUENCE.nextval into :NEW."ART_ID" from dual; 
+      end if; 
+   end if; 
+end;
+
+//文章序列
+
+CREATE SEQUENCE  "III_TEAM_DBA"."ARTID_SEQUENCE"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 21 CACHE 20 ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+
+//評論id觸發
+
+create or replace trigger COMMENT_TRIGGER  
+   before insert on "III_TEAM_DBA"."F_COMMENT" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."COM_ID" is null then 
+         select COMID_SEQUENCE.nextval into :NEW."COM_ID" from dual; 
+      end if; 
+   end if; 
+end;
+
+
+//評論序列
+
+ CREATE SEQUENCE  "III_TEAM_DBA"."COMID_SEQUENCE"  MINVALUE 1 MAXVALUE 10000 INCREMENT BY 1 START WITH 21 CACHE 20 ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+
+
