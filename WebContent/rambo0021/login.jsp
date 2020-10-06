@@ -8,6 +8,13 @@
 </head>
 <body>
 <img src="<%=application.getContextPath()%>/Homepage" method="get"/>
+ <FORM ACTION="LoginServlet">
+  帳號:  <INPUT TYPE="TEXT" NAME="userName"><BR>
+  密碼: <INPUT TYPE="PASSWORD" NAME="password"><BR>
+  <CENTER>
+    <INPUT TYPE="SUBMIT">
+  </CENTER>
+  </FORM>
 <
 </body>
 </html>
