@@ -1,37 +1,44 @@
-create table hotel
+ï»¿create table hotel
 (
-	hotel_id varchar2(255) not null /*¶º©±½s¸¹*/
+	SN number generated as identity /*é£¯åº—ç·¨è™Ÿ*/
 		constraint hotel_PK
 			primary key,
-	name varchar2(255), /*¶º©±¦WºÙ*/
-    region varchar2(255) /*©Ò¦b¦a°Ï*/
+	name varchar2(255), /*é£¯åº—åç¨±*/
+    region varchar2(255) /*æ‰€åœ¨åœ°å€*/
          constraint HOTEL_REGION_REGION_ID_FK
 			references REGION,
-    address varchar2(255),/*¶º©±¦a§}*/
-    tel varchar2(255),/*¹q¸Ü*/
-    room_type varchar2(255),/*©Ğ«¬*/
-	description NVARCHAR2(2000),/*¶º©±Â²¤¶*/
-	opentime varchar2(1024),/*Àç·~®É¶¡*/
-	type varchar2(255),/*¶º©±Ãş«¬*/
-	rating number(2,1)/*¶º©±µû¤À*/
+    address varchar2(255),/*é£¯åº—åœ°å€*/
+    tel varchar2(255),/*é›»è©±*/
+    double_room number(*),/*é›™äººæˆ¿*/
+    quadruple_room number(*),/*å››äººæˆ¿*/
+	description NVARCHAR2(2000),/*é£¯åº—ç°¡ä»‹*/
+	opentime varchar2(1024),/*ç‡Ÿæ¥­æ™‚é–“*/
+	type varchar2(255),/*é£¯åº—é¡å‹*/
+	rating number(2,1),/*é£¯åº—è©•åˆ†*/
+    account varchar(255) /*é£¯åº—æ¥­è€…*/
 )
 
-create table hotel_order
+create table H_ORDER_LIST
 (
-	order_id varchar2(255) not null /*­q³æ½s¸¹*/
-        constraint HOTEL_ORDER_PK
+	SN_ORDER number generated as identity /*å°è¨‚å–®ç·¨è™Ÿ*/
+        constraint H_ORDER_LIST_PK
             primary key,
-    order_hotel_id varchar2(255) /*¹w­q¶º©±½s¸¹*/
-        constraint HOTEL_ORDER_HOTEL_HOTEL_ID_FK
+    order_id number(*) /*å¤§è¨‚å–®ç·¨è™Ÿ*/
+        constraint H_ORDER_LIST_ORDER_TABLE_ORDER_ID_FK
+			references ORDER_TABLE,
+    order_hotel_id number(*) /*é è¨‚é£¯åº—ç·¨è™Ÿ*/
+        constraint H_ORDER_LIST_HOTEL_SN_FK
 			references HOTEL,
-    order_hotel_name varchar2(255) /*¹w­q¶º©±¦WºÙ*/
-        constraint HOTEL_ORDER_HOTEL_NAME_FK
+    order_hotel_name varchar2(255), /*é è¨‚é£¯åº—åç¨±*/
+    client_name varchar2(255), /*å®¢æˆ¶åç¨±*/
+    client_phone varchar2(255), /*å®¢æˆ¶é›»è©±*/
+    double_room number(*) /*é›™äººæˆ¿*/
+     constraint H_ORDER_LIST_HOTEL_double_room_FK
 			references HOTEL,
-    client_name varchar2(255), /*«È¤á¦WºÙ*/
-    client_phone varchar2(255), /*«È¤á¹q¸Ü*/
-    room_type varchar2(255) /*©Ğ«¬*/
-        constraint HOTEL_ORDER_HOTEL_ROOM_TYPE_FK
-			references HOTEL,
-    check_in date, /*¤J¦í¤é´Á*/
-    check_out date /*°h©Ğ¤é´Á*/
+    quadruple_room number(*) /*å››äººæˆ¿*/
+        constraint H_ORDER_LIST_HOTEL_quadruple_room_FK
+			references HOTEL,      
+    check_in date, /*å…¥ä½æ—¥æœŸ*/
+    check_out date, /*é€€æˆ¿æ—¥æœŸ*/
+    H_PRICE number(*) /*åƒ¹æ ¼çµç®—*/
 )
