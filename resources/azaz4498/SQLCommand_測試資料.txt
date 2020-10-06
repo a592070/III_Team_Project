@@ -1,0 +1,18 @@
+﻿
+//評論TABLE測試資料
+Insert into III_TEAM_DBA.F_COMMENT (COM_CONTENT,COM_ART_ID,COM_USER_ID,COM_DATE,COM_PIC) values ('謝謝分享太棒了呢','1','zxc4498',to_date('28-9月 -20','DD-MON-RR'),null);
+Insert into III_TEAM_DBA.F_COMMENT (COM_CONTENT,COM_ART_ID,COM_USER_ID,COM_DATE,COM_PIC) values ('很棒的文章','1','abc123',to_date('05-10月-20','DD-MON-RR'),null);
+Insert into III_TEAM_DBA.F_COMMENT (COM_CONTENT,COM_ART_ID,COM_USER_ID,COM_DATE,COM_PIC) values ('假日有空也要去','2','love123',to_date('05-10月-20','DD-MON-RR'),null);
+Insert into III_TEAM_DBA.F_COMMENT (COM_CONTENT,COM_ART_ID,COM_USER_ID,COM_DATE,COM_PIC) values ('讚啦!!','2','ccc123',to_date('05-10月-20','DD-MON-RR'),null);
+
+
+//文章table測試資料
+INSERT INTO "III_TEAM_DBA"."F_ARTICLE" (ART_CONTENT, ART_CRE_TIME, ART_USERID, ART_COMM_NUM, ART_VIEW, ART_TYPE_ID, ART_TITLE) VALUES ('今年的家庭旅遊因買了花蓮煙波的住宿券，決定就來去花蓮遊玩囉~有鑒於蘇花公路山路路程長而難走，想到就卻步，所以之前只有跟公司員工旅遊坐火車去了幾次花東，花蓮的好山好水一直是台灣著名的景點之一，也吸引許多觀光客前往，喜歡大自然的我們這次要來好好感受一下花蓮的美麗景緻！為了不讓旅程都浪費在開車上，本次旅遊安排四天三夜，也跟大家分享我們的行程規劃~', TO_DATE('2020-10-06 20:40:10', 'YYYY-MM-DD HH24:MI:SS'), 'azaz4498', '2', '2', '1', '花東四天三夜家庭旅行')
+INSERT INTO "III_TEAM_DBA"."F_ARTICLE" (ART_CONTENT, ART_CRE_TIME, ART_USERID, ART_COMM_NUM, ART_VIEW, ART_ID, ART_TITLE) VALUES ('龜吼漁港和象鼻岩十分類似，不僅有一片帶狀的螃蟹主題公園可看海景，還有許多海產店。', TO_DATE('2020-10-05 20:40:55', 'YYYY-MM-DD HH24:MI:SS'), 'abc123', '2', '2', '3', '東北角吃海鮮、看海景好去處，推薦小漁村海產店')
+
+//文章類型table測試資料
+
+Insert into III_TEAM_DBA.F_ART_TYPE (TYPE_ID,TYPE_NAME) values (1,'旅遊');
+Insert into III_TEAM_DBA.F_ART_TYPE (TYPE_ID,TYPE_NAME) values (2,'住宿');
+Insert into III_TEAM_DBA.F_ART_TYPE (TYPE_ID,TYPE_NAME) values (3,'美食');
+Insert into III_TEAM_DBA.F_ART_TYPE (TYPE_ID,TYPE_NAME) values (4,'景點');
