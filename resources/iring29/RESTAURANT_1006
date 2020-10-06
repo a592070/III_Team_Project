@@ -1,0 +1,103 @@
+--------------------------------------------------------
+--  已建立檔案 - 星期二-十月-06-2020   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table RESTAURANT
+--------------------------------------------------------
+
+  CREATE TABLE "III_TEAM_DBA"."RESTAURANT" 
+   (	"R_SN" VARCHAR2(255 BYTE), 
+	"NAME" VARCHAR2(255 BYTE), 
+	"ADDRESS" VARCHAR2(255 BYTE), 
+	"OPENTIME" VARCHAR2(255 BYTE), 
+	"DESCRIPTION" VARCHAR2(1024 BYTE), 
+	"TRANSPORTATION" VARCHAR2(1024 BYTE), 
+	"TYPE" VARCHAR2(255 BYTE), 
+	"RATING" NUMBER(10,7), 
+	"REGION" VARCHAR2(255 BYTE), 
+	"PICTURE" VARCHAR2(255 BYTE), 
+	"SERVICEINFO" VARCHAR2(1024 BYTE), 
+	"BOOKING_ID" VARCHAR2(255 BYTE), 
+	"ACCOUNT" VARCHAR2(255 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+REM INSERTING into III_TEAM_DBA.RESTAURANT
+SET DEFINE OFF;
+Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) values ('24','冒煙的喬美式墨西哥餐廳(墾丁大灣店)','屏東縣恆春鎮大灣路188號','[全天開放]
+ 週一 - 週日 11:00-22:00','提供優質點心、下酒菜, Wi-Fi, 無障礙空間, 信用卡, 提供酒精飲料','可搭乘屏東客運、墾丁列車於【墾丁大街站】下車，步行約5分鐘即可到墾丁大灣店。','西式料理, 美式料理, 墨西哥料理',3.6,'屏東','https://dgo9uctxwg500.cloudfront.net/images/1200x1200/R13954_EZTABLE_0930_1_e1995d9363.png','浪漫約會, 商業聚餐, 家庭聚餐, 團體聚餐, 朋友聚餐, 生日慶祝',null,null);
+Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) values ('25','初原壽司(苗栗馥藝金鬱金香酒店)','苗栗縣竹南鎮公園六街6號','[全天開放]
+ 週二 - 週日 11:40-14:00
+ 週二 - 週日 17:40-21:00','提供兒童座椅, 適合青少年, 提供素食選項, 適合肉食愛好者','竹南火車站東出口搭乘大眾運輸工具至公園六街或租用youbike騎至公園路即可','日式料理, 拉麵, 單點式, 串燒, 豬排',4.2,'苗栗','https://dgo9uctxwg500.cloudfront.net/images/1200x1200/R14707_EZTABLE_0815_2_3e7ecd6467.png','浪漫約會, 商業聚餐, 家庭聚餐, 團體聚餐, 朋友聚餐, 生日慶祝',null,null);
+Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) values ('28','趣吧(苗栗馥藝金鬱金香酒店)','苗栗縣竹南鎮公園路106號','[早餐]
+ 週一 - 週五 06:30-09:30
+[早午餐]
+ 週六 - 週日 06:30-13:00','挑高的室內空間與窗外光線結合，襯托出高雅舒適的用餐環境。服務人員親切貼心又專業的服務，創造愉快悠閒的用餐氣氛，是苗栗鄉親餐敘的絕佳選擇。','飯店提供地下室停車場於B1、B2。飯店位置周邊皆可路邊停車，非常便利。
+第二高速公路由北往南，請於香山交流道下，直行第二個路口左轉經台13甲線往竹南方向接永貞路，左轉公園路，車程約需10分鐘。','西式料理, 多國料理, 自助餐',3.9,'苗栗','https://dgo9uctxwg500.cloudfront.net/images/1200x1200/R14494_EZTABLE_0509_1_5e50d7d89c.png','浪漫約會, 商業聚餐, 家庭聚餐, 團體聚餐, 朋友聚餐, 生日慶祝',null,null);
+Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) values ('22','帕莎蒂娜法式餐廳','高雄市三民區河堤路298號','[午餐]
+ 週二 - 週日 11:30-14:00
+[晚餐]
+ 週二 - 週日 18:00-22:30','代客泊車, 生日特別招待, 適合商務談話, 信用卡, 提供私人包廂, Wi-Fi, 提供優質甜點','愛河、河堤路畔，明誠二路與明哲路中間，長谷國家公園音樂廳大樓旁。','西式料理, 法國料理',4.2,'高雄','https://dgo9uctxwg500.cloudfront.net/images/1200x1200/1_54cc38c5bd.png','浪漫約會, 家庭聚餐, 團體聚餐, 朋友聚餐',null,null);
+--------------------------------------------------------
+--  DDL for Index RESTAURANT_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "III_TEAM_DBA"."RESTAURANT_PK" ON "III_TEAM_DBA"."RESTAURANT" ("R_SN") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger RESTAURANT_TRG1
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "III_TEAM_DBA"."RESTAURANT_TRG1" 
+BEFORE INSERT ON RESTAURANT 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    NULL;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "III_TEAM_DBA"."RESTAURANT_TRG1" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger RESTAURANT_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "III_TEAM_DBA"."RESTAURANT_TRG" 
+BEFORE INSERT ON RESTAURANT 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.R_SN IS NULL THEN
+      SELECT RESTAURANT_SEQ1.NEXTVAL INTO :NEW.R_SN FROM SYS.DUAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "III_TEAM_DBA"."RESTAURANT_TRG" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table RESTAURANT
+--------------------------------------------------------
+
+  ALTER TABLE "III_TEAM_DBA"."RESTAURANT" MODIFY ("R_SN" NOT NULL ENABLE);
+  ALTER TABLE "III_TEAM_DBA"."RESTAURANT" ADD CONSTRAINT "RESTAURANT_PK" PRIMARY KEY ("R_SN")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table RESTAURANT
+--------------------------------------------------------
+
+  ALTER TABLE "III_TEAM_DBA"."RESTAURANT" ADD CONSTRAINT "RESTAURANT_FK1" FOREIGN KEY ("ACCOUNT")
+	  REFERENCES "III_TEAM_DBA"."ACCOUNT" ("USERNAME") ENABLE;

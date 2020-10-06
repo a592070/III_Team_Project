@@ -37,7 +37,14 @@
             cursor: pointer;
             padding:25px;
         }
-
+        .sp_search{
+            /* border: 1px solid black; */
+            width: 100px;
+            float: left;
+            padding-top:10px;
+            margin-left: 50px;
+            text-align: right;
+        }
         input {
             width: 250px;
             line-height: 35px;
@@ -46,15 +53,6 @@
         button {
             padding: 5px;
             margin-left: 10px;
-        }
-        label {
-            
-            width: 100px;
-            /* float: left; */
-            text-align: right;
-        }
-        input {
-            width: 300px;
         }
 
         .div1 {
@@ -78,11 +76,12 @@
             height: 50px;
         }
         h4 {
-            padding: 10px;
+            padding-left: 30px;
+            padding-top: 15px;
             margin-bottom: 15px;
         }
 
-        span {
+        .sp_result {
             padding: 30px;
         }
 
@@ -97,15 +96,15 @@
     <div class="div_box">
         <div class="div_search">
             <div class="search">
-                <label for="">餐廳地區搜尋</label>  
+                <span class="sp_search">餐廳地區搜尋</span>
                 <input type="text" placeholder="請輸入關鍵字">
             </div>
             <div class="search">
-               <label for="">餐廳名稱搜尋 </label> 
+                <span class="sp_search">餐廳名稱搜尋</span>
                <input type="text" placeholder="請輸入關鍵字">
             </div>
             <div class="search_date">
-               <label for="">日期</label>  
+                <span class="sp_search">日期</span>
                <input type="date">
             </div>
             <div class="search">
@@ -125,8 +124,9 @@
     <div class="div1">
         <div class="div2">
             <h4>name</h4>
-            <span>regin</span>
-            <span>type</span>
+            <span class="sp_result">regin</span>
+            <span class="sp_result">type</span>
+            <span class="sp_result">rating</span>
         </div>
         <button class="go"><a href="">Go</a></button>
     </div>

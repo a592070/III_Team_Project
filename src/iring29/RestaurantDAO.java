@@ -48,13 +48,12 @@ public class RestaurantDAO {
 			String type = rs.getString("TYPE");
 			BigDecimal rating = rs.getBigDecimal("RATING");
 			String region = rs.getString("REGION");
-			String tel= rs.getString("TEL");
 			String picture = rs.getString("PICTURE");
 			String serviceinfo = rs.getString("SERVICEINFO");
 			String booking_id = rs.getString("BOOKING_ID");
 			
 			restaurantdata = new RestaurantBean(name, address, opentime, description, transportation,
-					type, rating, region, tel, picture, serviceinfo,booking_id);
+					type, rating, region, picture, serviceinfo,booking_id);
 		}
 		rs.close();
 		pstmt.close();
