@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="orderHSRticket">
+        車次號:<input type="text" id="idHSR">
+        <br>
+        <label for="startPoint" class="trainShow">起始站:</label>
+        <select name="startPoint" id="startPoint" class="trainShow">
+            <option value="nangang" selected>南港站</option>
+            <option value="taipei">台北站</option>
+            <option value="banqiao">板橋站</option>
+            <option value="taoyuan">桃園站</option>
+            <option value="hsinchu">新竹站</option>
+            <option value="miaoli">苗栗站</option>
+            <option value="taichung">台中站</option>
+            <option value="changhua">彰化站</option>
+            <option value="yunlin">雲林站</option>
+            <option value="chiayi">嘉義站</option>
+            <option value="tainan">台南站</option>
+            <option value="zuoying">左營站</option>
+        </select>
+        <label for="destination" class="trainShow">終點站:</label>
+        <select name="destination" id="destination" class="trainShow">
+            <option value="nangang">南港站</option>
+            <option value="taipei">台北站</option>
+            <option value="banqiao">板橋站</option>
+            <option value="taoyuan">桃園站</option>
+            <option value="hsinchu">新竹站</option>
+            <option value="miaoli">苗栗站</option>
+            <option value="taichung">台中站</option>
+            <option value="changhua">彰化站</option>
+            <option value="yunlin">雲林站</option>
+            <option value="chiayi">嘉義站</option>
+            <option value="tainan">台南站</option>
+            <option value="zuoying" selected>左營站</option>
+        </select>
+        <label for="ticketNum" class="trainShow">購票張數:</label>
+        <select name="ticketNum" id="ticketNum" class="trainShow">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <br>
+        <label for="departureDate" class="trainShow">出發日期:</label>
+        <input type="date" id="departureDate" name="departureDate" min="2020-04-01" max="2020-04-30" class="trainShow">
+
+        <input type="button" id="trainSubmit" value="更改查詢">
+    </form>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script>
+        let infoHSR = Cookies.get("HSR");
+        infoHSR = infoHSR.split(",");
+        
+        $(document).ready(function(){
+            $("#idHSR").val(infoHSR[0]);
+            $("#startPoint").val(infoHSR[1]);
+            $("#destination").val(infoHSR[2]);
+
+
+
+            $('#idHSR').on('change', function() {
+                $.ajax({
+
+                     type:"POST",                    //指定http參數傳輸格式為POST
+
+                     url: "HsrServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+
+                     data: $("#formId").serialize(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+
+                                                     //內含有name的物件value
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     //Ajax成功後執行的function，response為回傳的值
+
+                     //此範列回傳的JSON Object的內容格式如右所示: {userName:XXX,uswerInterest:[y1,y2,y3,...]}
+
+                     success : function(response){
+                         console.log("123123")
+
+                         //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
+                        // console.log(response.length);
+                        //console.log($("#startPoint").val())
+                        // console.log(response[0].length);
+                        // let tableData = "<thead><tr><th>列車號</th><th>出發時間</th><th>抵達時間</th><th>票價</th><th>訂票</th></tr></thead>";
+                        // for(let i = 0; i < response[0].length; i++){
+                        //     tableData += "<tr>";
+                        //     tableData += "<td>" + response[0][i]["idHSR"] + "</td>" + "<td>" + response[0][i][startPoint] + "</td>" + "<td>" + response[0][i][destination] + "</td>" + "<td>" + response[1]["price"] + "</td>" + "<td>" + '<input type="button" class="orderTicket" value="點我訂票">' + "</td>";
+                        //     tableData += "</tr>";
+                        // }
+                        // //console.log(tableData);
+                        // $("#ajaxTable").html(tableData);
+                        
+                        // var table = document.getElementById('ajaxTable');
+                        // console.log(table.rows[0].cells[0].innerHTML);
+
+
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+            });
+
+        })
+
+    </script>
+</body>
+</html>
