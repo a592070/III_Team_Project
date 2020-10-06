@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.IOUtils;
+
 
 /**
  * Servlet implementation class registerServlet
@@ -57,7 +59,9 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email").trim();
 		account.setEmail(email);
 		InputStream pictrure = request.getPart("picture").getInputStream();
-		account.setPicture(pictrure);
+		// TODO
+		account.setPicture(null);
+		
 		Date date = new Date();
 		account.setModify_Date(date);
 		account.setRegister(date);

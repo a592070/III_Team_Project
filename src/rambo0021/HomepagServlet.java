@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HomepagServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String homepage="/rambo0021/homePage.jsp";  
-	OutputStream os = null;
-	InputStream is = null;
-	String fileName = null;
-	String mimeType = null;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -36,7 +33,13 @@ public class HomepagServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
+		OutputStream os = null;
+		InputStream is = null;
+		String fileName = null;
+		String mimeType = null;
+		
+		
+		
 		HomePageDAO homePageDAO = new HomePageDAO();
 		AccountBean account = new AccountBean();
 		request.setCharacterEncoding("UTF-8");
@@ -45,12 +48,13 @@ public class HomepagServlet extends HttpServlet {
 		String username = request.getParameter("userName"); 
 		account.setUserName(username);
 		homePageDAO.selectUserData(account);
-		is=account.getPicture();
-	
-	
-
-
-        
+		try {
+			is=account.getPicture().getBinaryStream();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 
 		// 由圖片檔的檔名來得到檔案的MIME型態
 		mimeType = getServletContext().getMimeType(fileName);
 		// 設定輸出資料的MIME型態
@@ -63,13 +67,11 @@ public class HomepagServlet extends HttpServlet {
 		while ((len = is.read(bytes)) != -1) {
 			os.write(bytes, 0, len);
 		}
-		request.setAttribute("account",account);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-		dispatcher.forward(request, response);
-	} catch(Exception ex) {
-		ex.printStackTrace();
-		throw new RuntimeException("_00_init.util.RetrieveImageServlet#doGet()發生SQLException: " + ex.getMessage());
-	} finally{
+		request.getSession().setAttribute("account",account);
+//		request.setAttribute("account",account);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
+//		dispatcher.forward(request, response);
+	
 		if (is != null) 
 			is.close();
 		if (os != null) 
@@ -80,14 +82,14 @@ public class HomepagServlet extends HttpServlet {
 	
 
 
-}
+
 
 /**
  * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
  */
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	// TODO Auto-generated method stub
-	doGet(request, response);
+//	doGet(request, response);
 
 }
 

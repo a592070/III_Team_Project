@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import com.sun.org.apache.regexp.internal.recompile;
 
 import controller.ConnectionPool;
+import sun.nio.cs.ext.ISCII91;
 
 public class HomePageDAO {
 	public void selectUserData(AccountBean account) {
@@ -39,16 +40,19 @@ public class HomePageDAO {
 			account.setModify_Date(modify_date);
 			Date register = rs.getDate("register");
 			account.setRegister(register);
-			Blob blob = rs.getBlob("picture");
-			InputStream picture=  blob.getBinaryStream();
-			account.setPicture(picture);
+			InputStream is = rs.getBlob("picture").getBinaryStream();
+//			InputStream picture=  blob.getBinaryStream();
+			account.setPicture(is);
 //			FileOutputStream fileOutputStream = new FileOutputStream(path+"/"+username+".png");
 //			fileOutputStream.write(blob.getBytes(1, (int)blob.length()));
 //			fileOutputStream.flush();
 //			fileOutputStream.close();
+			is.close();
 			}
 			prepareStatement.clearParameters();
 			prepareStatement.close();
+			connection.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

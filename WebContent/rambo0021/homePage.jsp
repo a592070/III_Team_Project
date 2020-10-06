@@ -2,15 +2,15 @@
 <%@page import="rambo0021.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>個人頁面</title>
-<% %>
+<% out.clear();%>
 </head>
 <body>
 	<table border="1">
@@ -20,7 +20,8 @@
 			</td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out  value="照片:${account.picture}"/></td>
+			<td> <img height='40px' width='30px'
+	src='${pageContext.request.contextPath}/Homepage=${account.userName}'></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
 			<td><c:out  value="帳號:${account.userName}"/></td>

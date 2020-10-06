@@ -2,6 +2,7 @@ package rambo0021;
 
 import java.io.File;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,7 +14,7 @@ public class AccountBean {
 	private String password;
 	private int identity;
 	private String email;
-	private InputStream picture;
+	private Blob picture;
 	private Date modify_Date;
 	private String nickName;
 	private Date register;
@@ -24,33 +25,6 @@ public class AccountBean {
 		
 	}
 	
-	
-	public AccountBean(String username, String password, int identity, String email, InputStream picture, Date modify_Date,
-			String nickname, Date register, String favorite, String attractions_Id) {
-		super();
-		this.userName = username;
-		this.password = password;
-		this.identity = identity;
-		this.email = email;
-		this.picture = picture;
-		this.modify_Date = modify_Date;
-		this.nickName = nickname;
-		this.register = register;
-		this.favorite = favorite;
-		this.attractions_Id = attractions_Id;
-	}
-	
-	
-
-
-	@Override
-	public String toString() {
-		return "AccountDO [username=" + userName + ", password=" + password + ", identity=" + identity + ", email="
-				+ email + ", picture=" + picture + ", modify_Date=" + modify_Date + ", nickname=" + nickName
-				+ ", register=" + register + ", favorite=" + favorite + ", attractions_Id=" + attractions_Id
-				+"]";
-	}
-
 
 	public String getUserName() {
 		return userName;
@@ -92,14 +66,6 @@ public class AccountBean {
 	}
 
 
-	public InputStream getPicture() {
-		return picture;
-	}
-
-
-	public void setPicture(InputStream picture) {
-		this.picture = picture;
-	}
 
 
 //	public Date getModify_Date() {
@@ -161,6 +127,33 @@ public class AccountBean {
 
 	public void setAttractions_Id(String attractions_Id) {
 		this.attractions_Id = attractions_Id;
+	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "AccountBean [userName=" + userName + ", password=" + password + ", identity=" + identity + ", email="
+				+ email + ", modify_Date=" + modify_Date + ", nickName=" + nickName + ", register=" + register
+				+ ", favorite=" + favorite + ", attractions_Id=" + attractions_Id + "]";
+	}
+
+
+
+
+
+	public Blob getPicture() {
+		return picture;
+	}
+
+
+
+
+
+	public void setPicture(Blob picture) {
+		this.picture =  picture;
 	}
 	
 }
