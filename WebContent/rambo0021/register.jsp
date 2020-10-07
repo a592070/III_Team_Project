@@ -35,6 +35,7 @@
 </head>
 
 <body>
+<jsp:include page="/rambo0021/top.jsp" />
     <div>
         <form ACTION="<%=pageContext.getServletContext().getContextPath()%>/registerServlet"
             enctype="multipart/form-data" method="post">

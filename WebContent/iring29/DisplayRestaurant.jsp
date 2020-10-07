@@ -107,7 +107,6 @@
             text-align: center;
             cursor: pointer;
             width: 400px;
-            margin: auto;
         }
 
         h3 {
@@ -131,8 +130,11 @@
                 <h3>${res_data.name}</h3>
                     <h4 class="rating">Rating</h4>
                     <span class="sp_rating">${res_data.rating}</span>
-               
-                <div class="book-btn">Booking</div>
+               <FORM  action="<c:url value='BookRestaurantServlet' />" method="POST">
+               	<Input class="book-btn" type='submit' value='Booking'>
+          <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
+          		<Input type='hidden' name='res_name' value='${res_data.name}'>
+                </FORM>
             </div>
             <div>
                 <h4 class="res_data">餐廳地點</h4>

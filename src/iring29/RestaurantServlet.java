@@ -37,14 +37,14 @@ public class RestaurantServlet extends HttpServlet {
 		response.setContentType(CONTENT_TYPE);
 
 		if (request.getParameter("QUERY") != null) {
-//			if (request.getParameter("restaurant_name") != null) {
-//				try {
-//					processQueryRestaurant(request, response);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			} 
-			if (request.getParameter("region_name") != null) {
+			if (request.getParameter("restaurant_name") != "") {
+				try {
+					processQueryRestaurant(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} 
+			else if (request.getParameter("region_name") != null) {
 				try {
 					processQueryRegion(request, response);
 				} catch (Exception e) {
@@ -57,9 +57,14 @@ public class RestaurantServlet extends HttpServlet {
 	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, SQLException {
 		String name = request.getParameter("restaurant_name").trim();
+		String book_date = request.getParameter("date").trim();
+		String person_numer = request.getParameter("person_numer").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		RestaurantBean res_data = restaurantDAO.findRestaurant(name);
 		request.getSession().setAttribute("res_data", res_data);
+		request.getSession().setAttribute("book_date", book_date);
+		System.out.println(book_date);
+		request.getSession().setAttribute("person_numer", person_numer);
 		request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
 	}
 
