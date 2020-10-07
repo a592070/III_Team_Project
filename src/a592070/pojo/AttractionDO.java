@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @JsonDeserialize(using = AttractionJsonDeserializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttractionDO {
-    private String id;
+    private int id;
     private String name;
     private String toldescribe;
     private String description;
@@ -50,11 +50,11 @@ public class AttractionDO {
                 '}';
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

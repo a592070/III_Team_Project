@@ -29,7 +29,7 @@ public class AttractionDAO {
             rs = ConnectionPool.execute(conn, predStmt, rs, sql, params);
             if (rs.next()) {
                 attractionDO = new AttractionDO();
-                attractionDO.setId(rs.getString("id"));
+                attractionDO.setId(rs.getInt("a_sn"));
                 attractionDO.setName(rs.getString("name"));
                 attractionDO.setToldescribe(rs.getNString("toldescribe"));
                 attractionDO.setDescription(rs.getNString("description"));
@@ -63,7 +63,7 @@ public class AttractionDAO {
             AttractionDO attractionDO = null;
             while (rs.next()) {
                 attractionDO = new AttractionDO();
-                attractionDO.setId(rs.getString("id"));
+                attractionDO.setId(rs.getInt("a_sn"));
                 attractionDO.setName(rs.getString("name"));
                 attractionDO.setToldescribe(rs.getNString("toldescribe"));
                 attractionDO.setDescription(rs.getNString("description"));
@@ -99,7 +99,7 @@ public class AttractionDAO {
             AttractionDO attractionDO = null;
             while (rs.next()) {
                 attractionDO = new AttractionDO();
-                attractionDO.setId(rs.getString("id"));
+                attractionDO.setId(rs.getInt("a_sn"));
                 attractionDO.setName(rs.getString("name"));
                 attractionDO.setToldescribe(rs.getNString("toldescribe"));
                 attractionDO.setDescription(rs.getNString("description"));

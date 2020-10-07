@@ -13,22 +13,22 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import controller.ConnectionPool;
 
 public class HotelDAO {
-	
+
 	private DataSource dataSource;
-	
+
 	public DataSource getDataSource() throws IOException, SQLException {
 		DataSource ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITHOUT_SERVER);
-			Connection conn = ds.getConnection();
-			return ds;
+		Connection conn = ds.getConnection();
+		return ds;
 	}
-	
+
 	public List<HotelDO> listHotelDO() throws IOException {
-		
+
 		List<HotelDO> midlist = new ArrayList<>();
 		try (Connection connection = getDataSource().getConnection();
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from HOTEL");) {
-			
+			 Statement stmt = connection.createStatement();
+			 ResultSet rs = stmt.executeQuery("select * from HOTEL");) {
+
 			while (rs.next()) {
 				//把每一筆資料轉成TABLE1物件
 				HotelDO hoteldo = new HotelDO();
@@ -67,34 +67,37 @@ public class HotelDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return midlist;		
+		return midlist;
 	}
-public void NAME(String[] args) {
-		
+
+	//TODO
+	public void NAME(String[] args) {
+
 		try (Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xepdb1", "Tpoic1",
 				"Topic1");) {
-		
-			
+
+
 			PreparedStatement pstmt = connection.prepareStatement("select * from HOTEL where HOTEL_ID=?");
-        	pstmt.setString(1, i);
-        	int result = pstmt.executeUpdate();
-        	if (result>0) {				
-        		ResultSet rs = pstmt.executeQuery();
-        		if(rs.next()) {
-        			System.out.println("代碼: "+rs.getInt("UNO")+"\n"
-        					+"校名: "+rs.getString("UNAME")+"\n"
-        					+"公/私立: "+rs.getString("PUB_PRI")+"\n"
-        					+"縣市: "+rs.getString("COUNTIES")+"\n"
-        					+"地址: "+rs.getString("ADDRESS")+"\n"
-        					+"電話: "+rs.getString("PHONE")+"\n"
-        					+"網站: "+rs.getString("WEB")+"\n"
-        					+"體系別: "+rs.getString("SYSTEM"));
-        		}
-			}else {
+			pstmt.setString(1, "");
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					System.out.println("代碼: " + rs.getInt("UNO") + "\n"
+							+ "校名: " + rs.getString("UNAME") + "\n"
+							+ "公/私立: " + rs.getString("PUB_PRI") + "\n"
+							+ "縣市: " + rs.getString("COUNTIES") + "\n"
+							+ "地址: " + rs.getString("ADDRESS") + "\n"
+							+ "電話: " + rs.getString("PHONE") + "\n"
+							+ "網站: " + rs.getString("WEB") + "\n"
+							+ "體系別: " + rs.getString("SYSTEM"));
+				}
+			} else {
 				System.out.println("查無此學校!");
 			}
-        } catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 }
