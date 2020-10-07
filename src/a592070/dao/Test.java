@@ -1,6 +1,8 @@
 package a592070.dao;
 
 import a592070.pojo.AttractionDO;
+import a592070.pojo.TravelEleRestaurantDO;
+import a592070.pojo.TravelSetDO;
 import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 import utils.IOUtils;
@@ -42,5 +44,18 @@ public class Test {
         OutputStream out = new FileOutputStream(dest);
         out.write(files);
         out.close();
+    }
+
+    @org.junit.Test
+    public void travelSetDAOTest() throws IOException, SQLException {
+        TravelSetDAO travelSetDAO = new TravelSetDAO();
+//        List<TravelSetDO> list = travelSetDAO.listTravelSet();
+//        for (TravelSetDO travelSetDO : list) {
+//            System.out.println(travelSetDO.getListTravelHotel());
+//        }
+//        System.out.println(list);
+
+        List<TravelEleRestaurantDO> rSet = travelSetDAO.getRestaurantSetByID(1);
+        System.out.println(rSet);
     }
 }

@@ -61,4 +61,16 @@ public class TravelSetDO {
     public void setListTravelAttraction(List<TravelEleAttractionDO> listTravelAttraction) {
         this.listTravelAttraction = listTravelAttraction;
     }
+
+    @Override
+    public String toString() {
+        return "TravelSetDO{" +
+                "sn=" + sn +
+                ", createdUser='" + createdUser + '\'' +
+                ", listTravelCar=" + listTravelCar +
+                ", listTravelHotel=" + listTravelHotel +
+                ", listTravelRestaurant=" + listTravelRestaurant +
+                ", listTravelAttraction=" + listTravelAttraction +
+                '}';
+    }
 }

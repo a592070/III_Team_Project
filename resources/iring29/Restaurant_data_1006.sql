@@ -1,8 +1,7 @@
 --------------------------------------------------------
 --  已建立檔案 - 星期二-十月-06-2020   
 --------------------------------------------------------
-REM INSERTING into III_TEAM_DBA.RESTAURANT
-SET DEFINE OFF;
+
 Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) values ('92','小蒙牛頂級麻辣養生鍋 - 台南店','台南市安平區永華路二段349號','[午餐]
  週一 - 週日 11:30-14:30
 [晚餐]
@@ -431,3 +430,4 @@ Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRAN
  週一 - 週日 11:30-14:30
 [晚餐]
  週一 - 週日 18:00-22:00','提供私人包廂, 有免費停車場, 吸菸區, Wi-Fi, 信用卡','*搭乘十號公車，於中華西路二段下車，往和緯路五段步行，位於和緯路五段與湖美二街交叉口','西式料理, 法國料理',4,'台南','https://dgo9uctxwg500.cloudfront.net/images/1200x1200/R13890_EZTABLE_0525_4_db6b036987.png','浪漫約會, 商業聚餐, 家庭聚餐, 團體聚餐, 朋友聚餐, 生日慶祝',null,null);
+commit;

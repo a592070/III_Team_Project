@@ -1,11 +1,10 @@
 package a592070.pojo;
 
-import java.math.BigDecimal;
 
 public class CarVO {
     private int sn;
     private String carType;
-    private BigDecimal price;
+    private int price;
     private String company;
 
     public CarVO() {
@@ -27,11 +26,11 @@ public class CarVO {
         this.carType = carType;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -41,5 +40,15 @@ public class CarVO {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    @Override
+    public String toString() {
+        return "CarVO{" +
+                "sn=" + sn +
+                ", carType='" + carType + '\'' +
+                ", price=" + price +
+                ", company='" + company + '\'' +
+                '}';
     }
 }
