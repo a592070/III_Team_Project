@@ -78,29 +78,29 @@ public class hsrDAO {
 	
 	public int location2num(String location) {
 		int snNumLocation = 0;
-		if(location.equals("Nangang")) {
+		if(location.equals("Nangang") || location.equals("nangang")) {
 			snNumLocation = 0;
-		}else if(location.equals("Taipei")) {
+		}else if(location.equals("Taipei") || location.equals("taipei")) {
 			snNumLocation = 1;
-		}else if (location.equals("Banqiao")) {
+		}else if (location.equals("Banqiao") || location.equals("banqiao")) {
 			snNumLocation = 2;
-		}else if (location.equals("Taoyuan")) {
+		}else if (location.equals("Taoyuan") || location.equals("taoyuan")) {
 			snNumLocation = 3;
-		}else if (location.equals("Hsinchu")) {
+		}else if (location.equals("Hsinchu") || location.equals("hsinchu")) {
 			snNumLocation = 4;
-		}else if (location.equals("Miaoli")) {
+		}else if (location.equals("Miaoli") || location.equals("miaoli")) {
 			snNumLocation = 5;
-		}else if (location.equals("Taichung")) {
+		}else if (location.equals("Taichung") || location.equals("taichung")) {
 			snNumLocation = 6;
-		}else if (location.equals("Changhua")) {
+		}else if (location.equals("Changhua") || location.equals("changhua")) {
 			snNumLocation = 7;
-		}else if (location.equals("Yunlin")) {
+		}else if (location.equals("Yunlin") || location.equals("yunlin")) {
 			snNumLocation = 8;
-		}else if (location.equals("Chiayi")) {
+		}else if (location.equals("Chiayi") || location.equals("chiayi")) {
 			snNumLocation = 9;
-		}else if (location.equals("Tainan")) {
+		}else if (location.equals("Tainan") || location.equals("tainan")) {
 			snNumLocation = 10;
-		}else if (location.equals("Zuoying")) {
+		}else if (location.equals("Zuoying") || location.equals("zuoying")) {
 			snNumLocation = 11;
 		}
 		return snNumLocation;
@@ -151,6 +151,20 @@ public class hsrDAO {
 		return price;
 	}
 	
+    public void getSN_Schedule(String idHSR) {
+    	for (int i = 0;  i <hsrlist.size(); i++) {
+//    		System.out.print(hsrlist.get(i).getDirection().equals(direction)+"  ");
+//    		System.out.print(hsrlist.get(i).getArriveTime(startPoint)+"  ");
+//    		System.out.println(hsrlist.get(i).getArriveTime(destination));
+			System.out.println("fucc"+i);
+
+    		if(hsrlist.get(i).getIdHSR().equals(idHSR)) {
+    			hsrList2user.add(hsrlist.get(i));
+    			System.out.println("haha");
+    			break;
+    		}
+    	}
+    }
 	
 
 //	public static void main(String[] args) throws IOException, SQLException {
