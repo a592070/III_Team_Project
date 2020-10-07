@@ -25,6 +25,8 @@ public class R_Order_ListDAO {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
 
+	
+	//create order
 	public void createOrder(OrderTableBean bean) throws SQLException {
 		
 
@@ -108,6 +110,12 @@ public class R_Order_ListDAO {
 				conn.close();
 			}
 		}
+	}
+	
+	//find r_order
+	public OrderTableBean findR_order_List(){
+		return null;
+		
 	}
 
 }

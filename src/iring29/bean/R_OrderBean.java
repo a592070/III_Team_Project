@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 //小訂單的Bean (R_OrderBean)
 public class R_OrderBean {
 
-	//add R_SN_ORDER
-	//add ORDER_ID
+	BigDecimal r_sn_order;
+	BigDecimal order_id;
 	Timestamp booking_date; //訂位時間(前往用餐時間)
 
 	BigDecimal customerNum;  //訂位人數
@@ -18,13 +18,33 @@ public class R_OrderBean {
 		
 	}
 
-	public R_OrderBean(Timestamp booking_date, BigDecimal customerNum, BigDecimal deposit,
-			RestaurantBean restaurantBean) {
+	
+	public R_OrderBean(BigDecimal r_sn_order, BigDecimal order_id, Timestamp booking_date, BigDecimal customerNum,
+			BigDecimal deposit, RestaurantBean restaurantBean) {
 		super();
+		this.r_sn_order = r_sn_order;
+		this.order_id = order_id;
 		this.booking_date = booking_date;
 		this.customerNum = customerNum;
 		this.deposit = deposit;
 		this.restaurantBean = restaurantBean;
+	}
+
+
+	public BigDecimal getR_sn_order() {
+		return r_sn_order;
+	}
+
+	public void setR_sn_order(BigDecimal r_sn_order) {
+		this.r_sn_order = r_sn_order;
+	}
+
+	public BigDecimal getOrder_id() {
+		return order_id;
+	}
+
+	public void setOrder_id(BigDecimal order_id) {
+		this.order_id = order_id;
 	}
 
 	public Timestamp getBooking_date() {

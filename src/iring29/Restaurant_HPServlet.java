@@ -1,11 +1,16 @@
 package iring29;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import controller.ConnectionPool;
+import iring29.bean.RestaurantBean;
 
 /**
  * Servlet implementation class Restaurant_HPServlet
@@ -30,8 +35,22 @@ public class Restaurant_HPServlet extends HttpServlet {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 		if (request.getParameter("QUERY") != null) {
-			
+			try {
+				processQueryR_HP(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
+	
+	public void processQueryR_HP(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
+		String name = request.getParameter("username").trim();
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantBean restaurant_HP = restaurantDAO.Restaurant_HP(name);
+		request.getSession().setAttribute("r_hp", restaurant_HP);
+		request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);
+	}
+	
+	
 
 }
