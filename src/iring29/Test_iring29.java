@@ -14,7 +14,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.bean.R_OderBean;
+import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
 import pojo.AccountDO;
 import pojo.OrderTableBean;
@@ -80,7 +80,7 @@ public class Test_iring29 {
 		
 		//TEST  下訂單 (1. 先建立下訂者資料 2.建立大訂單 3.建立(C,H,R)小訂單 ))
 		OrderTableBean bean = new OrderTableBean();
-		R_OderBean rBean = new R_OderBean();
+		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
 		user.setUserName("Irene"); //測試時要先在Account Table create username = Irene 的資料
 		bean.setUser(user);

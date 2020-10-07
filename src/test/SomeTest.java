@@ -19,6 +19,7 @@ public class SomeTest {
         AccountDOForTest accountDOForTest = new AccountDOForTest();
         accountDOForTest.setUsername("admin");
         accountDOForTest.setPassword("admin");
+
         Blob blob = IOUtils.fileToBlob(path);
         accountDOForTest.setBlob(blob);
 
@@ -71,7 +72,6 @@ public class SomeTest {
         while((len=in.read(buf)) != -1){
             out.write(buf, 0, len);
         }
-
         in.close();
         out.close();
     }

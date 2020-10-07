@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 public class BookRestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
+	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+	private static final String CHARSET_CODE = "UTF-8";
+	
     public BookRestaurantServlet() {
         super();
     }
@@ -25,6 +27,8 @@ public class BookRestaurantServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding(CHARSET_CODE);
+		response.setContentType(CONTENT_TYPE);
 		HttpSession session = request.getSession(false);
 		String res_name = request.getParameter("res_name");
 		String book_date = (String) session.getAttribute("book_date");

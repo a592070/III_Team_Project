@@ -1,5 +1,6 @@
 package a592070.dao;
 
+import a592070.pojo.TravelSetDO;
 import controller.ConnectionPool;
 
 import javax.sql.DataSource;
@@ -8,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class TravelSetDAO {
     private DataSource ds;
@@ -19,6 +21,7 @@ public class TravelSetDAO {
     public TravelSetDAO() throws IOException {
         this.ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITHOUT_SERVER);
     }
+
 
     // TODO
 //    public void getTravelSetById(String id){
@@ -37,5 +40,11 @@ public class TravelSetDAO {
 //            ConnectionPool.closeResources(conn, predStmt, rs);
 //        }
 //    }
+    public List<TravelSetDO> listTravelSet(){
+        sql = "select t.sn, t.created, a.sn,  " +
+                "from travel_set t, travel_ele_a a, travel_ele_c c, travel_ele_h h, travel_ele_r r, attraction a1" +
+                "where t.sn=a.travel_id or t.sn=c.travel_id or t.sn=h.travel_id or t.sn=r.travel_id";
+        return null;
+    }
 
 }

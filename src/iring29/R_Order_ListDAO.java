@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.bean.R_OderBean;
+import iring29.bean.R_OrderBean;
 import pojo.OrderTableBean;
 
 public class R_Order_ListDAO {
@@ -40,9 +40,9 @@ public class R_Order_ListDAO {
 			// insert ORDER_DATA
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlOrder_Data, generatedColumn1);
-			pstmt.setString(1, bean.getUser().getUserName());
-			pstmt.setString(2, bean.getCustomerName());
-			pstmt.setString(3, bean.getCustomerPhone());
+			pstmt.setString(1, bean.getUser().getUserName()); //取得userbean裡面的username
+			pstmt.setString(2, bean.getCustomerName());  //取得下單時輸入的名字
+			pstmt.setString(3, bean.getCustomerPhone()); //取得下單時輸入的電話
 
 			pstmt.executeQuery();
 			pstmt.clearBatch();
@@ -61,8 +61,8 @@ public class R_Order_ListDAO {
 				PreparedStatement pstmt2 = conn.prepareStatement(sqlOrder_Table, generatedColumn2);
 
 					Timestamp ts = new Timestamp(System.currentTimeMillis()); //下訂單時間
-					pstmt2.setTimestamp(1, ts);
-					pstmt2.setBigDecimal(2, sn);
+					pstmt2.setTimestamp(1, ts);  
+					pstmt2.setBigDecimal(2, sn);  //SN from ORDER_DATA
 					
 					pstmt2.executeQuery();
 					
@@ -73,17 +73,17 @@ public class R_Order_ListDAO {
 						order_id = generatedKeys2.getBigDecimal(1); //取得ORDER_ID from ORDER_TABLE
 					}
 				
-				Set<R_OderBean> restaurants = bean.getR_OderBeans();
+				Set<R_OrderBean> restaurants = bean.getR_OderBeans();
 				try {
 					PreparedStatement pstmt3 = conn.prepareStatement(sqlR_Order_LiString);
 					
-					for(R_OderBean ele : restaurants) {
-						pstmt3.setBigDecimal(1, order_id);
-						pstmt3.setBigDecimal(2, ele.getRestaurantBean().getR_sn());
-						pstmt3.setBigDecimal(3, ele.getCustomerNum());
-						Timestamp ts2 = new Timestamp(ele.getBooking_date().getTime()); //要去餐廳的訂位日期
-						pstmt3.setTimestamp(4, ts2);
-						pstmt3.setBigDecimal(5, ele.getDeposit());
+					for(R_OrderBean ele : restaurants) {
+						pstmt3.setBigDecimal(1, order_id); //ORDER_ID from ORDER_TABLE
+						pstmt3.setBigDecimal(2, ele.getRestaurantBean().getR_sn()); //取得RestaurantBean的R_SN(餐廳序號)
+						pstmt3.setBigDecimal(3, ele.getCustomerNum()); //訂位人數
+						Timestamp ts2 = new Timestamp(ele.getBooking_date().getTime()); //設定要去餐廳的訂位日期
+						pstmt3.setTimestamp(4, ts2); //要去餐廳的訂位日期
+						pstmt3.setBigDecimal(5, ele.getDeposit()); //訂餐廳訂金
 						
 						pstmt3.executeQuery();
 					}

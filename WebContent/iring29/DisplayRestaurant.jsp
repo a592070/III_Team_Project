@@ -22,6 +22,7 @@
             height: 300px;
             margin: auto;
 			overflow: hidden;
+			display:flex;
         }
 		img{
 		width: 100%;

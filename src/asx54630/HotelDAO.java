@@ -14,22 +14,24 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import controller.ConnectionPool;
 
 public class HotelDAO {
-	
+
 	private DataSource dataSource;
-	
+
 	public DataSource getDataSource() throws IOException, SQLException {
 		DataSource ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITHOUT_SERVER);
-			Connection conn = ds.getConnection();
-			return ds;
+		Connection conn = ds.getConnection();
+		return ds;
 	}
-	
+
 	public List<HotelDO> listHotelDO() throws IOException {
-		
+
 		List<HotelDO> midlist = new ArrayList<>();
 		try (Connection connection = getDataSource().getConnection();
+
 				PreparedStatement pstmt = connection.prepareStatement("select * from HOTEL");
 				ResultSet rs = pstmt.executeQuery();) {
 			
+
 			while (rs.next()) {
 				//把每一筆資料轉成TABLE1物件
 				HotelDO hoteldo = new HotelDO();
@@ -70,8 +72,9 @@ public class HotelDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return midlist;		
+		return midlist;
 	}
+
 public void NAME(String[] args) {
 		
 		try (Connection connection = getDataSource().getConnection();) {
@@ -100,13 +103,16 @@ public void NAME(String[] args) {
         		}
 			}else {
 				System.out.println("查無此飯店!");
+
 			}
-        } catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
     }
+
 }

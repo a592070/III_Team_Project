@@ -12,7 +12,7 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.bean.R_OderBean;
+import iring29.bean.R_OrderBean;
 import pojo.OrderTableBean;
 
 public class H_Order_ListDAO {
