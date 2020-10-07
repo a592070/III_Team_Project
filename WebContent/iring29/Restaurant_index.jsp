@@ -75,7 +75,7 @@
             </div>
             <div class="search_date">
                 <span class="sp_search">日期</span>
-               <input type="date">
+               <input type="date" name="date">
             </div>
             <div class="search">
                 <label for="">人數 </label> 
@@ -85,6 +85,11 @@
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
+                    <option value="5">6</option>
+                    <option value="5">7</option>
+                    <option value="5">8</option>
+                    <option value="5">9</option>
+                    <option value="5">10</option>
                 </select></div>
             <div class="search"><button name="QUERY" type="SUBMIT" value="QUERY"> Search</button></div>
         </div>

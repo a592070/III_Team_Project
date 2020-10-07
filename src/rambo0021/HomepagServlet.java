@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Homepage
@@ -37,22 +38,28 @@ public class HomepagServlet extends HttpServlet {
 		InputStream is = null;
 		String fileName = null;
 		String mimeType = null;
-		
-		
-		
-		HomePageDAO homePageDAO = new HomePageDAO();
-		AccountBean account = new AccountBean();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
 		response.setCharacterEncoding("UTF-8"); 
-		String username = request.getParameter("userName"); 
-		account.setUserName(username);
-		homePageDAO.selectUserData(account);
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			// 請使用者登入
+			response.sendRedirect(response.encodeRedirectURL(
+					request.getContextPath() + "/rambo0021/login.jsp"));
+			return;
+		}
+		
+		AccountBean account = (AccountBean)session.getAttribute("Login");
 		try {
 			is=account.getPicture().getBinaryStream();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if (is == null) {
+			fileName = "NoImage.png" ; 
+			is = getServletContext().getResourceAsStream(
+					"/Images/" + fileName);
 		}
  
 		// 由圖片檔的檔名來得到檔案的MIME型態
@@ -69,13 +76,13 @@ public class HomepagServlet extends HttpServlet {
 		}
 //		request.getSession().setAttribute("account",account);
 //		request.setAttribute("account",account);
-//		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-//		dispatcher.forward(request, response);
+
 	
 		if (is != null) 
 			is.close();
 		if (os != null) 
 			os.close();
+
 
 	}
 	

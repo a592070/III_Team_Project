@@ -138,7 +138,7 @@
             
         </div>
         
-        <button class="go"><a href="">Go</a></button>
+        <button class="go"><a href="<c:url value='/iring29/DisplayRestaurant.jsp'/>">Go</a></button>
         
     	</div>
     </c:forEach>

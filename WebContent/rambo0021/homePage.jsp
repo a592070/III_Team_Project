@@ -1,10 +1,10 @@
 <%@page import="rambo0021.AccountBean"%>
 <%@page import="rambo0021.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,34 +12,33 @@
 <title>個人頁面</title>
 </head>
 <body>
+<jsp:include page="/rambo0021/top.jsp" />
 
-	<table border="1">
+	<table border="1" align="center">
 		<tr bgcolor="#FFFFE1">
-			<td>
-			     <c:out value="身分:${account.identity}"/>
-			</td>
+			<td><c:out value="身分:${Login.identity}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td> <img height='40px' width='30px'
-	src='${pageContext.request.contextPath}/Homepage=${account.userName}'></td>
+			<td>照片:<img height='100px' width='100px'
+				src='${pageContext.request.contextPath}/Homepage'></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out  value="帳號:${account.userName}"/></td>
+			<td><c:out value="帳號:${Login.userName}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out  value="密碼:${account.password}"/></td>
+			<td><c:out value="密碼:${Login.password}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out value="暱稱:${account.nickName}"/></td>
+			<td><c:out value="暱稱:${Login.nickName}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out  value="email:${account.email}"/></td>
+			<td><c:out value="email:${Login.email}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out  value="註冊日期:${account.register}"/></td>
+			<td><c:out value="註冊日期:${Login.register}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td><c:out  value="最後修改日期:${account.modify_Date}"/></td>
+			<td><c:out value="最後修改日期:${Login.modify_Date}" /></td>
 		</tr>
 	</table>
 

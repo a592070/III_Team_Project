@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class RestaurantBean {
 
+	BigDecimal r_sn;
 	String name;
 	String address;
 	String opentime;
@@ -44,7 +45,14 @@ public class RestaurantBean {
 		this.booking_id = booking_id;
 		this.account = account;
 	}
+	
 
+	public BigDecimal getR_sn() {
+		return r_sn;
+	}
+	public void setR_sn(BigDecimal r_sn) {
+		this.r_sn = r_sn;
+	}
 	public String getName() {
 		return name;
 	}
