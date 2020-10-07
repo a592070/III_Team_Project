@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import iring29.bean.R_OderBean;
+import iring29.bean.R_OrderBean;
 import rambo0021.AccountBean;
 
 //大訂單的Bean
@@ -13,19 +13,19 @@ public class OrderTableBean {
 	
 	BigDecimal order_id;	// PK
 	BigDecimal price;		// H + C + R  H:Hotel; C:Car; R:Restaurant
-	Timestamp order_date;	// 下訂單時間，default
+	Timestamp order_date;	//下訂單時間，default
 	AccountBean user;		//Account資料
-	String customerName; 	//
-	String customerPhone;	//
+	String customerName; 	//下單時填入的姓名
+	String customerPhone;	//下單時填入的電話
 	
-	Set<R_OderBean> r_OderBeans;
-	R_OderBean r_OderBean;    //小訂單的Bean (Restaurant)
+	Set<R_OrderBean> r_OderBeans; //可能有多筆小restaurant訂單，用set存
+	R_OrderBean r_OderBean;    //小訂單的Bean (Restaurant)
 	//C_OderBean h_OderBean;  //小訂單的Bean (hotel)
 	//H_OderBean c_OderBean;  //小訂單的Bean (car)
 
 	public OrderTableBean() {
 		super();
-		r_OderBeans = new HashSet<R_OderBean>();
+		r_OderBeans = new HashSet<R_OrderBean>();
 	}
 	
 	public BigDecimal getOrder_id() {
@@ -76,14 +76,14 @@ public class OrderTableBean {
 		this.customerPhone = customerPhone;
 	}
 
-	public Set<R_OderBean> getR_OderBeans() {
+	public Set<R_OrderBean> getR_OderBeans() {
 		return r_OderBeans;
 	}
 
-	public void setR_OderBeans(Set<R_OderBean> r_OderBeans) {
+	public void setR_OderBeans(Set<R_OrderBean> r_OderBeans) {
 		this.r_OderBeans = r_OderBeans;
 	}
-	public void addR_OderBean(R_OderBean rBean) {
+	public void addR_OderBean(R_OrderBean rBean) {
 		this.r_OderBeans.add(rBean);
 	}
 

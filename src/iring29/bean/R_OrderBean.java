@@ -4,20 +4,21 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 //小訂單的Bean (R_OrderBean)
-public class R_OderBean {
+public class R_OrderBean {
 
+	//add R_SN_ORDER
+	//add ORDER_ID
+	Timestamp booking_date; //訂位時間(前往用餐時間)
 
-	Timestamp booking_date;
-
-	BigDecimal customerNum;
+	BigDecimal customerNum;  //訂位人數
 	BigDecimal deposit = BigDecimal.valueOf(500); //固定每筆訂餐廳的訂金為500
 	RestaurantBean restaurantBean;
 	
-	public R_OderBean() {
+	public R_OrderBean() {
 		
 	}
 
-	public R_OderBean(Timestamp booking_date, BigDecimal customerNum, BigDecimal deposit,
+	public R_OrderBean(Timestamp booking_date, BigDecimal customerNum, BigDecimal deposit,
 			RestaurantBean restaurantBean) {
 		super();
 		this.booking_date = booking_date;
