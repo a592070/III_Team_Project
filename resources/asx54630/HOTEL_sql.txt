@@ -29,9 +29,6 @@ create table H_ORDER_LIST
     order_hotel_id number(*) /*預訂飯店編號*/
         constraint H_ORDER_LIST_HOTEL_SN_FK
 			references HOTEL,
-    order_hotel_name varchar2(255), /*預訂飯店名稱*/
-    client_name varchar2(255), /*客戶名稱*/
-    client_phone varchar2(255), /*客戶電話*/
     double_room number(*) /*雙人房*/
      constraint H_ORDER_LIST_HOTEL_double_room_FK
 			references HOTEL,
