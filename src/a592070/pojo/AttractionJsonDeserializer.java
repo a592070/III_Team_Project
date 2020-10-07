@@ -34,7 +34,7 @@ public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
 
         AttractionDO attractionDO = new AttractionDO();
 
-        attractionDO.setId(node.get("Id").textValue());
+//        attractionDO.setId(node.get("Id").textValue());
 
         attractionDO.setName(node.get("Name").textValue());
         attractionDO.setToldescribe(node.get("Toldescribe").textValue());
