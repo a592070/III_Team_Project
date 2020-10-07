@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div style="width: 800px; height: 100px; margin: 0 auto;">
     <form id="orderHSRticket">
         車次號:<input type="text" id="idHSR">
         <br>
@@ -52,6 +53,27 @@
 
         <input type="button" id="trainSubmit" value="更改查詢">
     </form>
+    </div>
+
+
+    <div id="anotherSection" style="width: 800px; height: 100px; margin: 0 auto;">
+ 
+        <!-- 用來顯示Ajax回傳值的fieldset -->
+
+     <fieldset>
+
+         <legend>Response from jQuery Ajax Request</legend>
+
+         <div id="ajaxResponse" style="width: 800px; margin: 0 auto;">
+            <table id="ajaxTable" style="margin: 0 auto;">
+
+            </table>
+        </div>
+
+     </fieldset>
+
+    </div>
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
@@ -66,16 +88,19 @@
             $("#departureDate").val(infoHSR[3]);
 
 
+            let startPoint;
+             let destination;
 
-
-            $('#idHSR').on('change', function() {
+            $('#trainSubmit').on('click', function() {
+                startPoint = $("#startPoint").val().toLowerCase();
+                destination = $("#destination").val().toLowerCase();
                 $.ajax({
 
                      type:"POST",                    //指定http參數傳輸格式為POST
 
                      url: "../orderHSRticketSrevlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 
-                     data: $("#formId").serialize(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+                     data: $("#orderHSRticket").serialize()+"&idHSR="+$("#idHSR").val(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
 
                                                      //內含有name的物件value
 
@@ -91,15 +116,23 @@
                          //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
                         // console.log(response.length);
                         //console.log($("#startPoint").val())
-                        // console.log(response[0].length);
-                        // let tableData = "<thead><tr><th>列車號</th><th>出發時間</th><th>抵達時間</th><th>票價</th><th>訂票</th></tr></thead>";
-                        // for(let i = 0; i < response[0].length; i++){
-                        //     tableData += "<tr>";
-                        //     tableData += "<td>" + response[0][i]["idHSR"] + "</td>" + "<td>" + response[0][i][startPoint] + "</td>" + "<td>" + response[0][i][destination] + "</td>" + "<td>" + response[1]["price"] + "</td>" + "<td>" + '<input type="button" class="orderTicket" value="點我訂票">' + "</td>";
-                        //     tableData += "</tr>";
-                        // }
-                        // //console.log(tableData);
-                        // $("#ajaxTable").html(tableData);
+                        console.log(response[0].length);
+                         let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
+                        for(let i = 0; i < response[0].length; i++){
+                            tableData += "<tr>";
+                            tableData += "<td>" + response[0][i]["idHSR"] + "</td>" +
+                                         "<td>" + response[3]["departureDate"] + "</td>" +
+                                         "<td>" + response[4]["startPoint"] + "</td>" + 
+                                         "<td>" + response[5]["destination"] + "</td>"+ 
+                                         "<td>" + response[0][i][startPoint] + "</td>" + 
+                                         "<td>" + response[0][i][destination] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"]*response[1]["price"] + "</td>" +
+                                         "<td>" + '<input type="button" class="orderTicket" value="確認購票">' + "</td>";
+                            tableData += "</tr>";
+                        }
+                        //console.log(tableData);
+                        $("#ajaxTable").html(tableData);
                         
                         // var table = document.getElementById('ajaxTable');
                         // console.log(table.rows[0].cells[0].innerHTML);
