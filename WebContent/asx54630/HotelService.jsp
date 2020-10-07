@@ -52,7 +52,7 @@
         </div>
         </nav>
     </header>
-  
+    
     <div class="container">
         <h2>飯店</h2>
         <br>
@@ -109,6 +109,7 @@
                 <th>簡介</th>
                 <th>價格</th>
                 <th>評價</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -118,6 +119,7 @@
                 <td>台北晶華酒店是國際麗晶酒店集團的旗艦店，也是全台北市最卓越、最受歡迎的國際五星級飯店之一。主要的客層包括國際商旅、觀光客及本地客人，裝潢上強調簡雅大方，服務上則務求精緻細膩，期能提供顧客最高品質的住宿、餐飲享受，成為全台精緻生活的標竿。飯店內共有八間中西美食以及餐廳、提供消費者品味中、西、日式佳餚的極致享受；位於二十樓的沐蘭SPA則擁有世界級的頂級芳香療程；而頂樓溫水游泳池、健身房、以及地下一、二樓的麗晶精品名店街…等休閒設施，更可營造完美的渡假享受！台北晶華酒店卓越的服務與設施,在國際獎項中獲獎連連，更連續兩年獲得Conde Naste Traveler讀者票選為亞洲最佳50大飯店之列，且為臺灣區的第一名。亦是許多世界級政商名流與影視巨星蒞臨台北時的首選下榻飯店。飯店擁有538間客房，間間採光良好、平均坪數居業界之冠，每房皆備有快速的便利的ADSL以及無線接撥和寬頻上網系統，房客可隨時輕鬆悠遊網路世界。除此之外，客房內還貼心的提供「枕頭選單」，共有羽毛枕、空氣枕、羊毛枕、記憶枕...等八款軟硬和材質不同的選擇。結合高科技材質、擁有感溫、塑型、釋壓、舒眠效果的Wellspring臥舒麗床墊，更為房客營造出最舒適的睡眠環境。本飯店位居台北市的中心地帶，緊鄰台北火車站與捷運淡水線中山站4號出口，並鄰近南西/中山百貨商圈，飯店門口也設有機場接駁與各線公車停駁站，連接全台北市各觀光與知名據點。無論是遊覽、購物或商務洽公,皆享最快速方便的交通服務。</td>
                 <td>雙人房:5000 四人房:8000</td>
                 <td>5.8</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" >我要訂房</button></td>
             </tr>
             <tr>
                 <td>xxx</td>
@@ -125,6 +127,7 @@
                 <td>xxx</td>
                 <td>xxx</td>
                 <td>xxx</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
             <tr>
                 <td>xxx</td>
@@ -132,6 +135,7 @@
                 <td>xxx</td>
                 <td>xxx</td>
                 <td>xxx</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
             <tr>
                 <td>xxx</td>
@@ -139,9 +143,44 @@
                 <td>xxx</td>
                 <td>xxx</td>
                 <td>xxx</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
             </tbody>
         </table>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">預定飯店:晶華酒店</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">房型:</label><br>
+                      <input type="checkbox" value="doubleroom">雙人房5000元
+                      <input type="text" >間<br>
+                      <input type="checkbox" value="quadrupleroom">四人房8000元
+                      <input type="text">間<br>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="t1">入住日期:</label>
+                        <input type="date" name="checkin"><br>
+                        <label for="" class="t1">退房日期:</label>
+                        <input type="date" name="checkout">
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                  <button type="submit" class="btn btn-primary">確認</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 </body>
 </html>
