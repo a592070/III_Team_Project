@@ -5,20 +5,22 @@ import java.math.BigDecimal;
 public class HotelDO{
 
 
-    private String HOTEL_ID;
+    private BigDecimal SN;
     private String NAME;
 	private String REGION;              
     private String ADDRESS;
     private String TEL;
-    private String DOUBLE_ROOM;        
-    private String QUADRUPLE_ROOM;        
+    private BigDecimal DOUBLE_ROOM;        
+    private BigDecimal QUADRUPLE_ROOM;        
     private String DESCRIPTION;
     private String OPENTIME;			
     private String TYPE;                  
     private BigDecimal RATING;
+    private String ACCOUNT;
+    
 
-    public HotelDO(String id, String name, String region, String address, String tel, String dbroom, String quadroom, String description, String openTime, String type, BigDecimal rating) {
-        this.HOTEL_ID = id;
+    public HotelDO(BigDecimal id, String name, String region, String address, String tel, BigDecimal dbroom, BigDecimal quadroom, String description, String openTime, String type, BigDecimal rating, String account) {
+        this.SN = id;
         this.NAME = name;
         this.REGION = region;
         this.ADDRESS = address;
@@ -29,25 +31,36 @@ public class HotelDO{
         this.OPENTIME = openTime;
         this.TYPE = type;
         this.RATING = rating;
+        this.ACCOUNT = account;
     }
 
    
-    public HotelDO() {
-		// TODO Auto-generated constructor stub
+    
+
+
+
+	public HotelDO() {
+		
 	}
 
 
-	public String getHOTEL_ID() {
-		return HOTEL_ID;
+
+
+
+
+	public BigDecimal getSN() {
+		return SN;
 	}
 
 
 
 
 
-	public void setHOTEL_ID(String hOTEL_ID) {
-		HOTEL_ID = hOTEL_ID;
+
+	public void setSN(BigDecimal sN) {
+		SN = sN;
 	}
+
 
 
 
@@ -61,9 +74,11 @@ public class HotelDO{
 
 
 
+
 	public void setNAME(String nAME) {
 		NAME = nAME;
 	}
+
 
 
 
@@ -77,9 +92,11 @@ public class HotelDO{
 
 
 
+
 	public void setREGION(String rEGION) {
 		REGION = rEGION;
 	}
+
 
 
 
@@ -93,9 +110,11 @@ public class HotelDO{
 
 
 
+
 	public void setADDRESS(String aDDRESS) {
 		ADDRESS = aDDRESS;
 	}
+
 
 
 
@@ -109,6 +128,7 @@ public class HotelDO{
 
 
 
+
 	public void setTEL(String tEL) {
 		TEL = tEL;
 	}
@@ -117,7 +137,8 @@ public class HotelDO{
 
 
 
-	public String getDOUBLE_ROOM() {
+
+	public BigDecimal getDOUBLE_ROOM() {
 		return DOUBLE_ROOM;
 	}
 
@@ -125,7 +146,8 @@ public class HotelDO{
 
 
 
-	public void setDOUBLE_ROOM(String dOUBLE_ROOM) {
+
+	public void setDOUBLE_ROOM(BigDecimal dOUBLE_ROOM) {
 		DOUBLE_ROOM = dOUBLE_ROOM;
 	}
 
@@ -133,7 +155,8 @@ public class HotelDO{
 
 
 
-	public String getQUADRUPLE_ROOM() {
+
+	public BigDecimal getQUADRUPLE_ROOM() {
 		return QUADRUPLE_ROOM;
 	}
 
@@ -141,9 +164,11 @@ public class HotelDO{
 
 
 
-	public void setQUADRUPLE_ROOM(String qUADRUPLE_ROOM) {
+
+	public void setQUADRUPLE_ROOM(BigDecimal qUADRUPLE_ROOM) {
 		QUADRUPLE_ROOM = qUADRUPLE_ROOM;
 	}
+
 
 
 
@@ -157,9 +182,11 @@ public class HotelDO{
 
 
 
+
 	public void setDESCRIPTION(String dESCRIPTION) {
 		DESCRIPTION = dESCRIPTION;
 	}
+
 
 
 
@@ -173,9 +200,11 @@ public class HotelDO{
 
 
 
+
 	public void setOPENTIME(String oPENTIME) {
 		OPENTIME = oPENTIME;
 	}
+
 
 
 
@@ -189,9 +218,11 @@ public class HotelDO{
 
 
 
+
 	public void setTYPE(String tYPE) {
 		TYPE = tYPE;
 	}
+
 
 
 
@@ -205,16 +236,38 @@ public class HotelDO{
 
 
 
+
 	public void setRATING(BigDecimal rATING) {
 		RATING = rATING;
 	}
 
 
 
+
+
+
+	public String getACCOUNT() {
+		return ACCOUNT;
+	}
+
+
+
+
+
+
+	public void setACCOUNT(String aCCOUNT) {
+		ACCOUNT = aCCOUNT;
+	}
+
+
+
+
+
+
 	@Override
     public String toString() {
         return "{" +
-                "id='" + HOTEL_ID + '\'' +
+                "id='" + SN + '\'' +
                 ", name='" + NAME + '\'' +
                 ", region='" + REGION + '\'' +
                 ", address='" + ADDRESS + '\'' +
@@ -224,7 +277,8 @@ public class HotelDO{
                 ", description='" + DESCRIPTION + '\'' +
                 ", openTime='" + OPENTIME + '\'' +
                 ", type=" + TYPE + '\'' +
-                ", rating=" + RATING + 
+                ", rating=" + RATING + '\'' +
+                ", account=" + ACCOUNT + 
                 '}';
     }
 }
