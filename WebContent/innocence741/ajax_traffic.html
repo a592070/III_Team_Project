@@ -182,7 +182,7 @@
 
                      type:"POST",                    //指定http參數傳輸格式為POST
 
-                     url: "HsrServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+                     url: "../HsrServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 
                      data: $("#formId").serialize(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
 
@@ -236,7 +236,7 @@
                 var table = document.getElementById('ajaxTable');
                //console.log(table.rows[index+1].cells[0].innerHTML);
                 //console.log($("#destination").val().toLowerCase())
-                strCookies = table.rows[index+1].cells[0].innerHTML+","+startPoint+","+destination;
+                strCookies = table.rows[index+1].cells[0].innerHTML+","+startPoint+","+destination+","+$("#departureDate").val();
                 Cookies.set('HSR', strCookies)
                 window.location="\orderHSRticket.html";
                 //console.log(startPoint)

@@ -63,6 +63,8 @@
             $("#idHSR").val(infoHSR[0]);
             $("#startPoint").val(infoHSR[1]);
             $("#destination").val(infoHSR[2]);
+            $("#departureDate").val(infoHSR[3]);
+
 
 
 
@@ -71,7 +73,7 @@
 
                      type:"POST",                    //指定http參數傳輸格式為POST
 
-                     url: "HsrServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+                     url: "../orderHSRticketSrevlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 
                      data: $("#formId").serialize(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
 
