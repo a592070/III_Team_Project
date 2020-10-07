@@ -12,8 +12,8 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.bean.OrderTableBean;
 import iring29.bean.R_OderBean;
+import pojo.OrderTableBean;
 
 public class R_Order_ListDAO {
 	private Connection conn;

@@ -1,10 +1,11 @@
-package iring29.bean;
+package pojo;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+import iring29.bean.R_OderBean;
 import rambo0021.AccountBean;
 
 //大訂單的Bean
