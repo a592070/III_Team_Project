@@ -9,7 +9,7 @@
                password="iiidba"
                auth="Container"
                type="javax.sql.DataSource"
-               MaxTotal="10"
+
                maxIdle="8"
                maxWaitMillis="10000"
                defaultAutoCommit="false"/>

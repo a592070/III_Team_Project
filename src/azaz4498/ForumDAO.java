@@ -9,11 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.sql.DataSource;
-
-import org.apache.naming.java.javaURLContextFactory;
 
 import controller.ConnectionPool;
 
@@ -44,7 +41,7 @@ public class ForumDAO {
 			while (rs.next()) {
 				ArticleDO articleDO = new ArticleDO();
 			
-				articleDO.setArtTypeId(rs.getString("art_type_id"));
+				articleDO.setArtTypeId(rs.getInt("art_type_id"));
 				articleDO.setArtTitle(rs.getString("art_title"));
 				articleDO.setArtUserId(rs.getString("art_userid"));
 				articleDO.setArtContent(rs.getNString("art_content"));
