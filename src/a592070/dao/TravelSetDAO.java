@@ -1,14 +1,12 @@
 package a592070.dao;
 
-import a592070.pojo.TravelSetDO;
+import a592070.pojo.*;
 import controller.ConnectionPool;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TravelSetDAO {
@@ -18,33 +16,232 @@ public class TravelSetDAO {
     private PreparedStatement predStmt;
     private ResultSet rs;
 
-    public TravelSetDAO() throws IOException {
-        this.ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITHOUT_SERVER);
+    public TravelSetDAO(int connType) throws IOException {
+        this.ds = ConnectionPool.getDataSource(connType);
     }
 
 
-    // TODO
-//    public void getTravelSetById(String id){
-//        String sql = "select t.id as id, t.traffic_go_id as trafficId_1, t.traffic_back_id as trafficId_2, t.traffic_rent_id as trafficId_3, t.restaurant_id as restaurant_id, e2.booking_id as restaurant_booking_id,  " +
-//                "from travel_set_1day t, traffic_set e1, restaurant_set e2, attractions_set e3, hotel_set e4 " +
-//                "where (t.traffic_go_id=e1.id or t.traffic_back_id=e1.id or t.traffic_rent_id=e1.id)" +
-//                "and t.restaurant_id=e2.id and t.attractions_id=e3.id and hotel_id=e4.id";
-//        Object[] params = {id};
-//        try {
-//            conn = ds.getConnection();
-//            ConnectionPool.execute(conn, predStmt, rs, sql, params);
-//
-//        } catch (SQLException | IOException throwables) {
-//            throwables.printStackTrace();
-//        }finally {
-//            ConnectionPool.closeResources(conn, predStmt, rs);
-//        }
-//    }
-    public List<TravelSetDO> listTravelSet(){
-        sql = "select t.sn, t.created, a.sn,  " +
-                "from travel_set t, travel_ele_a a, travel_ele_c c, travel_ele_h h, travel_ele_r r, attraction a1" +
-                "where t.sn=a.travel_id or t.sn=c.travel_id or t.sn=h.travel_id or t.sn=r.travel_id";
-        return null;
+    public List<TravelSetDO> listTravelSet() throws SQLException {
+        List<TravelSetDO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement predStmt = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            sql = "select * from travel_set order by sn";
+            conn = ds.getConnection();
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                TravelSetDO travelSetDO = new TravelSetDO();
+                travelSetDO.setSn(rs.getInt("sn"));
+                travelSetDO.setCreatedUser(rs.getString("created"));
+                list.add(travelSetDO);
+            }
+
+            for (TravelSetDO travelSetDO : list) {
+                int id = travelSetDO.getSn();
+                travelSetDO.setListTravelAttraction(getAttractionSetByID(id));
+                travelSetDO.setListTravelCar(getCarSetByID(id));
+                travelSetDO.setListTravelHotel(getHotelSetByID(id));
+                travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if(stmt != null) stmt.close();
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return list;
     }
 
+    public TravelSetDO getTravelSetByID(int id){
+        TravelSetDO travelSetDO = new TravelSetDO();
+        Connection conn = null;
+        PreparedStatement predStmt = null;
+        ResultSet rs = null;
+        try{
+            sql = "select * from travel_set where sn=? order by sn";
+            conn = ds.getConnection();
+            predStmt = conn.prepareStatement(sql);
+            predStmt.setInt(1, id);
+            rs = predStmt.executeQuery();
+
+            if(rs.next()) {
+                travelSetDO.setSn(rs.getInt("sn"));
+                travelSetDO.setCreatedUser(rs.getString("created"));
+                travelSetDO.setListTravelAttraction(getAttractionSetByID(id));
+                travelSetDO.setListTravelCar(getCarSetByID(id));
+                travelSetDO.setListTravelHotel(getHotelSetByID(id));
+                travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return travelSetDO;
+    }
+    public List<TravelEleAttractionDO> getAttractionSetByID(int id){
+        List<TravelEleAttractionDO> listAttraction = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement predStmt = null;
+        ResultSet rs = null;
+        try {
+            sql = "select * " +
+                    "from travel_ele_a a, attraction a1 " +
+                    "where a.travel_id=? and a.A_ID=a1.A_SN " +
+                    "order by a.sn";
+            conn = ds.getConnection();
+            predStmt = conn.prepareStatement(sql);
+            predStmt.setInt(1, id);
+            rs = predStmt.executeQuery();
+
+            while (rs.next()) {
+                TravelEleAttractionDO travelEleAttractionDO = new TravelEleAttractionDO();
+                AttractionDO attractionDO = new AttractionDO();
+                attractionDO.setId(rs.getInt("a_id"));
+                attractionDO.setName(rs.getString("name"));
+                attractionDO.setToldescribe(rs.getNString("toldescribe"));
+                attractionDO.setDescription(rs.getNString("description"));
+                attractionDO.setTel(rs.getString("tel"));
+                attractionDO.setAddress(rs.getString("address"));
+                attractionDO.setRegion(rs.getString("region"));
+                attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
+                attractionDO.setOpenTime(rs.getString("opentime"));
+                attractionDO.setPicture(rs.getString("picture"));
+                attractionDO.setPx(rs.getBigDecimal("px"));
+                attractionDO.setPy(rs.getBigDecimal("py"));
+                attractionDO.setTicketInfo(rs.getString("ticketinfo"));
+                attractionDO.setKeywords(rs.getString("keywords"));
+                attractionDO.setRemarks(rs.getString("remarks"));
+                attractionDO.setRating(rs.getBigDecimal("rating"));
+                travelEleAttractionDO.setAttraction(attractionDO);
+
+                travelEleAttractionDO.setSn(rs.getInt("sn"));
+                travelEleAttractionDO.setTravelId(rs.getInt("travel_id"));
+                travelEleAttractionDO.setTime(rs.getTimestamp("time"));
+
+                listAttraction.add(travelEleAttractionDO);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return listAttraction;
+    }
+    public List<TravelEleCarDO> getCarSetByID(int id){
+        List<TravelEleCarDO> listCar = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement predStmt = null;
+        ResultSet rs = null;
+        try{
+            sql = "select * " +
+                    "from travel_ele_c c, cartype c1, carrentalcompany c2 " +
+                    "where c.travel_id=? and c.c_id=c1.sn_cartype and c1.sn_rentcarcompany=c2.sn_rentalcompany " +
+                    "order by sn";
+            conn = ds.getConnection();
+            predStmt = conn.prepareStatement(sql);
+            predStmt.setInt(1, id);
+            rs = predStmt.executeQuery();
+
+            while(rs.next()){
+                TravelEleCarDO travelEleCarDO = new TravelEleCarDO();
+                CarVO carVO = new CarVO();
+                carVO.setSn(rs.getInt("c_id"));
+                carVO.setCarType(rs.getString("cartype"));
+                carVO.setPrice(rs.getInt("price"));
+                carVO.setCompany(rs.getString("name_company"));
+
+                travelEleCarDO.setCar(carVO);
+                travelEleCarDO.setSn(rs.getInt("sn"));
+                travelEleCarDO.setTravelId(rs.getInt("travel_id"));
+                travelEleCarDO.setTime(rs.getTimestamp("time"));
+
+                listCar.add(travelEleCarDO);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return listCar;
+    }
+    public List<TravelEleHotelDO> getHotelSetByID(int id){
+        List<TravelEleHotelDO> listHotel = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement predStmt = null;
+        ResultSet rs = null;
+        try{
+            sql = "select * " +
+                    "from travel_ele_h h, hotel h1 " +
+                    "where h.travel_id=? and h.h_id=h1.sn " +
+                    "order by h.sn";
+            conn = ds.getConnection();
+            predStmt = conn.prepareStatement(sql);
+            predStmt.setInt(1, id);
+            rs = predStmt.executeQuery();
+
+            while(rs.next()){
+                TravelEleHotelDO travelEleHotelDO = new TravelEleHotelDO();
+                HotelVO hotelVO = new HotelVO();
+                hotelVO.setSn(rs.getInt("h_id"));
+                hotelVO.setName(rs.getString("name"));
+                hotelVO.setAddress(rs.getString("address"));
+                hotelVO.setDoubleRoomPrice(rs.getInt("double_room"));
+                hotelVO.setQuadrupleRoomPrice(rs.getInt("quadruple_room"));
+                hotelVO.setRating(rs.getBigDecimal("rating"));
+
+                travelEleHotelDO.setHotel(hotelVO);
+                travelEleHotelDO.setSn(rs.getInt("SN"));
+                travelEleHotelDO.setTravelId(rs.getInt("travel_id"));
+                travelEleHotelDO.setTime(rs.getTimestamp("time"));
+
+                listHotel.add(travelEleHotelDO);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return listHotel;
+    }
+    public List<TravelEleRestaurantDO> getRestaurantSetByID(int id){
+        List<TravelEleRestaurantDO> listRestaurant = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement predStmt = null;
+        ResultSet rs = null;
+        try {
+            sql = "select * " +
+                    "from travel_ele_r r, restaurant r1 " +
+                    "where r.travel_id=? and r.r_id=r1.r_sn " +
+                    "order by r.sn";
+            conn = ds.getConnection();
+            predStmt = conn.prepareStatement(sql);
+            predStmt.setInt(1, id);
+            rs = predStmt.executeQuery();
+
+            while (rs.next()) {
+                TravelEleRestaurantDO travelEleRestaurantDO = new TravelEleRestaurantDO();
+                RestaurantVO restaurantVO = new RestaurantVO();
+                restaurantVO.setSn(rs.getInt("r_id"));
+                restaurantVO.setName(rs.getString("name"));
+                restaurantVO.setAddress(rs.getString("address"));
+                restaurantVO.setPicture(rs.getString("picture"));
+                restaurantVO.setDescription(rs.getString("description"));
+                restaurantVO.setType(rs.getString("type"));
+                restaurantVO.setRating(rs.getBigDecimal("rating"));
+
+                travelEleRestaurantDO.setRestaurant(restaurantVO);
+                listRestaurant.add(travelEleRestaurantDO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return listRestaurant;
+    }
 }

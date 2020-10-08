@@ -42,4 +42,14 @@ public class TravelEleAttractionDO {
     public void setAttraction(AttractionDO attraction) {
         this.attraction = attraction;
     }
+
+    @Override
+    public String toString() {
+        return "TravelEleAttractionDO{" +
+                "sn=" + sn +
+                ", travelId=" + travelId +
+                ", time=" + time +
+                ", attraction=" + attraction +
+                '}';
+    }
 }

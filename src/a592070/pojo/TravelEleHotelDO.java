@@ -42,4 +42,14 @@ public class TravelEleHotelDO {
     public void setHotel(HotelVO hotel) {
         this.hotel = hotel;
     }
+
+    @Override
+    public String toString() {
+        return "TravelEleHotelDO{" +
+                "sn=" + sn +
+                ", travelId=" + travelId +
+                ", time=" + time +
+                ", hotel=" + hotel +
+                '}';
+    }
 }

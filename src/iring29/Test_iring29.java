@@ -96,5 +96,19 @@ public class Test_iring29 {
 		
 		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 		r_Order_ListDAO.createOrder(bean);
+		
+		//TEST Timestamp 
+//		Timestamp ts = new Timestamp(System.currentTimeMillis());  
+//		String tsStr = "2011-05-09 11:49:45";  
+//		try {  
+//		ts = Timestamp.valueOf(tsStr);  
+//		System.out.println(ts);  
+//		} catch (Exception e) {  
+//		e.printStackTrace();  
+//		} 
+		
+//		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		BigDecimal findRid = r_Order_ListDAO.findRid("上官木桶鍋 - 萬華旗艦店");
+//		System.out.println(findRid);
 	}
 }

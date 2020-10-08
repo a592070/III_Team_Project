@@ -7,9 +7,9 @@
 <title>Login</title>
 </head>
 <body>
-    <form action="" method="POST">
+    <form action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet" method="POST">
         <label for="">Account</label>
-        <input type="text">
+        <input type="text" name="username">
         <span class="search"><button name="QUERY" type="SUBMIT" value="USERNAME"> Search</button></span>
     </form>
 </body>
