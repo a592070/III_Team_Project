@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Homepage")
 public class HomepagServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String homepage="/rambo0021/homePage.jsp";  
+	  
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -49,18 +49,19 @@ public class HomepagServlet extends HttpServlet {
 		}
 		
 		AccountBean account = (AccountBean)session.getAttribute("Login");
-		try {
+		try {if (account.getPicture() != null) {
 			is=account.getPicture().getBinaryStream();			
-			if (is == null) {
-				fileName = "NoImage.png" ; 
-				is = getServletContext().getResourceAsStream(
-						"/rambo0021/Images/NoImage.png");
-				// TODO path not found
-			}
+		}
 	 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}if (is == null) {
+			fileName = "NoImage.png" ; 
+			is = getServletContext().getResourceAsStream(
+					"/rambo0021/Images/NoImage.png");
+			
+			// TODO path not found
 		}
 		
 		// 由圖片檔的檔名來得到檔案的MIME型態
