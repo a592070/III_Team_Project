@@ -16,9 +16,7 @@ import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
 import pojo.OrderTableBean;
 
-/**
- * Servlet implementation class Restaurant_HPServlet
- */
+
 @WebServlet("/Restaurant_HPServlet")
 public class Restaurant_HPServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,20 +43,28 @@ public class Restaurant_HPServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(request.getParameter("m-add") != null) {
+			System.out.println(request.getParameter("m-add"));
+			processModifyR_HP(request, response);
+		}
 	}
 	
 	public void processQueryR_HP(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
 		String name = request.getParameter("username").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
-		RestaurantBean restaurant_HP = restaurantDAO.Restaurant_HP(name);
-		BigDecimal r_sn = restaurant_HP.getR_sn();
+		RestaurantBean rBean = restaurantDAO.Restaurant_HP(name);
+		BigDecimal r_sn = rBean.getR_sn();
 		OrderTableBean otBean = restaurantDAO.findR_Order(r_sn);
 		Set<R_OrderBean> roBean = otBean.getR_OderBeans();
-		request.getSession().setAttribute("r_hp", restaurant_HP);
+		request.getSession().setAttribute("r_hp", rBean);
 		request.getSession().setAttribute("roBean", roBean);
 		request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);
 	}
 	
-	
+	public void processModifyR_HP(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("in");
+//		String rBean = request.getParameter("rBean");
+//		System.out.println(rBean);
+	}
 
 }

@@ -10,6 +10,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
 * {
 	margin: 0;
@@ -53,6 +57,18 @@
 	margin-left: 50px;
 	text-align: right;
 }
+.sp_search-1{
+	width: 100px;
+	float: left;
+	padding-top: 10px;
+	margin-left: 50px;
+	margin-right: 28px;
+	text-align: right;
+}
+#inputState.form-control{
+	width: 250px;
+	padding-left: 20px;
+}
 
 input {
 	width: 250px;
@@ -81,11 +97,8 @@ a {
 	height: 50px;
 }
 
-.go {
-	margin-top: 25px;
-	border: black;
-	width: 50px;
-	height: 50px;
+.go-btn{
+padding-top: 25px;
 }
 
 h4 {
@@ -106,37 +119,45 @@ h4 {
 
 <body>
 
+<header class="">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="javascript:void(0)">Logo</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navb">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
 
-	<div class="div_box">
-		<div class="div_search">
-			<div class="search">
-				<span class="sp_search">餐廳地區搜尋</span> <input type="text"
-					placeholder="請輸入關鍵字">
-			</div>
-			<div class="search">
-				<span class="sp_search">餐廳名稱搜尋</span> <input type="text"
-					placeholder="請輸入關鍵字">
-			</div>
-			<div class="search_date">
-				<span class="sp_search">日期</span> <input type="date">
-			</div>
-			<div class="search">
-				<label for="">人數 </label> <select id="">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</select>
-			</div>
-			<div class="search">
-				<button>Search</button>
-			</div>
-		</div>
+			<div class="collapse navbar-collapse  nav justify-content-center"
+				id="navb">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link"
+						href="javascript:void(0)">找旅館</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="javascript:void(0)">找餐廳</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="javascript:void(0)">找租車</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="javascript:void(0)">找景點</a></li>
 
-	</div>
-
+					<li class="nav-item"><a class="nav-link disabled"
+						href="javascript:void(0)">Disabled</a></li>
+				</ul>
+			</div>
+			<div>
+				<form class="form-inline my-3">
+					<input class="form-control mr-sm-2" type="text"
+						placeholder="Search" />
+					<button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+				</form>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary">登陸</button>
+				<button type="button" class="btn btn-primary">註冊</button>
+				<button type="button" class="btn btn-primary">論壇</button>
+			</div>
+		</nav>
+	</header>
 
 	<c:forEach var="res" items="${res_data_region}">
 		<FORM
@@ -151,8 +172,8 @@ h4 {
 					<span class="sp_result">${res.type}</span>
 
 				</div>
-
-				<button class="go" name="go" value="go">Go</button>
+				<div class='go-btn'><button name="go" value="go" class="btn btn-success">Go</button></div>
+				
 				<Input type='hidden' name='restaurant_name' value='${res.name}'>
 				<Input type='hidden' name='book_date' value='${book_date}'>
 				<Input type='hidden' name='person_numer' value='${person_numer}'>
@@ -160,8 +181,16 @@ h4 {
 			</div>
 		</FORM>
 	</c:forEach>
-
-
+	
+	<div class="div_box">
+		<div class="search">
+		
+		<FORM  action="<c:url value='/iring29/Restaurant_index.jsp'/>" method="POST">
+			<button class="btn btn-success">重新查詢</button>
+		</FORM>
+		
+		</div>
+	</div>
 
 </body>
 

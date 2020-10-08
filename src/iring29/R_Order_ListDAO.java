@@ -114,7 +114,7 @@ public class R_Order_ListDAO {
 	
 	//find r_order
 	public R_OrderBean findR_order_List(BigDecimal r_sn) throws SQLException{
-		String sql = "select max(order_id) order_id , customer_num, book_time from r_order_list where r_sn = ? group by customer_num, book_time";
+		String sql = "select r_sn_order, max(order_id) order_id , customer_num, book_time from r_order_list where r_sn = ? group by r_sn_order, customer_num, book_time";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -124,9 +124,11 @@ public class R_Order_ListDAO {
 			
 			R_OrderBean roBean = new R_OrderBean();
 			while (rs.next()) {
+				BigDecimal r_sn_order = rs.getBigDecimal("R_SN_ORDER");
 				BigDecimal order_id = rs.getBigDecimal("ORDER_ID");
 				BigDecimal c_num =rs.getBigDecimal("CUSTOMER_NUM");
 				Timestamp b_time = rs.getTimestamp("BOOK_TIME");
+				roBean.setR_sn_order(r_sn_order);
 				roBean.setOrder_id(order_id);
 				roBean.setCustomerNum(c_num);
 				roBean.setBooking_date(b_time);
@@ -154,7 +156,7 @@ public class R_Order_ListDAO {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setBigDecimal(1, r_sn_order);
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.executeQuery();
 			pstmt.clearBatch();
 			conn.commit();
 			

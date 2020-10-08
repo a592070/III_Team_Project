@@ -35,8 +35,9 @@ public class RestaurantDAO {
 
 	// find specific restaurant by restaurant name
 	public RestaurantBean findRestaurant(String name) throws SQLException {
+//		String sql_count = "select count(*) where name like ?"; 
+		sql = "select * from restaurant where name like ? ";		
 		try {
-			sql = "select * from restaurant where name like ? ";
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + name + "%");

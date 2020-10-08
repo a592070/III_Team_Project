@@ -97,7 +97,7 @@
 
 <div class="wrapper">
         <div class="container">
-            <form action="" method="POST">
+            <form action="<c:url value='OrderListServlet' />" method="POST">
                 
                     <h1> Fun Taiwan 訂單號碼 </h1>
                     <div class="div-1">
@@ -138,10 +138,12 @@
                     <span>500 元</span>
                 </div>
                 <div class="div-btn">
-                <button>cancel order</button>
+                <button class="btn btn-secondary" name="cancel" value="cancel">cancel order</button>
+                <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
+          		<Input type='hidden' name='r_sn_order' value='${roBean.r_sn_order}'>
             </div>
+            </form>
         </div>
-        </form>
     </div>
 </body>
 </html>

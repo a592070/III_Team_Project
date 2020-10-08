@@ -34,13 +34,15 @@
 		width: 100%;
 		}
 
-        div {
-            border: 1px solid black;
+        .box {
+            border: 1px solid gray;
         }
         h2 {
             padding: 20px;
         }
-
+		div {
+            border: 1px solid rgb(212, 212, 212);
+        }
         .title {
             text-align: center;
         }
@@ -178,7 +180,11 @@
     </nav>
 </header>
 
+<div class="container">
 <div class="box">
+	<FORM
+			action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet"
+			method="POST">
         <div>
             <h2 class="title">餐廳資訊</h2>
             <div class="top">
@@ -186,7 +192,7 @@
                 <div class="info">資訊</div>
                 <div class="comment">評論</div>
             </div>
-            <p class="modify-img"><button>modify</button></p>
+            <p class="modify-img"><button class="btn btn-light">修改</button></p>
             <div class="div_img">
                <img src="${r_hp.picture}">
             </div>
@@ -197,12 +203,17 @@
                 <h4 class="res_data">餐廳地點</h4>
             </div>
             <div>
-                <p class="modify"><button>modify</button></p>
+            <!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  			Launch demo modal
+			</button>
+			
+                <p class="modify"><button class="btn btn-light" name="m-add">修改</button></p>
                 <h4 class="res_result">地址</h4>
                 <p class="p_result">${r_hp.address}</p>
             </div>
             <div>
-                <p class="modify"><button>modify</button></p>
+                <p class="modify"><button class="btn btn-light">修改</button></p>
                 <h4 class="res_result">交通方式</h4>
                 <p class="p_result">${r_hp.transportation}</p>
             </div>
@@ -210,12 +221,12 @@
                 <h4 class="res_data">菜色介紹</h4>
             </div>
             <div>
-                <p class="modify"><button>modify</button></p>
+                <p class="modify"><button class="btn btn-light">修改</button></p>
                 <h4 class="res_result">適合聚餐類型</h4>
                 <p class="p_result">${r_hp.serviceinfo}</p>
             </div>
             <div>
-                <p class="modify"><button>modify</button></p>
+                <p class="modify"><button class="btn btn-light">修改</button></p>
                 <h4 class="res_result">料理種類</h4>
                 <p class="p_result">${r_hp.type}</p>
             </div>
@@ -223,12 +234,12 @@
                 <h4 class="res_data">餐廳資訊</h4>
             </div>
             <div>
-                <p class="modify"><button>modify</button></p>
+                <p class="modify"><button class="btn btn-light">修改</button></p>
                 <h4 class="res_result">營業時間</h4>
                 <p class="p_result">${r_hp.opentime}</p>
             </div>
             <div>
-                <p class="modify"><button>modify</button></p>
+                <p class="modify"><button class="btn btn-light">修改</button></p>
                 <h4 class="res_result">餐廳描述</h4>
                 <p class="p_result">${r_hp.description}</p>
             </div>
@@ -239,7 +250,31 @@
                 </c:forEach>
             </div>
         </div>
-
+        </FORM>
+        </div>
+        <Input type='hidden' name='rBean' value='${r_hp}'>
+        
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
+  </div>
+</div>
+        
+</div>
 </body>
 </html>

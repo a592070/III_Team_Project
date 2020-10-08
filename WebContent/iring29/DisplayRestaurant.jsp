@@ -23,17 +23,20 @@
         }
 
         .div_img {
-            width: 850px;
-            height: 300px;
+            width: 900px;
+            height: 400px;
             margin: auto;
 			overflow: hidden;
 			display:flex;
         }
 		img{
-		width: 100%;
+			width: 100%;
 		}
         div {
-            border: 1px solid black;
+            border: 1px solid rgb(212, 212, 212);
+        }
+        .div-1{
+        	padding-bottom: 20px;
         }
         h2 {
             padding: 20px;
@@ -92,7 +95,10 @@
         .p_result {
             padding: 10px 30px;
         }
-
+		.btn.btn-warning{
+			width: 750px;
+			margin-left: 70px;
+		}
         
 
         .rating {
@@ -104,6 +110,7 @@
         .sp_rating{
             padding: 10px 30px;
             line-height: 35px;
+            /* float: left; */
         }
         .book-btn {
             /* background-color: #ec7551; */
@@ -164,7 +171,7 @@
     </nav>
 </header>
 
-<div class="box">
+<div class="box" >
         <div>
             <h2 class="title">餐廳資訊</h2>
             <div class="top">
@@ -177,10 +184,10 @@
             </div>
             <div class="div-1">
                 <h3>${res_data.name}</h3>
-                    <h4 class="rating">Rating</h4>
-                    <span class="sp_rating">${res_data.rating}</span>
+                    <h5 class="rating">Rating</h5>
+                    <h5 class="sp_rating">${res_data.rating}</h5>
                <FORM  action="<c:url value='BookRestaurantServlet' />" method="POST">
-               	<Input class="book-btn" type='submit' value='Booking'>
+               	<Input class="btn btn-warning" type='submit' value='Booking'>
           <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
           		<Input type='hidden' name='res_name' value='${res_data.name}'>
           		<Input type='hidden' name='r_id' value='${res_data.r_sn}'>

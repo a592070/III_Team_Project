@@ -5,14 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Search</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
 * {
@@ -57,7 +53,18 @@
 	margin-left: 50px;
 	text-align: right;
 }
-
+.sp_search-1{
+	width: 100px;
+	float: left;
+	padding-top: 10px;
+	margin-left: 50px;
+	margin-right: 28px;
+	text-align: right;
+}
+#inputState.form-control{
+	width: 250px;
+	padding-left: 20px;
+}
 input {
 	width: 250px;
 	line-height: 35px;
@@ -116,9 +123,31 @@ button {
 		method="post">
 		<div class="div_box">
 			<div class="div_search">
-				<div class="search">
-					<span class="sp_search">餐廳地區搜尋</span> <input type="text"
-						name="region_name" placeholder="請輸入關鍵字">
+				<div class="search" class="form-group col-md-2">
+					<span class="sp_search-1" >餐廳地區搜尋</span>
+						<select name="region_name" id="inputState" class="form-control">
+						<option value="">請選擇地區</option>
+						<option value="基隆">基隆</option>
+						<option value="新北">新北</option>
+						<option value="台北">台北</option>
+						<option value="桃園">桃園</option>
+						<option value="新竹">新竹</option>
+						<option value="苗栗">苗栗</option>
+						<option value="台中">台中</option>
+						<option value="彰化">彰化</option>
+						<option value="南投">南投</option>
+						<option value="雲林">雲林</option>
+						<option value="嘉義">嘉義</option>
+						<option value="台南">台南</option>
+						<option value="高雄">高雄</option>
+						<option value="屏東">屏東</option>
+						<option value="宜蘭">宜蘭</option>
+						<option value="花蓮">花蓮</option>
+						<option value="台東">台東</option>
+						<option value="澎湖">澎湖</option>
+						<option value="金門">金門</option>
+						<option value="連江">連江</option>
+					</select>
 				</div>
 				<div class="search">
 					<span class="sp_search">餐廳名稱搜尋</span> <input type="text"
@@ -143,8 +172,9 @@ button {
 						document.getElementById("theDate").value = today;
 					</script>
 				</div>
-				<div class="search">
-					<label for="">人數 </label> <select name="person_numer">
+				<div class="search"  class="form-group col-md-2">
+					<span class="sp_search-1">人數</span> 
+					<select name="person_numer" id="inputState" class="form-control">
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -158,7 +188,7 @@ button {
 					</select>
 				</div>
 				<div class="search">
-					<button name="QUERY" type="SUBMIT" value="QUERY">Search</button>
+					<button name="QUERY" type="SUBMIT" value="QUERY" class="btn btn-secondary">Search</button>
 				</div>
 			</div>
 

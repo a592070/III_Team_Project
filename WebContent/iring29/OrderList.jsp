@@ -118,21 +118,23 @@ input {
 					</div>
 					<div class="div-1">
 
-						<label for="r-date">用餐時間</label><br>
+						<label for="r-date">用餐時間</label>
 
 					</div>
+					<script>
 					
-					<p class="p-time">
-						<button>11:00</button>
-						<button>12:00</button>
-						<button>13:00</button>
-						<button>14:00</button>
+					</script>
+					<p class="btn-group" role="group" aria-label="Basic example"> 
+						<span class="btn btn-light" value="11:00">11:00</span>
+						<span class="btn btn-light" value="12:00">12:00</span>
+						<span class="btn btn-light" value="13:00">13:00</span>
+						<span class="btn btn-light" value="14:00">14:00</span>
 					</p>
-					<p class="p-time">
-						<button>17:00</button>
-						<button>18:00</button>
-						<button>19:00</button>
-						<button>20:00</button>
+					<p class="btn-group p-time" role="group" aria-label="Basic example">
+						<span class="btn btn-light" value="17:00">17:00</span>
+						<span class="btn btn-light" value="18:00">18:00</span>
+						<span class="btn btn-light" value="19:00">19:00</span>
+						<span class="btn btn-light" value="20:00">20:00</span>
 					</p>
 
 					<div class="div-1">
@@ -154,7 +156,7 @@ input {
 
 				<div class="div-btn">
 
-					<button name="confirm" value="confirm">Confirm</button>
+					<button name="confirm" value="confirm" class="btn btn-success">Confirm</button>
 					<!-- 隱藏欄位都會送到後端 /OrderListServlet-->
 					<Input type='hidden' name='res_name' value='${res_name}'> 
 					<Input type='hidden' name='book_date' value='${book_date}'> 
@@ -162,7 +164,7 @@ input {
 					<Input type='hidden' name='r_id' value='${r_id}'>
 
 					<!-- 要送回Servlet處理。尚未處理 -->
-					<button  name="back" value="back">Back</button>
+					<button  name="back" value="back" class="btn btn-secondary">Back</button>
 					<Input type='hidden' name='res_name' value='${res_name}'> 
 					<Input type='hidden' name='book_date' value='${book_date}'> 
 					<Input type='hidden' name='person_numer' value='${person_numer}'>
