@@ -1,7 +1,10 @@
 package innocence741;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class T_OrderBean {
 	BigDecimal t_sn_order;
@@ -50,10 +53,10 @@ public class T_OrderBean {
 	public void setHsrDO(hsrDO hsrDO) {
 		this.hsrDO = hsrDO;
 	}
-	public BigDecimal getPrice() {
+	public BigDecimal getTrafficPrice() {
 		return trafficPrice;
 	}
-	public void setPrice(BigDecimal trafficPrice) {
+	public void setTrafficPrice(BigDecimal trafficPrice) {
 		this.trafficPrice = trafficPrice;
 	}
 	public BigDecimal getNums_days() {
