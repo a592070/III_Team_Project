@@ -51,3 +51,18 @@ values(4, 101, TO_TIMESTAMP('2020-10-14 15:00:00.000000', 'YYYY-MM-DD HH24:MI:SS
 
 */
 
+/*
+-- update  column null value
+update ATTRACTION set PICTURE = null where PICTURE like '%http://210.69.151.212%';
+update ATTRACTION set PICTURE = null where PICTURE = 'NULL';
+update ATTRACTION set DESCRIPTION = null where DESCRIPTION = 'NULL';
+update ATTRACTION set KEYWORDS = null where KEYWORDS = 'NULL';
+update ATTRACTION set OPENTIME = null where OPENTIME = 'NULL';
+update ATTRACTION set REMARKS = null where REMARKS = 'NULL';
+update ATTRACTION set TEL = null where TEL = 'NULL';
+update ATTRACTION set TICKETINFO = null where TICKETINFO = 'NULL';
+update ATTRACTION set TOLDESCRIBE = null where TOLDESCRIBE = 'NULL';
+update ATTRACTION set TRAVELLINGINFO = null where TRAVELLINGINFO = 'NULL';
+update ATTRACTION set ADDRESS = null where ADDRESS = 'NULL';
+
+*/

@@ -28,9 +28,10 @@ public class AttractionTableInit {
         this.sourceURL = sourceURLType;
         listDO = new DataInit(sourceURL).getListDO();
     }
+
     public boolean initTable() throws IOException, SQLException {
         boolean isSuccess = false;
-        try{
+        try {
             conn = dataSource.getConnection();
 
             sql = "insert into ATTRACTION(ID, NAME, TOLDESCRIBE, DESCRIPTION, TEL, ADDRESS, REGION, TRAVELLINGINFO, OPENTIME, PICTURE, PX, PY, TICKETINFO, KEYWORDS, REMARKS, RATING) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -59,19 +60,20 @@ public class AttractionTableInit {
                 predStmt.clearParameters();
             }
             int[] ints = predStmt.executeBatch();
-            if(ints!=null && ints.length!=0) isSuccess = true;
+            if (ints != null && ints.length != 0) isSuccess = true;
             conn.commit();
-        }catch (SQLException e){
-            if(conn != null) conn.rollback();
+        } catch (SQLException e) {
+            if (conn != null) conn.rollback();
             e.printStackTrace();
-        }finally {
+        } finally {
             ConnectionPool.closeResources(conn, predStmt, null);
         }
         return isSuccess;
     }
+
     public boolean updateRating() throws SQLException {
         boolean isSuccess = false;
-        try{
+        try {
             conn = dataSource.getConnection();
 
             sql = "update ATTRACTIONS set RATING = ? where ID=?";
@@ -85,23 +87,24 @@ public class AttractionTableInit {
                 predStmt.clearParameters();
             }
             int[] ints = predStmt.executeBatch();
-            if(ints!=null && ints.length!=0) isSuccess = true;
+            if (ints != null && ints.length != 0) isSuccess = true;
             conn.commit();
-        }catch (SQLException e){
-            if(conn != null) conn.rollback();
+        } catch (SQLException e) {
+            if (conn != null) conn.rollback();
             e.printStackTrace();
-        }finally {
-            if(predStmt != null) {
+        } finally {
+            if (predStmt != null) {
                 predStmt.clearBatch();
                 predStmt.close();
             }
-            if(conn != null) conn.close();
+            if (conn != null) conn.close();
         }
         return isSuccess;
     }
-    private BigDecimal rndRation(){
-        double rnd = ThreadLocalRandom.current().nextDouble(0,5.1);
-        if(rnd >= 5.0) rnd = 5.0;
+
+    private BigDecimal rndRation() {
+        double rnd = ThreadLocalRandom.current().nextDouble(0, 5.1);
+        if (rnd >= 5.0) rnd = 5.0;
         return new BigDecimal(rnd).setScale(1, BigDecimal.ROUND_HALF_UP);
     }
 }
