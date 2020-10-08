@@ -156,11 +156,11 @@ public class hsrDAO {
 //    		System.out.print(hsrlist.get(i).getDirection().equals(direction)+"  ");
 //    		System.out.print(hsrlist.get(i).getArriveTime(startPoint)+"  ");
 //    		System.out.println(hsrlist.get(i).getArriveTime(destination));
-			System.out.println("fucc"+i);
+//			System.out.println("fucc"+i);
 
     		if(hsrlist.get(i).getIdHSR().equals(idHSR)) {
     			hsrList2user.add(hsrlist.get(i));
-    			System.out.println("haha");
+//    			System.out.println("haha");
     			break;
     		}
     	}
