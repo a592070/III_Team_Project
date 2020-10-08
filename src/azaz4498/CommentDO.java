@@ -3,9 +3,9 @@ package azaz4498;
 import java.sql.Date;
 
 public class CommentDO {
-	private String comId;
+	private int comId;
 	private String comContent;
-	private String comArtId;
+	private int comArtId;
 	private String comUserId;
 	private Date comDate;
 	private String comPic;
@@ -13,7 +13,7 @@ public class CommentDO {
 	public CommentDO() {
 	}
 	
-	public CommentDO(String comId, String comContent, String comArtId, String comUserId, Date comDate, String comPic) {
+	public CommentDO(int comId, String comContent, int comArtId, String comUserId, Date comDate, String comPic) {
 		super();
 		this.comId = comId;
 		this.comContent = comContent;
@@ -23,11 +23,11 @@ public class CommentDO {
 		this.comPic = comPic;
 	}
 
-	public String getComId() {
+	public int getComId() {
 		return comId;
 	}
 
-	public void setComId(String comId) {
+	public void setComId(int comId) {
 		this.comId = comId;
 	}
 
@@ -39,11 +39,11 @@ public class CommentDO {
 		this.comContent = comContent;
 	}
 
-	public String getComArtId() {
+	public int getComArtId() {
 		return comArtId;
 	}
 
-	public void setComArtId(String comArtId) {
+	public void setComArtId(int comArtId) {
 		this.comArtId = comArtId;
 	}
 

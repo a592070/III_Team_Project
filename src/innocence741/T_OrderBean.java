@@ -1,19 +1,22 @@
 package innocence741;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class T_OrderBean {
-	BigDecimal t_sn_order;
-	BigDecimal order_id;
-	hsrDO hsrDO;	//取得snSchedule
-	BigDecimal trafficPrice;	//交通訂單總價格
-	BigDecimal nums_days;	//票價張數租車天數
-	String startPoint;	//出發地
-	String destination;	//目的地
-	Timestamp deparatureDate;	//出發日
-	CarTypeBean carTypeBean;	//取得sn_carType
-	String orderType;	//紀錄為火車票或租車
+	BigDecimal t_sn_order = null;
+	BigDecimal order_id = null;
+	hsrDO hsrDO = null;	//取得snSchedule
+	BigDecimal trafficPrice = null;	//交通訂單總價格
+	BigDecimal nums_days = null;	//票價張數租車天數
+	String startPoint = null;	//出發地
+	String destination = null;	//目的地
+	Timestamp deparatureDate =null;		//出發日
+	CarTypeBean carTypeBean = null;		//取得sn_carType
+	String orderType = null;	//紀錄為火車票或租車
 	
 	public T_OrderBean() {
 		
@@ -50,10 +53,10 @@ public class T_OrderBean {
 	public void setHsrDO(hsrDO hsrDO) {
 		this.hsrDO = hsrDO;
 	}
-	public BigDecimal getPrice() {
+	public BigDecimal getTrafficPrice() {
 		return trafficPrice;
 	}
-	public void setPrice(BigDecimal trafficPrice) {
+	public void setTrafficPrice(BigDecimal trafficPrice) {
 		this.trafficPrice = trafficPrice;
 	}
 	public BigDecimal getNums_days() {
