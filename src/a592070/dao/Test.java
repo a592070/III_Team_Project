@@ -1,6 +1,8 @@
 package a592070.dao;
 
 import a592070.pojo.AttractionDO;
+import a592070.pojo.TravelEleRestaurantDO;
+import a592070.pojo.TravelSetDO;
 import a592070.vo.AttractionsInfoVO;
 import controller.ConnectionPool;
 import utils.IOUtils;
@@ -24,10 +26,11 @@ public class Test {
 
     @org.junit.Test
     public void testDAO() throws IOException, SQLException {
-        AttractionDAO attractionDAO = new AttractionDAO();
+        AttractionDAO attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 //        AttractionDO ele = attractionDAO.getEle("name", "大棟山");
-//        System.out.println(ele);
-        System.out.println(attractionDAO.listEleLike("巧克力"));
+        AttractionDO ele = attractionDAO.getEle(100);
+        System.out.println(ele);
+//        System.out.println(attractionDAO.listEleLike("巧克力"));
 
 
     }
@@ -42,5 +45,18 @@ public class Test {
         OutputStream out = new FileOutputStream(dest);
         out.write(files);
         out.close();
+    }
+
+    @org.junit.Test
+    public void travelSetDAOTest() throws IOException, SQLException {
+        TravelSetDAO travelSetDAO = new TravelSetDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//        List<TravelSetDO> list = travelSetDAO.listTravelSet();
+//        for (TravelSetDO travelSetDO : list) {
+//            System.out.println(travelSetDO.getListTravelHotel());
+//        }
+//        System.out.println(list);
+
+        List<TravelEleRestaurantDO> rSet = travelSetDAO.getRestaurantSetByID(1);
+        System.out.println(rSet);
     }
 }

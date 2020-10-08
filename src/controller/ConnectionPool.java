@@ -63,8 +63,14 @@ public class ConnectionPool {
         return dataSource;
     }
 
+    public static PreparedStatement setParams(PreparedStatement predStmt, Object[] params) throws SQLException {
+        for (int i = 0; i < params.length; i++) {
+            predStmt.setObject(i+1, params[i]);
+        }
+        return predStmt;
+    }
+
     public static ResultSet execute(Connection conn, PreparedStatement predStmt, ResultSet rs, String sql, Object[] params) throws IOException, SQLException {
-        predStmt = conn.prepareStatement(sql);
         for (int i = 0; i < params.length; i++) {
             predStmt.setObject(i+1, params[i]);
         }

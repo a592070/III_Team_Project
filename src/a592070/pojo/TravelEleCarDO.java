@@ -42,4 +42,14 @@ public class TravelEleCarDO {
     public void setCar(CarVO car) {
         this.car = car;
     }
+
+    @Override
+    public String toString() {
+        return "TravelEleCarDO{" +
+                "sn=" + sn +
+                ", travelId=" + travelId +
+                ", time=" + time +
+                ", car=" + car +
+                '}';
+    }
 }

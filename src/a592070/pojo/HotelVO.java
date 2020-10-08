@@ -60,4 +60,16 @@ public class HotelVO {
     public void setRating(BigDecimal rating) {
         this.rating = rating;
     }
+
+    @Override
+    public String toString() {
+        return "HotelVO{" +
+                "sn=" + sn +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", doubleRoomPrice=" + doubleRoomPrice +
+                ", quadrupleRoomPrice=" + quadrupleRoomPrice +
+                ", rating=" + rating +
+                '}';
+    }
 }
