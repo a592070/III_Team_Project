@@ -2,15 +2,12 @@ package innocence741;
 
 import java.math.BigDecimal;
 import java.security.Timestamp;
-import java.sql.Date;
-
-import iring29.bean.RestaurantBean;
 
 public class T_OrderBean {
 	BigDecimal t_sn_order;
 	BigDecimal order_id;
 	hsrDO hsrDO;	//取得snSchedule
-	BigDecimal price;	//交通訂單總價格
+	BigDecimal trafficPrice;	//交通訂單總價格
 	BigDecimal nums_days;	//票價張數租車天數
 	String startPoint;	//出發地
 	String destination;	//目的地
@@ -21,12 +18,12 @@ public class T_OrderBean {
 	public T_OrderBean() {
 		
 	}
-	public T_OrderBean(BigDecimal t_sn_order, BigDecimal order_id, hsrDO hsrDO, BigDecimal price, BigDecimal nums_days, String startPoint, String destination, Timestamp deparatureDate, CarTypeBean carTypeBean, String orderType) {
+	public T_OrderBean(BigDecimal t_sn_order, BigDecimal order_id, hsrDO hsrDO, BigDecimal trafficPrice, BigDecimal nums_days, String startPoint, String destination, Timestamp deparatureDate, CarTypeBean carTypeBean, String orderType) {
 		super();
 		this.t_sn_order = t_sn_order;
 		this.order_id = order_id;
 		this.hsrDO = hsrDO;
-		this.price = price;
+		this.trafficPrice = trafficPrice;
 		this.nums_days = nums_days;
 		this.startPoint = startPoint;
 		this.destination = destination;
@@ -54,10 +51,10 @@ public class T_OrderBean {
 		this.hsrDO = hsrDO;
 	}
 	public BigDecimal getPrice() {
-		return price;
+		return trafficPrice;
 	}
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setPrice(BigDecimal trafficPrice) {
+		this.trafficPrice = trafficPrice;
 	}
 	public BigDecimal getNums_days() {
 		return nums_days;
