@@ -25,45 +25,55 @@ import rambo0021.AccountBean;
 public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-	private static final String CHARSET_CODE = "UTF-8";   
+	private static final String CHARSET_CODE = "UTF-8";
 
-    public OrderListServlet() {
-        super();
-    }
+	public OrderListServlet() {
+		super();
+	}
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 		HttpSession session = request.getSession(false);
-		System.out.println("in");
+
+		if (request.getParameter("confirm") != null) {
+			try {
+				processInsertOrder(request, response);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
-		
+	}
+
+	public void processInsertOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 		OrderTableBean bean = new OrderTableBean();
 		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
 		user.setUserName("Irene");
 		bean.setUser(user);
 		RestaurantBean resBean = new RestaurantBean();
-		BigDecimal r_id = (BigDecimal) request.getAttribute("r_id");
-		resBean.setR_sn(r_id); 
-		
+		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
+		System.out.println("r_id =" + r_id);
+		resBean.setR_sn(r_id);
+
 		rBean.setRestaurantBean(resBean);
-		Timestamp ts = new Timestamp(System.currentTimeMillis());  
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		String tsStr = request.getParameter("book_date") + " 00:00:00";
 		System.out.println(tsStr);
 		ts = Timestamp.valueOf(tsStr);
 		rBean.setBooking_date(ts);
 		rBean.setCustomerNum(new BigDecimal(request.getParameter("person_numer")));
-		
+
 		bean.addR_OderBean(rBean);
-		System.out.println(request.getParameter("b-name"));
-		System.out.println(request.getParameter("b-phone"));
 		bean.setCustomerName(request.getParameter("b-name"));
 		bean.setCustomerPhone(request.getParameter("b-phone"));
 
@@ -73,10 +83,11 @@ public class OrderListServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+
+			
+//		r_Order_ListDAO.
 //		request.getRequestDispatcher("").forward(request, response);
-		
+
 	}
 
 }

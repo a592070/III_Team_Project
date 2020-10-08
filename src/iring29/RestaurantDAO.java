@@ -41,6 +41,7 @@ public class RestaurantDAO {
 			pstmt.clearBatch();
 			RestaurantBean restaurantdata = new RestaurantBean();
 			while (rs.next()) {
+				BigDecimal r_sn = rs.getBigDecimal("R_SN");
 				name = rs.getString("NAME");
 				String address = rs.getString("ADDRESS");
 				String opentime = rs.getString("OPENTIME");
@@ -54,7 +55,7 @@ public class RestaurantDAO {
 				String booking_id = rs.getString("BOOKING_ID");
 				String account = rs.getString("ACCOUNT");
 
-				restaurantdata = new RestaurantBean(name, address, opentime, description, transportation, type, rating,
+				restaurantdata = new RestaurantBean(r_sn, name, address, opentime, description, transportation, type, rating,
 						region, picture, serviceinfo, booking_id, account);
 			}
 			rs.close();
@@ -200,7 +201,7 @@ public class RestaurantDAO {
 			pstmt.clearBatch();
 			RestaurantBean r_data = new RestaurantBean();
 			while (rs.next()) {
-
+				BigDecimal r_sn = rs.getBigDecimal("R_SN");
 				String name = rs.getString("NAME");
 				String address = rs.getString("ADDRESS");
 				String opentime = rs.getString("OPENTIME");
@@ -213,7 +214,7 @@ public class RestaurantDAO {
 				String serviceinfo = rs.getString("SERVICEINFO");
 				String booking_id = rs.getString("BOOKING_ID");
 
-				r_data = new RestaurantBean(name, address, opentime, description, transportation, type, rating, region,
+				r_data = new RestaurantBean(r_sn, name, address, opentime, description, transportation, type, rating, region,
 						picture, serviceinfo, booking_id, username);
 			}
 			rs.close();
