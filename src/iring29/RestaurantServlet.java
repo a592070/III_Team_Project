@@ -52,29 +52,41 @@ public class RestaurantServlet extends HttpServlet {
 				}
 			}
 		}
+		
+		if(request.getParameter("go") != null) {
+			try {
+				processQueryRestaurant(request, response);
+			} catch (IOException | SQLException | ServletException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, SQLException {
 		String name = request.getParameter("restaurant_name").trim();
-		String book_date = request.getParameter("date").trim();
+		String book_date = request.getParameter("book_date").trim();
 		String person_numer = request.getParameter("person_numer").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		RestaurantBean res_data = restaurantDAO.findRestaurant(name);
+		System.out.println(name);
 		request.getSession().setAttribute("res_data", res_data);
 		request.getSession().setAttribute("book_date", book_date);
-		System.out.println(book_date);
 		request.getSession().setAttribute("person_numer", person_numer);
 		request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
 	}
+	
 
 	public void processQueryRegion(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		String region = request.getParameter("region_name").trim();
+		String book_date = request.getParameter("book_date").trim();
+		String person_numer = request.getParameter("person_numer").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		List<RestaurantBean> res_data_region = restaurantDAO.findRegion(region);
 		request.setAttribute("res_data_region", res_data_region );
-
+		request.getSession().setAttribute("book_date", book_date);
+		request.getSession().setAttribute("person_numer", person_numer);
 		request.getRequestDispatcher("/iring29/Region_Restaurant.jsp").forward(request, response);
 	}
 

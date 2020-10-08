@@ -25,45 +25,66 @@ import rambo0021.AccountBean;
 public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-	private static final String CHARSET_CODE = "UTF-8";   
+	private static final String CHARSET_CODE = "UTF-8";
 
-    public OrderListServlet() {
-        super();
-    }
+	public OrderListServlet() {
+		super();
+	}
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 		HttpSession session = request.getSession(false);
-		System.out.println("in");
+
+		if (request.getParameter("confirm") != null) {
+			try {
+				processInsertOrder(request, response);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(request.getParameter("back") != null) {
+			try {
+				processQueryRestaurant(request, response);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
-		
+	}
+
+	public void processInsertOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
+
 		OrderTableBean bean = new OrderTableBean();
 		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
-		user.setUserName("Irene");
+		user.setUserName("Irene");  //正式使用要改username
 		bean.setUser(user);
 		RestaurantBean resBean = new RestaurantBean();
-		BigDecimal r_id = (BigDecimal) request.getAttribute("r_id");
-		resBean.setR_sn(r_id); 
-		
+		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
+		String r_name = request.getParameter("res_name");
+		System.out.println("r_id =" + r_id);
+		System.out.println("r_name = " +r_name);
+		resBean.setR_sn(r_id);
+		resBean.setName(r_name);
+
 		rBean.setRestaurantBean(resBean);
-		Timestamp ts = new Timestamp(System.currentTimeMillis());  
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		String tsStr = request.getParameter("book_date") + " 00:00:00";
 		System.out.println(tsStr);
 		ts = Timestamp.valueOf(tsStr);
 		rBean.setBooking_date(ts);
 		rBean.setCustomerNum(new BigDecimal(request.getParameter("person_numer")));
-		
+
 		bean.addR_OderBean(rBean);
-		System.out.println(request.getParameter("b-name"));
-		System.out.println(request.getParameter("b-phone"));
 		bean.setCustomerName(request.getParameter("b-name"));
 		bean.setCustomerPhone(request.getParameter("b-phone"));
 
@@ -73,10 +94,28 @@ public class OrderListServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+			
+		R_OrderBean roBean = r_Order_ListDAO.findR_order_List(r_id);
+		request.setAttribute("roBean", roBean);
+		request.setAttribute("r_name", r_name);
+		request.setAttribute("bean", bean);
 		
-		
-//		request.getRequestDispatcher("").forward(request, response);
-		
+		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
+
+	}
+	
+	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+		String name = request.getParameter("res_name").trim();
+		String book_date = request.getParameter("book_date").trim();
+		String person_numer = request.getParameter("person_numer").trim();
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantBean res_data = restaurantDAO.findRestaurant(name);
+		System.out.println(name);
+		request.getSession().setAttribute("res_data", res_data);
+		request.getSession().setAttribute("book_date", book_date);
+		request.getSession().setAttribute("person_numer", person_numer);
+		request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
 	}
 
 }

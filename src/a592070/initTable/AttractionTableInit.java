@@ -38,7 +38,7 @@ public class AttractionTableInit {
             predStmt = conn.prepareStatement(sql);
 
             for (AttractionDO attDO : listDO) {
-                predStmt.setInt(1, attDO.getId());
+                predStmt.setInt(1, attDO.getSn());
                 predStmt.setString(2, attDO.getName());
                 predStmt.setString(3, attDO.getToldescribe());
                 predStmt.setString(4, attDO.getDescription());
@@ -81,7 +81,7 @@ public class AttractionTableInit {
 
             for (AttractionDO attDO : listDO) {
                 predStmt.setBigDecimal(1, rndRation());
-                predStmt.setInt(2, attDO.getId());
+                predStmt.setInt(2, attDO.getSn());
 
                 predStmt.addBatch();
                 predStmt.clearParameters();

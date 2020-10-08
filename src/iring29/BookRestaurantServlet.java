@@ -27,18 +27,22 @@ public class BookRestaurantServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 		HttpSession session = request.getSession(false);
 		String res_name = request.getParameter("res_name");
 		String r_id = request.getParameter("r_id");
+		System.out.println(r_id);
 		String book_date = (String) session.getAttribute("book_date");
+		System.out.println(book_date);
 		String person_numer = (String) session.getAttribute("person_numer");
 		request.setAttribute("res_name", res_name );
 		request.setAttribute("book_date", book_date);
 		request.setAttribute("person_numer", person_numer);
 		request.setAttribute("r_id", r_id);
 		request.getRequestDispatcher("/iring29/OrderList.jsp").forward(request, response);
+		
 	}
-
 }

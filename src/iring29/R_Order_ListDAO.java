@@ -113,9 +113,62 @@ public class R_Order_ListDAO {
 	}
 	
 	//find r_order
-	public OrderTableBean findR_order_List(){
-		return null;
+	public R_OrderBean findR_order_List(BigDecimal r_sn) throws SQLException{
+		String sql = "select max(order_id) order_id , customer_num, book_time from r_order_list where r_sn = ? group by customer_num, book_time";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setBigDecimal(1, r_sn);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			
+			R_OrderBean roBean = new R_OrderBean();
+			while (rs.next()) {
+				BigDecimal order_id = rs.getBigDecimal("ORDER_ID");
+				BigDecimal c_num =rs.getBigDecimal("CUSTOMER_NUM");
+				Timestamp b_time = rs.getTimestamp("BOOK_TIME");
+				roBean.setOrder_id(order_id);
+				roBean.setCustomerNum(c_num);
+				roBean.setBooking_date(b_time);
+			}
+			return roBean;
+			
+		}catch (Exception e) {
+			System.err.println("新增資料時發生錯誤:" + e);
+			conn.rollback();
+			return null;
+
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		
 		
 	}
 
+	//Delete Order
+	public boolean cancelR_Order(BigDecimal r_sn_order) throws SQLException {
+		String sql = "delete r_order_list where r_sn_order = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setBigDecimal(1, r_sn_order);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			conn.commit();
+			
+			return true;
+		}catch (Exception e) {
+			System.err.println("新增資料時發生錯誤:" + e);
+			conn.rollback();
+			return false;
+
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		
+	}
 }

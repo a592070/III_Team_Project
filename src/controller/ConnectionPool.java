@@ -49,14 +49,15 @@ public class ConnectionPool {
         if(dataSource == null) {
             // prevent multiple thread created more then one ConnectionPool instance
             synchronized (ConnectionPool.class) {
-                if(dataSource!=null) return dataSource;
-                if (type == LOADING_WITH_SERVER) new ConnectionPool().init();
-                if (type == LOADING_WITHOUT_SERVER) {
-                    ConnectionPool pool = new ConnectionPool();
-                    basicDataSource = new BasicDataSource();
-                    pool.readProperties();
-                    pool.setPool();
-                    dataSource = basicDataSource;
+                if(dataSource==null) {
+                    if (type == LOADING_WITH_SERVER) new ConnectionPool().init();
+                    if (type == LOADING_WITHOUT_SERVER) {
+                        ConnectionPool pool = new ConnectionPool();
+                        basicDataSource = new BasicDataSource();
+                        pool.readProperties();
+                        pool.setPool();
+                        dataSource = basicDataSource;
+                    }
                 }
             }
         }
@@ -64,6 +65,7 @@ public class ConnectionPool {
     }
 
     public static PreparedStatement setParams(PreparedStatement predStmt, Object[] params) throws SQLException {
+        if(params == null) return predStmt;
         for (int i = 0; i < params.length; i++) {
             predStmt.setObject(i+1, params[i]);
         }

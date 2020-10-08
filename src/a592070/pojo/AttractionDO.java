@@ -2,14 +2,16 @@ package a592070.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import utils.StringUtil;
 
 import java.math.BigDecimal;
 
 @JsonDeserialize(using = AttractionJsonDeserializer.class)
+@JsonSerialize(using = AttractionJsonSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttractionDO {
-    private int id;
+    private int sn;
     private String name;
     private String toldescribe;
     private String description;
@@ -32,7 +34,7 @@ public class AttractionDO {
     @Override
     public String toString() {
         return "AttractionDO{" +
-                "id='" + id + '\'' +
+                "sn='" + sn + '\'' +
                 ", name='" + name + '\'' +
                 ", toldescribe='" + toldescribe + '\'' +
                 ", description='" + description + '\'' +
@@ -50,12 +52,12 @@ public class AttractionDO {
                 '}';
     }
 
-    public int getId() {
-        return id;
+    public int getSn() {
+        return sn;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSn(int sn) {
+        this.sn = sn;
     }
 
     public String getName() {

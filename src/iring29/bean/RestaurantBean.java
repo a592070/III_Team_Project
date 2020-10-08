@@ -29,9 +29,16 @@ public class RestaurantBean {
 			this.region = region;
 		}
 	// constructor
-	public RestaurantBean(String name, String address, String opentime, String description, String transportation,
-			String type, BigDecimal rating, String region, String picture, String serviceinfo,
+
+
+	public BigDecimal getR_sn() {
+		return r_sn;
+	}
+	public RestaurantBean(BigDecimal r_sn, String name, String address, String opentime, String description,
+			String transportation, String type, BigDecimal rating, String region, String picture, String serviceinfo,
 			String booking_id, String account) {
+		super();
+		this.r_sn = r_sn;
 		this.name = name;
 		this.address = address;
 		this.opentime = opentime;
@@ -44,11 +51,6 @@ public class RestaurantBean {
 		this.serviceinfo = serviceinfo;
 		this.booking_id = booking_id;
 		this.account = account;
-	}
-	
-
-	public BigDecimal getR_sn() {
-		return r_sn;
 	}
 	public void setR_sn(BigDecimal r_sn) {
 		this.r_sn = r_sn;
