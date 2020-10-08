@@ -135,6 +135,7 @@
                	<Input class="book-btn" type='submit' value='Booking'>
           <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
           		<Input type='hidden' name='res_name' value='${res_data.name}'>
+          		<Input type='hidden' name='r_id' value='${res_data.r_sn}'>
                 </FORM>
             </div>
             <div>

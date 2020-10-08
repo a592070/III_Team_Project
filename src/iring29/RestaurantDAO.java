@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,44 +24,44 @@ public class RestaurantDAO {
 	private DataSource ds;
 	private String sql;
 	private PreparedStatement pstmt;
-	
-	//constructor
+
+	// constructor
 	public RestaurantDAO(int dataSourceType) throws IOException {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
-	
-	//find specific restaurant
+
+	// find specific restaurant by restaurant name
 	public RestaurantBean findRestaurant(String name) throws SQLException {
 		try {
-		sql = "select * from restaurant where name like ? ";
-		conn = ds.getConnection();
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, "%"+ name+"%");
-		ResultSet rs = pstmt.executeQuery();
-		pstmt.clearBatch();
-		RestaurantBean restaurantdata = new RestaurantBean();
-		while(rs.next()) {
-			name = rs.getString("NAME");
-			String address = rs.getString("ADDRESS");
-			String opentime = rs.getString("OPENTIME");
-			String description = rs.getString("DESCRIPTION");
-			String transportation = rs.getString("TRANSPORTATION");
-			String type = rs.getString("TYPE");
-			BigDecimal rating = rs.getBigDecimal("RATING");
-			String region = rs.getString("REGION");
-			String picture = rs.getString("PICTURE");
-			String serviceinfo = rs.getString("SERVICEINFO");
-			String booking_id = rs.getString("BOOKING_ID");
-			String account = rs.getString("ACCOUNT");
-			
-			restaurantdata = new RestaurantBean(name, address, opentime, description, transportation,
-					type, rating, region, picture, serviceinfo,booking_id, account);
-		}
-		rs.close();
-		pstmt.close();
-		return restaurantdata;
-		
-		}catch (Exception e) {
+			sql = "select * from restaurant where name like ? ";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			RestaurantBean restaurantdata = new RestaurantBean();
+			while (rs.next()) {
+				name = rs.getString("NAME");
+				String address = rs.getString("ADDRESS");
+				String opentime = rs.getString("OPENTIME");
+				String description = rs.getString("DESCRIPTION");
+				String transportation = rs.getString("TRANSPORTATION");
+				String type = rs.getString("TYPE");
+				BigDecimal rating = rs.getBigDecimal("RATING");
+				String region = rs.getString("REGION");
+				String picture = rs.getString("PICTURE");
+				String serviceinfo = rs.getString("SERVICEINFO");
+				String booking_id = rs.getString("BOOKING_ID");
+				String account = rs.getString("ACCOUNT");
+
+				restaurantdata = new RestaurantBean(name, address, opentime, description, transportation, type, rating,
+						region, picture, serviceinfo, booking_id, account);
+			}
+			rs.close();
+			pstmt.close();
+			return restaurantdata;
+
+		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
 			return null;
 		} finally {
@@ -70,8 +71,8 @@ public class RestaurantDAO {
 		}
 
 	}
-	
-	//find specific region
+
+	// find specific region
 	public List<RestaurantBean> findRegion(String region) throws SQLException {
 		try {
 			sql = "select name, region, type from restaurant where region = ?";
@@ -81,18 +82,18 @@ public class RestaurantDAO {
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
 			ArrayList<RestaurantBean> restaurantList = new ArrayList<>();
-			while(rs.next()) {
+			while (rs.next()) {
 				RestaurantBean restaurantdata = new RestaurantBean();
 				restaurantdata.setName(rs.getString("NAME"));
 				restaurantdata.setRegion(rs.getString("REGION"));
 				restaurantdata.setType(rs.getString("TYPE"));
-				
+
 				restaurantList.add(restaurantdata);
 			}
 			rs.close();
 			pstmt.close();
 			return restaurantList;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
 			return null;
 		} finally {
@@ -100,22 +101,22 @@ public class RestaurantDAO {
 				conn.close();
 			}
 		}
-		
+
 	}
-	
-	//update img
+
+	// update img
 	public void updateimg(String url, String id) throws SQLException, FileNotFoundException {
 		try {
-		sql = "update restaurant set picture = ? where id = ?";
-		conn = ds.getConnection();
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, url);
-		pstmt.setString(2, id);
-		ResultSet rs = pstmt.executeQuery();
-		System.out.println("start");
-		conn.commit();
-		pstmt.clearBatch();
-		}catch (Exception e) {
+			sql = "update restaurant set picture = ? where id = ?";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, url);
+			pstmt.setString(2, id);
+			ResultSet rs = pstmt.executeQuery();
+			System.out.println("start");
+			conn.commit();
+			pstmt.clearBatch();
+		} catch (Exception e) {
 			System.err.println("更新資料時發生錯誤:" + e);
 			conn.rollback();
 		} finally {
@@ -123,72 +124,115 @@ public class RestaurantDAO {
 				conn.close();
 			}
 		}
-		
-		
+
 	}
-	
-	//delete restaurant
+
+	// delete restaurant
 	public boolean deleteRestaurant(String id) throws SQLException {
 		try {
-		sql = "delete restaurant where r_id = ?";
-		conn = ds.getConnection();
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, id);
-		ResultSet rs = pstmt.executeQuery();
-		pstmt.clearBatch();
-		conn.commit();
-		
-		System.out.println("delete");
-		rs.close();
-		pstmt.close();
-		}catch (Exception e) {
+			sql = "delete restaurant where r_id = ?";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			conn.commit();
+
+			System.out.println("delete");
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
 			System.err.println("刪除資料時發生錯誤:" + e);
 			conn.rollback();
-		
-		}finally {
+
+		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
 		return true;
-		
+
 	}
-	
-	//insert data for Restaurant
+
+	// insert data for Restaurant
 	public void createRestaurant(RestaurantBean ResBean) throws SQLException {
 		try {
 			sql = "insert into RESTAURANT (NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) "
 					+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, ResBean.getName());
-			pstmt.setString(2, ResBean.getAddress());
-			pstmt.setString(3, ResBean.getOpentime());
-			pstmt.setString(4, ResBean.getDescription());
-			pstmt.setString(5, ResBean.getTransportation());
-			pstmt.setString(6, ResBean.getType());
-			pstmt.setBigDecimal(7, ResBean.getRating());
-			pstmt.setString(8, ResBean.getRegion());
-			pstmt.setString(9, ResBean.getPicture());
-			pstmt.setString(10, ResBean.getServiceinfo());
-			pstmt.setString(11, ResBean.getBooking_id());
-			pstmt.setString(12, ResBean.getAccount());
+			pstmt.setString(1, ResBean.getName()); // 餐廳名稱
+			pstmt.setString(2, ResBean.getAddress()); // 餐廳地址
+			pstmt.setString(3, ResBean.getOpentime()); // 餐廳營業時間
+			pstmt.setString(4, ResBean.getDescription()); // 餐廳描述
+			pstmt.setString(5, ResBean.getTransportation()); // 餐廳交通方式
+			pstmt.setString(6, ResBean.getType()); // 餐廳類型
+			pstmt.setBigDecimal(7, new BigDecimal(BigInteger.ONE)); // rating初始值設為0，不讓使用者填
+			pstmt.setString(8, ResBean.getRegion()); // 餐廳所在地區
+			pstmt.setString(9, ResBean.getPicture()); // 餐廳照片，url格式
+			pstmt.setString(10, ResBean.getServiceinfo()); // 餐廳用餐訊息
+			pstmt.setString(11, null); // booking_id不讓使用者填，設null
+			pstmt.setString(12, ResBean.getAccount()); // 使用者username
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
 			conn.commit();
-			
+
 			rs.close();
 			pstmt.close();
-			}catch (Exception e) {
-				System.err.println("新增資料時發生錯誤:" + e);
-				conn.rollback();
-			
-			}finally {
-				if (conn != null) {
-					conn.close();
-				}
+		} catch (Exception e) {
+			System.err.println("新增資料時發生錯誤:" + e);
+			conn.rollback();
+
+		} finally {
+			if (conn != null) {
+				conn.close();
 			}
+		}
 	}
-	
-	
+
+	public RestaurantBean Restaurant_HP(String username) throws SQLException {
+		try {
+			sql = "select * from restaurant where account = ? ";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			RestaurantBean r_data = new RestaurantBean();
+			while (rs.next()) {
+
+				String name = rs.getString("NAME");
+				String address = rs.getString("ADDRESS");
+				String opentime = rs.getString("OPENTIME");
+				String description = rs.getString("DESCRIPTION");
+				String transportation = rs.getString("TRANSPORTATION");
+				String type = rs.getString("TYPE");
+				BigDecimal rating = rs.getBigDecimal("RATING");
+				String region = rs.getString("REGION");
+				String picture = rs.getString("PICTURE");
+				String serviceinfo = rs.getString("SERVICEINFO");
+				String booking_id = rs.getString("BOOKING_ID");
+
+				r_data = new RestaurantBean(name, address, opentime, description, transportation, type, rating, region,
+						picture, serviceinfo, booking_id, username);
+			}
+			rs.close();
+			pstmt.close();
+			return r_data;
+		
+		} catch (Exception e) {
+			System.err.println("新增資料時發生錯誤:" + e);
+			conn.rollback();
+			return null;
+
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+	}
+
+
 }
+
+

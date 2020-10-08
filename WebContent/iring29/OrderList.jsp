@@ -46,9 +46,9 @@
     </style>
 </head>
 <body>
+<FORM  action="<c:url value='OrderListServlet'/>" method="POST">
 <div class="wrapper">
         <div class="container">
-            <form action="" method="POST">
 
                 <h1>
                     訂單訊息
@@ -65,12 +65,12 @@
                     </div>
                     <div class="div-1">
                         <label for="b-name">訂位人姓名</label>
-                        <input type="text" name="f-name" placeholder="請輸入完整姓名">
+                        <input type="text" name="b-name" placeholder="請輸入完整姓名">
                     </div>
                 </div>
                 <div class="div-1">
                     <label for="b-phone">訂位人手機</label>
-                    <input type="text" name="l-name" placeholder="請輸入手機號碼">
+                    <input type="text" name="b-phone" placeholder="請輸入手機號碼">
                 </div>
                 <div class="div-1">
                     <label for="b-number">用餐人數</label>
@@ -83,12 +83,21 @@
                     <label for="price">訂金</label>
                     <span>500 元</span>
                 </div>
+                
                 <div class="div-btn">
+                
                 <button>Confirm</button>
-                <button><a href="<c:url value='/iring29/DisplayRestaurant.jsp'/>">Back</a></button>
+                <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
+          		<Input type='hidden' name='res_name' value='${res_name}'>
+          		<Input type='hidden' name='book_date' value='${book_date}'>
+          		<Input type='hidden' name='person_numer' value='${person_numer}'>
+          		<Input type='hidden' name='r_id' value='${r_id}'>
+          		
+          		<a href="<c:url value='/iring29/DisplayRestaurant.jsp'/>"><button>Back</button></a>
             </div>
+            
         </div>
-        </form>
     </div>
+    </FORM>
 </body>
 </html>
