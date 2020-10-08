@@ -39,8 +39,8 @@ public class Test_innocence741 {
 		//System.out.println(user.getEmail()==null);
 		//System.out.println(user.getUserName());
 		
-		user.setUserName("innocence");
-		bean.setUser(user);	//假設訂購人為innocence
+		user.setUserName("innocence");	//假裝訂購人為innocence
+		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
 		bean.setCustomerName("abc");  //測試先手動key 下單者姓名
 		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
