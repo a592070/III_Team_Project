@@ -20,7 +20,7 @@
 		</tr>
 		<tr bgcolor="#FFFFE1">
 			<td>照片:<img width='300px' 
-				src='${pageContext.request.contextPath}/Homepage'></td>
+				src="${pageContext.request.contextPath}/Homepage?userName=${Login.userName}"></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
 			<td><c:out value="帳號:${Login.userName}" /></td>
