@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,47 +99,46 @@
         <div class="container">
             <form action="" method="POST">
                 
-                    <h1> 訂單號碼 </h1>
+                    <h1> Fun Taiwan 訂單號碼 </h1>
                     <div class="div-1">
-                        <span>order number</span>
+                        <span>${roBean.order_id}</span>
+                    </div>
+                    <h1> 餐廳訂單號碼 </h1>
+                    <div class="div-1">
+                        <span>${roBean.r_sn_order}</span>
                     </div>
                 
-                <h1>
-                    訂單訊息
-                </h1>
+                <h1>  訂單訊息 </h1>
                 <div class="">
                     <div class="div-1">
                         <label for="r-name">訂位餐廳</label>
-                        <span>Restaurant name</span>
+                        <span>${r_name}</span>
                     </div>
 
                     <div class="div-1">
                         <label for="r-date">用餐日期</label>
-                        <span>Book date</span>
+                        <span>${roBean.booking_date}</span>
                     </div>
                     <div class="div-1">
                         <label for="b-name">訂位人姓名</label>
-                        <span>Book name</span>
+                        <span>${bean.customerName}</span>
                     </div>
                 </div>
                 <div class="div-1">
                     <label for="b-phone">訂位人手機</label>
-                    <span>Book phone</span>
+                    <span>${bean.customerPhone}</span>
                 </div>
                 <div class="div-1">
                     <label for="b-number">用餐人數</label>
-                    <span>Book number</span>
+                    <span>${roBean.customerNum}</span>
                 </div>
-                <h1>
-                    付款資訊
-                </h1>
+                <h1> 付款資訊</h1>
                 <div class="div-1">
                     <label for="price">尚未付款</label>
                     <span>500 元</span>
                 </div>
                 <div class="div-btn">
                 <button>cancel order</button>
-                <button>Back to Home</button>
             </div>
         </div>
         </form>

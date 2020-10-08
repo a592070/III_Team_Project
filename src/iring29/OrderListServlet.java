@@ -50,20 +50,31 @@ public class OrderListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(request.getParameter("back") != null) {
+			try {
+				processQueryRestaurant(request, response);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
-	public void processInsertOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void processInsertOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
 
 		OrderTableBean bean = new OrderTableBean();
 		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
-		user.setUserName("Irene");
+		user.setUserName("Irene");  //正式使用要改username
 		bean.setUser(user);
 		RestaurantBean resBean = new RestaurantBean();
 		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
+		String r_name = request.getParameter("res_name");
 		System.out.println("r_id =" + r_id);
+		System.out.println("r_name = " +r_name);
 		resBean.setR_sn(r_id);
+		resBean.setName(r_name);
 
 		rBean.setRestaurantBean(resBean);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -85,9 +96,26 @@ public class OrderListServlet extends HttpServlet {
 		}
 
 			
-//		r_Order_ListDAO.
-//		request.getRequestDispatcher("").forward(request, response);
+		R_OrderBean roBean = r_Order_ListDAO.findR_order_List(r_id);
+		request.setAttribute("roBean", roBean);
+		request.setAttribute("r_name", r_name);
+		request.setAttribute("bean", bean);
+		
+		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
 
+	}
+	
+	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+		String name = request.getParameter("res_name").trim();
+		String book_date = request.getParameter("book_date").trim();
+		String person_numer = request.getParameter("person_numer").trim();
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantBean res_data = restaurantDAO.findRestaurant(name);
+		System.out.println(name);
+		request.getSession().setAttribute("res_data", res_data);
+		request.getSession().setAttribute("book_date", book_date);
+		request.getSession().setAttribute("person_numer", person_numer);
+		request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
 	}
 
 }

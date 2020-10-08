@@ -33,7 +33,6 @@ public class HomepagServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		OutputStream os = null;
 		InputStream is = null;
 		String fileName = null;
@@ -51,17 +50,19 @@ public class HomepagServlet extends HttpServlet {
 		
 		AccountBean account = (AccountBean)session.getAttribute("Login");
 		try {
-			is=account.getPicture().getBinaryStream();
+			is=account.getPicture().getBinaryStream();			
+			if (is == null) {
+				fileName = "NoImage.png" ; 
+				is = getServletContext().getResourceAsStream(
+						"/rambo0021/Images/NoImage.png");
+				// TODO path not found
+			}
+	 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (is == null) {
-			fileName = "NoImage.png" ; 
-			is = getServletContext().getResourceAsStream(
-					"/Images/" + fileName);
-		}
- 
+		
 		// 由圖片檔的檔名來得到檔案的MIME型態
 		mimeType = getServletContext().getMimeType(fileName);
 		// 設定輸出資料的MIME型態

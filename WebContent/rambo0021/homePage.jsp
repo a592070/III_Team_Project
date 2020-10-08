@@ -14,12 +14,12 @@
 <body>
 <jsp:include page="/rambo0021/top.jsp" />
 
-	<table border="1" align="center">
+	<table border="1" align="center" width="400px">
 		<tr bgcolor="#FFFFE1">
-			<td><c:out value="身分:${Login.identity}" /></td>
+			<td><c:out value="身分:${Login.identityString}" /></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">
-			<td>照片:<img height='100px' width='100px'
+			<td>照片:<img width='300px' 
 				src='${pageContext.request.contextPath}/Homepage'></td>
 		</tr>
 		<tr bgcolor="#FFFFE1">

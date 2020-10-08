@@ -32,7 +32,7 @@
 				<tr>
 					<td>
 						<CENTER>
-							<INPUT TYPE="SUBMIT" id="submit" value="登入">
+							<INPUT TYPE="SUBMIT" id="submit" value="登入" disabled>
 						</CENTER>
 					</td>
 				</tr>
@@ -45,7 +45,8 @@
 	<script>
 		  function checkusr() {
 			let theUsrObjVal = document.getElementById("userName").value;
-		    let disable = document.getElementById("submit").disabled;
+		    // let disable = document.getElementById("submit").disabled;
+			
             let sp = document.getElementById("idsp");
             let theUsrlen = theUsrObjVal.length;
 
@@ -55,11 +56,11 @@
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
                 document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/error.png"
-				disable=true;
+				document.getElementById("submit").disabled = true;
 			}else{
 				sp.innerHTML ="";
 				document.getElementById("idfimg").src = ""
-				disable=false;
+				document.getElementById("submit").disabled = false;
 			}
 		  }
 		  function checkpwd() {
@@ -74,11 +75,11 @@
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
                 document.getElementById("idfimg2").src = "/III_Team_Project/rambo0021/Images/error.png"
-				disable=true;
+				document.getElementById("submit").disabled = true;
 			}else{
 				sp.innerHTML ="";
 				document.getElementById("idfimg2").src ="";
-				disable=false;
+				document.getElementById("submit").disabled = false;
 			}
 		  }
 	</script>
