@@ -16,8 +16,8 @@ public class TravelSetDAO {
     private PreparedStatement predStmt;
     private ResultSet rs;
 
-    public TravelSetDAO() throws IOException {
-        this.ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITHOUT_SERVER);
+    public TravelSetDAO(int connType) throws IOException {
+        this.ds = ConnectionPool.getDataSource(connType);
     }
 
 

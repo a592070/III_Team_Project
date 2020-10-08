@@ -26,10 +26,11 @@ public class Test {
 
     @org.junit.Test
     public void testDAO() throws IOException, SQLException {
-        AttractionDAO attractionDAO = new AttractionDAO();
+        AttractionDAO attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 //        AttractionDO ele = attractionDAO.getEle("name", "大棟山");
-//        System.out.println(ele);
-        System.out.println(attractionDAO.listEleLike("巧克力"));
+        AttractionDO ele = attractionDAO.getEle(100);
+        System.out.println(ele);
+//        System.out.println(attractionDAO.listEleLike("巧克力"));
 
 
     }
@@ -48,7 +49,7 @@ public class Test {
 
     @org.junit.Test
     public void travelSetDAOTest() throws IOException, SQLException {
-        TravelSetDAO travelSetDAO = new TravelSetDAO();
+        TravelSetDAO travelSetDAO = new TravelSetDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 //        List<TravelSetDO> list = travelSetDAO.listTravelSet();
 //        for (TravelSetDO travelSetDO : list) {
 //            System.out.println(travelSetDO.getListTravelHotel());

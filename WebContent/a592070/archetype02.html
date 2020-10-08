@@ -10,9 +10,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <h2>選地區</h2>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">台北</button>
+        <button type="button" class="btn btn-primary">新北</button>
+        <button type="button" class="btn btn-primary">桃園</button>
+        <button type="button" class="btn btn-primary">台中</button>
+        <button type="button" class="btn btn-primary">高雄</button>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                看更多
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">region1</a>
+                <a class="dropdown-item" href="#">region2</a>
+                <a class="dropdown-item" href="#">region3</a>
+                <a class="dropdown-item" href="#">region4</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
-    <h2>地區</h2>
 
     <br>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
