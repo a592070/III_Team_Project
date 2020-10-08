@@ -5,10 +5,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>註冊頁面</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 標楷體;
@@ -51,23 +49,20 @@
                 </div>
                 <div class="st1">
                     <label for="username">帳號:</label>
-                    <input type="text" id="username" name="username" placeholder="請輸入帳號">
-                    <!-- onblur="checkusr()"> -->
+                    <input type="text" id="username" name="username" placeholder="請輸入帳號" onblur="checkusr()"/>
                     <img class="img" id="idfimg" src=""><span id="idsp"></span><br />
 
                 </div>
                 <div class="st1">
                     <label for="password">密碼:</label>
-                    <input type="password" id="password" name="password" autocomplete="off" placeholder="請輸入密碼">
-                    <!-- onblur="checkpwd()"> -->
+                    <input type="password" id="password" name="password" autocomplete="off" placeholder="請輸入密碼" />          
                     <img class="img" id="idfimg2" src=""><span id="idsp2"></span><br />
 
                 </div>
                 <div class="st1">
                     <label for="checkpwd">密碼確認:</label>
-                    <input type="password" id="checkpassword" name="checkpassword" autocomplete="off"
-                        placeholder="請確認密碼" onblur="checkpwd()">
-                    <img class="img" id="idfimg3" src=""><span id="idsp2"></span><br />
+                    <input type="password" id="checkpassword" name="checkpassword" placeholder="請確認密碼" onblur="checkpwd()"/>
+                    <img class="img" id="idfimg3" src=""><span id="idsp3"></span><br />
                 </div>
             </fieldset>
             <fieldset>
@@ -91,9 +86,57 @@
                     <input type="file" id="picture" name="picture" accept="image/*">
                 </div>
             </fieldset>
-            <input type="submit" name="submit" value="送出">
+            <input type="submit" id="submit" name="submit" value="送出" disabled> 
         </form>
     </div>
+    <script>
+        function checkusr(){
+            let username=document.getElementById("username").value;
+            let sp = document.getElementById("idsp");
+            if(username==""){
+                sp.innerHTML = "帳號不能為空"
+                sp.style.color = "red";
+                sp.style.fontSize = "13px";
+                sp.style.fontStyle = "italic";
+                document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/error.png"
+                document.getElementById("submit").disabled = true;
+            }else{
+                sp.innerHTML="正確";
+                sp.style.color = "black";
+                sp.style.fontSize = "13px";
+                sp.style.fontStyle = "italic";
+                document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/check.png"
+                document.getElementById("submit").disabled = false;
+            }
+        }
+        function checkpwd() {
+            let pwd=document.getElementById("password").value;
+            let ckpwd=document.getElementById("checkpassword").value;
+            let sp = document.getElementById("idsp3");
+            if(pwd==""){
+                sp.innerHTML = "密碼不能為空"
+                sp.style.color = "red";
+                sp.style.fontSize = "13px";
+                sp.style.fontStyle = "italic";
+                document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/error.png"
+                document.getElementById("submit").disabled = true;
+            } else if(pwd==ckpwd){
+                sp.innerHTML="正確";
+                sp.style.color = "black";
+                sp.style.fontSize = "13px";
+                sp.style.fontStyle = "italic";
+                document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/check.png"
+                document.getElementById("submit").disabled = false;
+            } else{
+                sp.innerHTML = "密碼與確認密碼不符"
+                sp.style.color = "red";
+                sp.style.fontSize = "13px";
+                sp.style.fontStyle = "italic";
+                document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/error.png"
+                document.getElementById("submit").disabled = true;
+            }
+        }
+    </script>
 </body>
 
 </html>

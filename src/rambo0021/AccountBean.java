@@ -18,8 +18,7 @@ public class AccountBean {
 	private Date modify_Date;
 	private String nickName;
 	private Date register;
-	private String favorite;
-	private String attractions_Id;
+	private String identityString;
 	
 	public AccountBean() {
 		
@@ -109,39 +108,12 @@ public class AccountBean {
 		this.register = register;
 	}
 
-
-	public String getFavorite() {
-		return favorite;
-	}
-
-
-	public void setFavorite(String favorite) {
-		this.favorite = favorite;
-	}
-
-
-	public String getAttractions_Id() {
-		return attractions_Id;
-	}
-
-
-	public void setAttractions_Id(String attractions_Id) {
-		this.attractions_Id = attractions_Id;
-	}
-
-
-
-
-
 	@Override
 	public String toString() {
 		return "AccountBean [userName=" + userName + ", password=" + password + ", identity=" + identity + ", email="
-				+ email + ", modify_Date=" + modify_Date + ", nickName=" + nickName + ", register=" + register
-				+ ", favorite=" + favorite + ", attractions_Id=" + attractions_Id + "]";
+				+ email + ", picture=" + picture + ", modify_Date=" + modify_Date + ", nickName=" + nickName
+				+ ", register=" + register + ", identityString=" + identityString + "]";
 	}
-
-
-
 
 
 	public Blob getPicture() {
@@ -155,5 +127,16 @@ public class AccountBean {
 	public void setPicture(Blob picture) {
 		this.picture =  picture;
 	}
+
+
+	public String getIdentityString() {
+		return identityString;
+	}
+
+
+	public void setIdentityString(String identityString) {
+		this.identityString = identityString;
+	}
+	
 	
 }
