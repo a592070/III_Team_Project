@@ -9,7 +9,7 @@ public class ArticleDO {
 	private int artCommNum;
 	private int artView;
 	private String artId;
-	private String artTypeId;
+	private int artTypeId;
 	private String artTitle;
 	private String artPic;
 	
@@ -18,7 +18,7 @@ public class ArticleDO {
 	}
 	
 	public ArticleDO(String artContent, Date artCreTime, String artUserId, int artCommNum, 
-			int artView, String artId, String artTypeId, String artTitle, String artPic) {
+			int artView, String artId, int artTypeId, String artTitle, String artPic) {
 		super();
 		this.artContent = artContent;
 		this.artCreTime = artCreTime;
@@ -66,10 +66,10 @@ public class ArticleDO {
 	public void setArtId(String artId) {
 		this.artId = artId;
 	}
-	public String getArtTypeId() {
+	public int getArtTypeId() {
 		return artTypeId;
 	}
-	public void setArtTypeId(String artTypeId) {
+	public void setArtTypeId(int artTypeId) {
 		this.artTypeId = artTypeId;
 	}
 	public String getArtTitle() {
