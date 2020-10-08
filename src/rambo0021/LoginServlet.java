@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 		AccountBean account = new AccountBean();
         HomePageDAO homePage = new HomePageDAO();
         HttpSession session = request.getSession();
-        Map<String, String> errorMsgMap = new HashMap<String, String>();
+        Map<String, String> errorMsgMap = new HashMap<String, String>();       
         request.setAttribute("ErrorMsgKey", errorMsgMap);
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 		homePage.selectUserData(account);
 		if (password.equals(account.getPassword())) {
 			session.setAttribute("Login",account);
-			response.sendRedirect("/III_Team_Project/rambo0021/index.jsp");
+			response.sendRedirect(request.getContextPath()+"/rambo0021/index.jsp");
 		}else {
 			errorMsgMap.put("LoginError", "帳號或密碼錯誤");
 			RequestDispatcher rd = request.getRequestDispatcher("/rambo0021/login.jsp");

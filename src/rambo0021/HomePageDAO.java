@@ -12,10 +12,10 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import com.sun.org.apache.regexp.internal.recompile;
+
 
 import controller.ConnectionPool;
-import sun.nio.cs.ext.ISCII91;
+
 
 public class HomePageDAO {
 	public void selectUserData(AccountBean account) {
@@ -32,6 +32,17 @@ public class HomePageDAO {
 			account.setPassword(password);
 			int identity = rs.getInt("identity");
 			account.setIdentity(identity);
+			if (identity==1) {
+				account.setIdentityString("管理員");
+			}else if(identity==2){
+				account.setIdentityString("一般會員");
+			}else if(identity==3) {
+				account.setIdentityString("餐廳業者");
+			}else if(identity==4) {
+				account.setIdentityString("住宿業者");
+			}else if(identity==5) {
+				account.setIdentityString("交通業者");
+			}
 			String email = rs.getString("email");
 			account.setEmail(email);
 			String nickname = rs.getString("nickname");

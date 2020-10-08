@@ -28,12 +28,11 @@ public class RegisterDAO {
 		prepareStatement.setString(2, account.getPassword());
 		prepareStatement.setInt(3, account.getIdentity());
 		prepareStatement.setString(4, account.getEmail());
-		prepareStatement.setBlob(5, account.getPicture());
-		Date date = java.sql.Date.valueOf(account.getModify_Date());
+		prepareStatement.setBlob(5, account.getPicture().getBinaryStream());
+	    Date date = new Date(new java.util.Date().getTime());
 		prepareStatement.setDate(6, date);
 		prepareStatement.setString(7, account.getNickName());
 		prepareStatement.setDate(8, date);
-		
 		int updatecount = prepareStatement.executeUpdate();
 		
 		

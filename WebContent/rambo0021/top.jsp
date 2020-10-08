@@ -18,7 +18,7 @@
 			<td>您好，<c:out value="${Login.nickName}" /><br> <a
 				href="<c:url value='/rambo0021/homePage.jsp' />">個人頁面</a>
 			</td>
-			<td><a href="<c:url value='/rambo0021/Logout' />">登出</a></td>
+			<td><a href="<c:url value='/Logout' />">登出</a></td>
 		</c:if>
 		<td><a href="<c:url value='/rambo0021/index.jsp' />">首頁</a></td>
 	</tr>

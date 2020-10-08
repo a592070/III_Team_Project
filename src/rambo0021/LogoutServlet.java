@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import globalinit.Constant;
+
 /**
  * Servlet implementation class LogoutServlet
  */
@@ -30,8 +32,7 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession(false);
-//		session.getAttribute("Login");
-		session.invalidate();
+		session.removeAttribute("Login");
 		response.sendRedirect(request.getContextPath()+"/rambo0021/index.jsp");
 	}
 
