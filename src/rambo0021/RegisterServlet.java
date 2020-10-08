@@ -1,7 +1,8 @@
 package rambo0021;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStream;import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -63,19 +64,18 @@ public class RegisterServlet extends HttpServlet {
 		InputStream pictrure = request.getPart("picture").getInputStream();
 		// TODO
 		try {
+			
 			account.setPicture(new SerialBlob(IOUtils.toByteArray(pictrure)));
+			
 		} catch (IOException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Date date = new Date();
-		account.setModify_Date(date);
-		account.setRegister(date);
 		String nickname = request.getParameter("nickname").trim();
 		account.setNickName(nickname);
 		System.out.println("Servlet is on");
 		registerDAO.insertData(account);
+		response.sendRedirect(request.getContextPath()+"/rambo0021/login.jsp");
 		pictrure.close();
 		
 	}

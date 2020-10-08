@@ -1,7 +1,9 @@
 package iring29;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ConnectionPool;
+import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
+import pojo.OrderTableBean;
 
 /**
  * Servlet implementation class Restaurant_HPServlet
@@ -47,7 +51,11 @@ public class Restaurant_HPServlet extends HttpServlet {
 		String name = request.getParameter("username").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		RestaurantBean restaurant_HP = restaurantDAO.Restaurant_HP(name);
+		BigDecimal r_sn = restaurant_HP.getR_sn();
+		OrderTableBean otBean = restaurantDAO.findR_Order(r_sn);
+		Set<R_OrderBean> roBean = otBean.getR_OderBeans();
 		request.getSession().setAttribute("r_hp", restaurant_HP);
+		request.getSession().setAttribute("roBean", roBean);
 		request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);
 	}
 	
