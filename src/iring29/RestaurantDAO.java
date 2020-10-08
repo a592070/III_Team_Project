@@ -11,13 +11,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
+import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
+import pojo.OrderTableBean;
 
 public class RestaurantDAO {
 	private Connection conn;
@@ -55,8 +58,8 @@ public class RestaurantDAO {
 				String booking_id = rs.getString("BOOKING_ID");
 				String account = rs.getString("ACCOUNT");
 
-				restaurantdata = new RestaurantBean(r_sn, name, address, opentime, description, transportation, type, rating,
-						region, picture, serviceinfo, booking_id, account);
+				restaurantdata = new RestaurantBean(r_sn, name, address, opentime, description, transportation, type,
+						rating, region, picture, serviceinfo, booking_id, account);
 			}
 			rs.close();
 			pstmt.close();
@@ -168,11 +171,11 @@ public class RestaurantDAO {
 			pstmt.setString(4, ResBean.getDescription()); // 餐廳描述
 			pstmt.setString(5, ResBean.getTransportation()); // 餐廳交通方式
 			pstmt.setString(6, ResBean.getType()); // 餐廳類型
-			pstmt.setBigDecimal(7, new BigDecimal(BigInteger.ONE)); // rating初始值設為0，不讓使用者填
+			pstmt.setBigDecimal(7, ResBean.getRating()); // rating初始值設為0，不讓使用者填
 			pstmt.setString(8, ResBean.getRegion()); // 餐廳所在地區
 			pstmt.setString(9, ResBean.getPicture()); // 餐廳照片，url格式
 			pstmt.setString(10, ResBean.getServiceinfo()); // 餐廳用餐訊息
-			pstmt.setString(11, null); // booking_id不讓使用者填，設null
+			pstmt.setString(11, ""); // booking_id不讓使用者填，設null
 			pstmt.setString(12, ResBean.getAccount()); // 使用者username
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
@@ -214,13 +217,13 @@ public class RestaurantDAO {
 				String serviceinfo = rs.getString("SERVICEINFO");
 				String booking_id = rs.getString("BOOKING_ID");
 
-				r_data = new RestaurantBean(r_sn, name, address, opentime, description, transportation, type, rating, region,
-						picture, serviceinfo, booking_id, username);
+				r_data = new RestaurantBean(r_sn, name, address, opentime, description, transportation, type, rating,
+						region, picture, serviceinfo, booking_id, username);
 			}
 			rs.close();
 			pstmt.close();
 			return r_data;
-		
+
 		} catch (Exception e) {
 			System.err.println("新增資料時發生錯誤:" + e);
 			conn.rollback();
@@ -233,7 +236,37 @@ public class RestaurantDAO {
 		}
 	}
 
+	public OrderTableBean findR_Order(BigDecimal r_sn) throws SQLException {
+		sql = "select * from R_ORDER_LIST where R_SN = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setBigDecimal(1, r_sn);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			OrderTableBean otBean = new OrderTableBean();
+			
+			while (rs.next()) {
+				BigDecimal r_sn_order = rs.getBigDecimal("R_SN_ORDER");
+				BigDecimal orderID = rs.getBigDecimal("ORDER_ID");
+				BigDecimal cus_num = rs.getBigDecimal("CUSTOMER_NUM");
+				Timestamp ts = rs.getTimestamp("BOOK_TIME");
+				BigDecimal deposit = rs.getBigDecimal("DEPOSIT");
+				R_OrderBean roBean = new R_OrderBean(r_sn_order, orderID, ts, cus_num, deposit, null);
+				otBean.addR_OderBean(roBean);
+			}
+			return otBean;
+			
+		} catch (Exception e) {
+			System.err.println("新增資料時發生錯誤:" + e);
+			conn.rollback();
+			return null;
+
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+	}
 
 }
-
-

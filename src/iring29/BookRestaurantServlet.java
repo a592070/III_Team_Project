@@ -36,6 +36,7 @@ public class BookRestaurantServlet extends HttpServlet {
 		String r_id = request.getParameter("r_id");
 		System.out.println(r_id);
 		String book_date = (String) session.getAttribute("book_date");
+		System.out.println(book_date);
 		String person_numer = (String) session.getAttribute("person_numer");
 		request.setAttribute("res_name", res_name );
 		request.setAttribute("book_date", book_date);

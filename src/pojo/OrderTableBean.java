@@ -104,4 +104,17 @@ public class OrderTableBean {
 	public void addH_OrderBean(H_OrderBean hBean) {
 		this.h_OrderBeans.add(hBean);
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OrderTableBean [r_OrderBeans=");
+		builder.append(r_OrderBeans);
+		builder.append(", r_OdrerBean=");
+		builder.append(r_OdrerBean);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }

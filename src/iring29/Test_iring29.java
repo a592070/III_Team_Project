@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -110,5 +111,17 @@ public class Test_iring29 {
 //		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 //		BigDecimal findRid = r_Order_ListDAO.findRid("上官木桶鍋 - 萬華旗艦店");
 //		System.out.println(findRid);
+		
+
+		//TEST
+		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		OrderTableBean findR_Order = restaurantDAO.findR_Order(new BigDecimal(70));
+		
+		Set<R_OrderBean> r_OderBeans = findR_Order.getR_OderBeans();
+		for (R_OrderBean roBean : r_OderBeans) {
+			BigDecimal order_id = roBean.getOrder_id();
+			System.out.println(order_id);
+		}
+		
 	}
 }
