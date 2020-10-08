@@ -7,6 +7,7 @@ import java.util.Set;
 
 
 import asx54630.H_OrderBean;
+import innocence741.T_OrderBean;
 import iring29.bean.R_OrderBean;
 
 import rambo0021.AccountBean;
@@ -24,14 +25,17 @@ public class OrderTableBean {
 
 	Set<R_OrderBean> r_OrderBeans;
 	R_OrderBean r_OdrerBean;    //小訂單的Bean (Restaurant)
-	//C_OderBean c_OderBean;  //小訂單的Bean (hotel)
-	H_OrderBean h_OderBean;  //小訂單的Bean (car)
+	Set<T_OrderBean> t_OrderBeans;
+	T_OrderBean T_OderBean;  //小訂單的Bean (Traffic)
+	H_OrderBean h_OderBean;  //小訂單的Bean (hotel)
 	Set<H_OrderBean> h_OrderBeans;
 
 
 	public OrderTableBean() {
 		super();
 		r_OrderBeans = new HashSet<R_OrderBean>();
+		t_OrderBeans = new HashSet<T_OrderBean>();
+
 	}
 	
 	public BigDecimal getOrder_id() {
@@ -85,13 +89,18 @@ public class OrderTableBean {
 	public Set<R_OrderBean> getR_OderBeans() {
 		return r_OrderBeans;
 	}
+	
+
 
 	public void setR_OderBeans(Set<R_OrderBean> r_OderBeans) {
 		this.r_OrderBeans = r_OderBeans;
 	}
+
 	public void addR_OderBean(R_OrderBean rBean) {
 		this.r_OrderBeans.add(rBean);
 	}
+
+	
 
 	public Set<H_OrderBean> getH_OrderBeans() {
 		return h_OrderBeans;
@@ -104,4 +113,15 @@ public class OrderTableBean {
 	public void addH_OrderBean(H_OrderBean hBean) {
 		this.h_OrderBeans.add(hBean);
 	}
+	
+	public Set<T_OrderBean> getT_OderBeans() {
+		return t_OrderBeans;
+	}
+	public void setT_OderBeans(Set<T_OrderBean> t_OderBeans) {
+		this.t_OrderBeans = t_OderBeans;
+	}
+	public void addT_OderBean(T_OrderBean tBean) {
+		this.t_OrderBeans.add(tBean);
+	}
+	
 }
