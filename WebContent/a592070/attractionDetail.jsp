@@ -17,19 +17,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <jsp:include page="../fragment/header.jsp" />
-    <script type="text/javascript">
 
-    </script>
+
 </head>
 <body>
-<div class="container">
+<jsp:include page="../fragment/header.jsp" />
+
     <%AttractionDO attraction = (AttractionDO)request.getAttribute("attraction");%>
-    <div class="container jumbotron">
+    <div class="jumbotron container">
         <h1><%=attraction.getName()%></h1>
-        <img src="<%=attraction.getPicture()%>" onerror="this.src='${pageContext.servletContext.contextPath}/static/nopic.jpg'" class="img-responsive" width="720" height="600">
+        <div class="card w-100">
+        <img class="card-img-top w-80" src="<%=attraction.getPicture()%>" onerror="this.src='${pageContext.servletContext.contextPath}/static/nopic.jpg'" >
         <hr>
-        <p><%=attraction.getToldescribe()%></p>
+        <p class="card-text"><%=attraction.getToldescribe()%></p>
+        </div>
     </div>
 <%--    <p><%=attraction.getDescription()%></p>--%>
 <%--    <p>This is another text.</p>--%>
@@ -77,6 +78,6 @@
             <li class="list-group-item"></li>
         </ul>
     </div>
-</div>
+
 </body>
 </html>

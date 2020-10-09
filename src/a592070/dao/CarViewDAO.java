@@ -24,7 +24,7 @@ public class CarViewDAO {
     public CarVO getEle(int id) throws IOException, SQLException {
         return getEle("sn_cartype", id);
     }
-    public CarVO getEle(String columnName, Object columnValue) throws IOException, SQLException {
+    public CarVO getEle(String columnName, Object columnValue) throws SQLException {
         sql = "select * " +
                 "from cartype c1, carrentalcompany c2 " +
                 "where c1."+columnName.toUpperCase()+"=? and c1.sn_rentcarcompany=c2.sn_rentalcompany " +

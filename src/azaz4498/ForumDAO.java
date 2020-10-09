@@ -13,7 +13,7 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.apache.naming.java.javaURLContextFactory;
+//import org.apache.naming.java.javaURLContextFactory;
 
 import controller.ConnectionPool;
 

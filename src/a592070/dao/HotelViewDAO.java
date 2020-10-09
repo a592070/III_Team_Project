@@ -27,7 +27,7 @@ public class HotelViewDAO {
     public HotelVO getEle(int id) throws IOException, SQLException {
         return getEle("sn", id);
     }
-    public HotelVO getEle(String columnName, Object columnValue) throws IOException, SQLException {
+    public HotelVO getEle(String columnName, Object columnValue) throws SQLException {
         sql = "select * " +
                 "from hotel " +
                 "where \""+columnName.toUpperCase()+"\"=? " +
