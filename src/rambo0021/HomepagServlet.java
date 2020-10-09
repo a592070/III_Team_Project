@@ -60,8 +60,7 @@ public class HomepagServlet extends HttpServlet {
 			fileName = "NoImage.png" ; 
 			is = getServletContext().getResourceAsStream(
 					"/rambo0021/Images/NoImage.png");
-			
-			// TODO path not found
+	
 		}
 		
 		// 由圖片檔的檔名來得到檔案的MIME型態
@@ -76,8 +75,7 @@ public class HomepagServlet extends HttpServlet {
 		while ((len = is.read(bytes)) != -1) {
 			os.write(bytes, 0, len);
 		}
-//		request.getSession().setAttribute("account",account);
-//		request.setAttribute("account",account);
+
 
 	
 		if (is != null) 

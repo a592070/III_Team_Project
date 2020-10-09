@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>註冊頁面</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+
     <style>
         body {
             font-family: 標楷體;
@@ -33,14 +38,14 @@
 </head>
 
 <body>
-<jsp:include page="/rambo0021/top.jsp" />
+    <jsp:include page="/rambo0021/top.jsp" />
     <div>
         <form ACTION="<%=pageContext.getServletContext().getContextPath()%>/registerServlet"
             enctype="multipart/form-data" method="post">
             <fieldset>
                 <legend>註冊</legend>
                 <div>
-                    我是:<select name="identity">
+                    我是:<select name="identity" id="identity">
                         <option value="2">一般會員</option>
                         <option value="3">餐廳業者</option>
                         <option value="4">住宿業者</option>
@@ -49,19 +54,20 @@
                 </div>
                 <div class="st1">
                     <label for="username">帳號:</label>
-                    <input type="text" id="username" name="username" placeholder="請輸入帳號" onblur="checkusr()"/>
+                    <input type="text" id="username" name="username" placeholder="請輸入帳號" onblur="checkusr()" />
                     <img class="img" id="idfimg" src=""><span id="idsp"></span><br />
 
                 </div>
                 <div class="st1">
                     <label for="password">密碼:</label>
-                    <input type="password" id="password" name="password" autocomplete="off" placeholder="請輸入密碼" />          
+                    <input type="password" id="password" name="password" autocomplete="off" placeholder="請輸入密碼" />
                     <img class="img" id="idfimg2" src=""><span id="idsp2"></span><br />
 
                 </div>
                 <div class="st1">
                     <label for="checkpwd">密碼確認:</label>
-                    <input type="password" id="checkpassword" name="checkpassword" placeholder="請確認密碼" onblur="checkpwd()"/>
+                    <input type="password" id="checkpassword" name="checkpassword" placeholder="請確認密碼"
+                        onblur="checkpwd()" />
                     <img class="img" id="idfimg3" src=""><span id="idsp3"></span><br />
                 </div>
             </fieldset>
@@ -86,22 +92,30 @@
                     <input type="file" id="picture" name="picture" accept="image/*">
                 </div>
             </fieldset>
-            <input type="submit" id="submit" name="submit" value="送出" disabled> 
+            <div style="display:none" id="includeDiv"
+                w3-include-html="">
+            </div><br>
+            <input type="submit" id="submit" name="submit" value="送出" disabled>
         </form>
+
+
+
+
     </div>
     <script>
-        function checkusr(){
-            let username=document.getElementById("username").value;
+        w3.includeHTML();
+        function checkusr() {
+            let username = document.getElementById("username").value;
             let sp = document.getElementById("idsp");
-            if(username==""){
+            if (username == "") {
                 sp.innerHTML = "帳號不能為空"
                 sp.style.color = "red";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
                 document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/error.png"
                 document.getElementById("submit").disabled = true;
-            }else{
-                sp.innerHTML="正確";
+            } else {
+                sp.innerHTML = "正確";
                 sp.style.color = "black";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
@@ -110,24 +124,24 @@
             }
         }
         function checkpwd() {
-            let pwd=document.getElementById("password").value;
-            let ckpwd=document.getElementById("checkpassword").value;
+            let pwd = document.getElementById("password").value;
+            let ckpwd = document.getElementById("checkpassword").value;
             let sp = document.getElementById("idsp3");
-            if(pwd==""){
+            if (pwd == "") {
                 sp.innerHTML = "密碼不能為空"
                 sp.style.color = "red";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
                 document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/error.png"
                 document.getElementById("submit").disabled = true;
-            } else if(pwd==ckpwd){
-                sp.innerHTML="正確";
+            } else if (pwd == ckpwd) {
+                sp.innerHTML = "正確";
                 sp.style.color = "black";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
                 document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/check.png"
                 document.getElementById("submit").disabled = false;
-            } else{
+            } else {
                 sp.innerHTML = "密碼與確認密碼不符"
                 sp.style.color = "red";
                 sp.style.fontSize = "13px";
@@ -136,6 +150,47 @@
                 document.getElementById("submit").disabled = true;
             }
         }
+        $(document).ready(function () {
+            $('#identity').change(function () {
+                let identity = document.getElementById("identity").value;
+                if (identity == 2) {
+                    $("#includeDiv").css("display", "none");
+                    $("#includeDiv").attr("w3-include-html","")
+                    w3.includeHTML();
+                }
+                else if (identity == 3) {
+                    $("#includeDiv").css("display", "block");
+                    
+                    $("#includeDiv").attr("w3-include-html","<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
+                 
+                    w3.includeHTML();
+                }
+                else if (identity == 4) {
+                    $("#includeDiv").css("display", "block");
+                    $("#includeDiv").attr("w3-include-html","<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
+                    w3.includeHTML();
+                }
+                else if (identity == 5) {
+                    $("#includeDiv").css("display", "block");
+                    $("#includeDiv").attr("w3-include-html","<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
+                    w3.includeHTML();
+                }
+
+
+                // $.ajax(
+                //     {
+                //         type: 'POST',
+                //         data: { identity: identity },
+                //         url: '../StoreAjaxController',
+                //         success:function(identity){
+
+                //         }
+                //     }
+                // )
+            })
+
+        })
+
     </script>
 </body>
 
