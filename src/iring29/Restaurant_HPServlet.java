@@ -3,6 +3,8 @@ package iring29;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -66,6 +68,7 @@ public class Restaurant_HPServlet extends HttpServlet {
 		}
 	}
 
+	//顯示Restaurant HP
 	public void processQueryR_HP(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		request.getSession();
@@ -73,8 +76,12 @@ public class Restaurant_HPServlet extends HttpServlet {
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		RestaurantBean rBean = restaurantDAO.Restaurant_HP(name);
 		BigDecimal r_sn = rBean.getR_sn();
-		OrderTableBean otBean = restaurantDAO.findR_Order(r_sn);
+		
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		OrderTableBean otBean = r_Order_ListDAO.findR_Order(r_sn); //多個
 		Set<R_OrderBean> roBean = otBean.getR_OderBeans();
+		
+		
 		request.getSession().setAttribute("r_hp", rBean);
 		request.getSession().setAttribute("roBean", roBean);
 		request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);

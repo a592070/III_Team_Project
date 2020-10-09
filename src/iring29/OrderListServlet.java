@@ -106,9 +106,9 @@ public class OrderListServlet extends HttpServlet {
 
 		R_OrderBean roBean = r_Order_ListDAO.findR_order_List(r_id);
 		System.out.println(roBean.getR_sn_order());
-		request.setAttribute("roBean", roBean);
-		request.setAttribute("r_name", r_name);
-		request.setAttribute("bean", bean);
+		request.getSession().setAttribute("roBean", roBean);
+		request.getSession().setAttribute("r_name", r_name);
+		request.getSession().setAttribute("bean", bean);
 
 		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
 

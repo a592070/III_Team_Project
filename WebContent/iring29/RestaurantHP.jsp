@@ -6,12 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Restaurant HomePage</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
         * {
             padding: 0;
@@ -37,12 +35,15 @@
         .box {
             border: 1px solid gray;
         }
+        .booking, .info, .comment{
+            border: 1px solid gray;
+        }
         h2 {
             padding: 20px;
         }
-		div {
+		/* div {
             border: 1px solid rgb(212, 212, 212);
-        }
+        } */
         .title {
             text-align: center;
         }
@@ -87,6 +88,7 @@
             padding: 10px 30px;
             /* font-size: 15px; */
             /* font-weight: 400; */
+            border-top: 1px solid gray;
         }
 
         .res_result {
@@ -95,6 +97,7 @@
 
         .p_result {
             padding: 10px 30px;
+            
         }
 
         
@@ -138,47 +141,8 @@
 </head>
 <body>
 
-<header class="">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="javascript:void(0)">Logo</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-
-        <div class="collapse navbar-collapse  nav justify-content-center" id="navb">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找旅館</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找餐廳</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找租車</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找景點</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="javascript:void(0)">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <form class="form-inline my-3">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-                <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
-            </form>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">登陸</button>
-            <button type="button" class="btn btn-primary">註冊</button>
-            <button type="button" class="btn btn-primary">論壇</button>
-        </div>
-    </nav>
-</header>
+<!-- 引入共同的頁首 -->
+<jsp:include page="/fragment/header.jsp" />
 
 <div class="container">
         <div class="box">
@@ -215,6 +179,7 @@
                     <Input type='hidden' name='roBean' value='${roBean}'>
                 </FORM>
 
+			<FORM action="<c:url value='/iring29/Modify_Type.jsp'/>" method="POST">
                 <div>
                     <p class="modify"><button class="btn btn-light">修改</button></p>
                     <h4 class="res_data">菜色介紹</h4>
@@ -227,6 +192,8 @@
                     <h4 class="res_result">料理種類</h4>
                     <p class="p_result">${r_hp.type}</p>
                 </div>
+            </FORM>
+            <FORM action="<c:url value='/iring29/Modify_Info.jsp'/>" method="POST">
                 <div>
                     <p class="modify"><button class="btn btn-light">修改</button></p>
                     <h4 class="res_data">餐廳資訊</h4>
@@ -239,56 +206,15 @@
                     <h4 class="res_result">餐廳描述</h4>
                     <p class="p_result">${r_hp.description}</p>
                 </div>
+              </FORM>
                 <div>
-                    <h4 class="res_result">我的訂單</h4>
+                    <h4 class="res_data">我的訂單</h4>
                     <c:forEach var="roBean" items="${roBean}">
-                        <p class="p_result"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <p class="p_result"><button type="button" class="btn btn-primary">
                             ${roBean.r_sn_order}</button></p>
 
-                        <!-- The Modal -->
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">訂單訊息</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <div class="div-1">
-                                            <label for="r-date">用餐日期</label>
-                                            <span>${roBean.booking_date}</span>
-                                        </div>
-                                        <div class="div-1">
-                                            <label for="b-name">訂位人姓名</label>
-                                            <span>${bean.customerName}</span>
-                                        </div>
-                                        <div class="div-1">
-                                            <label for="b-phone">訂位人手機</label>
-                                            <span>${bean.customerPhone}</span>
-                                        </div>
-                                        <div class="div-1">
-                                            <label for="b-number">用餐人數</label>
-                                            <span>${roBean.customerNum}</span>
-                                        </div>
-                                        <div class="div-1">
-                                            <label for="price">尚未付款</label>
-                                            <span>500 元</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
+					
                     </c:forEach>
                 </div>
             </div>

@@ -21,7 +21,7 @@ public class OrderTableBean {
 	AccountBean user;		//Account資料
 	String customerName; 	//下單時填入的姓名
 	String customerPhone;	//下單時填入的電話
-	
+	BigDecimal sn; //ORDER_DATA SN //1009 added
 
 	Set<R_OrderBean> r_OrderBeans;
 	R_OrderBean r_OdrerBean;    //小訂單的Bean (Restaurant)
@@ -30,6 +30,16 @@ public class OrderTableBean {
 	H_OrderBean h_OderBean;  //小訂單的Bean (hotel)
 	Set<H_OrderBean> h_OrderBeans;
 
+	
+	
+
+	public BigDecimal getSn() {
+		return sn;
+	}
+
+	public void setSn(BigDecimal sn) {
+		this.sn = sn;
+	}
 
 	public OrderTableBean() {
 		super();
