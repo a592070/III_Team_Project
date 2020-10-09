@@ -55,23 +55,23 @@ public class Test_innocence741 {
 		
 		/*carRentalCompany測試*/
 		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
-		CarTypeBean carTypeBean = new CarTypeBean();
-		AccountBean user = new AccountBean();
+//		CarTypeBean carTypeBean = new CarTypeBean();
+//		AccountBean user = new AccountBean();
 		
-		carRentalCompanyBean.setCompanyName("haha");
-		carRentalCompanyBean.setAddress("cantfindme");
+		carRentalCompanyBean.setCompanyName("hahaQQ");
+		carRentalCompanyBean.setAddress("cantfindmeQQ");
 		carRentalCompanyBean.setDescription(null);
-		carRentalCompanyBean.setOpenHours("alwaysOPen");
-		carRentalCompanyBean.setTelphoneNum("0800000123");
-		carRentalCompanyBean.setCompanyAccount("306478");
-		carTypeBean.setCarType("mmm");
-		carTypeBean.setPrice(BigDecimal.valueOf(9527));
+		carRentalCompanyBean.setOpenHours("alwaysOPenQQ");
+		carRentalCompanyBean.setTelphoneNum("0800000123QQ");
+		carRentalCompanyBean.setCompanyAccount("306478QQ");
+//		carTypeBean.setCarType("mmm");
+//		carTypeBean.setPrice(BigDecimal.valueOf(9527));
 		
-		carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);
+//		carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);
 
 		
 		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		carRentalCompanyDAO.signUPCarRentalCompany(carTypeBean);
+		carRentalCompanyDAO.signUPCarRentalCompany(carRentalCompanyBean);
 	}
 
 }
