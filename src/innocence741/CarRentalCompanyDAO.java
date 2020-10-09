@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -90,5 +92,32 @@ public class CarRentalCompanyDAO {
 		
 		
 	}
+	
+	
+	public void getSN_RENTALCOMPANY(CarRentalCompanyBean carBean) throws SQLException {
+		try {
+			String companyAccount = carBean.getCompanyAccount();
+			conn = ds.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = "select * from CARRENTALCOMPANY where COMPANY_ACCOUNT=" + "\'" +companyAccount + "\'";
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				
+				 carBean.setSn_carRentalCompany(rs.getBigDecimal("SN_RENTALCOMPANY"));
+			}
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		 
+	}
+	
+
 	
 }
