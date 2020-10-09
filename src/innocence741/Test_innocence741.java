@@ -51,7 +51,7 @@ public class Test_innocence741 {
 //		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 //		t_Order_ListDAO.createOrder(bean);
 		
-		
+//		------------------------------------------------------
 		
 		/*carRentalCompany測試*/
 		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
@@ -72,6 +72,16 @@ public class Test_innocence741 {
 		
 		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 		carRentalCompanyDAO.signUPCarRentalCompany(carRentalCompanyBean);
+		
+//		------------------------------------------------------
+		
+//		/*getSN_RENTALCOMPANY測試*/
+//		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
+//		carRentalCompanyBean.setCompanyAccount("306478QQ");
+//		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		carRentalCompanyDAO.getSN_RENTALCOMPANY(carRentalCompanyBean);
+//		System.out.println(carRentalCompanyBean.getSn_carRentalCompany());
+		
 	}
 
 }
