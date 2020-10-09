@@ -154,8 +154,8 @@ button {
 						name="restaurant_name" placeholder="請輸入關鍵字">
 				</div>
 				<div class="search_date">
-					<span class="sp_search">日期</span> <input type="date"
-						name="book_date" id="theDate">
+					<span class="sp_search">日期</span> 
+					<input type="date" name="book_date" id="theDate">
 					<script>
 						var date = new Date();
 
@@ -169,6 +169,7 @@ button {
 							day = "0" + day;
 
 						var today = year + "-" + month + "-" + day;
+						console.log(typeof(today));
 						document.getElementById("theDate").value = today;
 					</script>
 				</div>

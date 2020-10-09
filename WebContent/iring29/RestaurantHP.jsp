@@ -82,7 +82,7 @@
 
 
         .res_data {
-            position: relative;
+            /*position: relative;*/
             background-color: #eeeeee;
             padding: 10px 30px;
             /* font-size: 15px; */
@@ -181,100 +181,125 @@
 </header>
 
 <div class="container">
-<div class="box">
-	<FORM
-			action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet"
-			method="POST">
-        <div>
-            <h2 class="title">餐廳資訊</h2>
-            <div class="top">
-                <div class="booking">訂位</div>
-                <div class="info">資訊</div>
-                <div class="comment">評論</div>
-            </div>
-            <p class="modify-img"><button class="btn btn-light">修改</button></p>
-            <div class="div_img">
-               <img src="${r_hp.picture}">
-            </div>
-            <div class="div-1">
-                <h3>${r_hp.name}</h3>
-            </div>
+        <div class="box">
+
             <div>
-                <h4 class="res_data">餐廳地點</h4>
+                <h2 class="title">餐廳資訊</h2>
+                <div class="top">
+                    <div class="booking">訂位</div>
+                    <div class="info">資訊</div>
+                    <div class="comment">評論</div>
+                </div>
+                <p class="modify-img"><button class="btn btn-light">修改</button></p>
+                <div class="div_img">
+                    <img src="${r_hp.picture}">
+                </div>
+                <div class="div-1">
+                    <h3>${r_hp.name}</h3>
+                </div>
+                <FORM action="<c:url value='/iring29/Modify_Location.jsp'/>" method="POST">
+                    <div>
+                        <p class="modify"><button class="btn btn-light" name="m-add">修改</button></p>
+                        <h4 class="res_data">餐廳地點</h4>
+                    </div>
+
+                    <div>
+                        <h4 class="res_result">地址</h4>
+                        <p class="p_result">${r_hp.address}</p>
+                    </div>
+                    <div>
+                        <h4 class="res_result">交通方式</h4>
+                        <p class="p_result">${r_hp.transportation}</p>
+                    </div>
+                    <Input type='hidden' name='rBean' value='${r_hp}'>
+                    <Input type='hidden' name='roBean' value='${roBean}'>
+                </FORM>
+
+                <div>
+                    <p class="modify"><button class="btn btn-light">修改</button></p>
+                    <h4 class="res_data">菜色介紹</h4>
+                </div>
+                <div>
+                    <h4 class="res_result">適合聚餐類型</h4>
+                    <p class="p_result">${r_hp.serviceinfo}</p>
+                </div>
+                <div>
+                    <h4 class="res_result">料理種類</h4>
+                    <p class="p_result">${r_hp.type}</p>
+                </div>
+                <div>
+                    <p class="modify"><button class="btn btn-light">修改</button></p>
+                    <h4 class="res_data">餐廳資訊</h4>
+                </div>
+                <div>
+                    <h4 class="res_result">營業時間</h4>
+                    <p class="p_result">${r_hp.opentime}</p>
+                </div>
+                <div>
+                    <h4 class="res_result">餐廳描述</h4>
+                    <p class="p_result">${r_hp.description}</p>
+                </div>
+                <div>
+                    <h4 class="res_result">我的訂單</h4>
+                    <c:forEach var="roBean" items="${roBean}">
+                        <p class="p_result"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            ${roBean.r_sn_order}</button></p>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">訂單訊息</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <div class="div-1">
+                                            <label for="r-date">用餐日期</label>
+                                            <span>${roBean.booking_date}</span>
+                                        </div>
+                                        <div class="div-1">
+                                            <label for="b-name">訂位人姓名</label>
+                                            <span>${bean.customerName}</span>
+                                        </div>
+                                        <div class="div-1">
+                                            <label for="b-phone">訂位人手機</label>
+                                            <span>${bean.customerPhone}</span>
+                                        </div>
+                                        <div class="div-1">
+                                            <label for="b-number">用餐人數</label>
+                                            <span>${roBean.customerNum}</span>
+                                        </div>
+                                        <div class="div-1">
+                                            <label for="price">尚未付款</label>
+                                            <span>500 元</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </c:forEach>
+                </div>
             </div>
-            <div>
-            <!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  			Launch demo modal
-			</button>
-			
-                <p class="modify"><button class="btn btn-light" name="m-add">修改</button></p>
-                <h4 class="res_result">地址</h4>
-                <p class="p_result">${r_hp.address}</p>
-            </div>
-            <div>
-                <p class="modify"><button class="btn btn-light">修改</button></p>
-                <h4 class="res_result">交通方式</h4>
-                <p class="p_result">${r_hp.transportation}</p>
-            </div>
-            <div>
-                <h4 class="res_data">菜色介紹</h4>
-            </div>
-            <div>
-                <p class="modify"><button class="btn btn-light">修改</button></p>
-                <h4 class="res_result">適合聚餐類型</h4>
-                <p class="p_result">${r_hp.serviceinfo}</p>
-            </div>
-            <div>
-                <p class="modify"><button class="btn btn-light">修改</button></p>
-                <h4 class="res_result">料理種類</h4>
-                <p class="p_result">${r_hp.type}</p>
-            </div>
-            <div>
-                <h4 class="res_data">餐廳資訊</h4>
-            </div>
-            <div>
-                <p class="modify"><button class="btn btn-light">修改</button></p>
-                <h4 class="res_result">營業時間</h4>
-                <p class="p_result">${r_hp.opentime}</p>
-            </div>
-            <div>
-                <p class="modify"><button class="btn btn-light">修改</button></p>
-                <h4 class="res_result">餐廳描述</h4>
-                <p class="p_result">${r_hp.description}</p>
-            </div>
-            <div>
-            	<h4 class="res_result">我的訂單</h4>
-                <c:forEach var="roBean" items="${roBean}">
-                	<a class="p_result">${roBean.r_sn_order}</a>
-                </c:forEach>
-            </div>
-        </div>
-        </FORM>
+
         </div>
         <Input type='hidden' name='rBean' value='${r_hp}'>
-        
-        <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <Input type='hidden' name='rBean' value='${roBean}'>
+
+
+
+
     </div>
-  </div>
-</div>
-        
-</div>
 </body>
 </html>

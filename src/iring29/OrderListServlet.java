@@ -62,6 +62,8 @@ public class OrderListServlet extends HttpServlet {
 			} catch (IOException | SQLException e) {
 				e.printStackTrace();
 			}
+		} else if (request.getParameter("time") != null) {
+			updateBookTime(request, response);
 		}
 
 	}
@@ -83,8 +85,9 @@ public class OrderListServlet extends HttpServlet {
 		resBean.setName(r_name);
 
 		rBean.setRestaurantBean(resBean);
+		String time = request.getParameter("time");
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		String tsStr = request.getParameter("book_date") + " 00:00:00";
+		String tsStr = request.getParameter("book_date") +" " + time + ":00";
 		System.out.println(tsStr);
 		ts = Timestamp.valueOf(tsStr);
 		rBean.setBooking_date(ts);
@@ -134,5 +137,20 @@ public class OrderListServlet extends HttpServlet {
 			request.getSession().setAttribute("r_sn_order ", r_sn_order );
 			request.getRequestDispatcher("/iring29/bye.jsp").forward(request, response);
 		}
+	}
+	
+	public void updateBookTime(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String time = request.getParameter("time");
+		String res_name = request.getParameter("res_name").trim();
+		String book_date = request.getParameter("book_date").trim();
+		String person_numer = request.getParameter("person_numer").trim();
+		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
+		request.getSession().setAttribute("time", time);
+		request.getSession().setAttribute("res_name", res_name);
+		request.getSession().setAttribute("book_date", book_date);
+		request.getSession().setAttribute("person_numer", person_numer);
+		request.getSession().setAttribute("r_id", r_id);
+		System.out.println(time);
+		request.getRequestDispatcher("/iring29/OrderList.jsp").forward(request, response);
 	}
 }

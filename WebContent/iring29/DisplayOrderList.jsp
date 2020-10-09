@@ -99,6 +99,7 @@
         <div class="container">
             <form action="<c:url value='OrderListServlet' />" method="POST">
                 
+               		<h1> 訂位成功 </h1>
                     <h1> Fun Taiwan 訂單號碼 </h1>
                     <div class="div-1">
                         <span>${roBean.order_id}</span>
@@ -143,6 +144,12 @@
           		<Input type='hidden' name='r_sn_order' value='${roBean.r_sn_order}'>
             </div>
             </form>
+            
+            <FORM  action="<c:url value='/iring29/Restaurant_index.jsp' />" method="POST">
+            <div class="div-btn">
+                <button class="btn btn-secondary" name="" value="">訂其他餐廳</button>
+            </div>
+            </FORM>
         </div>
     </div>
 </body>

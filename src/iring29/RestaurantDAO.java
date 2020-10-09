@@ -33,10 +33,102 @@ public class RestaurantDAO {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
 
+	// search how many Restaurant
+	public int numRestaurant(String name) throws SQLException {
+		sql = "select count(*) num from restaurant where name like ? ";
+		int num = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+
+			while (rs.next()) {
+				num = rs.getInt("NUM");
+			}
+			rs.close();
+			pstmt.close();
+			return num;
+		} catch (Exception e) {
+			System.err.println("尋找資料時發生錯誤:" + e);
+			return 0;
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+	}
+
+	// find multiple restaurant by restaurant name
+	public List<RestaurantBean> findMulti_R(String name) throws SQLException {
+		sql = "select * from restaurant where name like ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			ArrayList<RestaurantBean> restaurantList = new ArrayList<>();
+			while (rs.next()) {
+				RestaurantBean restaurantdata = new RestaurantBean();
+				restaurantdata.setName(rs.getString("NAME"));
+				restaurantdata.setRegion(rs.getString("REGION"));
+				restaurantdata.setType(rs.getString("TYPE"));
+				restaurantdata.setR_sn(rs.getBigDecimal("R_SN"));
+
+				restaurantList.add(restaurantdata);
+			}
+			rs.close();
+			pstmt.close();
+			return restaurantList;
+		} catch (Exception e) {
+			System.err.println("尋找資料時發生錯誤:" + e);
+			return null;
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+	}
+
+	// find multiple restaurant by restaurant name & region
+	public List<RestaurantBean> findMulti_Name_Region(String name, String region) throws SQLException{
+		sql = "select * from restaurant where name like ? and region = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			pstmt.setString(2, region);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			ArrayList<RestaurantBean> restaurantList = new ArrayList<>();
+			while (rs.next()) {
+				RestaurantBean restaurantdata = new RestaurantBean();
+				restaurantdata.setName(rs.getString("NAME"));
+				restaurantdata.setRegion(rs.getString("REGION"));
+				restaurantdata.setType(rs.getString("TYPE"));
+				restaurantdata.setR_sn(rs.getBigDecimal("R_SN"));
+
+				restaurantList.add(restaurantdata);
+			}
+			rs.close();
+			pstmt.close();
+			return restaurantList;
+		} catch (Exception e) {
+			System.err.println("尋找資料時發生錯誤:" + e);
+			return null;
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+	}
+	
+	
 	// find specific restaurant by restaurant name
 	public RestaurantBean findRestaurant(String name) throws SQLException {
-//		String sql_count = "select count(*) where name like ?"; 
-		sql = "select * from restaurant where name like ? ";		
+		sql = "select * from restaurant where name like ? ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -79,8 +171,8 @@ public class RestaurantDAO {
 
 	// find specific region
 	public List<RestaurantBean> findRegion(String region) throws SQLException {
+		sql = "select name, region, type from restaurant where region = ?";
 		try {
-			sql = "select name, region, type from restaurant where region = ?";
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, region);
@@ -109,55 +201,6 @@ public class RestaurantDAO {
 
 	}
 
-	// update img
-	public void updateimg(String url, String id) throws SQLException, FileNotFoundException {
-		try {
-			sql = "update restaurant set picture = ? where id = ?";
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, url);
-			pstmt.setString(2, id);
-			ResultSet rs = pstmt.executeQuery();
-			System.out.println("start");
-			conn.commit();
-			pstmt.clearBatch();
-		} catch (Exception e) {
-			System.err.println("更新資料時發生錯誤:" + e);
-			conn.rollback();
-		} finally {
-			if (conn != null) {
-				conn.close();
-			}
-		}
-
-	}
-
-	// delete restaurant
-	public boolean deleteRestaurant(String id) throws SQLException {
-		try {
-			sql = "delete restaurant where r_id = ?";
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			ResultSet rs = pstmt.executeQuery();
-			pstmt.clearBatch();
-			conn.commit();
-
-			System.out.println("delete");
-			rs.close();
-			pstmt.close();
-		} catch (Exception e) {
-			System.err.println("刪除資料時發生錯誤:" + e);
-			conn.rollback();
-
-		} finally {
-			if (conn != null) {
-				conn.close();
-			}
-		}
-		return true;
-
-	}
 
 	// insert data for Restaurant
 	public void createRestaurant(RestaurantBean ResBean) throws SQLException {
@@ -195,6 +238,7 @@ public class RestaurantDAO {
 		}
 	}
 
+	//set RestaurantBean for display HP
 	public RestaurantBean Restaurant_HP(String username) throws SQLException {
 		try {
 			sql = "select * from restaurant where account = ? ";
@@ -236,7 +280,7 @@ public class RestaurantDAO {
 			}
 		}
 	}
-
+	//set OrderTableBean for display HP
 	public OrderTableBean findR_Order(BigDecimal r_sn) throws SQLException {
 		sql = "select * from R_ORDER_LIST where R_SN = ?";
 		try {
@@ -246,7 +290,7 @@ public class RestaurantDAO {
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
 			OrderTableBean otBean = new OrderTableBean();
-			
+
 			while (rs.next()) {
 				BigDecimal r_sn_order = rs.getBigDecimal("R_SN_ORDER");
 				BigDecimal orderID = rs.getBigDecimal("ORDER_ID");
@@ -257,7 +301,7 @@ public class RestaurantDAO {
 				otBean.addR_OderBean(roBean);
 			}
 			return otBean;
-			
+
 		} catch (Exception e) {
 			System.err.println("新增資料時發生錯誤:" + e);
 			conn.rollback();
