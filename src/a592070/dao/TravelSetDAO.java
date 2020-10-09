@@ -58,7 +58,7 @@ public class TravelSetDAO {
 //        return list;
         return listTravelSet(null);
     }
-    public List<TravelSetDO> listTravelSet(String created){
+    public List<TravelSetDO> listTravelSet(String created) throws SQLException {
         List<TravelSetDO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement predStmt = null;
@@ -93,15 +93,15 @@ public class TravelSetDAO {
                 travelSetDO.setListTravelHotel(getHotelSetByID(id));
                 travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return list;
     }
 
-    public TravelSetDO getTravelSetByID(int id){
+    public TravelSetDO getTravelSetByID(int id) throws SQLException {
         TravelSetDO travelSetDO = new TravelSetDO();
         Connection conn = null;
         PreparedStatement predStmt = null;
@@ -124,13 +124,13 @@ public class TravelSetDAO {
                 travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return travelSetDO;
     }
-    public List<TravelEleAttractionDO> getAttractionSetByID(int id){
+    public List<TravelEleAttractionDO> getAttractionSetByID(int id) throws SQLException {
         List<TravelEleAttractionDO> listAttraction = new ArrayList<>();
         Connection conn = null;
         PreparedStatement predStmt = null;
@@ -173,13 +173,13 @@ public class TravelSetDAO {
                 listAttraction.add(travelEleAttractionDO);
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return listAttraction;
     }
-    public List<TravelEleCarDO> getCarSetByID(int id){
+    public List<TravelEleCarDO> getCarSetByID(int id) throws SQLException {
         List<TravelEleCarDO> listCar = new ArrayList<>();
         Connection conn = null;
         PreparedStatement predStmt = null;
@@ -210,13 +210,13 @@ public class TravelSetDAO {
                 listCar.add(travelEleCarDO);
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return listCar;
     }
-    public List<TravelEleHotelDO> getHotelSetByID(int id){
+    public List<TravelEleHotelDO> getHotelSetByID(int id) throws SQLException {
         List<TravelEleHotelDO> listHotel = new ArrayList<>();
         Connection conn = null;
         PreparedStatement predStmt = null;
@@ -249,13 +249,13 @@ public class TravelSetDAO {
                 listHotel.add(travelEleHotelDO);
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return listHotel;
     }
-    public List<TravelEleRestaurantDO> getRestaurantSetByID(int id){
+    public List<TravelEleRestaurantDO> getRestaurantSetByID(int id) throws SQLException {
         List<TravelEleRestaurantDO> listRestaurant = new ArrayList<>();
         Connection conn = null;
         PreparedStatement predStmt = null;
@@ -285,7 +285,7 @@ public class TravelSetDAO {
                 listRestaurant.add(travelEleRestaurantDO);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
@@ -342,9 +342,9 @@ public class TravelSetDAO {
 
             conn.commit();
             flag = true;
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             if(conn != null) conn.rollback();
-            throwables.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
@@ -352,35 +352,59 @@ public class TravelSetDAO {
     }
 
     private void addTravelEleA(TravelSetDO travelSetDO) throws SQLException {
-        for (TravelEleAttractionDO ele : travelSetDO.getListTravelAttraction()) {
-            String sql0 = "insert into travel_ele_a(travel_id, a_id, time) values (?, ?, ?)";
-            predStmt = conn.prepareStatement(sql0);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getAttraction().getSn(), ele.getTime()});
-            predStmt.executeUpdate();
+        try {
+            for (TravelEleAttractionDO ele : travelSetDO.getListTravelAttraction()) {
+                String sql0 = "insert into travel_ele_a(travel_id, a_id, time) values (?, ?, ?)";
+                predStmt = conn.prepareStatement(sql0);
+                predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getAttraction().getSn(), ele.getTime()});
+                predStmt.executeUpdate();
+                predStmt.clearParameters();
+            }
+        }catch (SQLException e){
+            if(conn != null) conn.rollback();
+            throw e;
         }
     }
     private void addTravelEleC(TravelSetDO travelSetDO) throws SQLException {
-        for (TravelEleCarDO ele : travelSetDO.getListTravelCar()) {
-            String sql0 = "insert into travel_ele_c(travel_id, c_id, time) values (?, ?, ?)";
-            predStmt = conn.prepareStatement(sql0);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getCar().getSn(), ele.getTime()});
-            predStmt.executeUpdate();
+        try {
+            for (TravelEleCarDO ele : travelSetDO.getListTravelCar()) {
+                String sql0 = "insert into travel_ele_c(travel_id, c_id, time) values (?, ?, ?)";
+                predStmt = conn.prepareStatement(sql0);
+                predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getCar().getSn(), ele.getTime()});
+                predStmt.executeUpdate();
+                predStmt.clearParameters();
+            }
+        }catch (SQLException e){
+            if(conn != null) conn.rollback();
+            throw e;
         }
     }
     private void addTravelEleH(TravelSetDO travelSetDO) throws SQLException {
-        for (TravelEleHotelDO ele : travelSetDO.getListTravelHotel()) {
-            String sql0 = "insert into travel_ele_h(travel_id, h_id, time) values (?, ?, ?)";
-            predStmt = conn.prepareStatement(sql0);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getHotel().getSn(), ele.getTime()});
-            predStmt.executeUpdate();
+        try {
+            for (TravelEleHotelDO ele : travelSetDO.getListTravelHotel()) {
+                String sql0 = "insert into travel_ele_h(travel_id, h_id, time) values (?, ?, ?)";
+                predStmt = conn.prepareStatement(sql0);
+                predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getHotel().getSn(), ele.getTime()});
+                predStmt.executeUpdate();
+                predStmt.clearParameters();
+            }
+        }catch (SQLException e){
+            if(conn != null) conn.rollback();
+            throw e;
         }
     }
     private void addTravelEleR(TravelSetDO travelSetDO) throws SQLException {
-        for (TravelEleRestaurantDO ele : travelSetDO.getListTravelRestaurant()) {
-            String sql0 = "insert into travel_ele_r(travel_id, r_id, time) values (?, ?, ?)";
-            predStmt = conn.prepareStatement(sql0);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getRestaurant().getSn(), ele.getTime()});
-            predStmt.executeUpdate();
+        try {
+            for (TravelEleRestaurantDO ele : travelSetDO.getListTravelRestaurant()) {
+                String sql0 = "insert into travel_ele_r(travel_id, r_id, time) values (?, ?, ?)";
+                predStmt = conn.prepareStatement(sql0);
+                predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn(), ele.getRestaurant().getSn(), ele.getTime()});
+                predStmt.executeUpdate();
+                predStmt.clearParameters();
+            }
+        }catch (SQLException e){
+            if(conn != null) conn.rollback();
+            throw e;
         }
     }
 
@@ -394,36 +418,41 @@ public class TravelSetDAO {
             predStmt = conn.prepareStatement(sql0);
             predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getDescription(), travelSetDO.getPriority(), travelSetDO.getSn()});
             predStmt.executeUpdate();
+            predStmt.clearParameters();
 
             sql0 = "delete travel_ele_a where travel_id=?";
             predStmt = conn.prepareStatement(sql0);
             predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn()});
             predStmt.executeUpdate();
+            predStmt.clearParameters();
             addTravelEleA(travelSetDO);
 
             sql0 = "delete travel_ele_c where travel_id=?";
             predStmt = conn.prepareStatement(sql0);
             predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn()});
             predStmt.executeUpdate();
+            predStmt.clearParameters();
             addTravelEleC(travelSetDO);
 
             sql0 = "delete travel_ele_h where travel_id=?";
             predStmt = conn.prepareStatement(sql0);
             predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn()});
             predStmt.executeUpdate();
+            predStmt.clearParameters();
             addTravelEleH(travelSetDO);
 
             sql0 = "delete travel_ele_r where travel_id=?";
             predStmt = conn.prepareStatement(sql0);
             predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getSn()});
             predStmt.executeUpdate();
+            predStmt.clearParameters();
             addTravelEleR(travelSetDO);
 
             conn.commit();
             flag = true;
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             if(conn != null) conn.rollback();
-            throwables.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }

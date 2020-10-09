@@ -13,8 +13,8 @@
 <%--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>--%>
 <%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>--%>
 
-<header class="masthead mb-auto">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header class="masthead mb-auto sticky-top">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/index.jsp">Logo</a>
 
         <div class="collapse navbar-collapse nav justify-content-center" id="navb">
@@ -33,7 +33,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0)">我的行程</a>
+                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/travelSetInfo.jsp">我的行程</a>
                 </li>
             </ul>
         </div>

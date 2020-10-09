@@ -27,7 +27,7 @@ public class RestaurantViewDAO {
     public RestaurantVO getEle(int id) throws IOException, SQLException {
         return getEle("r_sn", id);
     }
-    public RestaurantVO getEle(String columnName, Object columnValue) throws IOException, SQLException {
+    public RestaurantVO getEle(String columnName, Object columnValue) throws SQLException {
         sql = "select * " +
                 "from restaurant " +
                 "where \""+columnName.toUpperCase()+"\"=? " +

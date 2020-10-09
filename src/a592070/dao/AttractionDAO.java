@@ -22,7 +22,7 @@ public class AttractionDAO {
         ds = ConnectionPool.getDataSource(connType);
     }
 
-    public int getSize(){
+    public int getSize() throws SQLException {
         sql = "select count(1) from attraction";
         try {
             conn = ds.getConnection();
@@ -31,18 +31,18 @@ public class AttractionDAO {
             if(rs.next()){
                 size = rs.getInt(1);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return size;
     }
 
-    public AttractionDO getAttraction(int id) throws SQLException, IOException {
+    public AttractionDO getAttraction(int id) throws SQLException {
         return getAttraction("a_sn", id);
     }
-    public AttractionDO getAttraction(String columnName, Object columnValue) throws SQLException, IOException {
+    public AttractionDO getAttraction(String columnName, Object columnValue) throws SQLException {
         sql = "select * from attraction where \""+columnName.toUpperCase()+"\"=? ";
         Object[] params = {columnValue};
         AttractionDO attractionDO = null;
@@ -77,7 +77,7 @@ public class AttractionDAO {
         }
         return attractionDO;
     }
-    public List<AttractionDO> listAttractionLike(String columnName, String columnValue) throws SQLException, IOException {
+    public List<AttractionDO> listAttractionLike(String columnName, String columnValue) throws SQLException {
         sql = "select * from attraction where \""+columnName.toUpperCase()+"\" like ?";
         Object[] params = {"%"+columnValue+"%"};
         List<AttractionDO> list = new ArrayList<>();
@@ -115,7 +115,7 @@ public class AttractionDAO {
         return list;
     }
 
-    public int getAttractionKeyWordsSize(String keyWords){
+    public int getAttractionKeyWordsSize(String keyWords) throws SQLException {
         try{
             conn = ds.getConnection();
             sql = "select count(1) from attraction where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ?  ";
@@ -125,14 +125,14 @@ public class AttractionDAO {
             if(rs.next()){
                 size = rs.getInt(1);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return size;
     }
-    public List<AttractionDO> listAttractionLike(int startIndex, int endIndex, String keyWords) throws SQLException, IOException {
+    public List<AttractionDO> listAttractionLike(int startIndex, int endIndex, String keyWords) throws SQLException {
         Object[] params;
 
         StringBuffer sqlBuffer = new StringBuffer();
@@ -185,7 +185,7 @@ public class AttractionDAO {
         return list;
     }
 
-    public int getAttractionRegionSize(String region){
+    public int getAttractionRegionSize(String region) throws SQLException {
         try{
             conn = ds.getConnection();
             sql = "select count(1) from attraction where region like concat(concat('%', ?), '%') ";
@@ -195,14 +195,14 @@ public class AttractionDAO {
             if(rs.next()){
                 size = rs.getInt(1);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return size;
     }
-    public List<AttractionDO> listAttractionByRownum(int startIndex, int endIndex, String region){
+    public List<AttractionDO> listAttractionByRownum(int startIndex, int endIndex, String region) throws SQLException {
         List<AttractionDO> list = new ArrayList<>();
 
         Object[] params = null;
@@ -252,7 +252,7 @@ public class AttractionDAO {
                 list.add(attractionDO);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }

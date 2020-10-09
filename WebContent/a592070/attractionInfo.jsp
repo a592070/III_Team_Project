@@ -12,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <jsp:include page="../fragment/header.jsp" />
+
     <title>景點清單頁面</title>
 
     <script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>
@@ -44,14 +44,14 @@
                     console.log(dataJSON);
 
                     let paginationContext="";
-                    paginationContext += "<li class='page-item'>共"+ totalCount +"條紀錄</li>";
-                    paginationContext += "<li class='page-item'>"+currentPage+"/"+totalPage+"</li>";
+                    paginationContext += "<li class='page-item page-link disabled'>共"+ totalCount +"條紀錄</li>";
+                    paginationContext += "<li class='page-item page-link disabled'>"+currentPage+"/"+totalPage+"</li>";
 
-                    paginationContext += "<li class='page-item previous'><a class='page-link' href='#' onclick='selectPage(1,currentArea, currentKeyword)'>First</li>";
-                    paginationContext += "<li class='page-item previous'><a class='page-link' href='#' onclick='selectPage(currentPage-1,currentArea, currentKeyword)'>Previous</a></li>";
+                    paginationContext += "<li class='page-item  previous'><a class='page-link' href='#' onclick='selectPage(1,currentArea, currentKeyword)'>First</li>";
+                    paginationContext += "<li class='page-item  previous'><a class='page-link' href='#' onclick='selectPage(currentPage-1,currentArea, currentKeyword)'>Previous</a></li>";
 
-                    paginationContext += "<li class='page-item next' ><a class='page-link' href='#' onclick='selectPage(currentPage+1,currentArea, currentKeyword)'>Next</a></li>";
-                    paginationContext += "<li class='page-item next'><a class='page-link' href='#' onclick='selectPage(totalPage,currentArea, currentKeyword)'>Last</a></li>";
+                    paginationContext += "<li class='page-item  next' ><a class='page-link' href='#' onclick='selectPage(currentPage+1,currentArea, currentKeyword)'>Next</a></li>";
+                    paginationContext += "<li class='page-item  next'><a class='page-link' href='#' onclick='selectPage(totalPage,currentArea, currentKeyword)'>Last</a></li>";
 
 
                     $("#pagination_id").html(paginationContext);
@@ -91,9 +91,11 @@
             //alert(totalPageCount);
             if(!regexp.test(num)){
                 alert("請輸入大於0的整數！");
+                $("#inputPage").val("");
                 return false;
             }else if((num-totalPageCount) > 0){
                 alert("請輸入小於"+totalPageCount+"的整數");
+                $("#inputPage").val("");
                 return false;
             }else{
                 selectPage(num, currentArea, currentKeyword);
@@ -138,7 +140,7 @@
 
 </head>
 <body>
-
+<jsp:include page="../fragment/header.jsp" />
 <script type="text/javascript">
     initRegion();
     selectPage(currentPage,  area);
@@ -184,16 +186,24 @@
     </table>
 </div>
 <div class="container">
-    <ul class="pagination" id="pagination_id">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom" >
+
+    <form class="form-inline my-2 my-lg-0">
+        <input type="text" class="form-control mr-sm-2" placeholder="跳轉頁面" id="inputPage" />
+        <button class="btn btn-success my-2 my-sm-0" type="button" onClick='jump_to($("#inputPage").val())'>Go</button>
+    </form>
+
+    <div class="collapse navbar-collapse navbar-brand">
+    <ul class="pagination navbar-nav mr-auto mt-2 mt-lg-0 " id="pagination_id">
     </ul>
 
-    <div class="navbar navbar-expand-sm">
-        <form class="form-inline">
-            <input type="text" class="form-control mr-sm-2" placeholder="跳轉頁面" id="inputPage" />
-            <button class="btn btn-success" type="button" onClick='jump_to($("#inputPage").val())'>Go</button>
-        </form>
-    </div >
+    <form class="form-inline my-2 my-lg-0">
+    <button class="btn btn-outline-success form-control mr-sm-2" style="right: 0" type="button" onclick="$(window).scrollTop(0)">TOP</button>
+    </form>
+    </div>
+</nav>
 </div>
+
 <script>
     $(document).ready(function(){
         $(".dropdown-toggle").dropdown();

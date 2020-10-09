@@ -23,7 +23,7 @@ public class RegionDAO {
     public RegionDAO(int connType) throws IOException {
         ds = ConnectionPool.getDataSource(connType);
     }
-    public List<RegionDO> listRegion(){
+    public List<RegionDO> listRegion() throws SQLException {
         List<RegionDO> list = new ArrayList<>();
         try{
             conn = ds.getConnection();
@@ -39,8 +39,8 @@ public class RegionDAO {
 
                 list.add(region);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }

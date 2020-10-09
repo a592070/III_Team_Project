@@ -83,10 +83,10 @@ public class RestaurantServletOld extends HttpServlet {
 	public void processDeleteRestaurant(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
 		String id = request.getParameter("id").trim();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
-		boolean deleteRestaurant = restaurantDAO.deleteRestaurant(id);
-		if(deleteRestaurant) {
-			request.getRequestDispatcher("iring29/bye.jsp").forward(request, response);
-		}
+//		boolean deleteRestaurant = restaurantDAO.deleteRestaurant(id);
+//		if(deleteRestaurant) {
+//			request.getRequestDispatcher("iring29/bye.jsp").forward(request, response);
+//		}
 		
 	}
 }

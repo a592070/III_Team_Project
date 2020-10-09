@@ -13,7 +13,7 @@ public class test {
 		
 		
 		forumDAO.articleListInit();
-		System.out.println(forumDAO.artileList());
+//		System.out.println(forumDAO.artileList());
 		
 		
 //		System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));

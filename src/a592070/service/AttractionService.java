@@ -14,26 +14,58 @@ public class AttractionService {
     private AttractionDAO attractionDAO;
     public Integer size;
 
-    public AttractionService() throws IOException {
-        this.attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITH_SERVER);
+    public AttractionService() {
+        try{
+            this.attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITH_SERVER);
+        }catch (IOException e) {
+            new RuntimeException("AttractionDAO 初始化錯誤\n"+e).printStackTrace();
+        }
     }
 
     public int getTotalSize(){
-        size = attractionDAO.getSize();
+        try {
+            size = attractionDAO.getSize();
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO getSize()錯誤\n"+e).printStackTrace();
+        }
         return size;
     }
     public int getRegionLimitSize(String region){
-        return attractionDAO.getAttractionRegionSize(region);
+        int size = 0;
+        try {
+            size = attractionDAO.getAttractionRegionSize(region);
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO getAttractionRegionSize()錯誤\n"+e).printStackTrace();
+        }
+        return size;
     }
     public int getKeywordLimitSize(String keyword){
-        return attractionDAO.getAttractionKeyWordsSize(keyword);
+        int size = 0;
+        try {
+            size = attractionDAO.getAttractionKeyWordsSize(keyword);
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO getAttractionKeyWordsSize()錯誤\n"+e).printStackTrace();
+        }
+        return size;
     }
 
-    public AttractionDO getEle(int id) throws IOException, SQLException {
-         return attractionDAO.getAttraction(id);
+    public AttractionDO getEle(int id)  {
+        AttractionDO attraction = null;
+        try {
+            attraction = attractionDAO.getAttraction(id);
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO getAttraction()錯誤\n"+e).printStackTrace();
+        }
+        return attraction;
     }
-    public AttractionDO getEleByValue(String column, Object value) throws IOException, SQLException {
-        return attractionDAO.getAttraction(column, value);
+    public AttractionDO getEleByValue(String column, Object value) {
+        AttractionDO attraction = null;
+        try {
+            attraction = attractionDAO.getAttraction(column, value);
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO getAttraction()錯誤\n"+e).printStackTrace();
+        }
+        return attraction;
     }
     public List<AttractionDO> listEle(int currentPage, int pageSize){
         return listEle(currentPage, pageSize, null);
@@ -42,18 +74,38 @@ public class AttractionService {
         // 從0開始
         int start = pageSize*(currentPage-1)+1;
         int end = pageSize*currentPage;
-        return attractionDAO.listAttractionByRownum(start,end, region);
+        List<AttractionDO> list = null;
+        try {
+            list = attractionDAO.listAttractionByRownum(start, end, region);
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO listAttractionByRownum()錯誤\n"+e).printStackTrace();
+        }
+        return list;
     }
 
-    public List<AttractionDO> searchEle(int currentPage, int pageSize, String keywords) throws IOException, SQLException {
+    public List<AttractionDO> searchEle(int currentPage, int pageSize, String keywords) {
         int start = pageSize*(currentPage-1)+1;
         int end = pageSize*currentPage;
-        return attractionDAO.listAttractionLike(start,end, keywords);
+        List<AttractionDO> list = null;
+        try {
+            list = attractionDAO.listAttractionLike(start, end, keywords);
+        } catch (SQLException e) {
+            new RuntimeException("AttractionDAO listAttractionLike()錯誤\n"+e).printStackTrace();
+        }
+        return list;
     }
 
-    public List<RegionDO> listRegion() throws IOException {
-        RegionDAO regionDAO = new RegionDAO(ConnectionPool.LOADING_WITH_SERVER);
-        return regionDAO.listRegion();
+    public List<RegionDO> listRegion() {
+        List<RegionDO> list = null;
+        try {
+            RegionDAO regionDAO = new RegionDAO(ConnectionPool.LOADING_WITH_SERVER);
+            list = regionDAO.listRegion();
+        } catch (IOException e) {
+            new RuntimeException("RegionDAO 初始化錯誤\n"+e).printStackTrace();
+        } catch (SQLException e){
+            new RuntimeException("AttractionDAO listRegion()錯誤\n"+e).printStackTrace();
+        }
+        return list;
     }
 
 }

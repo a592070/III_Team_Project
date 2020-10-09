@@ -27,11 +27,7 @@ public class AttractionsInfoServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        try {
-            attractionService = new AttractionService();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        attractionService = new AttractionService();
     }
 
     @Override
@@ -52,62 +48,57 @@ public class AttractionsInfoServlet extends HttpServlet {
 
 
     public void initPageRegion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode objectNode = mapper.createObjectNode();
 
-            List<RegionDO> regions = attractionService.listRegion();
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
 
-            objectNode.put("regions", mapper.writeValueAsString(regions));
-            mapper.writeValue(resp.getWriter(), objectNode);
-        }catch (Exception e){
-            e.printStackTrace();
-            throw e;
-        }
+        List<RegionDO> regions = attractionService.listRegion();
+
+        objectNode.put("regions", mapper.writeValueAsString(regions));
+        mapper.writeValue(resp.getWriter(), objectNode);
+
     }
     public void selectPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode objectNode = mapper.createObjectNode();
 
-            String currentPage = req.getParameter("nowPage");
-            String area = req.getParameter("area");
-            String keyword = req.getParameter("keyword");
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+
+        String currentPage = req.getParameter("nowPage");
+        String area = req.getParameter("area");
+        String keyword = req.getParameter("keyword");
 
 //            System.out.println(currentPage);
 //            System.out.println(area);
 //            System.out.println(keyword);
 
-            List<AttractionDO> list;
+        List<AttractionDO> list;
 
-            PageSupport pageSupport = new PageSupport();
-            pageSupport.setPageSize(pageSize);
+        PageSupport pageSupport = new PageSupport();
+        pageSupport.setPageSize(pageSize);
 
-            int currentPageNo;
-            if(!StringUtil.isEmpty(currentPage)) {
-                pageSupport.setCurrentPage(Integer.parseInt(currentPage));
-            }
-            currentPageNo = pageSupport.getCurrentPage();
-
-            if(!StringUtil.isEmpty(keyword)){
-                pageSupport.setTotalCount(attractionService.getKeywordLimitSize(keyword));
-                list = attractionService.searchEle(currentPageNo, pageSupport.getPageSize(), keyword);
-            }else if(!StringUtil.isEmpty(area)){
-                pageSupport.setTotalCount(attractionService.getRegionLimitSize(area));
-                list = attractionService.listEle(currentPageNo, pageSupport.getPageSize(), area);
-            }else{
-                pageSupport.setTotalCount(attractionService.getTotalSize());
-                list = attractionService.listEle(currentPageNo, pageSupport.getPageSize());
-            }
-
-            objectNode.put("currentPage", currentPageNo);
-            objectNode.put("totalPage", pageSupport.getTotalPageCount());
-            objectNode.put("totalCount", pageSupport.getTotalCount());
-            objectNode.put("currentPageList", mapper.writeValueAsString(list));
-            mapper.writeValue(resp.getWriter(), objectNode);
-        }catch (Exception e){
-            e.printStackTrace();
+        int currentPageNo;
+        if(!StringUtil.isEmpty(currentPage)) {
+            pageSupport.setCurrentPage(Integer.parseInt(currentPage));
         }
+        currentPageNo = pageSupport.getCurrentPage();
+
+        if(!StringUtil.isEmpty(keyword)){
+            pageSupport.setTotalCount(attractionService.getKeywordLimitSize(keyword));
+            list = attractionService.searchEle(currentPageNo, pageSupport.getPageSize(), keyword);
+        }else if(!StringUtil.isEmpty(area)){
+            pageSupport.setTotalCount(attractionService.getRegionLimitSize(area));
+            list = attractionService.listEle(currentPageNo, pageSupport.getPageSize(), area);
+        }else{
+            pageSupport.setTotalCount(attractionService.getTotalSize());
+            list = attractionService.listEle(currentPageNo, pageSupport.getPageSize());
+        }
+
+        objectNode.put("currentPage", currentPageNo);
+        objectNode.put("totalPage", pageSupport.getTotalPageCount());
+        objectNode.put("totalCount", pageSupport.getTotalCount());
+        objectNode.put("currentPageList", mapper.writeValueAsString(list));
+        mapper.writeValue(resp.getWriter(), objectNode);
+
     }
 //    public void selectKeyword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 //        try {
