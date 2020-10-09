@@ -280,38 +280,6 @@ public class RestaurantDAO {
 			}
 		}
 	}
-	//set OrderTableBean for display HP
-	public OrderTableBean findR_Order(BigDecimal r_sn) throws SQLException {
-		sql = "select * from R_ORDER_LIST where R_SN = ?";
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setBigDecimal(1, r_sn);
-			ResultSet rs = pstmt.executeQuery();
-			pstmt.clearBatch();
-			OrderTableBean otBean = new OrderTableBean();
 
-			while (rs.next()) {
-				BigDecimal r_sn_order = rs.getBigDecimal("R_SN_ORDER");
-				BigDecimal orderID = rs.getBigDecimal("ORDER_ID");
-				BigDecimal cus_num = rs.getBigDecimal("CUSTOMER_NUM");
-				Timestamp ts = rs.getTimestamp("BOOK_TIME");
-				BigDecimal deposit = rs.getBigDecimal("DEPOSIT");
-				R_OrderBean roBean = new R_OrderBean(r_sn_order, orderID, ts, cus_num, deposit, null);
-				otBean.addR_OderBean(roBean);
-			}
-			return otBean;
-
-		} catch (Exception e) {
-			System.err.println("新增資料時發生錯誤:" + e);
-			conn.rollback();
-			return null;
-
-		} finally {
-			if (conn != null) {
-				conn.close();
-			}
-		}
-	}
 
 }

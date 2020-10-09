@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Restaurant Info</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <style>
         * {
@@ -20,6 +20,7 @@
         .box {
             width: 900px;
             margin: 50px auto;
+            border: 1px solid gray;
         }
 
         .div_img {
@@ -32,9 +33,9 @@
 		img{
 			width: 100%;
 		}
-        div {
+        /* div {
             border: 1px solid rgb(212, 212, 212);
-        }
+        } */
         .div-1{
         	padding-bottom: 20px;
         }
@@ -57,6 +58,7 @@
             text-align: center;
             color: #000000;
             cursor: pointer;
+            border: 1px solid gray;
             /* border-bottom: solid 1.5px #f04e2f; */
         }
 
@@ -67,6 +69,7 @@
             text-align: center;
             color: #000000;
             cursor: pointer;
+            border: 1px solid gray;
         }
 
         .comment {
@@ -76,6 +79,7 @@
             text-align: center;
             color: #000000;
             cursor: pointer;
+            border: 1px solid gray;
         }
 
 
@@ -84,6 +88,7 @@
             position: relative;
             background-color: #eeeeee;
             padding: 10px 30px;
+            border: 1px solid gray;
             /* font-size: 15px; */
             /* font-weight: 400; */
         }
@@ -128,48 +133,8 @@
     </style>
 </head>
 <body>
+<jsp:include page="/fragment/header.jsp" />
 
-<header class="">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="javascript:void(0)">Logo</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-
-        <div class="collapse navbar-collapse  nav justify-content-center" id="navb">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找旅館</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找餐廳</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找租車</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">找景點</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="javascript:void(0)">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <form class="form-inline my-3">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-                <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
-            </form>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">登陸</button>
-            <button type="button" class="btn btn-primary">註冊</button>
-            <button type="button" class="btn btn-primary">論壇</button>
-        </div>
-    </nav>
-</header>
 
 <div class="box" >
         <div>
