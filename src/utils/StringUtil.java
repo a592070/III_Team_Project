@@ -4,7 +4,8 @@ import java.util.Objects;
 
 public class StringUtil {
     public static boolean isEmpty(String str){
-        str = String.valueOf(str).trim().toLowerCase();
-        return Objects.equals(str,null) || Objects.equals(str,"") || Objects.equals(str,"n/a");
+        if(str==null) return true;
+        str = str.trim().toLowerCase();
+        return "null".equals(str) || "".equals(str) || "n/a".equals(str);
     }
 }

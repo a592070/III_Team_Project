@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
     /**
-     *     private String id;
+     *     private int sn;
      *     private String name;
      *     private String toldescribe;
      *     private String description;
@@ -20,7 +20,7 @@ public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
      *     private BigDecimal px;
      *     private BigDecimal py;
      *     private String openTime;
-     *     private byte[] picture;
+     *     private String picture;
      *     private String ticketInfo;
      *     private String travelingInfo;
      *     private String keywords;
@@ -47,6 +47,7 @@ public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
 
 
         attractionDO.setOpenTime(node.get("Opentime").textValue());
+        attractionDO.setPicture(node.get("Picture").textValue());
         attractionDO.setTravellingInfo(node.get("Travellinginfo").textValue());
         attractionDO.setTicketInfo(node.get("Ticketinfo").textValue());
         attractionDO.setKeywords(node.get("Keyword").textValue());

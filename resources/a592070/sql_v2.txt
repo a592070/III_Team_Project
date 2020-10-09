@@ -38,7 +38,7 @@ create table ATTRACTION
     KEYWORDS       VARCHAR2(1024),
     REMARKS        VARCHAR2(1024),
     RATING         NUMBER(2, 1)
-)
+);
 
 insert into ACCOUNT(username, password, IDENTITY, MODIFY_DATE, REGISTER)
 values ('system', 'system', 1, to_date(sysdate), to_date(sysdate));
@@ -52,8 +52,9 @@ create table TRAVEL_SET
     CREATED VARCHAR2(255) default 'system'
         constraint TRAVEL_SET_ACCOUNT_USERNAME_FK
             references ACCOUNT,
-    description varchar2(4000)
-)
+    description varchar2(4000),
+    priority number(2) default 0
+);
 /* 行程中的租車規劃 */
 create table TRAVEL_ELE_C
 (
@@ -67,7 +68,7 @@ create table TRAVEL_ELE_C
         constraint TRAVEL_ELE_C_CARTYPE_SN_CARTYPE_FK
             references CARTYPE,
     TIME      TIMESTAMP(6)
-)
+);
 /* 行程中的餐廳規劃 */
 create table TRAVEL_ELE_R
 (
@@ -81,7 +82,7 @@ create table TRAVEL_ELE_R
         constraint TRAVEL_ELE_R_RESTAURANT_R_SN_FK
             references RESTAURANT,
     TIME      TIMESTAMP(6)
-)
+);
 /* 行程中的旅館規劃 */
 create table TRAVEL_ELE_H
 (
@@ -95,7 +96,7 @@ create table TRAVEL_ELE_H
         constraint TRAVEL_ELE_H_HOTEL_SN_FK
             references HOTEL,
     TIME      TIMESTAMP(6)
-)
+);
 /* 行程中的景點規劃 */
 create table TRAVEL_ELE_A
 (
@@ -109,7 +110,7 @@ create table TRAVEL_ELE_A
         constraint TRAVEL_ELE_A_ATTRACTION_A_SN_FK
             references ATTRACTION,
     TIME      TIMESTAMP(6)
-)
+);
 
 
 /* 訂單個人資料 */
@@ -123,7 +124,7 @@ create table order_data
                         references ACCOUNT,
         name varchar2(255) not null,
         phone varchar2(255) not null
-)
+);
 /* 訂單總表 */
 create table order_table
 (
@@ -135,4 +136,4 @@ create table order_table
         sn_no number
                 constraint ORDER_TABLE_ORDER_DATA_SN_FK
                         references ORDER_DATA
-)
+);

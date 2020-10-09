@@ -2,14 +2,16 @@ package a592070.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import utils.StringUtil;
 
 import java.math.BigDecimal;
 
 @JsonDeserialize(using = AttractionJsonDeserializer.class)
+@JsonSerialize(using = AttractionJsonSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AttractionDO {
-    private int id;
+    private int sn;
     private String name;
     private String toldescribe;
     private String description;
@@ -32,7 +34,7 @@ public class AttractionDO {
     @Override
     public String toString() {
         return "AttractionDO{" +
-                "id='" + id + '\'' +
+                "sn='" + sn + '\'' +
                 ", name='" + name + '\'' +
                 ", toldescribe='" + toldescribe + '\'' +
                 ", description='" + description + '\'' +
@@ -50,12 +52,12 @@ public class AttractionDO {
                 '}';
     }
 
-    public int getId() {
-        return id;
+    public int getSn() {
+        return sn;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSn(int sn) {
+        this.sn = sn;
     }
 
     public String getName() {
@@ -71,7 +73,7 @@ public class AttractionDO {
     }
 
     public void setToldescribe(String toldescribe) {
-        if(StringUtil.isEmpty(toldescribe)) toldescribe=null;
+        if(StringUtil.isEmpty(toldescribe)) toldescribe="暫時不提供資訊";
         this.toldescribe = toldescribe;
     }
 
@@ -80,7 +82,7 @@ public class AttractionDO {
     }
 
     public void setDescription(String description) {
-        if(StringUtil.isEmpty(description)) description=null;
+        if(StringUtil.isEmpty(description)) description="暫時不提供資訊";
         this.description = description;
     }
 
@@ -89,7 +91,7 @@ public class AttractionDO {
     }
 
     public void setTel(String tel) {
-        if(StringUtil.isEmpty(tel)) tel=null;
+        if(StringUtil.isEmpty(tel)) tel="暫時不提供資訊";
         this.tel = tel;
     }
 
@@ -98,7 +100,7 @@ public class AttractionDO {
     }
 
     public void setAddress(String address) {
-        if(StringUtil.isEmpty(address)) address=null;
+        if(StringUtil.isEmpty(address)) address="暫時不提供資訊";
         this.address = address;
     }
 
@@ -123,7 +125,7 @@ public class AttractionDO {
     }
 
     public void setOpenTime(String openTime) {
-        if(StringUtil.isEmpty(openTime)) openTime=null;
+        if(StringUtil.isEmpty(openTime)) openTime="暫時不提供資訊";
         this.openTime = openTime;
     }
 
@@ -132,7 +134,7 @@ public class AttractionDO {
     }
 
     public void setTicketInfo(String ticketInfo) {
-        if(StringUtil.isEmpty(ticketInfo)) ticketInfo=null;
+        if(StringUtil.isEmpty(ticketInfo)) ticketInfo="暫時不提供資訊";
         this.ticketInfo = ticketInfo;
     }
 
@@ -141,7 +143,7 @@ public class AttractionDO {
     }
 
     public void setTravellingInfo(String travellingInfo) {
-        if(StringUtil.isEmpty(travellingInfo)) travellingInfo =null;
+        if(StringUtil.isEmpty(travellingInfo)) travellingInfo ="暫時不提供資訊";
         this.travellingInfo = travellingInfo;
     }
 
@@ -150,7 +152,7 @@ public class AttractionDO {
     }
 
     public void setKeywords(String keywords) {
-        if(StringUtil.isEmpty(keywords)) keywords=null;
+        if(StringUtil.isEmpty(keywords)) keywords="暫時不提供資訊";
         this.keywords = keywords;
     }
 
@@ -159,7 +161,7 @@ public class AttractionDO {
     }
 
     public void setRemarks(String remarks) {
-        if(StringUtil.isEmpty(remarks)) remarks=null;
+        if(StringUtil.isEmpty(remarks)) remarks="暫時不提供資訊";
         this.remarks = remarks;
     }
 
@@ -176,7 +178,7 @@ public class AttractionDO {
     }
 
     public void setRegion(String region) {
-        if(StringUtil.isEmpty(region)) region=null;
+        if(StringUtil.isEmpty(region)) region="暫時不提供資訊";
         this.region = region;
     }
 
@@ -185,7 +187,7 @@ public class AttractionDO {
     }
 
     public void setPicture(String picture) {
-        if(StringUtil.isEmpty(picture)) picture=null;
+        if(StringUtil.isEmpty(picture)) picture="暫時不提供資訊";
         this.picture = picture;
     }
 }
