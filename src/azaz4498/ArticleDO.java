@@ -1,14 +1,15 @@
 package azaz4498;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class ArticleDO {
+public class ArticleDO implements Serializable{
 	private String artContent;
 	private Date artCreTime;
 	private String artUserId;
 	private int artCommNum;
 	private int artView;
-	private String artId;
+	private int artId;
 	private int artTypeId;
 	private String artTitle;
 	private String artPic;
@@ -18,7 +19,7 @@ public class ArticleDO {
 	}
 	
 	public ArticleDO(String artContent, Date artCreTime, String artUserId, int artCommNum, 
-			int artView, String artId, int artTypeId, String artTitle, String artPic) {
+			int artView, int artId, int artTypeId, String artTitle, String artPic) {
 		super();
 		this.artContent = artContent;
 		this.artCreTime = artCreTime;
@@ -60,10 +61,10 @@ public class ArticleDO {
 	public void setArtView(int artView) {
 		this.artView = artView;
 	}
-	public String getArtId() {
+	public int getArtId() {
 		return artId;
 	}
-	public void setArtId(String artId) {
+	public void setArtId(int artId) {
 		this.artId = artId;
 	}
 	public int getArtTypeId() {

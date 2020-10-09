@@ -7,16 +7,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class T_OrderBean {
-	BigDecimal t_sn_order;
-	BigDecimal order_id;
-	hsrDO hsrDO;	//取得snSchedule
-	BigDecimal trafficPrice;	//交通訂單總價格
-	BigDecimal nums_days;	//票價張數租車天數
-	String startPoint;	//出發地
-	String destination;	//目的地
-	Timestamp deparatureDate;	//出發日
-	CarTypeBean carTypeBean;	//取得sn_carType
-	String orderType;	//紀錄為火車票或租車
+	private BigDecimal t_sn_order = null;
+	private BigDecimal order_id = null;
+	private hsrDO hsrDO = null;	//取得snSchedule
+	private BigDecimal trafficPrice = null;	//交通訂單總價格
+	private BigDecimal nums_days = null;	//票價張數租車天數
+	private String startPoint = null;	//出發地
+	private String destination = null;	//目的地
+	private Timestamp deparatureDate =null;		//出發日
+	private CarTypeBean carTypeBean = null;		//取得sn_carType
+	private String orderType = null;	//紀錄為火車票或租車
 	
 	public T_OrderBean() {
 		

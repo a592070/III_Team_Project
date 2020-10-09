@@ -143,9 +143,9 @@
 
 
             let startPoint;
-             let destination;
-
-            $('#trainSubmit').on('click', function() {
+            let destination;
+            let snSchedule;
+            // $('#trainSubmit').on('click', function() {
                 startPoint = $("#startPoint").val().toLowerCase();
                 destination = $("#destination").val().toLowerCase();
                 $.ajax({
@@ -161,8 +161,7 @@
                      dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
 
                      success : function(response){
-                         console.log("123123")
-
+                        //  console.log("123123")
                          //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
                         // console.log(response.length);
                         //console.log($("#startPoint").val())
@@ -180,6 +179,68 @@
                                          "<td>" + response[2]["ticketNum"]*response[1]["price"] + "</td>" +
                                          "<td>" + '<input type="button" class="orderTicket" value="確認購票">' + "</td>";
                             tableData += "</tr>";
+                            
+                            snSchedule = response[0][i]["snSchedule"];
+
+                        }
+                        //console.log(tableData);
+                        $("#ajaxTable").html(tableData);
+                        
+                        // var table = document.getElementById('ajaxTable');
+                        // console.log(table.rows[0].cells[0].innerHTML);
+
+
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+            // });
+
+            $('#ticketNum').on('change', function() {
+                // console.log("123");
+                startPoint = $("#startPoint").val().toLowerCase();
+                destination = $("#destination").val().toLowerCase();
+                $.ajax({
+
+                     type:"POST",                    //指定http參數傳輸格式為POST
+
+                     url: "../orderHSRticketSrevlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+
+                     data: $("#orderHSRticket").serialize()+"&idHSR="+$("#idHSR").val(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+
+                                                     //內含有name的物件value
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     success : function(response){
+                        //  console.log("123123")
+                         //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
+                        // console.log(response.length);
+                        //console.log($("#startPoint").val())
+                        console.log(response[0].length);
+                         let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
+                        for(let i = 0; i < response[0].length; i++){
+                            tableData += "<tr>";
+                            tableData += "<td>" + response[0][i]["idHSR"] + "</td>" +
+                                         "<td>" + response[3]["departureDate"] + "</td>" +
+                                         "<td>" + response[4]["startPoint"] + "</td>" + 
+                                         "<td>" + response[5]["destination"] + "</td>"+ 
+                                         "<td>" + response[0][i][startPoint] + "</td>" + 
+                                         "<td>" + response[0][i][destination] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"]*response[1]["price"] + "</td>" +
+                                         "<td>" + '<input type="button" class="orderTicket" value="確認購票">' + "</td>";
+                            tableData += "</tr>";
+                            
+                            snSchedule = response[0][i]["snSchedule"];
+
                         }
                         //console.log(tableData);
                         $("#ajaxTable").html(tableData);
@@ -200,18 +261,12 @@
 
                  });
             });
-            $("#ajaxTable").on("click", ".orderTicket", function(){
-                var index = $(".orderTicket").index(this);
-                console.log(index);
-                var table = document.getElementById('ajaxTable');
-                console.log(table.rows[index+1].cells[0].innerHTML);
-                //console.log($("#destination").val().toLowerCase())
-                //strCookies = table.rows[index+1].cells[0].innerHTML+","+startPoint+","+destination+","+$("#departureDate").val();
-                //Cookies.set('HSR', strCookies)
-                //window.location="\orderHSRticket.html";
-                //console.log(startPoint)
 
 
+            $('#startPoint').on('change', function() {
+                // console.log("123");
+                startPoint = $("#startPoint").val().toLowerCase();
+                destination = $("#destination").val().toLowerCase();
                 $.ajax({
 
                      type:"POST",                    //指定http參數傳輸格式為POST
@@ -225,12 +280,215 @@
                      dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
 
                      success : function(response){
-                         console.log("123123")
-
+                        //  console.log("123123")
                          //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
                         // console.log(response.length);
                         //console.log($("#startPoint").val())
                         console.log(response[0].length);
+                         let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
+                        for(let i = 0; i < response[0].length; i++){
+                            tableData += "<tr>";
+                            tableData += "<td>" + response[0][i]["idHSR"] + "</td>" +
+                                         "<td>" + response[3]["departureDate"] + "</td>" +
+                                         "<td>" + response[4]["startPoint"] + "</td>" + 
+                                         "<td>" + response[5]["destination"] + "</td>"+ 
+                                         "<td>" + response[0][i][startPoint] + "</td>" + 
+                                         "<td>" + response[0][i][destination] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"]*response[1]["price"] + "</td>" +
+                                         "<td>" + '<input type="button" class="orderTicket" value="確認購票">' + "</td>";
+                            tableData += "</tr>";
+                            
+                            snSchedule = response[0][i]["snSchedule"];
+
+                        }
+                        //console.log(tableData);
+                        $("#ajaxTable").html(tableData);
+                        
+                        // var table = document.getElementById('ajaxTable');
+                        // console.log(table.rows[0].cells[0].innerHTML);
+
+
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+            });
+
+
+
+            $('#destination').on('change', function() {
+                // console.log("123");
+                startPoint = $("#startPoint").val().toLowerCase();
+                destination = $("#destination").val().toLowerCase();
+                $.ajax({
+
+                     type:"POST",                    //指定http參數傳輸格式為POST
+
+                     url: "../orderHSRticketSrevlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+
+                     data: $("#orderHSRticket").serialize()+"&idHSR="+$("#idHSR").val(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+
+                                                     //內含有name的物件value
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     success : function(response){
+                        //  console.log("123123")
+                         //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
+                        // console.log(response.length);
+                        //console.log($("#startPoint").val())
+                        console.log(response[0].length);
+                         let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
+                        for(let i = 0; i < response[0].length; i++){
+                            tableData += "<tr>";
+                            tableData += "<td>" + response[0][i]["idHSR"] + "</td>" +
+                                         "<td>" + response[3]["departureDate"] + "</td>" +
+                                         "<td>" + response[4]["startPoint"] + "</td>" + 
+                                         "<td>" + response[5]["destination"] + "</td>"+ 
+                                         "<td>" + response[0][i][startPoint] + "</td>" + 
+                                         "<td>" + response[0][i][destination] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"]*response[1]["price"] + "</td>" +
+                                         "<td>" + '<input type="button" class="orderTicket" value="確認購票">' + "</td>";
+                            tableData += "</tr>";
+                            
+                            snSchedule = response[0][i]["snSchedule"];
+
+                        }
+                        //console.log(tableData);
+                        $("#ajaxTable").html(tableData);
+                        
+                        // var table = document.getElementById('ajaxTable');
+                        // console.log(table.rows[0].cells[0].innerHTML);
+
+
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+            });
+
+
+
+            $('#departureDate').on('change', function() {
+                // console.log("123");
+                startPoint = $("#startPoint").val().toLowerCase();
+                destination = $("#destination").val().toLowerCase();
+                $.ajax({
+
+                     type:"POST",                    //指定http參數傳輸格式為POST
+
+                     url: "../orderHSRticketSrevlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+
+                     data: $("#orderHSRticket").serialize()+"&idHSR="+$("#idHSR").val(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+
+                                                     //內含有name的物件value
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     success : function(response){
+                        //  console.log("123123")
+                         //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
+                        // console.log(response.length);
+                        //console.log($("#startPoint").val())
+                        console.log(response[0].length);
+                         let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
+                        for(let i = 0; i < response[0].length; i++){
+                            tableData += "<tr>";
+                            tableData += "<td>" + response[0][i]["idHSR"] + "</td>" +
+                                         "<td>" + response[3]["departureDate"] + "</td>" +
+                                         "<td>" + response[4]["startPoint"] + "</td>" + 
+                                         "<td>" + response[5]["destination"] + "</td>"+ 
+                                         "<td>" + response[0][i][startPoint] + "</td>" + 
+                                         "<td>" + response[0][i][destination] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"] + "</td>" + 
+                                         "<td>" + response[2]["ticketNum"]*response[1]["price"] + "</td>" +
+                                         "<td>" + '<input type="button" class="orderTicket" value="確認購票">' + "</td>";
+                            tableData += "</tr>";
+                            
+                            snSchedule = response[0][i]["snSchedule"];
+
+                        }
+                        //console.log(tableData);
+                        $("#ajaxTable").html(tableData);
+                        
+                        // var table = document.getElementById('ajaxTable');
+                        // console.log(table.rows[0].cells[0].innerHTML);
+
+
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+            });
+
+
+
+
+            $("#ajaxTable").on("click", ".orderTicket", function(){
+                var index = $(".orderTicket").index(this);
+                //console.log(index);
+                var table = document.getElementById('ajaxTable');
+                //console.log(table.rows[index+1].cells[0].innerHTML);
+                //console.log($("#destination").val().toLowerCase())
+                //strCookies = table.rows[index+1].cells[0].innerHTML+","+startPoint+","+destination+","+$("#departureDate").val();
+                //Cookies.set('HSR', strCookies)
+                //window.location="\orderHSRticket.html";
+                //console.log(startPoint)
+                //console.log(table.rows[1].cells[2].innerHTML);
+                var startPoint = table.rows[1].cells[2].innerHTML;
+                var destination = table.rows[1].cells[3].innerHTML;
+                var nums_days = table.rows[1].cells[6].innerHTML;
+                var departureDate = table.rows[1].cells[1].innerHTML;
+                $.ajax({
+
+                     type:"POST",                    //指定http參數傳輸格式為POST
+
+                     url: "../T_OrderServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+
+                     data: {
+                        //  "snSchedule" : '"' + snSchedule +'"' 
+                        "snSchedule" :  snSchedule,
+                        "startPoint" : startPoint,
+                        "destination" : destination,
+                        "nums_days" : nums_days,
+                        "departureDate" : departureDate,
+                        "orderType" : 0
+                     }, //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+
+                                                     //內含有name的物件value
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     success : function(response){
+                         //console.log("123123")
+
+                         //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
+                        // console.log(response.length);
+                        //console.log($("#startPoint").val())
+                        //console.log(response[0].length);
                          let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
                         for(let i = 0; i < response[0].length; i++){
                             tableData += "<tr>";
