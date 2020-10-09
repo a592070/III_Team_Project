@@ -15,7 +15,7 @@ public class PageSupport {
     }
 
     public void setCurrentPage(int currentPage) {
-        if(currentPage > 0 && currentPage<=totalPageCount) this.currentPage = currentPage;
+        if(currentPage > 0) this.currentPage = currentPage;
     }
 
     public int getTotalCount() {

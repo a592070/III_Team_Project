@@ -114,22 +114,39 @@ public class AttractionDAO {
         }
         return list;
     }
+
+    public int getAttractionKeyWordsSize(String keyWords){
+        try{
+            conn = ds.getConnection();
+            sql = "select count(1) from attraction where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ?  ";
+            predStmt = conn.prepareStatement(sql);
+            predStmt = ConnectionPool.setParams(predStmt, new Object[]{"%" + keyWords + "%", "%" + keyWords + "%", "%" + keyWords + "%", "%" + keyWords + "%", "%" + keyWords + "%"});
+            rs = predStmt.executeQuery();
+            if(rs.next()){
+                size = rs.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return size;
+    }
     public List<AttractionDO> listAttractionLike(int startIndex, int endIndex, String keyWords) throws SQLException, IOException {
         Object[] params;
 
         StringBuffer sqlBuffer = new StringBuffer();
-        sqlBuffer.append("select rownum, t.* ")
-                .append("from (select rownum rn, attraction.* case PICTURE when 'NULL' then 0 else 1 end as p from attraction ");
+        sqlBuffer.append("select rownum, t2.* from(")
+                .append("select rownum rn, t.* ")
+                .append("from (select * from attraction ");
         if(!StringUtil.isEmpty(keyWords)) {
             sqlBuffer.append("where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ? ");
             params = new Object[]{"%" + keyWords + "%", "%" + keyWords + "%", "%" + keyWords + "%", "%" + keyWords + "%", "%" + keyWords + "%", startIndex, endIndex};
         }else{
             params = new Object[]{startIndex, endIndex};
         }
-        sqlBuffer.append("order by p desc, RATING desc) t ")
+        sqlBuffer.append("order by picture, RATING desc) t)t2 ")
                 .append("where rn between ? and ?");
-
-//        sql = "select * from attraction where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ?";
 
         sql = sqlBuffer.toString();
 
@@ -168,13 +185,31 @@ public class AttractionDAO {
         return list;
     }
 
+    public int getAttractionRegionSize(String region){
+        try{
+            conn = ds.getConnection();
+            sql = "select count(1) from attraction where region like concat(concat('%', ?), '%') ";
+            predStmt = conn.prepareStatement(sql);
+            predStmt = ConnectionPool.setParams(predStmt, new Object[]{region});
+            rs = predStmt.executeQuery();
+            if(rs.next()){
+                size = rs.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return size;
+    }
     public List<AttractionDO> listAttractionByRownum(int startIndex, int endIndex, String region){
         List<AttractionDO> list = new ArrayList<>();
 
         Object[] params = null;
 
         StringBuffer sqlBuffer = new StringBuffer();
-        sqlBuffer.append("select rownum, t.* ")
+        sqlBuffer.append("select rownum, t2.* from(")
+                .append("select rownum rn, t.* ")
                 .append("from (select * from attraction ");
         if(!StringUtil.isEmpty(region)) {
             sqlBuffer.append("where region like concat(concat('%', ?), '%') ");
@@ -182,8 +217,8 @@ public class AttractionDAO {
         }else{
             params = new Object[]{startIndex, endIndex};
         }
-        sqlBuffer.append("order by picture, RATING desc) t ")
-                .append("where rownum between ? and ?");
+        sqlBuffer.append("order by picture, RATING desc) t)t2 ")
+                .append("where rn between ? and ?");
 
 //        sql =   "select rownum, t.* " +
 //                "from (select rownum rn, attraction.* case PICTURE when 'NULL' then 0 else 1 end as p from attraction where region like concat(concat('%', ?), '%') order by p desc, RATING desc) t " +

@@ -1,9 +1,10 @@
 package a592070.service;
 
 import a592070.dao.AttractionDAO;
+import a592070.dao.RegionDAO;
 import a592070.pojo.AttractionDO;
+import a592070.pojo.RegionDO;
 import controller.ConnectionPool;
-import utils.StringUtil;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,15 +12,21 @@ import java.util.List;
 
 public class AttractionService {
     private AttractionDAO attractionDAO;
-    public static Integer size;
+    public Integer size;
 
     public AttractionService() throws IOException {
         this.attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITH_SERVER);
     }
 
-    public int getSize(){
-        if(size == null || size==0) size = attractionDAO.getSize();
+    public int getTotalSize(){
+        size = attractionDAO.getSize();
         return size;
+    }
+    public int getRegionLimitSize(String region){
+        return attractionDAO.getAttractionRegionSize(region);
+    }
+    public int getKeywordLimitSize(String keyword){
+        return attractionDAO.getAttractionKeyWordsSize(keyword);
     }
 
     public AttractionDO getEle(int id) throws IOException, SQLException {
@@ -33,14 +40,20 @@ public class AttractionService {
     }
     public List<AttractionDO> listEle(int currentPage, int pageSize, String region){
         // 從0開始
-        currentPage = currentPage-1;
-        return attractionDAO.listAttractionByRownum(pageSize*currentPage, pageSize*(currentPage+1), region);
+        int start = pageSize*(currentPage-1)+1;
+        int end = pageSize*currentPage;
+        return attractionDAO.listAttractionByRownum(start,end, region);
     }
 
     public List<AttractionDO> searchEle(int currentPage, int pageSize, String keywords) throws IOException, SQLException {
-        currentPage = currentPage-1;
-        return attractionDAO.listAttractionLike(pageSize*currentPage, pageSize*(currentPage+1), keywords);
+        int start = pageSize*(currentPage-1)+1;
+        int end = pageSize*currentPage;
+        return attractionDAO.listAttractionLike(start,end, keywords);
     }
 
+    public List<RegionDO> listRegion() throws IOException {
+        RegionDAO regionDAO = new RegionDAO(ConnectionPool.LOADING_WITH_SERVER);
+        return regionDAO.listRegion();
+    }
 
 }

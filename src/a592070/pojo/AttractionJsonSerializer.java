@@ -11,6 +11,7 @@ public class AttractionJsonSerializer extends JsonSerializer<AttractionDO> {
     @Override
     public void serialize(AttractionDO value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartObject();
+        gen.writeNumberField("sn", value.getSn());
         gen.writeStringField("name", value.getName());
         gen.writeStringField("address", value.getAddress());
         gen.writeStringField("description", value.getDescription());
