@@ -84,6 +84,10 @@ public class TravelSetDAO {
                 travelSetDO.setCreatedUser(rs.getString("created"));
                 travelSetDO.setDescription(rs.getString("description"));
                 travelSetDO.setPriority(rs.getInt("priority"));
+                travelSetDO.setCreatedTime(rs.getTimestamp("created_time"));
+                travelSetDO.setUpdateTime(rs.getTimestamp("update_time"));
+                travelSetDO.setName(rs.getString("name"));
+
                 list.add(travelSetDO);
             }
             for (TravelSetDO travelSetDO : list) {
@@ -116,8 +120,11 @@ public class TravelSetDAO {
             if(rs.next()) {
                 travelSetDO.setSn(rs.getInt("sn"));
                 travelSetDO.setCreatedUser(rs.getString("created"));
+                travelSetDO.setName(rs.getString("name"));
                 travelSetDO.setDescription(rs.getString("description"));
                 travelSetDO.setPriority(rs.getInt("priority"));
+                travelSetDO.setCreatedTime(rs.getTimestamp("created_time"));
+                travelSetDO.setUpdateTime(rs.getTimestamp("update_time"));
                 travelSetDO.setListTravelAttraction(getAttractionSetByID(id));
                 travelSetDO.setListTravelCar(getCarSetByID(id));
                 travelSetDO.setListTravelHotel(getHotelSetByID(id));
@@ -147,24 +154,33 @@ public class TravelSetDAO {
 
             while (rs.next()) {
                 TravelEleAttractionDO travelEleAttractionDO = new TravelEleAttractionDO();
-                AttractionDO attractionDO = new AttractionDO();
-                attractionDO.setSn(rs.getInt("a_id"));
-                attractionDO.setName(rs.getString("name"));
-                attractionDO.setToldescribe(rs.getNString("toldescribe"));
-                attractionDO.setDescription(rs.getNString("description"));
-                attractionDO.setTel(rs.getString("tel"));
-                attractionDO.setAddress(rs.getString("address"));
-                attractionDO.setRegion(rs.getString("region"));
-                attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
-                attractionDO.setOpenTime(rs.getString("opentime"));
-                attractionDO.setPicture(rs.getString("picture"));
-                attractionDO.setPx(rs.getBigDecimal("px"));
-                attractionDO.setPy(rs.getBigDecimal("py"));
-                attractionDO.setTicketInfo(rs.getString("ticketinfo"));
-                attractionDO.setKeywords(rs.getString("keywords"));
-                attractionDO.setRemarks(rs.getString("remarks"));
-                attractionDO.setRating(rs.getBigDecimal("rating"));
-                travelEleAttractionDO.setAttraction(attractionDO);
+//                AttractionDO attractionDO = new AttractionDO();
+//                attractionDO.setSn(rs.getInt("a_id"));
+//                attractionDO.setName(rs.getString("name"));
+//                attractionDO.setToldescribe(rs.getNString("toldescribe"));
+//                attractionDO.setDescription(rs.getNString("description"));
+//                attractionDO.setTel(rs.getString("tel"));
+//                attractionDO.setAddress(rs.getString("address"));
+//                attractionDO.setRegion(rs.getString("region"));
+//                attractionDO.setTravellingInfo(rs.getString("travellinginfo"));
+//                attractionDO.setOpenTime(rs.getString("opentime"));
+//                attractionDO.setPicture(rs.getString("picture"));
+//                attractionDO.setPx(rs.getBigDecimal("px"));
+//                attractionDO.setPy(rs.getBigDecimal("py"));
+//                attractionDO.setTicketInfo(rs.getString("ticketinfo"));
+//                attractionDO.setKeywords(rs.getString("keywords"));
+//                attractionDO.setRemarks(rs.getString("remarks"));
+//                attractionDO.setRating(rs.getBigDecimal("rating"));
+//                travelEleAttractionDO.setAttraction(attractionDO);
+
+                AttractionVO attractionVO = new AttractionVO();
+                attractionVO.setSn(rs.getInt("a_id"));
+                attractionVO.setName(rs.getString("name"));
+                attractionVO.setPicture(rs.getString("picture"));
+                attractionVO.setTicketInfo(rs.getString("ticketinfo"));
+                attractionVO.setAddress(rs.getString("address"));
+                travelEleAttractionDO.setAttraction(attractionVO);
+
 
                 travelEleAttractionDO.setSn(rs.getInt("sn"));
                 travelEleAttractionDO.setTravelId(rs.getInt("travel_id"));
@@ -297,11 +313,11 @@ public class TravelSetDAO {
         boolean flag = false;
         int travelSetPK;
         String[] travelSetPkName = {"sn"};
-        String sql0 = "insert into travel_set(created, description, priority) values(?, ?, ?)";
+        String sql0 = "insert into travel_set(created, description, priority, name) values(?, ?, ?,?)";
         try{
             conn = ds.getConnection();
             predStmt = conn.prepareStatement(sql0, travelSetPkName);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getCreatedUser(), travelSetDO.getDescription(), travelSetDO.getPriority()});
+            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getCreatedUser(), travelSetDO.getDescription(), travelSetDO.getPriority(), travelSetDO.getName()});
             predStmt.executeUpdate();
 
             ResultSet generatedKeys = predStmt.getGeneratedKeys();
@@ -309,6 +325,7 @@ public class TravelSetDAO {
                 travelSetPK = generatedKeys.getInt(1);
                 travelSetDO.setSn(travelSetPK);
             }else{
+                conn.rollback();
                 throw new RuntimeException("無法取得新增之TravelSet表格的主鍵");
             }
             addTravelEleA(travelSetDO);
@@ -412,11 +429,11 @@ public class TravelSetDAO {
     public boolean updateTravelSet(TravelSetDO travelSetDO) throws SQLException {
         boolean flag = false;
 
-        String sql0 = "update travel_set set description=?, priority=? where SN=?";
+        String sql0 = "update travel_set set description=?, priority=?, update_time=?, name=? where SN=?";
         try{
             conn = ds.getConnection();
             predStmt = conn.prepareStatement(sql0);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getDescription(), travelSetDO.getPriority(), travelSetDO.getSn()});
+            predStmt = ConnectionPool.setParams(predStmt, new Object[]{travelSetDO.getDescription(), travelSetDO.getPriority(), new Timestamp(System.currentTimeMillis()), travelSetDO.getName(), travelSetDO.getSn()});
             predStmt.executeUpdate();
             predStmt.clearParameters();
 

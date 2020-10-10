@@ -43,8 +43,8 @@ public class T_Order_ListDAO {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlOrder_Data, generatedColumn1);
 			pstmt.setString(1, bean.getUser().getUserName()); //取得userbean裡面的username
-			pstmt.setString(2, bean.getCustomerName());  //取得下單時輸入的名字
-			pstmt.setString(3, bean.getCustomerPhone()); //取得下單時輸入的電話
+//			pstmt.setString(2, bean.getCustomerName());  //取得下單時輸入的名字
+//			pstmt.setString(3, bean.getCustomerPhone()); //取得下單時輸入的電話
 
 			pstmt.executeQuery();
 			pstmt.clearBatch();

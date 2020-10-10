@@ -96,11 +96,11 @@ public class AttractionDO {
     }
 
     public String getAddress() {
+        if(StringUtil.isEmpty(address)) return "暫時不提供資訊";
         return address;
     }
 
     public void setAddress(String address) {
-        if(StringUtil.isEmpty(address)) address="暫時不提供資訊";
         this.address = address;
     }
 
@@ -121,47 +121,47 @@ public class AttractionDO {
     }
 
     public String getOpenTime() {
+        if(StringUtil.isEmpty(openTime)) return "暫時不提供資訊";
         return openTime;
     }
 
     public void setOpenTime(String openTime) {
-        if(StringUtil.isEmpty(openTime)) openTime="暫時不提供資訊";
         this.openTime = openTime;
     }
 
     public String getTicketInfo() {
+        if(StringUtil.isEmpty(ticketInfo)) return "暫時不提供資訊";
         return ticketInfo;
     }
 
     public void setTicketInfo(String ticketInfo) {
-        if(StringUtil.isEmpty(ticketInfo)) ticketInfo="暫時不提供資訊";
         this.ticketInfo = ticketInfo;
     }
 
     public String getTravellingInfo() {
+        if(StringUtil.isEmpty(travellingInfo)) return "暫時不提供資訊";
         return travellingInfo;
     }
 
     public void setTravellingInfo(String travellingInfo) {
-        if(StringUtil.isEmpty(travellingInfo)) travellingInfo ="暫時不提供資訊";
         this.travellingInfo = travellingInfo;
     }
 
     public String getKeywords() {
+        if(StringUtil.isEmpty(keywords)) return "暫時不提供資訊";
         return keywords;
     }
 
     public void setKeywords(String keywords) {
-        if(StringUtil.isEmpty(keywords)) keywords="暫時不提供資訊";
         this.keywords = keywords;
     }
 
     public String getRemarks() {
+        if(StringUtil.isEmpty(remarks)) return "暫時不提供資訊";
         return remarks;
     }
 
     public void setRemarks(String remarks) {
-        if(StringUtil.isEmpty(remarks)) remarks="暫時不提供資訊";
         this.remarks = remarks;
     }
 
@@ -174,11 +174,11 @@ public class AttractionDO {
     }
 
     public String getRegion() {
+        if(StringUtil.isEmpty(region)) return "暫時不提供資訊";
         return region;
     }
 
     public void setRegion(String region) {
-        if(StringUtil.isEmpty(region)) region="暫時不提供資訊";
         this.region = region;
     }
 
@@ -187,7 +187,6 @@ public class AttractionDO {
     }
 
     public void setPicture(String picture) {
-        if(StringUtil.isEmpty(picture)) picture="暫時不提供資訊";
         this.picture = picture;
     }
 }

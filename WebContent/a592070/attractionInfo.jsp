@@ -31,6 +31,7 @@
         var currentArea;
         var currentKeyword;
 
+        // var listItemAttraction = [];
 
         function selectPage(nowPage, nowArea, keyword){
             $.post({
@@ -60,6 +61,7 @@
                     let list = JSON.parse(dataJSON.currentPageList);
                     let context="";
                     for (let i = 0; i < list.length; i++) {
+                        // let tempobj = JSON.stringify(list[i]);
                         context += "<tr>"+
                             "<td>" + "<img src='"+list[i].picture+"' class='img-thumbnail' width='304' height='236' onerror=\"this.src='../static/nopic.jpg'\"/>" + "</td>" +
                             "<td>" + list[i].name + "</td>" +
@@ -67,6 +69,8 @@
                             // "<td>" + list[i].description + "</td>" +
                             "<td>" + list[i].ticketInfo + "</td>" +
                             "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
+                            // "<td><button type='button' class='btn btn-success' value='"+tempobj+"' onclick='addItem($(this).val())'>+</button></td>"+
+                            // "<td><button type='button' class='btn btn-danger disabled' value='"+tempobj+"' onclick='addItem($(this).val())'>-</button></td>"+
                             "</tr>";
                     }
                     $("#tbody_id").html(context);
