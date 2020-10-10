@@ -73,8 +73,8 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setDestination(destination);
 		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(departureDate[0], departureDate[1], departureDate[2]).atStartOfDay()));
 		tBean.setOrderType(orderType);
-		tBean.setCustomerName("asaseq");	//先假裝
-		tBean.setCustomerPhone("0808004564");	//先假裝
+		tBean.setCustomerName("bbbeq");	//先假裝
+		tBean.setCustomerPhone("08080ss04564");	//先假裝
         
 		
 		user.setUserName("innocence741");	//假裝訂購人為innocence

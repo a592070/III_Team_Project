@@ -50,7 +50,10 @@ public class orderHSRticketSrevlet extends HttpServlet {
 		list = hsrDAO.listHsrDO();
 		System.out.println(list.size());
 		price = hsrDAO.ticketPrice(startPoint, destination);
-		
+		Boolean check = false;
+		System.out.println(hsrDAO.getDirection(startPoint, destination).equals(list.get(0).getDirection()));
+		if(hsrDAO.getDirection(startPoint, destination).equals(list.get(0).getDirection()))
+			check = true;
         ObjectMapper objectMapper = new ObjectMapper();
         String ujson = objectMapper.writeValueAsString(list);
         ujson = "[" + ujson + ",{\"price\" : " + price + "},{\"ticketNum\" : " + ticketNum +"},"
@@ -66,7 +69,7 @@ public class orderHSRticketSrevlet extends HttpServlet {
 //		System.out.println(node1);
 //		System.out.println(node1.toString().equals("null"));
 		ujson = ujson.substring(0,ujson.length()-1);
-        if(node1.toString().equals("null") || node2.toString().equals("null")) {
+        if(node1.toString().equals("null") || node2.toString().equals("null") || !check) {
         	ujson = ujson + ",{\"check\" : \"false\"}]";
         }else {
         	ujson = ujson + ",{\"check\" : \"true\"}]";
