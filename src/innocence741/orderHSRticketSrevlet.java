@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.ConnectionPool;
@@ -57,7 +58,21 @@ public class orderHSRticketSrevlet extends HttpServlet {
         				+ "{\"startPoint\" : " + '\"'+startPoint+'\"' +"},{\"destination\" : " + '\"'+destination+'\"' +"}]";
 //        ujson = "[" + ujson + ",{\"price\" : " + price + "}]";
 
+        
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonNode = mapper.readTree(ujson);
+		JsonNode node1 = jsonNode.path(0).path(0).path(startPoint);
+		JsonNode node2 = jsonNode.path(0).path(0).path(destination);
+//		System.out.println(node1);
+//		System.out.println(node1.toString().equals("null"));
+		ujson = ujson.substring(0,ujson.length()-1);
+        if(node1.toString().equals("null") || node2.toString().equals("null")) {
+        	ujson = ujson + ",{\"check\" : \"false\"}]";
+        }else {
+        	ujson = ujson + ",{\"check\" : \"true\"}]";
+		}
         System.out.println(ujson+"\n");
+
         PrintWriter out = response.getWriter();
         out.println(ujson.toString());
     }
