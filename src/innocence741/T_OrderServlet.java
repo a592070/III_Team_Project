@@ -73,16 +73,16 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setDestination(destination);
 		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(departureDate[0], departureDate[1], departureDate[2]).atStartOfDay()));
 		tBean.setOrderType(orderType);
+		tBean.setCustomerName("asaseq");	//先假裝
+		tBean.setCustomerPhone("0808004564");	//先假裝
         
 		
 		user.setUserName("innocence741");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
+
 		
-		bean.setCustomerName("haha");  //測試先手動key 下單者姓名
-		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
-		
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
 		t_Order_ListDAO.createOrder(bean);
 		
     }
