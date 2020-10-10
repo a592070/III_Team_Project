@@ -1,6 +1,7 @@
 package innocence741;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -52,6 +53,11 @@ public class T_OrderServlet extends HttpServlet {
         int[] departureDate = spiltDate(departureDate_tmp);
         
         String orderType = request.getParameter("orderType");
+        
+        String customerName = request.getParameter("customerName");
+        
+        String customerPhone = request.getParameter("customerPhone");
+
 //        System.out.println("snSchedule= "+snSchedule);
 //        System.out.println("startPoint= "+startPoint);
 //        System.out.println("destination= "+destination);
@@ -73,18 +79,31 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setDestination(destination);
 		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(departureDate[0], departureDate[1], departureDate[2]).atStartOfDay()));
 		tBean.setOrderType(orderType);
+		tBean.setCustomerName(customerName);	//先假裝
+		tBean.setCustomerPhone(customerPhone);	//先假裝
         
 		
 		user.setUserName("innocence741");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
-		
-//		bean.setCustomerName("haha");  //測試先手動key 下單者姓名
-//		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
-		
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		t_Order_ListDAO.createOrder(bean);
-		
+
+		int[] rec = new int[1];
+		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		t_Order_ListDAO.createOrder(bean,rec);
+		System.out.println("rec= "+rec[0]);
+		printJSON(request,response,rec);
+    }
+    
+    public void printJSON(HttpServletRequest request, HttpServletResponse response, int[] rcd) throws IOException {
+    	String str = "";
+    	if(rcd[0] == 1) {
+    		str = "{\"check\" : \"success\"}";
+    	}else {
+    		str = "{\"check\" : \"fail\"}";
+		}
+    	System.out.println("str= " + str);
+    	PrintWriter out = response.getWriter();
+    	out.println(str);
     }
     
     public int[] spiltDate(String departureDate_tmp) {

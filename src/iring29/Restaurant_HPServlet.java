@@ -45,13 +45,6 @@ public class Restaurant_HPServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (request.getParameter("m-add") != null) {
-			System.out.println(request.getParameter("m-add"));
-			try {
-				processModifyR_HP(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		} else if (request.getParameter("cancel") != null) {
 			try {
 				processCancelModify(request, response);
@@ -62,6 +55,24 @@ public class Restaurant_HPServlet extends HttpServlet {
 		} else if (request.getParameter("confirm-location") != null) {
 			try {
 				processModifyLocation(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (request.getParameter("confirm-type") != null) {
+			try {
+				processModifyType(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (request.getParameter("confirm-info") != null) {
+			try {
+				processModifyInfo(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (request.getParameter("confirm-img") != null) {
+			try {
+				processModifyImg(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -87,11 +98,6 @@ public class Restaurant_HPServlet extends HttpServlet {
 		request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);
 	}
 
-	public void processModifyR_HP(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("in");
-//		String rBean = request.getParameter("rBean");
-//		System.out.println(rBean);
-	}
 
 	// 取消修改
 	public void processCancelModify(HttpServletRequest request, HttpServletResponse response)
@@ -123,4 +129,66 @@ public class Restaurant_HPServlet extends HttpServlet {
 		request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);;
 		
 	}
+	
+	// 修改R_Type
+		public void processModifyType(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, SQLException, ServletException {
+			HttpSession session = request.getSession(false);
+			String serviceinfo = request.getParameter("serviceinfo");
+			String type = request.getParameter("type");
+			RestaurantBean rBean = (RestaurantBean) session.getAttribute("r_hp");
+			if (serviceinfo == "") {
+				serviceinfo= rBean.getServiceinfo();
+			}
+			if(type == "") {
+				type = rBean.getType();
+			}
+			
+			ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+			modifyDAO.R_Type(serviceinfo, type, rBean.getR_sn());
+			rBean.setServiceinfo(serviceinfo);
+			rBean.setType(type);
+			request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);;
+			
+		}
+		
+		// 修改R_Info
+				public void processModifyInfo(HttpServletRequest request, HttpServletResponse response)
+						throws IOException, SQLException, ServletException {
+					HttpSession session = request.getSession(false);
+					String opentime = request.getParameter("opentime");
+					String description = request.getParameter("description");
+					RestaurantBean rBean = (RestaurantBean) session.getAttribute("r_hp");
+					if (opentime == "") {
+						opentime= rBean.getOpentime();
+					}
+					if(description == "") {
+						description = rBean.getDescription();
+					}
+					
+					ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+					modifyDAO.R_Info(opentime, description, rBean.getR_sn());
+					rBean.setOpentime(opentime);
+					rBean.setDescription(description);
+					request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);;
+					
+				}
+				
+				// 修改R_Img
+				public void processModifyImg(HttpServletRequest request, HttpServletResponse response)
+						throws IOException, SQLException, ServletException {
+					HttpSession session = request.getSession(false);
+					String picture = request.getParameter("picture");
+					RestaurantBean rBean = (RestaurantBean) session.getAttribute("r_hp");
+					if (picture == "") {
+						picture= rBean.getPicture();
+					}
+					
+					ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+					modifyDAO.R_Img(picture, rBean.getR_sn());
+					rBean.setPicture(picture);
+					request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);;
+					
+				}
+		
 }

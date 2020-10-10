@@ -21,7 +21,7 @@ public class ModifyDAO {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
 	
-	//modify
+	//modify location
 	public boolean R_Address(String address, String transportation, BigDecimal r_sn) throws SQLException {
 		sql = "update restaurant set address = ?, transportation = ? where r_sn = ? ";
 		try {
@@ -33,9 +33,10 @@ public class ModifyDAO {
 			pstmt.executeQuery();
 			pstmt.clearBatch();
 			conn.commit();
+			pstmt.close();
 			return true;
 		}catch (Exception e) {
-			System.err.println("新增資料時發生錯誤:" + e);
+			System.err.println("修改資料時發生錯誤:" + e);
 			conn.rollback();
 			return false;
 
@@ -46,5 +47,81 @@ public class ModifyDAO {
 		}
 	}
 	
+	//modify Type
+		public boolean R_Type(String serviceinfo, String type, BigDecimal r_sn) throws SQLException {
+			sql = "update restaurant set serviceinfo = ?, type= ? where r_sn = ? ";
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, serviceinfo);
+				pstmt.setString(2, type);
+				pstmt.setBigDecimal(3, r_sn);
+				pstmt.executeQuery();
+				pstmt.clearBatch();
+				conn.commit();
+				pstmt.close();
+				return true;
+			}catch (Exception e) {
+				System.err.println("修改資料時發生錯誤:" + e);
+				conn.rollback();
+				return false;
+
+			} finally {
+				if (conn != null) {
+					conn.close();
+				}
+			}
+		}
+	
+		//modify Info
+				public boolean R_Info(String opentime, String description, BigDecimal r_sn) throws SQLException {
+					sql = "update restaurant set opentime = ?, description= ? where r_sn = ? ";
+					try {
+						conn = ds.getConnection();
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, opentime);
+						pstmt.setString(2, description);
+						pstmt.setBigDecimal(3, r_sn);
+						pstmt.executeQuery();
+						pstmt.clearBatch();
+						conn.commit();
+						pstmt.close();
+						return true;
+					}catch (Exception e) {
+						System.err.println("修改資料時發生錯誤:" + e);
+						conn.rollback();
+						return false;
+
+					} finally {
+						if (conn != null) {
+							conn.close();
+						}
+					}
+				}
+				
+				//modify Img
+				public boolean R_Img(String picture, BigDecimal r_sn) throws SQLException {
+					sql = "update restaurant set picture= ? where r_sn = ? ";
+					try {
+						conn = ds.getConnection();
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, picture);
+						pstmt.setBigDecimal(2, r_sn);
+						pstmt.executeQuery();
+						pstmt.clearBatch();
+						conn.commit();
+						pstmt.close();
+						return true;
+					}catch (Exception e) {
+						System.err.println("修改資料時發生錯誤:" + e);
+						conn.rollback();
+						return false;
+
+					} finally {
+						if (conn != null) {
+							conn.close();
+						}
+					}
+				}
 	
 }

@@ -17,29 +17,24 @@
 	margin: 0;
 	padding: 0;
 }
-
 .wrapper {
 	margin: 100px auto;
 	border: 1px solid black;
 	width: 600px;
 	padding: 50px;
 }
-
 h1 {
 	margin-left: 50px;
 	padding-bottom: 30px;
 }
-
 .div-1 {
 	margin-left: 50px;
 	padding-bottom: 20px;
 }
-
 .p-time {
 	margin-left: 50px;
 	padding-left: 100px
 }
-
 label {
 	width: 100px;
 	float: left;
@@ -47,7 +42,6 @@ label {
 	/* margin-left: 50px; */
 	text-align: right;
 }
-
 .div-btn {
 	text-align: center;
 }
