@@ -81,39 +81,39 @@ public class T_Order_ListDAO {
 
 					for(T_OrderBean ele : traffic ) {
 						pstmt3.setBigDecimal(1, ele.getOrder_id()); //ORDER_ID from ORDER_TABLE
-						System.out.println("order_id= " + ele.getOrder_id());
 						
 						pstmt3.setInt(2, ele.getHsrDO().getSnSchedule());	//取得SnSchedule
-						System.out.println("SnSchedule= " + ele.getHsrDO().getSnSchedule());
 							
 						pstmt3.setBigDecimal(3, ele.getTrafficPrice()); //取得交通訂單總價
-						System.out.println("TrafficPrice= " + ele.getTrafficPrice());
 							
 						pstmt3.setBigDecimal(4, ele.getNums_days()); //取得訂票張數or租借天數
-						System.out.println("Nums_days= " + ele.getNums_days());
 							
 						pstmt3.setString(5, ele.getStartPoint()); //取得起始站位置
-						System.out.println("StartPoint= " + ele.getStartPoint());
 							
 						pstmt3.setString(6, ele.getDestination()); //取得起始站位置		
-						System.out.println("Destination= " + ele.getDestination());
 							
 						Timestamp ts2 = new Timestamp(ele.getDeparatureDate().getTime()); //出發日
 						pstmt3.setTimestamp(7, ts2); //出發日
-						System.out.println("DeparatureDate= " + ts2);
 							
 						pstmt3.setString(8, ele.getOrderType()); //交通類型0高鐵or1租車
-						System.out.println("OrderType= " + ele.getOrderType());
 						
 						pstmt3.setString(9, ele.getCustomerName()); //交通類型0高鐵or1租車
-						System.out.println("CustomerName= " + ele.getCustomerName());
 						
 						pstmt3.setString(10, ele.getCustomerPhone()); //交通類型0高鐵or1租車
-						System.out.println("CustomerPhone= " + ele.getCustomerPhone());
 						
 						pstmt3.setBigDecimal(11, ele.getT_sn_order()); //交通類型0高鐵or1租車
-						System.out.println("T_sn_order= " + ele.getT_sn_order());
 
+//						System.out.println("order_id= " + ele.getOrder_id());
+//						System.out.println("SnSchedule= " + ele.getHsrDO().getSnSchedule());
+//						System.out.println("TrafficPrice= " + ele.getTrafficPrice());
+//						System.out.println("Nums_days= " + ele.getNums_days());
+//						System.out.println("StartPoint= " + ele.getStartPoint());
+//						System.out.println("Destination= " + ele.getDestination());
+//						System.out.println("DeparatureDate= " + ts2);
+//						System.out.println("OrderType= " + ele.getOrderType());
+//						System.out.println("CustomerName= " + ele.getCustomerName());
+//						System.out.println("CustomerPhone= " + ele.getCustomerPhone());
+//						System.out.println("T_sn_order= " + ele.getT_sn_order());
 							
 						pstmt3.executeQuery();
 					}
@@ -123,8 +123,14 @@ public class T_Order_ListDAO {
 				}catch (SQLException ex) {
 					conn.rollback();
 					rcd[0] = 0;
-					ex.printStackTrace();
-					throw new RuntimeException("發生SQL例外: " + ex.getMessage());
+//					System.out.println("-----------------------------");
+//					System.out.println("rcd[0]=" + rcd[0]);
+//					System.out.println("-----------------------------");
+					System.err.println("新增資料時發生錯誤:" + ex);
+					conn.rollback();
+
+//					ex.printStackTrace();
+//					throw new RuntimeException("發生SQL例外: " + ex.getMessage());
 				}
 			}
 		}
