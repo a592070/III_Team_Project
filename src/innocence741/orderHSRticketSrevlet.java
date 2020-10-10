@@ -41,7 +41,7 @@ public class orderHSRticketSrevlet extends HttpServlet {
 		String ticketNum = request.getParameter("ticketNum");
 		String departureDate = request.getParameter("departureDate");
 //		System.out.println("idHSR= " + idHSR);
-		System.out.println("departureDate=" + departureDate);
+//		System.out.println("departureDate=" + departureDate);
 		
 		List<hsrDO> list;
     	int price = 0;

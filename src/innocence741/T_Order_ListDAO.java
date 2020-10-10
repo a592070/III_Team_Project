@@ -27,7 +27,7 @@ public class T_Order_ListDAO {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
 	
-	public void createOrder(OrderTableBean bean) throws SQLException {
+	public void createOrder(OrderTableBean bean,int[] a) throws SQLException {
 		
 		String sqlOrder_Table = "insert into ORDER_TABLE (ORDER_DATE, USERNAME) values(?, ?)";
 
@@ -101,10 +101,12 @@ public class T_Order_ListDAO {
 						throw new RuntimeException("發生SQL例外: " + ex.getMessage());
 					}
 					conn.commit();
+					a[0] = 1;
 				}
 			}
 
 		} catch (Exception e) {
+			a[0] = 0;
 			System.err.println("新增資料時發生錯誤:" + e);
 			conn.rollback();
 
