@@ -16,11 +16,11 @@ import rambo0021.AccountBean;
 public class OrderTableBean {
 	
 	BigDecimal order_id;	// PK
-//	BigDecimal price;		// H + C + R  H:Hotel; C:Car; R:Restaurant
+	BigDecimal price;		// H + C + R  H:Hotel; C:Car; R:Restaurant
 	Timestamp order_date;	//下訂單時間，default
 	AccountBean user;		//Account資料
-//	String customerName; 	//下單時填入的姓名
-//	String customerPhone;	//下單時填入的電話
+	String customerName; 	//下單時填入的姓名
+	String customerPhone;	//下單時填入的電話
 	BigDecimal sn; //ORDER_DATA SN //1009 added
 
 	Set<R_OrderBean> r_OrderBeans;
@@ -56,13 +56,13 @@ public class OrderTableBean {
 		this.order_id = order_id;
 	}
 
-//	public BigDecimal getPrice() {
-//		return price;
-//	}
-//
-//	public void setPrice(BigDecimal price) {
-//		this.price = price;
-//	}
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
 	public Timestamp getOrder_date() {
 		return order_date;
@@ -80,21 +80,21 @@ public class OrderTableBean {
 		this.user = user;
 	}
 
-//	public String getCustomerName() {
-//		return customerName;
-//	}
-//
-//	public void setCustomerName(String customerName) {
-//		this.customerName = customerName;
-//	}
-//
-//	public String getCustomerPhone() {
-//		return customerPhone;
-//	}
-//
-//	public void setCustomerPhone(String customerPhone) {
-//		this.customerPhone = customerPhone;
-//	}
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerPhone() {
+		return customerPhone;
+	}
+
+	public void setCustomerPhone(String customerPhone) {
+		this.customerPhone = customerPhone;
+	}
 
 	public Set<R_OrderBean> getR_OderBeans() {
 		return r_OrderBeans;
