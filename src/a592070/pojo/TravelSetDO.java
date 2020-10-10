@@ -1,5 +1,8 @@
 package a592070.pojo;
 
+import utils.StringUtil;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +11,9 @@ public class TravelSetDO {
     private String createdUser;
     private String description;
     private int priority;
+    private Timestamp createdTime;
+    private Timestamp updateTime;
+    private String name;
 
     private List<TravelEleCarDO> listTravelCar;
     private List<TravelEleHotelDO> listTravelHotel;
@@ -25,12 +31,57 @@ public class TravelSetDO {
         this.sn = sn;
     }
 
+    public String getName() {
+        if(StringUtil.isEmpty(name)) return "我的旅程";
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCreatedUser() {
         return createdUser;
     }
 
     public void setCreatedUser(String createdUser) {
         this.createdUser = createdUser;
+    }
+
+    public String getDescription() {
+        if(StringUtil.isEmpty(description)) return "快樂溫馨之旅，現在加入只要8787元";
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public Timestamp getCreatedTime() {
+        if(createdTime == null) return new Timestamp(System.currentTimeMillis());
+        return createdTime;
+    }
+
+    public void setCreatedTime(Timestamp createdTime) {
+//        if(createdTime == null) this.createdTime = new Timestamp(System.currentTimeMillis());
+        this.createdTime = createdTime;
+    }
+
+    public Timestamp getUpdateTime() {
+        if(updateTime == null) return new Timestamp(System.currentTimeMillis());
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
     }
 
     public List<TravelEleCarDO> getListTravelCar() {
@@ -67,22 +118,6 @@ public class TravelSetDO {
 
     public void setListTravelAttraction(List<TravelEleAttractionDO> listTravelAttraction) {
         this.listTravelAttraction = listTravelAttraction;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public void addAttraction(TravelEleAttractionDO travelEleAttractionDO){

@@ -1,6 +1,7 @@
 --------------------------------------------------------
 --  DDL for Table R_ORDER_LIST
 --------------------------------------------------------
+drop table "III_TEAM_DBA"."R_ORDER_LIST";
 
   CREATE TABLE "III_TEAM_DBA"."R_ORDER_LIST" 
    (  "R_SN_ORDER" NUMBER, 

@@ -6,7 +6,7 @@ public class TravelEleAttractionDO {
     private int sn;
     private int travelId;
     private Timestamp time;
-    private AttractionDO attraction;
+    private AttractionVO attraction;
 
     public TravelEleAttractionDO() {
     }
@@ -35,11 +35,11 @@ public class TravelEleAttractionDO {
         this.time = time;
     }
 
-    public AttractionDO getAttraction() {
+    public AttractionVO getAttraction() {
         return attraction;
     }
 
-    public void setAttraction(AttractionDO attraction) {
+    public void setAttraction(AttractionVO attraction) {
         this.attraction = attraction;
     }
 

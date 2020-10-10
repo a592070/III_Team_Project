@@ -41,8 +41,8 @@ public class H_Order_ListDAO {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sqlOrder_Data, generatedColumn1);
 			pstmt.setString(1, bean.getUser().getUserName());
-			pstmt.setString(2, bean.getCustomerName());
-			pstmt.setString(3, bean.getCustomerPhone());
+//			pstmt.setString(2, bean.getCustomerName());
+//			pstmt.setString(3, bean.getCustomerPhone());
 
 			pstmt.executeQuery();
 			pstmt.clearBatch();

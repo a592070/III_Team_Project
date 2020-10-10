@@ -33,7 +33,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/travelSetInfo.jsp">我的行程</a>
+                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp">我的行程</a>
                 </li>
             </ul>
         </div>
