@@ -17,11 +17,13 @@ public class T_OrderBean {
 	private Timestamp deparatureDate =null;		//出發日
 	private CarTypeBean carTypeBean = null;		//取得sn_carType
 	private String orderType = null;	//紀錄為火車票或租車
+	private String customerName = null;	//下單時填入的姓名
+	private String customerPhone = null;	//下單時填入的電話
 	
 	public T_OrderBean() {
 		
 	}
-	public T_OrderBean(BigDecimal t_sn_order, BigDecimal order_id, hsrDO hsrDO, BigDecimal trafficPrice, BigDecimal nums_days, String startPoint, String destination, Timestamp deparatureDate, CarTypeBean carTypeBean, String orderType) {
+	public T_OrderBean(BigDecimal t_sn_order, BigDecimal order_id, hsrDO hsrDO, BigDecimal trafficPrice, BigDecimal nums_days, String startPoint, String destination, Timestamp deparatureDate, CarTypeBean carTypeBean, String orderType, String customerName, String customerPhone) {
 		super();
 		this.t_sn_order = t_sn_order;
 		this.order_id = order_id;
@@ -33,6 +35,9 @@ public class T_OrderBean {
 		this.deparatureDate = deparatureDate;
 		this.carTypeBean = carTypeBean;
 		this.orderType = orderType;
+		this.customerName = customerName;
+		this.customerPhone = customerPhone;
+		
 	}
 	
 	public BigDecimal getT_sn_order() {
@@ -94,6 +99,18 @@ public class T_OrderBean {
 	}
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getCustomerPhone() {
+		return customerPhone;
+	}
+	public void setCustomerPhone(String customerPhone) {
+		this.customerPhone = customerPhone;
 	}
 	
 
