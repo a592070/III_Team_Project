@@ -57,18 +57,18 @@
             <div class="">
                 <div class="div-1">
                     <label for="r-name">適合聚餐類型</label> 
-                    <textarea name="address" id="" cols="40" rows="5" placeholder="${r_hp.serviceinfo}"></textarea>
+                    <textarea name="serviceinfo" id="" cols="40" rows="5" placeholder="${r_hp.serviceinfo}"></textarea>
                 </div>
 
                 <div class="div-1">
                     <label for="r-date">料理種類</label> 
-                    <textarea name="transportation" id="" cols="40" rows="5" placeholder="${r_hp.type}"></textarea>
+                    <textarea name="type" id="" cols="40" rows="5" placeholder="${r_hp.type}"></textarea>
                 </div>
 
             </div>
         </div>
         <div class="div-btn">
-       		<button  name="confirm-location" value="confirm" class="btn btn-primary">確認</button>
+       		<button  name="confirm-type" value="confirm" class="btn btn-primary">確認</button>
         	<button  name="cancel" value="cancel" class="btn btn-secondary">取消</button>
         	
         	<!-- 隱藏資訊 -->

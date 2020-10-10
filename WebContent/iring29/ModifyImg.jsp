@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Modify Info</title>
+<title>Modify Image</title>
 <script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -53,22 +53,18 @@
 	<FORM action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet" method="POST">
 	
         <div class="container">
-            <h2>修改${r_hp.name}資訊</h2>
+            <h2>修改${r_hp.name}地點資訊</h2>
             <div class="">
                 <div class="div-1">
-                    <label for="r-name">營業時間</label> 
-                    <textarea name="opentime" id="" cols="40" rows="5" placeholder="${r_hp.opentime}"></textarea>
+                    <label for="r-name">請輸入圖片網址</label> 
+                    <textarea name="picture" id="" cols="40" rows="5" placeholder="${r_hp.picture}"></textarea>
                 </div>
 
-                <div class="div-1">
-                    <label for="r-date">餐廳描述</label> 
-                    <textarea name="description" id="" cols="40" rows="5" placeholder="${r_hp.description}"></textarea>
-                </div>
 
             </div>
         </div>
         <div class="div-btn">
-       		<button  name="confirm-info" value="confirm" class="btn btn-primary">確認</button>
+       		<button  name="confirm-img" value="confirm" class="btn btn-primary">確認</button>
         	<button  name="cancel" value="cancel" class="btn btn-secondary">取消</button>
         	
         	<!-- 隱藏資訊 -->
