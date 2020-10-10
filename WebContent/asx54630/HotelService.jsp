@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" %>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>§ä®ÈÀ]</title> 
+    <title>æ‰¾æ—…é¤¨</title> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -23,16 +24,16 @@
             <div class="collapse navbar-collapse  nav justify-content-center" id="navb">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">§ä®ÈÀ]</a>
+                        <a class="nav-link" href="javascript:void(0)">æ‰¾æ—…é¤¨</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">§äÀ\ÆU</a>
+                        <a class="nav-link" href="javascript:void(0)">æ‰¾é¤å»³</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">§ä¯²¨®</a>
+                        <a class="nav-link" href="javascript:void(0)">æ‰¾ç§Ÿè»Š</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">§ä´ºÂI</a>
+                        <a class="nav-link" href="javascript:void(0)">æ‰¾æ™¯é»ž</a>
                     </li>
     
                     <li class="nav-item">
@@ -46,80 +47,93 @@
             </form>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary">µn³°</button>
-            <button type="button" class="btn btn-primary">µù¥U</button>
-            <button type="button" class="btn btn-primary">½×¾Â</button>
+            <button type="button" class="btn btn-primary">ç™»é™¸</button>
+            <button type="button" class="btn btn-primary">è¨»å†Š</button>
+            <button type="button" class="btn btn-primary">è«–å£‡</button>
         </div>
         </nav>
     </header>
-    
+  <!--------------------------------------------ä»¥ä¸Šç‚ºå°Žè¦½åˆ—--------------------------------------------------------->  
+  <!--------------------------------------------ä»¥ä¸‹ç‚ºæœå°‹åˆ—---------------------------------------------------------> 
     <div class="container">
-        <h2>¶º©±</h2>
+        <h2>é£¯åº—</h2>
         <br>
         <div class="mx-auto my-3" style="width: 1100px">
-            <form class="form-inline">
+            <form class="form-inline" action="<%=pageContext.getServletContext().getContextPath()%>/HotelController" method="POST">
                 <div class="form-group mb-2">
-                  <h5>¿é¤JÃöÁä¦r:</h5>
+                  <h5>è¼¸å…¥é—œéµå­—:</h5>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
                   <label for="inputKeyword" class="sr-only">keyword</label>
-                  <input type="search" class="form-control" id="inputKeyword" placeholder="Search..">
+                  <input type="text" class="form-control"  name="keyword" placeholder="Search..">
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inputState">¦a°Ï:</label>
-                    <select id="inputState" class="form-control" placeholder="¦a°Ï">
-                        <option selected>°ò¶©¥«</option>
-                        <option selected>·s¥_¥«</option>
-                        <option selected>»O¥_¥«</option>
-                        <option selected>®ç¶é¥«</option>
-                        <option selected>·s¦Ë¥«</option>
-                        <option selected>·s¦Ë¿¤</option>
-                        <option selected>­]®ß¿¤</option>
-                        <option selected>©yÄõ¿¤</option>
-                        <option selected>»O¤¤¥«</option>
-                        <option selected>¹ü¤Æ¿¤</option>
-                        <option selected>«n§ë¿¤</option>
-                        <option selected>¶³ªL¿¤</option>
-                        <option selected>¹Å¸q¥«</option>
-                        <option selected>¹Å¸q¿¤</option>
-                        <option selected>»O«n¥«</option>
-                        <option selected>°ª¶¯¥«</option>
-                        <option selected>«ÌªF¿¤</option>
-                        <option selected>ªá½¬¿¤</option>
-                        <option selected>»OªF¿¤</option>
+                    <label for="inputState">åœ°å€:</label>
+                    <select id="inputState" class="form-control" placeholder="åœ°å€">
+                        <option selected>è«‹é¸æ“‡..</option>
+                        <option value="KeelungCity">åŸºéš†å¸‚</option>
+                        <option value="NewTaipeiCity">æ–°åŒ—å¸‚</option>
+                        <option value="TaipeiCity">è‡ºåŒ—å¸‚</option>
+                        <option value="TaoyuanCity">æ¡ƒåœ’å¸‚</option>
+                        <option value="HsinchuCity">æ–°ç«¹å¸‚</option>
+                        <option value="HsinchuCounty">æ–°ç«¹ç¸£</option>
+                        <option value="MiaoliCounty">è‹—æ —ç¸£</option>
+                        <option value="YilanCounty">å®œè˜­ç¸£</option>
+                        <option value="TaichungCity">è‡ºä¸­å¸‚</option>
+                        <option value="ChanghuaCounty">å½°åŒ–ç¸£</option>
+                        <option value="NantouCounty">å—æŠ•ç¸£</option>
+                        <option value="YunlinCounty">é›²æž—ç¸£</option>
+                        <option value="ChiayiCity">å˜‰ç¾©å¸‚</option>
+                        <option value="ChiayiCounty">å˜‰ç¾©ç¸£</option>
+                        <option value="TainanCity">è‡ºå—å¸‚</option>
+                        <option value="KaohsiungCity">é«˜é›„å¸‚</option>
+                        <option value="PingtungCounty">å±æ±ç¸£</option>
+                        <option value="HualienCounty">èŠ±è“®ç¸£</option>
+                        <option value="TaitungCounty">è‡ºæ±ç¸£</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
-                    <label for="inputState">Ãþ«¬:</label>
-                    <select id="inputState" class="form-control" placeholder="¦í±JÃþ«¬">
-                      <option selected>¶º©±</option>
-                      <option selected>¥Á±J</option>
-                      <option selected>¨T¨®®ÈÀ]</option>
+                    <label for="inputState">é¡žåž‹:</label>
+                    <select id="inputState" class="form-control" placeholder="ä½å®¿é¡žåž‹">
+                      <option selected>è«‹é¸æ“‡..</option>
+                      <option value="é£¯åº—">é£¯åº—</option>
+                      <option value="æ°‘å®¿">æ°‘å®¿</option>
+                      <option value="æ±½è»Šæ—…é¤¨">æ±½è»Šæ—…é¤¨</option>
                     </select>
                   </div>      
-                <button type="submit" class="btn btn-primary mb-2">·j´M</button>
+                <button type="submit" class="btn btn-primary mb-2" value="search" name="search">æœå°‹</button>
               </form>
             </div>
+  <!--------------------------------------------ä»¥ä¸Šç‚ºæœå°‹åˆ—----------------------------------------------------------->  
+  <!--------------------------------------------ä»¥ä¸‹ç‚ºé£¯åº—å…§å®¹--------------------------------------------------------->
         <br>
         <table class="table">
             <thead>
             <tr>
-                <th>¦WºÙ</th>
-                <th>¦a§}</th>
-                <th>Â²¤¶</th>
-                <th>»ù®æ</th>
-                <th>µû»ù</th>
-                <th></th>
+                <th>åç¨±</th>
+                <th>åœ°å€</th>
+                <th>ä½å®¿é¡žåž‹</th>
+                <th>è©•åƒ¹</th>
+                <th>æ›´å¤š</th>
+                <th>åŠŸèƒ½</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>´¹µØ°s©±</td>
-                <td>»O¥_¥«¤¤¤s°Ï¤¤¤s¥_¸ô2¬q39«Ñ3¸¹</td>
-                <td>¥x¥_´¹µØ°s©±¬O°ê»ÚÄR´¹°s©±¶°¹ÎªººXÄ¥©±¡A¤]¬O¥þ¥x¥_¥«³Ì¨ô¶V¡B³Ì¨üÅwªïªº°ê»Ú¤­¬P¯Å¶º©±¤§¤@¡C¥D­nªº«È¼h¥]¬A°ê»Ú°Ó®È¡BÆ[¥ú«È¤Î¥»¦a«È¤H¡A¸ËæC¤W±j½ÕÂ²¶®¤j¤è¡AªA°È¤W«h°È¨Dºë½o²Ó¿°¡A´Á¯à´£¨ÑÅU«È³Ì°ª«~½èªº¦í±J¡BÀ\¶¼¨É¨ü¡A¦¨¬°¥þ¥xºë½o¥Í¬¡ªº¼Ð¬ñ¡C¶º©±¤º¦@¦³¤K¶¡¤¤¦è¬ü­¹¥H¤ÎÀ\ÆU¡B´£¨Ñ®ø¶OªÌ«~¨ý¤¤¡B¦è¡B¤é¦¡¨ÎÀaªº·¥­P¨É¨ü¡F¦ì©ó¤G¤Q¼Óªº¨NÄõSPA«h¾Ö¦³¥@¬É¯Åªº³»¯ÅªÚ­»Àøµ{¡F¦Ó³»¼Ó·Å¤ô´åªa¦À¡B°·¨­©Ð¡B¥H¤Î¦a¤U¤@¡B¤G¼ÓªºÄR´¹ºë«~¦W©±µó¡Kµ¥¥ð¶¢³]¬I¡A§ó¥iÀç³y§¹¬üªº´ç°²¨É¨ü¡I¥x¥_´¹µØ°s©±¨ô¶VªºªA°È»P³]¬I,¦b°ê»Ú¼ú¶µ¤¤Àò¼ú³s³s¡A§ó³sÄò¨â¦~Àò±oConde Naste TravelerÅªªÌ²¼¿ï¬°¨È¬w³Ì¨Î50¤j¶º©±¤§¦C¡A¥B¬°»OÆW°Ïªº²Ä¤@¦W¡C¥ç¬O³\¦h¥@¬É¯Å¬F°Ó¦W¬y»P¼vµø¥¨¬P»YÁ{¥x¥_®Éªº­º¿ï¤Uºf¶º©±¡C¶º©±¾Ö¦³538¶¡«È©Ð¡A¶¡¶¡±Ä¥ú¨}¦n¡B¥­§¡©W¼Æ©~·~¬É¤§«a¡A¨C©Ð¬Ò³Æ¦³§Ö³tªº«K§QªºADSL¥H¤ÎµL½u±µ¼·©M¼eÀW¤Wºô¨t²Î¡A©Ð«È¥iÀH®É»´ÃP±y¹Cºô¸ô¥@¬É¡C°£¦¹¤§¥~¡A«È©Ð¤ºÁÙ¶K¤ßªº´£¨Ñ¡uªEÀY¿ï³æ¡v¡A¦@¦³¦Ð¤òªE¡BªÅ®ðªE¡B¦Ï¤òªE¡B°O¾ÐªE...µ¥¤K´Ú³nµw©M§÷½è¤£¦Pªº¿ï¾Ü¡Cµ²¦X°ª¬ì§Þ§÷½è¡B¾Ö¦³·P·Å¡B¶ì«¬¡BÄÀÀ£¡BµÎ¯v®ÄªGªºWellspringª×µÎÄR§É¹Ô¡A§ó¬°©Ð«ÈÀç³y¥X³ÌµÎ¾AªººÎ¯vÀô¹Ò¡C¥»¶º©±¦ì©~¥x¥_¥«ªº¤¤¤ß¦a±a¡Aºò¾F¥x¥_¤õ¨®¯¸»P±¶¹B²H¤ô½u¤¤¤s¯¸4¸¹¥X¤f¡A¨Ã¾Fªñ«n¦è/¤¤¤s¦Ê³f°Ó°é¡A¶º©±ªù¤f¤]³]¦³¾÷³õ±µ»é»P¦U½u¤½¨®°±»é¯¸¡A³s±µ¥þ¥x¥_¥«¦UÆ[¥ú»Pª¾¦W¾ÚÂI¡CµL½×¬O¹CÄý¡BÁÊª«©Î°Ó°È¬¢¤½,¬Ò¨É³Ì§Ö³t¤è«Kªº¥æ³qªA°È¡C</td>
-                <td>Âù¤H©Ð:5000 ¥|¤H©Ð:8000</td>
+                <td>æ™¶è¯é…’åº—</td>
+                <td>è‡ºåŒ—å¸‚ä¸­å±±å€ä¸­å±±åŒ—è·¯2æ®µ39å··3è™Ÿ</td>
+                <td>é£¯åº—</td>
                 <td>5.8</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" >§Ú­n­q©Ð</button></td>
+                <td><a class="nav-link" href="javascript:void(0)">æ›´å¤šè³‡è¨Š..</a></td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" >æˆ‘è¦è¨‚æˆ¿</button></td>
+            </tr>
+            <tr>
+                <td>èŠ±ç”°æ°‘å®¿</td>
+                <td>è‡ºä¸­å¸‚æ–°ç¤¾å€èˆˆä¸­è¡—17-6è™Ÿ</td>
+                <td>æ°‘å®¿</td>
+                <td>4.4</td>
+                <td><a class="nav-link" href="javascript:void(0)">æ›´å¤šè³‡è¨Š..</a></td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">æˆ‘è¦è¨‚æˆ¿</button></td>
             </tr>
             <tr>
                 <td>xxx</td>
@@ -127,7 +141,7 @@
                 <td>xxx</td>
                 <td>xxx</td>
                 <td>xxx</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">§Ú­n­q©Ð</button></td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">æˆ‘è¦è¨‚æˆ¿</button></td>
             </tr>
             <tr>
                 <td>xxx</td>
@@ -135,15 +149,7 @@
                 <td>xxx</td>
                 <td>xxx</td>
                 <td>xxx</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">§Ú­n­q©Ð</button></td>
-            </tr>
-            <tr>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">§Ú­n­q©Ð</button></td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">æˆ‘è¦è¨‚æˆ¿</button></td>
             </tr>
             </tbody>
         </table>
@@ -152,7 +158,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">¹w©w¶º©±:´¹µØ°s©±</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">é è¨‚é£¯åº—:æ™¶è¯é…’åº—</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -160,23 +166,23 @@
                 <div class="modal-body">
                   <form>
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">©Ð«¬:</label><br>
-                      <input type="checkbox" value="doubleroom">Âù¤H©Ð5000¤¸
-                      <input type="text" >¶¡<br>
-                      <input type="checkbox" value="quadrupleroom">¥|¤H©Ð8000¤¸
-                      <input type="text">¶¡<br>
+                      <label for="recipient-name" class="col-form-label">æˆ¿åž‹:</label><br>
+                      <input type="checkbox" value="doubleroom">é›™äººæˆ¿
+                      <input type="text" >é–“<br>
+                      <input type="checkbox" value="quadrupleroom">å››äººæˆ¿
+                      <input type="text">é–“<br>
                     </div>
                     <div class="form-group">
-                        <label for="" class="t1">¤J¦í¤é´Á:</label>
+                        <label for="" class="t1">å…¥ä½æ—¥æœŸ:</label>
                         <input type="date" name="checkin"><br>
-                        <label for="" class="t1">°h©Ð¤é´Á:</label>
+                        <label for="" class="t1">é€€æˆ¿æ—¥æœŸ:</label>
                         <input type="date" name="checkout">
                       </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">¨ú®ø</button>
-                  <button type="submit" class="btn btn-primary">½T»{</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">å–æ¶ˆ</button>
+                  <button type="submit" class="btn btn-primary">ç¢ºèª</button>
                 </div>
               </div>
             </div>
@@ -184,3 +190,4 @@
     </div>
 </body>
 </html>
+

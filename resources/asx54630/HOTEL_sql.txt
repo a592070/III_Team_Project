@@ -37,5 +37,7 @@ create table H_ORDER_LIST
 			references HOTEL,      
     check_in date, /*入住日期*/
     check_out date, /*退房日期*/
-    H_PRICE number(*) /*價格結算*/
+    H_PRICE number(*), /*價格結算*/
+    client_name varchar2(255) not null,
+    client_phone varchar2(255) not null
 )
