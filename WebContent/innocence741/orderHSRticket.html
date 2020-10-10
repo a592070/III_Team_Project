@@ -224,6 +224,7 @@
                          //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
                         // console.log(response.length);
                         //console.log($("#startPoint").val())
+                        console.log(response[6]["check"]);
                         console.log(response[0].length);
                          let tableData = "<thead><tr><th>列車號</th><th>出發日期</th><th>起程站</th><th>到達站</th><th>出發時間</th><th>到達時間</th><th>購票張數</th><th>總金額</th></tr></thead>";
                         for(let i = 0; i < response[0].length; i++){
@@ -242,6 +243,8 @@
                             snSchedule = response[0][i]["snSchedule"];
 
                         }
+                        if(response[6]["check"] === "false")
+                            tableData = "列車未行駛"
                         //console.log(tableData);
                         $("#ajaxTable").html(tableData);
                         
@@ -303,6 +306,8 @@
 
                         }
                         //console.log(tableData);
+                        if(response[6]["check"] === "false")
+                            tableData = "列車未行駛"
                         $("#ajaxTable").html(tableData);
                         
                         // var table = document.getElementById('ajaxTable');
@@ -364,6 +369,8 @@
 
                         }
                         //console.log(tableData);
+                        if(response[6]["check"] === "false")
+                            tableData = "列車未行駛"
                         $("#ajaxTable").html(tableData);
                         
                         // var table = document.getElementById('ajaxTable');
@@ -425,6 +432,8 @@
 
                         }
                         //console.log(tableData);
+                        if(response[6]["check"] === "false")
+                            tableData = "列車未行駛"
                         $("#ajaxTable").html(tableData);
                         
                         // var table = document.getElementById('ajaxTable');
