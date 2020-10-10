@@ -409,6 +409,23 @@ END;
 /
 ALTER TRIGGER "III_TEAM_DBA"."T_ORDER_LIST_TRG" ENABLE;
 --------------------------------------------------------
+--  DDL for Trigger T_ORDER_LIST_TRG1
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "III_TEAM_DBA"."T_ORDER_LIST_TRG1" 
+BEFORE INSERT ON T_ORDER_LIST 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.SN_ORDER IS NULL THEN
+      SELECT SEQ_T_ORDER_LIST.NEXTVAL INTO :NEW.SN_ORDER FROM SYS.DUAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "III_TEAM_DBA"."T_ORDER_LIST_TRG1" ENABLE;
+--------------------------------------------------------
 --  Constraints for Table CARRENTALCOMPANY
 --------------------------------------------------------
 
