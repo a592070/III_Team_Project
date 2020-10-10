@@ -19,9 +19,8 @@ public class OrderTableBean {
 	BigDecimal price;		// H + C + R  H:Hotel; C:Car; R:Restaurant
 	Timestamp order_date;	//下訂單時間，default
 	AccountBean user;		//Account資料
-	String customerName; 	//下單時填入的姓名
-	String customerPhone;	//下單時填入的電話
-	BigDecimal sn; //ORDER_DATA SN //1009 added
+//	String customerName; 	//下單時填入的姓名
+//	String customerPhone;	//下單時填入的電話
 
 	Set<R_OrderBean> r_OrderBeans;
 	R_OrderBean r_OdrerBean;    //小訂單的Bean (Restaurant)
@@ -31,15 +30,6 @@ public class OrderTableBean {
 	Set<H_OrderBean> h_OrderBeans;
 
 	
-	
-
-	public BigDecimal getSn() {
-		return sn;
-	}
-
-	public void setSn(BigDecimal sn) {
-		this.sn = sn;
-	}
 
 	public OrderTableBean() {
 		super();
@@ -80,21 +70,21 @@ public class OrderTableBean {
 		this.user = user;
 	}
 
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getCustomerPhone() {
-		return customerPhone;
-	}
-
-	public void setCustomerPhone(String customerPhone) {
-		this.customerPhone = customerPhone;
-	}
+//	public String getCustomerName() {
+//		return customerName;
+//	}
+//
+//	public void setCustomerName(String customerName) {
+//		this.customerName = customerName;
+//	}
+//
+//	public String getCustomerPhone() {
+//		return customerPhone;
+//	}
+//
+//	public void setCustomerPhone(String customerPhone) {
+//		this.customerPhone = customerPhone;
+//	}
 
 	public Set<R_OrderBean> getR_OderBeans() {
 		return r_OrderBeans;

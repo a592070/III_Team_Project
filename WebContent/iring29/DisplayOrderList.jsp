@@ -103,12 +103,12 @@
                     </div>
                     <div class="div-1">
                         <label for="b-name">訂位人姓名</label>
-                        <span>${bean.customerName}</span>
+                        <span>${roBean.customerName}</span>
                     </div>
                 </div>
                 <div class="div-1">
                     <label for="b-phone">訂位人手機</label>
-                    <span>${bean.customerPhone}</span>
+                    <span>${roBean.customerPhone}</span>
                 </div>
                 <div class="div-1">
                     <label for="b-number">用餐人數</label>

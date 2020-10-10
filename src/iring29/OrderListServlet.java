@@ -68,6 +68,7 @@ public class OrderListServlet extends HttpServlet {
 
 	}
 
+	//下訂單
 	public void processInsertOrder(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 
@@ -92,10 +93,10 @@ public class OrderListServlet extends HttpServlet {
 		ts = Timestamp.valueOf(tsStr);
 		rBean.setBooking_date(ts);
 		rBean.setCustomerNum(new BigDecimal(request.getParameter("person_numer")));
+		rBean.setCustomerName(request.getParameter("b-name"));
+		rBean.setCustomerPhone(request.getParameter("b-phone"));
 
 		bean.addR_OderBean(rBean);
-		bean.setCustomerName(request.getParameter("b-name"));
-		bean.setCustomerPhone(request.getParameter("b-phone"));
 
 		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
 		try {
@@ -105,7 +106,6 @@ public class OrderListServlet extends HttpServlet {
 		}
 
 		R_OrderBean roBean = r_Order_ListDAO.findR_order_List(r_id);
-		System.out.println(roBean.getR_sn_order());
 		request.getSession().setAttribute("roBean", roBean);
 		request.getSession().setAttribute("r_name", r_name);
 		request.getSession().setAttribute("bean", bean);

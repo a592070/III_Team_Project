@@ -80,24 +80,42 @@ public class Test_iring29 {
 		
 		
 		//TEST  下訂單 (1. 先建立下訂者資料 2.建立大訂單 3.建立(C,H,R)小訂單 ))
-		OrderTableBean bean = new OrderTableBean();
-		R_OrderBean rBean = new R_OrderBean();
-		AccountBean user = new AccountBean();
-		user.setUserName("Irene"); //測試時要先在Account Table create username = Irene 的資料
-		bean.setUser(user);
-		RestaurantBean restaurantBean = new RestaurantBean();
-		restaurantBean.setR_sn(BigDecimal.valueOf(126)); //valueOf(126) 為餐廳的流水號
-		rBean.setRestaurantBean(restaurantBean);
-		rBean.setBooking_date(Timestamp.valueOf(LocalDate.of(2020, 10, 14).atStartOfDay())); //測試先手動key欲前往餐廳的日期
-		rBean.setCustomerNum(BigDecimal.valueOf(5));
+//		OrderTableBean bean = new OrderTableBean();
+//		R_OrderBean rBean = new R_OrderBean();
+//		AccountBean user = new AccountBean();
+//		user.setUserName("Irene"); //測試時要先在Account Table create username = Irene 的資料
+//		bean.setUser(user);
+//		RestaurantBean restaurantBean = new RestaurantBean();
+//		restaurantBean.setR_sn(BigDecimal.valueOf(126)); //valueOf(126) 為餐廳的流水號
+//		rBean.setRestaurantBean(restaurantBean);
+//		rBean.setBooking_date(Timestamp.valueOf(LocalDate.of(2020, 10, 14).atStartOfDay())); //測試先手動key欲前往餐廳的日期
+//		rBean.setCustomerNum(BigDecimal.valueOf(5));
+//		
+//		bean.addR_OderBean(rBean);
+//		bean.setCustomerName("abc");  //測試先手動key 下單者姓名
+//		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
+//		
+//		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		r_Order_ListDAO.createOrder(bean);
+//		System.out.println("done");
 		
-		bean.addR_OderBean(rBean);
-		bean.setCustomerName("abc");  //測試先手動key 下單者姓名
-		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
-		
-		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		r_Order_ListDAO.createOrder(bean);
-		System.out.println("done");
+		//TEST下訂單--ＮＥＷ
+//		OrderTableBean bean = new OrderTableBean();
+//		R_OrderBean rBean = new R_OrderBean();
+//		AccountBean user = new AccountBean();
+//		user.setUserName("Irene"); //測試時要先在Account Table create username = Irene 的資料
+//		bean.setUser(user);
+//		RestaurantBean restaurantBean = new RestaurantBean();
+//		restaurantBean.setR_sn(BigDecimal.valueOf(126)); //valueOf(126) 為餐廳的流水號
+//		rBean.setRestaurantBean(restaurantBean);
+//		rBean.setBooking_date(Timestamp.valueOf("2020-10-14 12:00:00")); //測試先手動key欲前往餐廳的日期
+//		rBean.setCustomerNum(BigDecimal.valueOf(5));
+//		rBean.setCustomerName("abc");  //測試先手動key 下單者姓名
+//		rBean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
+//		bean.addR_OderBean(rBean);
+//		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		r_Order_ListDAO.createOrder(bean);
+//		System.out.println("done");
 		
 		//TEST Timestamp 
 //		Timestamp ts = new Timestamp(System.currentTimeMillis());  
@@ -123,6 +141,15 @@ public class Test_iring29 {
 //			BigDecimal order_id = roBean.getOrder_id();
 //			System.out.println(order_id);
 //		}
+		
+		//TEST
+//		Timestamp ts = Timestamp.valueOf(LocalDate.of(2020, 10, 14).atStartOfDay());
+//		System.out.println(ts);
+		
+		//Test
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		R_OrderBean bean = r_Order_ListDAO.findR_order_List(BigDecimal.valueOf(126));
+		System.out.println(bean);
 		
 	}
 }

@@ -19,14 +19,18 @@
 #box {
 	width: 500px;
 	margin: 50px auto;
+	
 }
 h3{
 	float:left;
-	margin-left: 10px;
+	margin-left: 70px;
 	padding-bottom: 20px;
 }
 .btn.btn-success.home{
 	margin-left: 40px;
+}
+form{
+	text-align: center;
 }
 </style>
 </head>
@@ -35,12 +39,13 @@ h3{
 
 	<div id="box">
 		<h3>訂單已取消，歡迎再次下訂</h3>
-		<FORM  action="<c:url value='/iring29/Restaurant_index.jsp' />" method="POST">
-			<button class="btn btn-primary">回訂餐首頁</button>
-		</FORM>
+		
 		<div>
 			<img src="https://i.gifer.com/5Tl.gif" alt="">
-		</div>
+		</div><br>
+		<FORM  action="<c:url value='/iring29/Restaurant_index.jsp' />" method="POST">
+			<button class="btn btn-success">回訂餐首頁</button>
+		</FORM>
 		
 		
 		

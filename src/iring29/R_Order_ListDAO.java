@@ -28,69 +28,51 @@ public class R_Order_ListDAO {
 	}
 
 	// create order
-	public void createOrder(OrderTableBean bean) throws SQLException {
+	public void createOrder(OrderTableBean otbean) throws SQLException {
+		
+		String sqlOrder_Table = "insert into ORDER_TABLE (ORDER_DATE, USERNAME) values(?, ?)";
 
-		String sqlOrder_Data = "insert into ORDER_DATA (USERNAME, NAME, PHONE) values(?, ?, ?)";
+		String sqlR_Order_List = "insert into R_ORDER_LIST (ORDER_ID, R_SN, CUSTOMER_NUM, BOOK_TIME, DEPOSIT, CUS_NAME, CUS_PHONE) "
+				+ "values(?, ?, ?, ?, ?, ?, ?)";
 
-		String sqlOrder_Table = "insert into ORDER_TABLE (ORDER_DATE, SN_NO) values(?, ?)";
-
-		String sqlR_Order_LiString = "insert into R_ORDER_LIST (ORDER_ID, R_SN, CUSTOMER_NUM, BOOK_TIME, DEPOSIT) values(?, ?, ?, ?, ?)";
-
-		String generatedColumn1[] = { "SN" }; // 取得SN Sequence
-		String generatedColumn2[] = { "ORDER_ID" }; // 取得ORDER_ID Sequence
+		String generatedColumn1[] = { "ORDER_ID" }; // 取得ORDER_ID Sequence
 		try {
 			// insert ORDER_DATA
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sqlOrder_Data, generatedColumn1);
-			pstmt.setString(1, bean.getUser().getUserName()); // 取得userbean裡面的username
-			pstmt.setString(2, bean.getCustomerName()); // 取得下單時輸入的名字
-			pstmt.setString(3, bean.getCustomerPhone()); // 取得下單時輸入的電話
+			pstmt = conn.prepareStatement(sqlOrder_Table, generatedColumn1);
+			Timestamp ts = new Timestamp(System.currentTimeMillis()); // 下訂單時間
+			pstmt.setTimestamp(1, ts); 
+			pstmt.setString(2, otbean.getUser().getUserName()); // 取得userbean裡面的username
+		
 
 			pstmt.executeQuery();
 			pstmt.clearBatch();
-			BigDecimal sn;
+			BigDecimal order_id;
 			ResultSet generatedKeys = pstmt.getGeneratedKeys();
 
 			if (generatedKeys.next()) {
-				sn = generatedKeys.getBigDecimal(1); // 取得SN from ORDER_DATA
+				order_id = generatedKeys.getBigDecimal(1); // 取得ORDER_ID from ORDER_TABLE
 			} else {
-				throw new RuntimeException("無法取得新增之ORDER_DATA表格的主鍵");
+				throw new RuntimeException("無法取得新增之ORDER_TABLE表格的主鍵");
 			}
-
+			
+			Set<R_OrderBean> oBean = otbean.getR_OderBeans();
 			try {
-				PreparedStatement pstmt2 = conn.prepareStatement(sqlOrder_Table, generatedColumn2);
-
-				Timestamp ts = new Timestamp(System.currentTimeMillis()); // 下訂單時間
-				pstmt2.setTimestamp(1, ts);
-				pstmt2.setBigDecimal(2, sn); // SN from ORDER_DATA
-
+				PreparedStatement pstmt2 = conn.prepareStatement(sqlR_Order_List);
+				
+				for(R_OrderBean ele : oBean) {
+					pstmt2.setBigDecimal(1, order_id); // ORDER_ID from ORDER_TABLE
+					pstmt2.setBigDecimal(2, ele.getRestaurantBean().getR_sn());
+					pstmt2.setBigDecimal(3, ele.getCustomerNum());
+					Timestamp ts2 = new Timestamp(ele.getBooking_date().getTime()); // 設定要去餐廳的訂位日期
+					pstmt2.setTimestamp(4, ts2);
+					pstmt2.setBigDecimal(5, ele.getDeposit()); // 訂餐廳訂金
+					pstmt2.setString(6, ele.getCustomerName());
+					pstmt2.setString(7, ele.getCustomerPhone());
+					
+				}
+				
 				pstmt2.executeQuery();
-
-				BigDecimal order_id = null;
-				ResultSet generatedKeys2 = pstmt2.getGeneratedKeys();
-
-				if (generatedKeys2.next()) {
-					order_id = generatedKeys2.getBigDecimal(1); // 取得ORDER_ID from ORDER_TABLE
-				}
-
-				Set<R_OrderBean> restaurants = bean.getR_OderBeans();
-				try {
-					PreparedStatement pstmt3 = conn.prepareStatement(sqlR_Order_LiString);
-
-					for (R_OrderBean ele : restaurants) {
-						pstmt3.setBigDecimal(1, order_id); // ORDER_ID from ORDER_TABLE
-						pstmt3.setBigDecimal(2, ele.getRestaurantBean().getR_sn()); // 取得RestaurantBean的R_SN(餐廳序號)
-						pstmt3.setBigDecimal(3, ele.getCustomerNum()); // 訂位人數
-						Timestamp ts2 = new Timestamp(ele.getBooking_date().getTime()); // 設定要去餐廳的訂位日期
-						pstmt3.setTimestamp(4, ts2); // 要去餐廳的訂位日期
-						pstmt3.setBigDecimal(5, ele.getDeposit()); // 訂餐廳訂金
-
-						pstmt3.executeQuery();
-					}
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-					throw new RuntimeException("發生SQL例外: " + ex.getMessage());
-				}
 
 			} catch (SQLException ex) {
 				ex.printStackTrace();
@@ -112,7 +94,8 @@ public class R_Order_ListDAO {
 
 	// find r_order
 	public R_OrderBean findR_order_List(BigDecimal r_sn) throws SQLException {
-		String sql = "select r_sn_order, max(order_id) order_id , customer_num, book_time from r_order_list where r_sn = ? group by r_sn_order, customer_num, book_time";
+		String sql = "select r_sn_order, max(order_id) order_id , customer_num, book_time, cus_name, cus_phone from r_order_list "
+				+ "where r_sn = ? group by r_sn_order, customer_num, book_time, cus_name, cus_phone";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -126,10 +109,14 @@ public class R_Order_ListDAO {
 				BigDecimal order_id = rs.getBigDecimal("ORDER_ID");
 				BigDecimal c_num = rs.getBigDecimal("CUSTOMER_NUM");
 				Timestamp b_time = rs.getTimestamp("BOOK_TIME");
+				String cus_name = rs.getString("CUS_NAME");
+				String cus_phone = rs.getString("CUS_PHONE");
 				roBean.setR_sn_order(r_sn_order);
 				roBean.setOrder_id(order_id);
 				roBean.setCustomerNum(c_num);
 				roBean.setBooking_date(b_time);
+				roBean.setCustomerName(cus_name);
+				roBean.setCustomerPhone(cus_phone);
 			}
 			return roBean;
 
@@ -189,7 +176,9 @@ public class R_Order_ListDAO {
 				BigDecimal cus_num = rs.getBigDecimal("CUSTOMER_NUM");
 				Timestamp ts = rs.getTimestamp("BOOK_TIME");
 				BigDecimal deposit = rs.getBigDecimal("DEPOSIT");
-				R_OrderBean roBean = new R_OrderBean(r_sn_order, orderID, ts, cus_num, deposit, null);
+				String cus_name = rs.getString("CUS_NAME");
+				String cus_phone = rs.getString("CUS_PHONE");
+				R_OrderBean roBean = new R_OrderBean(r_sn_order, orderID, ts, cus_num, deposit, null,cus_name,cus_phone);
 				otBean.addR_OderBean(roBean);
 			}
 			rs.close();
@@ -222,8 +211,8 @@ public class R_Order_ListDAO {
 					OrderTableBean otBean = new OrderTableBean();
 					while (rs.next()) {
 						
-						otBean.setCustomerName(rs.getString("NAME"));
-						otBean.setCustomerPhone(rs.getString("PHONE"));
+//						otBean.setCustomerName(rs.getString("NAME"));
+//						otBean.setCustomerPhone(rs.getString("PHONE"));
 						
 					}
 					rs.close();
