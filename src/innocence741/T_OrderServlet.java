@@ -87,11 +87,18 @@ public class T_OrderServlet extends HttpServlet {
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
 
-		int[] rec = new int[1];
+		int[] rcd = new int[1];
+		String[] rcdOrder_id = new String[1];
 		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
-		t_Order_ListDAO.createOrder(bean,rec);
-		System.out.println("rec= "+rec[0]);
-		printJSON(request,response,rec);
+		t_Order_ListDAO.createOrderTable(bean, rcd, rcdOrder_id);
+		System.out.println("rec= "+rcd[0]);
+		
+		BigDecimal order_id = new BigDecimal(rcdOrder_id[0]);
+		tBean.setOrder_id(order_id);
+		t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		t_Order_ListDAO.createT_Order_List(bean, rcd);
+
+		printJSON(request,response,rcd);
     }
     
     public void printJSON(HttpServletRequest request, HttpServletResponse response, int[] rcd) throws IOException {
