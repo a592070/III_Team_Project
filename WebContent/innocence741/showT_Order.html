@@ -11,9 +11,8 @@
 </head>
 <body>
 
-    <div class="T_Order">qwe</div>
-    <div class="T_Order">asd</div>
-    <div class="T_Order">zxc</div>
+    <div id="T_Order"></div>
+
 
 
     <script>
@@ -32,10 +31,22 @@
                         // console.log(response.length);
                         // console.log(response[1].length)
                         // console.log(response[1][1]["order_id"])
-                        // for(let i=0; i<response.length; i++){
-
-                        // }
-                        console.log($(".T_Order")[1]);
+                        var data=[];
+                        for(let i=0; i<response.length; i++){
+                            var table = $('<table></table>').addClass('T_OrderTable');
+                            for(let j=0; j<2; j++){
+                                data.push(
+                                    $("<tr></tr>").append(
+                                        $("<td></td>").append(response[1][1]["order_id"]),
+                                        $("<td></td>").append("yeee")
+                                    )
+                                )
+                            }
+                            $("#T_Order").append(table);
+                            $(".T_OrderTable").eq(i).append(data);
+                            data=[];
+                        }
+                        console.log($(".T_Order"));
 
                      },
 
