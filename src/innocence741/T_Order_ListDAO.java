@@ -178,17 +178,17 @@ public class T_Order_ListDAO {
 				
 				oBean.addT_OderBean(tBean);
 				
-				if(!(tBean.getT_sn_order() == null)) {
+				if(!(tBean.getT_sn_order() == null)) {	//代表此筆訂單有交通部分
 					orderTableBeans.add(oBean);
 					if(orderTableBeans.size()>1) {
-						int tmp = (orderTableBeans.get(orderTableBeans.size()-1 ).getOrder_id().compareTo(orderTableBeans.get(orderTableBeans.size()-2).getOrder_id()));
+						int tmp = (orderTableBeans.get(orderTableBeans.size()-1 ).getOrder_id().compareTo(orderTableBeans.get(orderTableBeans.size()-2).getOrder_id())); //判斷當前物件跟上一個物件的orderID是否相同
 						if(tmp != 0) {
-							tmp_orderTableBeans.add(orderTableBeans.get(orderTableBeans.size()-1));
-							orderTableBeans.remove(orderTableBeans.size()-1);
-							combineArrayList.add(orderTableBeans);
-							orderTableBeans = new ArrayList<>();
-							orderTableBeans.add(tmp_orderTableBeans.get(0));
-							tmp_orderTableBeans.clear();
+							tmp_orderTableBeans.add(orderTableBeans.get(orderTableBeans.size()-1));	//將不同orderID的物件取出 存放到tmpList裡
+							orderTableBeans.remove(orderTableBeans.size()-1);	//從orderTableBeans移除不同orderID的物件
+							combineArrayList.add(orderTableBeans);	//將orderTableBeans存放到最終的List中
+							orderTableBeans = new ArrayList<>();	//重製orderTableBeans
+							orderTableBeans.add(tmp_orderTableBeans.get(0));	//將剛剛取出的物件從tmp放回orderTableBeans中
+							tmp_orderTableBeans.clear();	//清除tmpList
 						}
 						System.out.println("orderTableBeans= " + orderTableBeans.size());
 					}
