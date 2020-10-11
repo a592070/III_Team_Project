@@ -1,11 +1,14 @@
 package a592070.pojo;
 
+import utils.StringUtil;
+
 public class AttractionVO {
     private int sn;
     private String name;
     private String picture;
     private String address;
     private String ticketInfo;
+    private String description;
 
     public AttractionVO() {
     }
@@ -48,5 +51,14 @@ public class AttractionVO {
 
     public void setTicketInfo(String ticketInfo) {
         this.ticketInfo = ticketInfo;
+    }
+
+    public String getDescription() {
+        if(StringUtil.isEmpty(description)) description="暫時不提供資訊";
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

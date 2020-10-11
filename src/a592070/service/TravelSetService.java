@@ -46,14 +46,20 @@ public class TravelSetService {
         }
         return list;
     }
-    public List<RestaurantVO> listRestaurant() {
+
+
+    public List<RestaurantVO> listRestaurant(String region){
         List<RestaurantVO> list = null;
         try {
-            list = restaurantViewDAO.listEle();
+            list = restaurantViewDAO.listEle(region);
         } catch (SQLException e) {
             new RuntimeException("restaurantViewDAO listEle()錯誤\n"+e).printStackTrace();
         }
         return list;
+    }
+
+    public List<RestaurantVO> listRestaurant() {
+        return listRestaurant(null);
     }
 
     public List<AttractionVO> listAttraction(int currentPage, int pageSize){
@@ -117,5 +123,38 @@ public class TravelSetService {
             e.printStackTrace();
         }
         return travelSet;
+    }
+
+    public boolean addTravelSet(TravelSetDO travelSetDO){
+        boolean flag = false;
+        try {
+            flag = travelSetDAO.addTravelSet(travelSetDO);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+    public boolean updateTravelSet(TravelSetDO travelSetDO){
+        boolean flag = false;
+        try {
+            if(travelSetDAO.getTravelSetByID(travelSetDO.getSn()) == null){
+                flag = travelSetDAO.addTravelSet(travelSetDO);
+            }else{
+                flag = travelSetDAO.updateTravelSet(travelSetDO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    public boolean removeTravelSet(int sn){
+        boolean flag = false;
+        try{
+            flag = travelSetDAO.setTravelSetUnavailable(sn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

@@ -47,6 +47,7 @@ public class HotelViewDAO {
                 hotelVO.setDoubleRoomPrice(rs.getInt("double_room"));
                 hotelVO.setQuadrupleRoomPrice(rs.getInt("quadruple_room"));
                 hotelVO.setRating(rs.getBigDecimal("rating"));
+                hotelVO.setDescription(rs.getString("description"));
             }
         }catch (SQLException e){
             throw e;
@@ -73,6 +74,7 @@ public class HotelViewDAO {
                 hotelVO.setDoubleRoomPrice(rs.getInt("double_room"));
                 hotelVO.setQuadrupleRoomPrice(rs.getInt("quadruple_room"));
                 hotelVO.setRating(rs.getBigDecimal("rating"));
+                hotelVO.setDescription(rs.getString("description"));
 
                 list.add(hotelVO);
             }
@@ -104,6 +106,7 @@ public class HotelViewDAO {
                 hotelVO.setDoubleRoomPrice(rs.getInt("double_room"));
                 hotelVO.setQuadrupleRoomPrice(rs.getInt("quadruple_room"));
                 hotelVO.setRating(rs.getBigDecimal("rating"));
+                hotelVO.setDescription(rs.getString("description"));
 
                 list.add(hotelVO);
             }

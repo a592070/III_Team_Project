@@ -68,7 +68,7 @@ public class TravelSetDAO {
         Object[] params = null;
         sqlBuffer.append("select * from travel_set ");
         if(!StringUtil.isEmpty(created)){
-            sqlBuffer.append("where created=? ");
+            sqlBuffer.append("where created=? and available=1 ");
             params = new Object[]{created};
         }
         sqlBuffer.append("order by priority desc");
@@ -106,18 +106,19 @@ public class TravelSetDAO {
     }
 
     public TravelSetDO getTravelSetByID(int id) throws SQLException {
-        TravelSetDO travelSetDO = new TravelSetDO();
+        TravelSetDO travelSetDO = null;
         Connection conn = null;
         PreparedStatement predStmt = null;
         ResultSet rs = null;
         try{
-            sql = "select * from travel_set where sn=? order by sn";
+            sql = "select * from travel_set where sn=? and available=1 order by sn";
             conn = ds.getConnection();
             predStmt = conn.prepareStatement(sql);
             predStmt.setInt(1, id);
             rs = predStmt.executeQuery();
 
             if(rs.next()) {
+                travelSetDO = new TravelSetDO();
                 travelSetDO.setSn(rs.getInt("sn"));
                 travelSetDO.setCreatedUser(rs.getString("created"));
                 travelSetDO.setName(rs.getString("name"));
@@ -179,6 +180,7 @@ public class TravelSetDAO {
                 attractionVO.setPicture(rs.getString("picture"));
                 attractionVO.setTicketInfo(rs.getString("ticketinfo"));
                 attractionVO.setAddress(rs.getString("address"));
+                attractionVO.setDescription(rs.getString("description"));
                 travelEleAttractionDO.setAttraction(attractionVO);
 
 
@@ -256,6 +258,7 @@ public class TravelSetDAO {
                 hotelVO.setDoubleRoomPrice(rs.getInt("double_room"));
                 hotelVO.setQuadrupleRoomPrice(rs.getInt("quadruple_room"));
                 hotelVO.setRating(rs.getBigDecimal("rating"));
+                hotelVO.setDescription(rs.getString("description"));
 
                 travelEleHotelDO.setHotel(hotelVO);
                 travelEleHotelDO.setSn(rs.getInt("SN"));
@@ -323,6 +326,7 @@ public class TravelSetDAO {
             ResultSet generatedKeys = predStmt.getGeneratedKeys();
             if(generatedKeys.next()){
                 travelSetPK = generatedKeys.getInt(1);
+                // prevent new travelSetDO default sn=0
                 travelSetDO.setSn(travelSetPK);
             }else{
                 conn.rollback();
@@ -472,6 +476,26 @@ public class TravelSetDAO {
             throw e;
         }finally {
             ConnectionPool.closeResources(conn, predStmt, rs);
+        }
+        return flag;
+    }
+
+    public boolean setTravelSetUnavailable(int sn) throws SQLException {
+        boolean flag = false;
+        sql = "update travel_set set available=0 where SN=?";
+        try {
+            conn = ds.getConnection();
+            predStmt = conn.prepareStatement(sql);
+            predStmt = ConnectionPool.setParams(predStmt, new Object[]{sn});
+            predStmt.executeUpdate();
+
+            flag = true;
+            conn.commit();
+        } catch (SQLException e) {
+            if(conn!=null) conn.rollback();
+            throw e;
+        }finally {
+            ConnectionPool.closeResources(conn, predStmt, null);
         }
         return flag;
     }

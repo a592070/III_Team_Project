@@ -41,6 +41,9 @@ alter table TRAVEL_SET
 	add priority number(2) default 0;
 
 alter table TRAVEL_SET
-	add name varchar2(255)
+	add name varchar2(255);
+
+alter table TRAVEL_SET
+	add available number(1) default 1
 */
 
