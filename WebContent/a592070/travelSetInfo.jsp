@@ -9,42 +9,76 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>選擇行程頁面</title>
+    <title>規劃旅程頁面</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <style>
+        .btn.disabled, .btn:disabled {
+            cursor: not-allowed;
+        }
+    </style>
+
     <script type="text/javascript">
+        const optionCar = "optionCar";
+        const optionHotel = "optionHotel";
+        const optionRestaurant = "optionRestaurant";
+        const optionAttraction = "optionAttraction";
+
         var currentPage;
         var totalPage;
         var totalCount;
         var currentType;
 
+        var currentArea;
+
         var listCar = [];
         var listHotel = [];
         var listRestaurant = [];
+        var listAttraction = [];
+<%--        <c:if test="${!empty sessionScope.CONSTANT.travelSetListCar_session} ">--%>
+<%--            listCar= ${sessionScope.travelSetListCar_session};--%>
+<%--        </c:if>--%>
+<%--        <c:if test="${! empty param.travelSetHotelList}">--%>
+<%--            listHotel = ${param.travelSetHotelList};--%>
+<%--        </c:if>--%>
+<%--        <c:if test="${! empty param.travelSetRestaurantList}">--%>
+<%--            listRestaurant = ${param.travelSetRestaurantList};--%>
+<%--        </c:if>--%>
+<%--        <c:if test="${! empty param.travelSetAttractionList}">--%>
+<%--            listAttraction = ${param.travelSetAttractionList};--%>
+<%--        </c:if>--%>
 
         function optionSelected(type){
             <%--$("#car_id").html(<jsp:include page="optionCar.jsp"/>)--%>
-            if(type == "car"){
+            if(type == optionCar){
                 currentPage = null;
-                currentType="optionCar";
-            }else if(type == "hotel"){
+                currentType=optionCar;
+                $("#selectArea_id").addClass("d-none");
+            }else if(type == optionHotel){
                 currentPage = null;
-                currentType="optionHotel";
-            }else if(type == "restaurant"){
+                currentType=optionHotel;
+                $("#selectArea_id").addClass("d-none");
+            }else if(type == optionRestaurant){
                 currentPage = null;
-                currentType="optionRestaurant";
+                currentType=optionRestaurant;
+                $("#selectArea_id").addClass("d-none");
+            }else if(type==optionAttraction){
+                currentPage = null;
+                currentArea = null;
+                currentType=optionAttraction;
+                $("#selectArea_id").removeClass("d-none");
             }
-            selectPage(currentPage, currentType);
+            selectPage(currentPage, currentType, currentArea);
         }
 
 
-        function selectPage(nowPage, optionType){
+        function selectPage(nowPage, optionType, nowArea){
             $.get({
                 url: "${pageContext.servletContext.contextPath}/TravelSetServlet",
-                data:{"method":optionType, "nowPage": nowPage},
+                data:{"method":optionType, "nowPage": nowPage, "area": nowArea},
                 success: function (data) {
                     let dataJSON = JSON.parse(data);
                     currentPage = dataJSON.currentPage;
@@ -56,11 +90,11 @@
                     paginationContext += "<li class='page-item page-link disabled'>共"+ totalCount +"條紀錄</li>";
                     paginationContext += "<li class='page-item page-link disabled'>"+currentPage+"/"+totalPage+"</li>";
 
-                    paginationContext += "<li class='page-item  previous'><a class='page-link' href='#' onclick='selectPage(1,currentType)'>First</li>";
-                    paginationContext += "<li class='page-item  previous'><a class='page-link' href='#' onclick='selectPage(currentPage-1,currentType)'>Previous</a></li>";
+                    paginationContext += "<li class='page-item  previous'><a class='page-link' href='#' onclick='selectPage(1,currentType, currentArea)'>First</li>";
+                    paginationContext += "<li class='page-item  previous'><a class='page-link' href='#' onclick='selectPage(currentPage-1,currentType, currentArea)'>Previous</a></li>";
 
-                    paginationContext += "<li class='page-item  next' ><a class='page-link' href='#' onclick='selectPage(currentPage+1,currentType)'>Next</a></li>";
-                    paginationContext += "<li class='page-item  next'><a class='page-link' href='#' onclick='selectPage(totalPage,currentType)'>Last</a></li>";
+                    paginationContext += "<li class='page-item  next' ><a class='page-link' href='#' onclick='selectPage(currentPage+1,currentType, currentArea)'>Next</a></li>";
+                    paginationContext += "<li class='page-item  next'><a class='page-link' href='#' onclick='selectPage(totalPage,currentType, currentArea)'>Last</a></li>";
 
 
                     $("#pagination_id").html(paginationContext);
@@ -68,20 +102,20 @@
                     let list = JSON.parse(dataJSON.currentPageList);
                     let contextHead="";
                     let contextBody="";
-                    if(optionType == "optionCar") {
+                    if(optionType == optionCar) {
                         contextHead += "<tr> <th>車種</th> <th>價格</th> <th>公司</th> </tr>";
                         for (let i = 0; i < list.length; i++) {
                             let tempobj = JSON.stringify(list[i]);
                             // let tempobj = list[i];
                             contextBody += "<tr>"+
-                                "<td>" + list[i].carType + "</td>" +
+                                "<td>" + list[i].name + "</td>" +
                                 "<td>" + list[i].price + "</td>" +
                                 "<td>" + list[i].company + "</td>" +
                                 "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
-                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this).val())'>+</button></td>"+
+                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this))'>+</button></td>"+
                                 "</tr>";
                         }
-                    }else if(optionType == "optionHotel"){
+                    }else if(optionType == optionHotel){
                         contextHead += "<tr> <th>旅館名稱</th> <th>雙人房價格</th> <th>四人房價格</th> <th>地址</th> <th>評分</th> </tr>";
                         for (let i = 0; i < list.length; i++) {
                             let tempobj = JSON.stringify(list[i]);
@@ -92,10 +126,10 @@
                                 "<td>" + list[i].address + "</td>" +
                                 "<td>" + list[i].rating + "</td>" +
                                 "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
-                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this).val())'>+</button></td>"+
+                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this))'>+</button></td>"+
                                 "</tr>";
                         }
-                    }else if(optionType == "optionRestaurant"){
+                    }else if(optionType == optionRestaurant){
                         contextHead += "<tr> <th>圖片</th> <th>餐廳名稱</th> <th>類型</th> <th>地址</th> <th>評分</th> </tr>";
                         for (let i = 0; i < list.length; i++) {
                             let tempobj = JSON.stringify(list[i]);
@@ -107,8 +141,21 @@
                                 "<td>" + list[i].address + "</td>" +
                                 "<td>" + list[i].rating + "</td>" +
                                 "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
-                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this).val())'>+</button></td>"+
+                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this))'>+</button></td>"+
                                 "</tr>";
+                        }
+                    }else if(optionType == optionAttraction){
+                        contextHead += "<tr> <th>圖片</th> <th>名稱</th> <th>地址</th> <th>票價</th> </tr>";
+                        for (let i = 0; i < list.length; i++) {
+                            let tempobj = JSON.stringify(list[i]);
+                            contextBody += `<tr>
+                                <td><img src='\${list[i].picture}' class='img-thumbnail' onerror="this.src='../static/nopic.jpg'" width='304' height='236'/></td>
+                                <td>\${list[i].name}</td>
+                                <td>\${list[i].address}</td>
+                                <td>\${list[i].ticketInfo}</td>
+                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(\${list[i].sn})'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
+                                </tr>`;
                         }
                     }
                     $("#thead_id").html(contextHead);
@@ -125,7 +172,7 @@
                     }else{
                         $(".next").removeClass("disabled");
                     }
-                    $(window).scrollTop(0);
+                    // $(window).scrollTop(0);
 
                 }
             })
@@ -134,95 +181,171 @@
         function jump_to(num){
             var regexp=/^[1-9]\d*$/;
             let totalPageCount = totalPage;
+            $("#inputPage").val("");
             //alert(totalPageCount);
             if(!regexp.test(num)){
                 alert("請輸入大於0的整數！");
-                $("#inputPage").val("");
                 return false;
             }else if((num-totalPageCount) > 0){
                 alert("請輸入小於"+totalPageCount+"的整數");
-                $("#inputPage").val("");
                 return false;
             }else{
                 selectPage(num, currentType);
             }
         }
 
+        function selectArea(value){
+            $("#myInput").val("");
+            currentArea = value;
+            selectPage(null, currentType, value);
+        }
+
+
         function toDetailPage(sn){
             console.log(sn);
         }
 
-        function addItem(type, obj){
-            let ele;
+        function addItem(type, ele){
+            let target;
             let tempArr;
-            obj = JSON.parse(obj);
-            if(type == "optionCar"){
-                listCar.push(obj);
+            let json = JSON.parse(ele.val());
+            if(type == optionCar){
+                listCar.push(json);
                 listCar.sort((x,y) => x.sn-y.sn);
+                <%--$.get("${pageContext.servletContext.contextPath}/TravelSetServlet",--%>
+                <%--    {"method":"setItems", "selectType":"car", "list":JSON.stringify(listCar)});--%>
                 tempArr = listCar;
-                ele = $("#addItemCar");
-                let content = "";
-                for (let i = 0; i < tempArr.length; i++) {
-                    content += "<tr><td>"+tempArr[i].carType+"</td>"+
-                        "<td><input type='datetime-local' class='btn btn-secondary'/></td>"+
-                        "<td><button type='button' class='btn btn-info'>看詳細</button></td>"+
-                        "<td><button type='button' class='btn btn-danger' value='"+i+"' onclick='removeItem(\""+type+"\",$(this).val())'>取消</button></td>"+"</tr>";
-                }
-                ele.html(content);
-                return;
-            }else if(type == "optionHotel"){
-                listHotel.push(obj);
+                target = $("#addItemCar");
+                ele.addClass("disabled");
+                ele.attr('disabled',"true");
+            }else if(type == optionHotel){
+                listHotel.push(json);
                 listHotel.sort((x,y) => x.sn-y.sn);
+                <%--$.get("${pageContext.servletContext.contextPath}/TravelSetServlet",--%>
+                <%--    {"method":"setItems", "selectType":"hotel", "list":JSON.stringify(listHotel)});--%>
                 tempArr = listHotel;
-                ele = $("#addItemHotel");
-            }else if(type == "optionRestaurant"){
-                listRestaurant.push(obj);
+                target = $("#addItemHotel");
+                ele.addClass("disabled");
+                ele.attr('disabled',"true");
+            }else if(type == optionRestaurant){
+                listRestaurant.push(json);
                 listRestaurant.sort((x,y) => x.sn-y.sn);
+                <%--$.get("${pageContext.servletContext.contextPath}/TravelSetServlet",--%>
+                <%--    {"method":"setItems", "selectType":"restaurant", "list":JSON.stringify(listRestaurant)});--%>
                 tempArr = listRestaurant;
-                ele = $("#addItemRestaurant");
+                target = $("#addItemRestaurant");
+                ele.attr('disabled',"true");
+            }else if(type == optionAttraction){
+                listAttraction.push(json);
+                listAttraction.sort((x,y) => x.sn-y.sn);
+                <%--$.get("${pageContext.servletContext.contextPath}/TravelSetServlet",--%>
+                <%--    {"method":"setItems", "selectType":"attraction", "list":JSON.stringify(listAttraction)});--%>
+                tempArr = listAttraction;
+                target = $("#addItemAttraction");
+                ele.addClass("disabled");
+                ele.attr('disabled',"true");
             }
-            let content = "";
-            for (let i = 0; i < tempArr.length; i++) {
-                content += "<tr><td>"+tempArr[i].name+"</td>"+
-                    "<td><input type='datetime-local' class='btn btn-secondary'/></td>"+
-                    "<td><button type='button' class='btn btn-info'>看詳細</button></td>"+
-                    "<td><button type='button' class='btn btn-danger' value='"+i+"' onclick='removeItem(\""+type+"\",$(this).val())'>取消</button></td>"+"</tr>";
-            }
-            ele.html(content);
+            refreshSelectItem(target, tempArr, type);
         }
 
         function removeItem(type, index){
-            let ele;
+            let target;
             let tempArr;
-            if(type == "optionCar"){
+            if(type == optionCar){
                 listCar.splice(index,1);
-                let content = "";
-                for (let i = 0; i < listCar.length; i++) {
-                    content += "<tr><td>"+listCar[i].carType+"</td>"+
-                        "<td><input type='datetime-local' class='btn btn-secondary'/></td>"+
-                        "<td><button type='button' class='btn btn-info'>看詳細</button></td>"+
-                        "<td><button type='button' class='btn btn-danger' value='"+i+"' onclick='removeItem(\""+type+"\",$(this).val())'>取消</button></td>"+"</tr>";
-                }
-                $("#addItemCar").html(content);
-                return;
-            }else if(type == "optionHotel"){
+                tempArr = listCar;
+                target = $("#addItemCar");
+            }else if(type == optionHotel){
                 listHotel.splice(index,1);
                 tempArr = listHotel;
-                ele = $("#addItemHotel");
-            }else if(type == "optionRestaurant"){
+                target = $("#addItemHotel");
+            }else if(type == optionRestaurant){
                 listRestaurant.splice(index,1);
                 tempArr = listRestaurant;
-                ele = $("#addItemRestaurant");
+                target = $("#addItemRestaurant");
+            }else if(type == optionAttraction){
+                listAttraction.splice(index,1);
+                tempArr = listAttraction;
+                target = $("#addItemAttraction");
             }
-            let content = "";
-            for (let i = 0; i < tempArr.length; i++) {
-                content += "<tr><td>"+tempArr[i].name+"</td>"+
-                    "<td><input type='datetime-local' class='btn btn-secondary'/></td>"+
-                    "<td><button type='button' class='btn btn-info'>看詳細</button></td>"+
-                    "<td><button type='button' class='btn btn-danger' value='"+i+"' onclick='removeItem(\""+type+"\",$(this).val())'>取消</button></td>"+"</tr>";
-            }
-            ele.html(content);
+            refreshSelectItem(target, tempArr, type);
         }
+        function removeAllItem(){
+            listCar.splice(0);
+            listHotel.splice(0);
+            listRestaurant.splice(0);
+            listAttraction.splice(0);
+
+            refreshSelectItem($("#addItemCar"),listCar, );
+            refreshSelectItem($("#addItemHotel"),listHotel);
+            refreshSelectItem($("#addItemRestaurant"),listRestaurant);
+            refreshSelectItem($("#addItemAttraction"),listAttraction);
+        }
+        function refreshSelectItem (target, arr, type){
+            $.get("${pageContext.servletContext.contextPath}/TravelSetServlet",
+                {"method":"setItems", "selectType":type, "list":JSON.stringify(arr)});
+            let content = "";
+            for (let i = 0; i < arr.length; i++) {
+                content += `<tr>
+                    <td>\${arr[i].name}</td>
+                    <td><input type='datetime-local' class='btn btn-secondary' index='\${i}' onchange='setTravelTime("\${type}",$(this))'/></td>
+                    <td><button type='button' class='btn btn-info'>看詳細</button></td>
+                    <td><button type='button' class='btn btn-danger' value='\${i}' onclick='removeItem("\${type}",$(this).val())'>取消</button></td></tr>`;
+            }
+            target.html(content);
+        }
+
+        function setTravelTime(type, obj){
+            $.get("${pageContext.servletContext.contextPath}/TravelSetServlet",
+                {"method":"setItemsTime", "selectType":type, "index":obj.attr('index'), "time":Date.parse(obj.val())});
+        }
+
+        function setParams(){
+            $("#submitCarId").val(listCar);
+            $("#submitHotelId").val(listHotel);
+            $("#submitRestaurantId").val(listRestaurant);
+            $("#submitAttractionId").val(listAttraction);
+            $("#submitMethodId").val("submitForm");
+            return true;
+        }
+
+        $(document).ready(
+            $.get({
+                url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                data:{"method":"initTravelSet", "sn":${param.sn}},
+                success: function (data){
+                    let json = JSON.parse(data);
+                    listCar = json.listEleCar;
+                    listHotel = json.listEleHotel;
+                    listRestaurant = json.listEleRestaurant;
+                    listAttraction = json.listEleAttraction;
+
+                    refreshSelectItem($("#addItemCar"),listCar, );
+                    refreshSelectItem($("#addItemHotel"),listHotel);
+                    refreshSelectItem($("#addItemRestaurant"),listRestaurant);
+                    refreshSelectItem($("#addItemAttraction"),listAttraction);
+                }
+            })
+        );
+
+        $(document).ready(
+        function (){
+            let regionList=["臺北市","新北市","桃園市","臺中市","高雄市"];
+            $.get({
+                url: "${pageContext.servletContext.contextPath}/AttractionsInfoServlet",
+                data: {"method": "initPageRegion"},
+                success: function (data) {
+                    let dataJSON = JSON.parse(data);
+                    let list = JSON.parse(dataJSON.regions);
+                    let context="";
+                    for (let i = 0; i < list.length; i++) {
+                        if(regionList.includes(list[i].region)) continue;
+                        context += "<a class='dropdown-item' href='#' onclick='selectArea($(this).text())'>"+list[i].region+"</a>";
+                    }
+                    $("#moreRegion_id").html(context);
+                }
+            })
+        });
 
         $(document).ready(function(){
             $(".dropdown-toggle").dropdown();
@@ -242,7 +365,6 @@
 <body>
 <jsp:include page="../fragment/header.jsp" />
 
-
 <div class="container">
     <h2>行程選擇</h2>
 
@@ -260,66 +382,58 @@
             <td>
                 <table class="table">
                     <tbody id="addItemCar"></tbody>
-<%--                    <tr>--%>
-<%--                        <td>租車1</td>--%>
-<%--                        <td><input type="datetime-local" class="btn btn-secondary"/></td>--%>
-<%--                        <td><button type="button" class="btn btn-info">看詳細</button></td>--%>
-<%--                        <td><button type="button" class="btn btn-danger">取消</button></td>--%>
-<%--                    </tr>--%>
                 </table>
             </td>
 
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected('car')">選更多</button></td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected(optionCar)">選更多</button></td>
         </tr>
         <tr>
             <td>餐廳</td>
             <td>
                 <table class="table">
                     <tbody id="addItemRestaurant"></tbody>
-<%--                    <tr>--%>
-<%--                        <td>餐廳1</td>--%>
-<%--                        <td><input type="datetime-local" class="btn btn-secondary"/></td>--%>
-<%--                        <td><button type="button" class="btn btn-info">看詳細</button></td>--%>
-<%--                        <td><button type="button" class="btn btn-danger">取消</button></td>--%>
-<%--                    </tr>--%>
                 </table>
             </td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected('restaurant')">選更多</button></td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected(optionRestaurant)">選更多</button></td>
         </tr>
         <tr>
             <td>旅館</td>
             <td>
                 <table class="table">
                     <tbody id="addItemHotel"></tbody>
-<%--                    <tr>--%>
-<%--                        <td>旅館1</td>--%>
-<%--                        <td><input type="datetime-local" class="btn btn-secondary"/></td>--%>
-<%--                        <td><button type="button" class="btn btn-info">看詳細</button></td>--%>
-<%--                        <td><button type="button" class="btn btn-danger">取消</button></td>--%>
-<%--                    </tr>--%>
                 </table>
             </td>
 
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected('hotel')">選更多</button></td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected(optionHotel)">選更多</button></td>
         </tr>
         <tr>
             <td>景點</td>
             <td>
                 <table class="table">
                     <tbody id="addItemAttraction"></tbody>
-<%--                    <tr>--%>
-<%--                        <td>景點1</td>--%>
-<%--                        <td><input type="datetime-local" class="btn btn-secondary"/></td>--%>
-<%--                        <td><button type="button" class="btn btn-info">看詳細</button></td>--%>
-<%--                        <td><button type="button" class="btn btn-danger">取消</button></td>--%>
-<%--                    </tr>--%>
                 </table>
             </td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected('attraction')">選更多</button></td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#optionModal" onclick="optionSelected(optionAttraction)">選更多</button></td>
         </tr>
         </tbody>
     </table>
-    <div class="navbar-nav"><button type="submit" class="btn btn-primary">確認</button></div>
+    <div class="navbar-nav">
+        <form action="${pageContext.servletContext.contextPath}/" method="post" onsubmit="return setParams();" class="form-group ">
+            <input class="d-none" id="submitMethodId" name="method" >
+            <input class="d-none" id="submitCarId" name="travelSetCarList" >
+            <input class="d-none" id="submitHotelId" name="travelSetHotelList" >
+            <input class="d-none" id="submitRestaurantId" name="travelSetRestaurantList" >
+            <input class="d-none" id="submitAttractionId" name="travelSetAttractionList" >
+            <label for="usr">Name:</label>
+            <input type="text" class="form-control" id="usr">
+            <label for="comment">備註:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+            <button type="submit" class="btn btn-primary" >保存當前</button>
+            <button type="submit" class="btn btn-success" >新項目</button>
+            <button type="button" class="btn btn-outline-danger" onclick="removeAllItem()">取消</button>
+        </form>
+
+    </div>
 </div>
 
 
@@ -331,14 +445,33 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-<%--                <h1 class="modal-title">租車選擇</h1>--%>
+<%--                <h1 class="modal-title">Modal Header</h1>--%>
+            <div class="container d-none" id="selectArea_id">
+                <h2>選地區</h2>
+                <div class="btn-group" id="defaultRegion_id">
+                    <button type="button" class="btn btn-primary" onclick="selectArea(null)">全部</button>
+                    <button type="button" class="btn btn-primary" onclick="selectArea($(this).text())">臺北市</button>
+                    <button type="button" class="btn btn-primary" onclick="selectArea($(this).text())">新北市</button>
+                    <button type="button" class="btn btn-primary" onclick="selectArea($(this).text())">桃園市</button>
+                    <button type="button" class="btn btn-primary" onclick="selectArea($(this).text())">臺中市</button>
+                    <button type="button" class="btn btn-primary" onclick="selectArea($(this).text())">高雄市</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            看更多
+                        </button>
+                        <div class="dropdown-menu" id="moreRegion_id">
+                            <a class='dropdown-item' href='#' onclick='selectArea($(this).text())'>null</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <input class="form-control" id="myInput" type="text" placeholder="Search..">
             <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
 
 
             <!-- Modal body -->
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body_id">
                 <div class="container" >
                     <table class="table">
                         <thead id="thead_id">
@@ -366,32 +499,5 @@
         </div>
     </div>
 </div>
-<div class="modal" id="optionModalAttraction">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <%--                <h1 class="modal-title">租車選擇</h1>--%>
-                <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    console.log(currentPage);
-</script>
 </body>
 </html>

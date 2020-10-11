@@ -92,9 +92,58 @@
                     <input type="file" id="picture" name="picture" accept="image/*">
                 </div>
             </fieldset>
-            <div style="display:none" id="includeDiv"
+            <!-- <div style="display:none" id="includeDiv"
                 w3-include-html="">
-            </div><br>
+            </div><br> -->
+            <div id="rsdiv" style="display:none">
+                <form>
+                    <fieldset>
+                        <legend>餐廳資料</legend>
+                        <div class="st1">
+                            <label for="">餐廳名稱:</label>
+                            <input type="text" id="rname" name="rname" placeholder="請輸入餐廳名稱" onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">地址:</label>
+                            <input type="text" id="address" name="address" placeholder="請輸入地址" onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">營業時間:</label>
+                            <input type="text" id="opentime" name="opentime" placeholder="請輸入營業時間" onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">餐廳描述:</label>
+                            <input type="text" id="description" name="description" placeholder="請輸入餐廳描述" onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">交通方式:</label>
+                            <input type="text" id="transportation" name="transportation" placeholder="請輸入交通方式"
+                                onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">餐廳類型:</label>
+                            <input type="text" id="type" name="type" placeholder="請輸入餐廳類型" onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">餐廳照片url:</label>
+                            <input type="text" id="rpicture" name="rpicture" placeholder="請輸入照片url" onblur="" />
+                        </div>
+                        <div class="st1">
+                            <label for="">餐廳用餐訊息:</label>
+                            <input type="text" id="serviceinfo" name="serviceinfo" placeholder="請輸入用餐訊息" onblur="" />
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div>
+                <fieldset>
+                    <legend>住宿資料</legend>
+                    <div class="st1">
+                    <label for="">餐廳名稱:</label> 
+                    <input type="text" id="rname" name="rname" placeholder="請輸入餐廳名稱" onblur="" />
+                    </div>
+            </div>
+
             <input type="submit" id="submit" name="submit" value="送出" disabled>
         </form>
 
@@ -154,26 +203,28 @@
             $('#identity').change(function () {
                 let identity = document.getElementById("identity").value;
                 if (identity == 2) {
-                    $("#includeDiv").css("display", "none");
-                    $("#includeDiv").attr("w3-include-html","")
-                    w3.includeHTML();
+                    // $("#includeDiv").css("display", "none");
+                    // $("#includeDiv").attr("w3-include-html", "")
+                    // w3.includeHTML();
+                    $("#rsdiv").css("display", "none");
                 }
                 else if (identity == 3) {
-                    $("#includeDiv").css("display", "block");
-                    
-                    $("#includeDiv").attr("w3-include-html","<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
-                 
-                    w3.includeHTML();
+                    // $("#includeDiv").css("display", "block");
+
+                    // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
+
+                    // w3.includeHTML();
+                    $("#rsdiv").css("display", "block");
                 }
                 else if (identity == 4) {
-                    $("#includeDiv").css("display", "block");
-                    $("#includeDiv").attr("w3-include-html","<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
-                    w3.includeHTML();
+                    // $("#includeDiv").css("display", "block");
+                    // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
+                    // w3.includeHTML();
                 }
                 else if (identity == 5) {
-                    $("#includeDiv").css("display", "block");
-                    $("#includeDiv").attr("w3-include-html","<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
-                    w3.includeHTML();
+                    // $("#includeDiv").css("display", "block");
+                    // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
+                    // w3.includeHTML();
                 }
 
 

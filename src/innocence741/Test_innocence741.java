@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -26,32 +27,32 @@ public class Test_innocence741 {
 	public static void main(String[] args) throws IOException, SQLException {
 		
 		
-		/*orderTest*/
-		OrderTableBean bean = new OrderTableBean();
-		T_OrderBean tBean = new T_OrderBean();
-		AccountBean user = new AccountBean();
-		hsrDO hsrDO = new hsrDO();
-		hsrDO.setSnSchedule(101); //假設訂購sn101的車票
-		tBean.setHsrDO(hsrDO);
-		tBean.setTrafficPrice(BigDecimal.valueOf(1000));
-		tBean.setNums_days(BigDecimal.valueOf(1));
-		tBean.setStartPoint("banqiao");
-		tBean.setDestination("nangang");
-		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(2020, 10, 14).atStartOfDay()));
-		tBean.setOrderType("0");
-		tBean.setCustomerName("asaseq");
-		tBean.setCustomerPhone("0808004564");
-		//System.out.println(user.getEmail()==null);
-		//System.out.println(user.getUserName());
-		
-		user.setUserName("abab");	//假裝訂購人為innocence
-		bean.setUser(user);	//假裝訂購人為innocence
-		bean.addT_OderBean(tBean);
-//		bean.setCustomerName("abc");  //測試先手動key 下單者姓名
-//		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
-		
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		t_Order_ListDAO.createOrder(bean);
+//		/*orderTest*/
+//		OrderTableBean bean = new OrderTableBean();
+//		T_OrderBean tBean = new T_OrderBean();
+//		AccountBean user = new AccountBean();
+//		hsrDO hsrDO = new hsrDO();
+//		hsrDO.setSnSchedule(101); //假設訂購sn101的車票
+//		tBean.setHsrDO(hsrDO);
+//		tBean.setTrafficPrice(BigDecimal.valueOf(1000));
+//		tBean.setNums_days(BigDecimal.valueOf(1));
+//		tBean.setStartPoint("banqiao");
+//		tBean.setDestination("nangang");
+//		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(2020, 10, 14).atStartOfDay()));
+//		tBean.setOrderType("0");
+//		tBean.setCustomerName("asaseq");
+//		tBean.setCustomerPhone("0808004564");
+//		//System.out.println(user.getEmail()==null);
+//		//System.out.println(user.getUserName());
+//		
+//		user.setUserName("abab");	//假裝訂購人為innocence
+//		bean.setUser(user);	//假裝訂購人為innocence
+//		bean.addT_OderBean(tBean);
+////		bean.setCustomerName("abc");  //測試先手動key 下單者姓名
+////		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
+//		int[] rec = new int[1];
+//		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		t_Order_ListDAO.createOrder(bean,rec);
 		
 //		------------------------------------------------------
 		
@@ -83,6 +84,56 @@ public class Test_innocence741 {
 //		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 //		carRentalCompanyDAO.getSN_RENTALCOMPANY(carRentalCompanyBean);
 //		System.out.println(carRentalCompanyBean.getSn_carRentalCompany());
+		
+//		------------------------------------------------------
+		
+		/*orderTest分開版本*/
+		OrderTableBean bean = new OrderTableBean();
+		T_OrderBean tBean = new T_OrderBean();
+		AccountBean user = new AccountBean();
+		hsrDO hsrDO = new hsrDO();
+		hsrDO.setSnSchedule(101); //假設訂購sn101的車票
+		tBean.setHsrDO(hsrDO);
+		tBean.setTrafficPrice(BigDecimal.valueOf(1000));
+		tBean.setNums_days(BigDecimal.valueOf(1));
+		tBean.setStartPoint("banqiao");
+		tBean.setDestination("nangang");
+		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(2020, 10, 14).atStartOfDay()));
+		tBean.setOrderType("0");
+		tBean.setCustomerName("asaseq");
+		tBean.setCustomerPhone("0808004564");
+		//System.out.println(user.getEmail()==null);
+		//System.out.println(user.getUserName());
+		
+		user.setUserName("abab");	//假裝訂購人為innocence
+		bean.setUser(user);	//假裝訂購人為innocence
+		bean.addT_OderBean(tBean);
+//		bean.setCustomerName("abc");  //測試先手動key 下單者姓名
+//		bean.setCustomerPhone("09123456789");  //測試先手動key 下單者電話
+		int[] rcd = new int[1];
+		String[] getOrder_id = new String[1];
+		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		t_Order_ListDAO.createOrderTable(bean, rcd, getOrder_id);
+//		System.out.println("order_id= " + order_id[0]);
+		BigDecimal order_id = new BigDecimal(getOrder_id[0]);
+//		System.out.println(order_id);
+		tBean.setOrder_id(order_id);
+		t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		Set<T_OrderBean> traffic = bean.getT_OderBeans();
+//		for(T_OrderBean ele : traffic ) {
+//			System.out.println("order_id= " + ele.getOrder_id());
+//			System.out.println("SnSchedule= " + ele.getHsrDO().getSnSchedule());
+//			System.out.println("TrafficPrice= " + ele.getTrafficPrice());
+//			System.out.println("Nums_days= " + ele.getNums_days());
+//			System.out.println("StartPoint= " + ele.getStartPoint());
+//			System.out.println("Destination= " + ele.getDestination());
+//			System.out.println("OrderType= " + ele.getOrderType());
+//			System.out.println("CustomerName= " + ele.getCustomerName());
+//			System.out.println("CustomerPhone= " + ele.getCustomerPhone());
+//			System.out.println("T_sn_order= " + ele.getT_sn_order());
+//
+//		}
+		t_Order_ListDAO.createT_Order_List(bean, rcd);
 		
 	}
 

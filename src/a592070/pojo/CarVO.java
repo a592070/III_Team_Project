@@ -1,6 +1,10 @@
 package a592070.pojo;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(using = CarVOJsonSerializer.class)
+@JsonDeserialize(using = CarVOJsonDeserializer.class)
 public class CarVO {
     private int sn;
     private String carType;
