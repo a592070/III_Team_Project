@@ -148,7 +148,7 @@ public class Test_iring29 {
 		
 		//Test
 		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		R_OrderBean bean = r_Order_ListDAO.findR_order_List(BigDecimal.valueOf(126));
+		R_OrderBean bean = r_Order_ListDAO.UserOrderList(BigDecimal.valueOf(101));
 		System.out.println(bean);
 		
 	}

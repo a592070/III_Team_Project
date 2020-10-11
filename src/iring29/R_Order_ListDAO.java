@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import controller.ConnectionPool;
 import iring29.bean.R_OrderBean;
+import iring29.bean.RestaurantBean;
 import pojo.OrderTableBean;
 
 public class R_Order_ListDAO {
@@ -108,10 +109,10 @@ public class R_Order_ListDAO {
 			pstmt.clearBatch();
 
 			try {
-				pstmt = conn.prepareStatement(sql2);
-				pstmt.setBigDecimal(1, id);
-				ResultSet rs2 = pstmt.executeQuery();
-				pstmt.clearBatch();
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+				pstmt2.setBigDecimal(1, id);
+				ResultSet rs2 = pstmt2.executeQuery();
+				pstmt2.clearBatch();
 
 				OrderTableBean otBean = new OrderTableBean();
 				R_OrderBean roBean = new R_OrderBean();
@@ -137,7 +138,7 @@ public class R_Order_ListDAO {
 				return null;
 			}
 		} catch (Exception e) {
-			System.err.println("新增資料時發生錯誤:" + e);
+			System.err.println("查詢資料時發生錯誤:" + e);
 			return null;
 		} finally {
 			if (conn != null) {
@@ -201,7 +202,7 @@ public class R_Order_ListDAO {
 			return otBean;
 
 		} catch (Exception e) {
-			System.err.println("新增資料時發生錯誤:" + e);
+			System.err.println("查詢資料時發生錯誤:" + e);
 			conn.rollback();
 			return null;
 
@@ -210,6 +211,65 @@ public class R_Order_ListDAO {
 				conn.close();
 			}
 		}
+	}
+
+	// user find order info
+	public R_OrderBean UserOrderList(BigDecimal r_sn_order) throws SQLException {
+		String sql = "select * from r_order_list where r_sn_order = ?";
+		String sql2 = "select * from restaurant where r_sn = ?";
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setBigDecimal(1, r_sn_order);
+			ResultSet rs = pstmt.executeQuery();
+			pstmt.clearBatch();
+			R_OrderBean oBean = new R_OrderBean();
+			RestaurantBean rBean = new RestaurantBean();
+			BigDecimal r_sn = null;
+			while (rs.next()) {
+				oBean.setR_sn_order(r_sn_order);
+				oBean.setOrder_id(rs.getBigDecimal("ORDER_ID"));
+				r_sn = rs.getBigDecimal("R_SN");
+				oBean.setCustomerNum(rs.getBigDecimal("CUSTOMER_NUM"));
+				oBean.setBooking_date(rs.getTimestamp("BOOK_TIME"));
+				oBean.setDeposit(rs.getBigDecimal("DEPOSIT"));
+				oBean.setCustomerName(rs.getString("CUS_NAME"));
+				oBean.setCustomerPhone(rs.getString("CUS_PHONE"));
+			}
+			pstmt.clearBatch();
+			try {
+				PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+				System.out.println(r_sn);
+				pstmt2.setBigDecimal(1, r_sn);
+				ResultSet rs2 = pstmt2.executeQuery();
+				while (rs2.next()) {
+					rBean.setR_sn(r_sn);
+					rBean.setName(rs2.getString("NAME"));
+					rBean.setAddress(rs2.getString("ADDRESS"));
+					rBean.setOpentime(rs2.getString("OPENTIME"));
+					rBean.setTransportation(rs2.getString("TRANSPORTATION"));
+					oBean.setRestaurantBean(rBean);
+				}
+				rs.close();
+				rs2.close();
+				pstmt.close();
+				return oBean;
+			} catch (Exception e) {
+				System.err.println("查詢資料時發生錯誤:" + e);
+				return null;
+			}
+		} catch (Exception e) {
+			System.err.println("查詢資料時發生錯誤:" + e);
+			conn.rollback();
+			return null;
+
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+
 	}
 
 	// find booking name, phone

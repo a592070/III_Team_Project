@@ -45,6 +45,8 @@
 
         .title {
             text-align: center;
+            background-color: #BEBEBE;
+            margin:0px;
         }
 
         .top {
@@ -56,10 +58,10 @@
             padding: 10px 0;
             line-height: 22px;
             text-align: center;
-            color: #000000;
+            /* background-color: #FFCC00; */
             cursor: pointer;
-            border: 1px solid gray;
-            /* border-bottom: solid 1.5px #f04e2f; */
+            /* border: 1px solid gray; */
+            border-top: solid 1.5px #f04e2f;
         }
 
         .info {
@@ -67,9 +69,9 @@
             padding: 10px 0;
             line-height: 22px;
             text-align: center;
-            color: #000000;
+            background-color: #FF9900;
             cursor: pointer;
-            border: 1px solid gray;
+            /* border: 1px solid gray; */
         }
 
         .comment {
@@ -77,9 +79,9 @@
             padding: 10px 0;
             line-height: 22px;
             text-align: center;
-            color: #000000;
+            border-top: solid 1.5px #f04e2f;
             cursor: pointer;
-            border: 1px solid gray;
+            /* border: 1px solid gray; */
         }
 
 

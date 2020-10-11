@@ -57,6 +57,13 @@ public class OrderListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} 
+		else if(r_sn_order != null) { //使用者訂單
+			try {
+			user_OrderList(request, response);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
+		}
 //		else if (request.getParameter("time") != null) {
 //			updateBookTime(request, response);
 //		}
@@ -125,7 +132,7 @@ public class OrderListServlet extends HttpServlet {
 		request.getSession().setAttribute("person_numer", person_numer);
 		request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
 	}
-
+// 取消訂單
 	public void processCancelOrder(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		HttpSession session = request.getSession(false);
@@ -139,18 +146,31 @@ public class OrderListServlet extends HttpServlet {
 		}
 	}
 	
-	public void updateBookTime(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String time = request.getParameter("time");
-		String res_name = request.getParameter("res_name").trim();
-		String book_date = request.getParameter("book_date").trim();
-		String person_numer = request.getParameter("person_numer").trim();
-		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
-		request.getSession().setAttribute("time", time);
-		request.getSession().setAttribute("res_name", res_name);
-		request.getSession().setAttribute("book_date", book_date);
-		request.getSession().setAttribute("person_numer", person_numer);
-		request.getSession().setAttribute("r_id", r_id);
-		System.out.println(time);
-		request.getRequestDispatcher("/iring29/OrderList.jsp").forward(request, response);
+// user查詢訂單
+	public void user_OrderList(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		HttpSession session = request.getSession(false);
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		//取得
+		BigDecimal r_sn_order = null;
+		R_OrderBean roBean = r_Order_ListDAO.UserOrderList(r_sn_order);
+		request.getSession().setAttribute("roBean", roBean);
+
+		request.getRequestDispatcher("/iring29/UserOrderList.jsp").forward(request, response);
+		
 	}
+
+//	public void updateBookTime(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String time = request.getParameter("time");
+//		String res_name = request.getParameter("res_name").trim();
+//		String book_date = request.getParameter("book_date").trim();
+//		String person_numer = request.getParameter("person_numer").trim();
+//		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
+//		request.getSession().setAttribute("time", time);
+//		request.getSession().setAttribute("res_name", res_name);
+//		request.getSession().setAttribute("book_date", book_date);
+//		request.getSession().setAttribute("person_numer", person_numer);
+//		request.getSession().setAttribute("r_id", r_id);
+//		System.out.println(time);
+//		request.getRequestDispatcher("/iring29/OrderList.jsp").forward(request, response);
+//	}
 }

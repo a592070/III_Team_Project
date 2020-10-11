@@ -99,7 +99,7 @@ input {
 					<div class="div-1">
 						<label for="r-date">用餐時間</label>
 						<%-- <span>${time}</span> --%>
-					</div>
+					
 					<select name="time" id="inputState" class="form-control">
 						<option value="">請選擇用餐時間</option>
 						<option value="11:00">11:00</option>
@@ -110,8 +110,9 @@ input {
 						<option value="18:00">18:00</option>
 						<option value="19:00">19:00</option>
 						<option value="20:00">20:00</option>
-
+					
 					</select>
+					</div>
 					<!--  
 					<p class="btn-group" role="group" aria-label="Basic example"> 
 						<button class="btn btn-light" name="time" value="11:00">11:00</button>
@@ -133,8 +134,10 @@ input {
 					</div>
 				</div>
 				<div class="div-1">
-					<label for="b-phone">訂位人手機</label> <input type="text" id="b-phone"
+					<label for="b-phone">訂位人手機</label> 
+					<input type="text" id="b-phone" onblur="checkPhone()" 
 						name="b-phone" placeholder="請輸入手機號碼">
+						<p id="uidt" style="margin-left: 10px"></p> 
 				</div>
 				<div class="div-1">
 					<label for="b-number">用餐人數</label>
@@ -179,20 +182,30 @@ input {
 					<Input type='hidden' name='person_numer' value='${person_numer}'>
 
 				</div>  --%>
-
+				
 					<input type="hidden" id="finalDecision" name="finalDecision" value=""> 
 					<Input type='hidden' name='res_name' value='${res_name}'> 
 					<Input type='hidden' name='book_date' value='${book_date}'> 
 					<Input type='hidden' name='person_numer' value='${person_numer}'>
 					<Input type='hidden' name='r_id' value='${r_id}'>
+				<div class="div-btn">
 					<input type="button" class="btn btn-success" name="confirm" value="confirm" onclick="reconfirmOrder()"> 
 					<input type="button" class="btn btn-secondary" name="CancelBtn" value="cancel" onclick="cancelOrder()">
-
+				</div>
 
 			</div>
 		</div>
 	</FORM>
 	<script type="text/javascript">
+	
+	function checkPhone() {
+        var phone = document.getElementById('b-phone').value;
+        if (!(/^09[0-9]{8}$/.test(phone))) {
+            return document.getElementById('uidt').innerHTML = '請輸入正確的手機號';
+            return false;
+        } else { return document.getElementById('uidt').innerHTML = 'ok'; }
+    }
+	
  function cancelOrder() {
 	if (confirm("確定取消此份訂單 ? ") ) {
 		// 接收此資料的Servlet會使用 finalDecision 參數的值
