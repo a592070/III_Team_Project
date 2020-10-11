@@ -40,38 +40,34 @@ public class OrderListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
+//		System.out.println(request.getParameter("finalDecision"));
 		HttpSession session = request.getSession(false);
-
-		if (request.getParameter("confirm") != null) {
+		if (request.getParameter("finalDecision") != null) {
 			try {
+				System.out.println("finalDecision");
 				processInsertOrder(request, response);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (request.getParameter("back") != null) {
-			try {
-				processQueryRestaurant(request, response);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if (request.getParameter("cancel") != null) {
+		} else if (request.getParameter("c") != null) {
 			try {
 				processCancelOrder(request, response);
 			} catch (IOException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (request.getParameter("time") != null) {
-			updateBookTime(request, response);
-		}
+		} 
+//		else if (request.getParameter("time") != null) {
+//			updateBookTime(request, response);
+//		}
 
 	}
 
 	//下訂單
 	public void processInsertOrder(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-
+		System.out.println("insert");
+		HttpSession session = request.getSession(false);
 		OrderTableBean bean = new OrderTableBean();
 		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
@@ -79,14 +75,15 @@ public class OrderListServlet extends HttpServlet {
 		bean.setUser(user);
 		RestaurantBean resBean = new RestaurantBean();
 		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
-		String r_name = request.getParameter("res_name");
+		String res_name = request.getParameter("res_name");
 		System.out.println("r_id =" + r_id);
-		System.out.println("r_name = " + r_name);
+		System.out.println("r_name = " + res_name);
 		resBean.setR_sn(r_id);
-		resBean.setName(r_name);
-
+		resBean.setName(res_name);
+		
 		rBean.setRestaurantBean(resBean);
 		String time = request.getParameter("time");
+		System.out.println("time=" + time);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		String tsStr = request.getParameter("book_date") +" " + time + ":00";
 		System.out.println(tsStr);
@@ -107,9 +104,10 @@ public class OrderListServlet extends HttpServlet {
 
 		R_OrderBean roBean = r_Order_ListDAO.findR_order_List(r_id);
 		request.getSession().setAttribute("roBean", roBean);
-		request.getSession().setAttribute("r_name", r_name);
+		request.getSession().setAttribute("r_name", res_name);
 		request.getSession().setAttribute("bean", bean);
 
+		
 		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
 
 	}
@@ -130,11 +128,13 @@ public class OrderListServlet extends HttpServlet {
 
 	public void processCancelOrder(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-		BigDecimal r_sn_order = new BigDecimal(request.getParameter("r_sn_order"));
+		HttpSession session = request.getSession(false);
+		System.out.println("in cancel");
+		BigDecimal r_sn_order= new BigDecimal(request.getParameter("r_sn_order"));
+		System.out.println(r_sn_order);
 		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
 		boolean cancelR_Order = r_Order_ListDAO.cancelR_Order(r_sn_order);
 		if(cancelR_Order == true) {
-			request.getSession().setAttribute("r_sn_order ", r_sn_order );
 			request.getRequestDispatcher("/iring29/bye.jsp").forward(request, response);
 		}
 	}

@@ -102,7 +102,8 @@ public class R_Order_ListDAO {
 			pstmt.setBigDecimal(1, r_sn);
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
-
+			
+			OrderTableBean otBean = new OrderTableBean();
 			R_OrderBean roBean = new R_OrderBean();
 			while (rs.next()) {
 				BigDecimal r_sn_order = rs.getBigDecimal("R_SN_ORDER");
@@ -117,11 +118,12 @@ public class R_Order_ListDAO {
 				roBean.setBooking_date(b_time);
 				roBean.setCustomerName(cus_name);
 				roBean.setCustomerPhone(cus_phone);
+				otBean.addR_OderBean(roBean);
 			}
 			return roBean;
 
 		} catch (Exception e) {
-			System.err.println("新增資料時發生錯誤:" + e);
+			System.err.println("查詢資料時發生錯誤:" + e);
 			conn.rollback();
 			return null;
 
@@ -134,7 +136,7 @@ public class R_Order_ListDAO {
 	}
 
 	// Delete Order
-	public boolean cancelR_Order(BigDecimal r_sn_order) throws SQLException {
+	public boolean cancelR_Order(BigDecimal r_sn_order )throws SQLException {
 		String sql = "delete r_order_list where r_sn_order = ?";
 		try {
 			conn = ds.getConnection();
@@ -146,7 +148,7 @@ public class R_Order_ListDAO {
 			pstmt.close();
 			return true;
 		} catch (Exception e) {
-			System.err.println("新增資料時發生錯誤:" + e);
+			System.err.println("刪除資料時發生錯誤:" + e);
 			conn.rollback();
 			return false;
 
@@ -160,7 +162,7 @@ public class R_Order_ListDAO {
 
 	// set OrderTableBean for display HP
 	public OrderTableBean findR_Order(BigDecimal r_sn) throws SQLException {
-		String sql = "select * from R_ORDER_LIST where R_SN = ?";
+		String sql = "select * from R_ORDER_LIST where R_SN = ? order by 1";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);

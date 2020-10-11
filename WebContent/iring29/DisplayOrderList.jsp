@@ -78,7 +78,7 @@
 
 <div class="wrapper">
         <div class="container">
-            <form action="<c:url value='OrderListServlet' />" method="POST">
+            <form name="form-c" action="<c:url value='OrderListServlet' />" method="POST">
                 
                		<h1> 訂位成功 </h1>
                     <h1> Fun Taiwan 訂單號碼 </h1>
@@ -120,9 +120,11 @@
                     <span>500 元</span>
                 </div>
                 <div class="div-btn-1">
-                <button class="btn btn-secondary" name="cancel" value="cancel">取消訂單</button>
+                <input type="hidden" id="c" name="c" value=""> 
+                
                 <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
           		<Input type='hidden' name='r_sn_order' value='${roBean.r_sn_order}'>
+                <input type="button" class="btn btn-secondary" name="CancelBtn" value="取消訂單" onclick="cancelOrder()">
              </div>
             </form>
             
@@ -135,5 +137,19 @@
             
         </div>
     </div>
+    <script type="text/javascript">
+    function cancelOrder() {
+    	if (confirm("確定取消此份訂單 ? ") ) {
+    		// 接收此資料的Servlet會使用 finalDecision 參數的值
+    		document.forms["form-c"].c.value="cancel";
+    		document.forms["form-c"].action="<c:url value='OrderListServlet' />";
+    		document.forms["form-c"].method="POST";
+    		document.forms["form-c"].submit();
+    		return;
+    	} else {
+    		return;
+    	}
+    } 
+    </script>
 </body>
 </html>

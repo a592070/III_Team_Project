@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,11 @@ h3{
 	margin-left: 10px;
 	padding-bottom: 20px;
 }
-.btn.btn-success.home{
-	margin-left: 40px;
+.btn{
+	margin-left: 100px;
+	margin-top: 10px;
 }
+
 </style>
 </head>
 <body>
@@ -34,14 +37,17 @@ h3{
 
 
 	<div id="box">
-		<h3>抱歉，找不到相關餐廳訊息，請回重新查詢</h3>
-		<FORM  action="<c:url value='/iring29/Restaurant_index.jsp' />" method="POST">
-			<button class="btn btn-primary">回訂餐首頁</button>
-		</FORM>
+		<h3>抱歉，找不到相關訊息，請重新查詢</h3>
+		
 		<div>
 			<img src="https://swooningoverfictionalmen.files.wordpress.com/2017/06/forgivemoi.gif" alt="">
 		</div>
 		
+		<div class="btn">
+		<FORM  action="<c:url value='/iring29/Restaurant_index.jsp' />" method="POST">
+			<button class="btn btn-primary">回訂餐首頁</button>
+		</FORM>
+		</div>
 		
 		
 	</div>

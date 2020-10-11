@@ -239,11 +239,11 @@ h3 {
 
 						<!-- Button trigger modal -->
 						<button type="button" class="btn btn-primary order" data-toggle="modal"
-							data-target="#${roBean.customerName}">
+							data-target="#訂單${roBean.r_sn_order}">
 							訂單${roBean.r_sn_order}</button>
 						
 						<!-- Modal -->
-						<div class="modal fade" id="${roBean.customerName}" tabindex="-1"
+						<div class="modal fade" id="訂單${roBean.r_sn_order}" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalCenterTitle"
 							aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
