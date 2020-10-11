@@ -3,15 +3,15 @@ package innocence741;
 import java.math.BigDecimal;
 
 public class CarTypeBean {
-	private String sn_carType;
+	private BigDecimal sn_carType;
 	private String carType;
 	private BigDecimal price;
 	private CarRentalCompanyBean carRentalCompanyBean;	//取得sn_carRentalCompany
 	
-	public String getSn_carType() {
+	public BigDecimal getSn_carType() {
 		return sn_carType;
 	}
-	public void setSn_carType(String sn_carType) {
+	public void setSn_carType(BigDecimal sn_carType) {
 		this.sn_carType = sn_carType;
 	}
 	public String getCarType() {
