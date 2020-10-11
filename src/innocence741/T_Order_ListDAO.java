@@ -136,11 +136,12 @@ public class T_Order_ListDAO {
 
 	}
 	
-	public void searchHistoricalOrder(ArrayList<OrderTableBean> orderTableBeans, ArrayList<ArrayList> combineArrayList) throws SQLException {
+	public void searchHistoricalOrder(ArrayList<ArrayList> combineArrayList, String userid) throws SQLException {
 		ArrayList<OrderTableBean> tmp_orderTableBeans = new ArrayList<>();
+		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
 		String sql = "select * from order_table o, t_order_list t " + 
 					 "where o.order_id = t.order_id(+) and " + 
-					 "o.username = 'abab' " + 
+					 "o.username = " + "\'" + userid + "\'" +
 					 "order by o.order_id";
 		AccountBean user = new AccountBean();
 
