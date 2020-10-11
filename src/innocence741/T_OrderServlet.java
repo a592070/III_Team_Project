@@ -97,7 +97,6 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setOrder_id(order_id);
 		t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
 		t_Order_ListDAO.createT_Order_List(bean, rcd);
-//		System.out.println("rec= "+rcd[0]);
 		printJSON(request,response,rcd);
     }
     

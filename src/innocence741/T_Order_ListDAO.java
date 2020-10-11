@@ -71,15 +71,15 @@ public class T_Order_ListDAO {
 		String sqlT_Order_LiString = "insert into T_ORDER_LIST (ORDER_ID, SN_SCHEDULE, TICKETPRICE, NUMBERS_DAYS, STARTPOINT, DESTINATION, DEPARTUREDATE, ORDER_TYPE, NAME, PHONE, SN_ORDER) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		Set<T_OrderBean> traffic = bean.getT_OderBeans();
-		for(T_OrderBean element : traffic ) {
-			if (element.getOrderType().equals("0")) {
+		for(T_OrderBean ele : traffic ) {
+			if (ele.getOrderType().equals("0")) {
 				try {
 //					System.out.println("whyyyyyyyyy");
 					conn = ds.getConnection();
 					PreparedStatement pstmt3 = conn.prepareStatement(sqlT_Order_LiString);
 //					System.out.println("whyyyyyyyyy");
 
-					for(T_OrderBean ele : traffic ) {
+//					for(T_OrderBean ele : traffic ) {
 						pstmt3.setBigDecimal(1, ele.getOrder_id()); //ORDER_ID from ORDER_TABLE
 						
 						pstmt3.setInt(2, ele.getHsrDO().getSnSchedule());	//取得SnSchedule
@@ -97,11 +97,11 @@ public class T_Order_ListDAO {
 							
 						pstmt3.setString(8, ele.getOrderType()); //交通類型0高鐵or1租車
 						
-						pstmt3.setString(9, ele.getCustomerName()); //交通類型0高鐵or1租車
+						pstmt3.setString(9, ele.getCustomerName()); 
 						
-						pstmt3.setString(10, ele.getCustomerPhone()); //交通類型0高鐵or1租車
+						pstmt3.setString(10, ele.getCustomerPhone()); 
 						
-						pstmt3.setBigDecimal(11, ele.getT_sn_order()); //交通類型0高鐵or1租車
+						pstmt3.setBigDecimal(11, ele.getT_sn_order());
 
 //						System.out.println("order_id= " + ele.getOrder_id());
 //						System.out.println("SnSchedule= " + ele.getHsrDO().getSnSchedule());
@@ -116,7 +116,7 @@ public class T_Order_ListDAO {
 //						System.out.println("T_sn_order= " + ele.getT_sn_order());
 							
 						pstmt3.executeQuery();
-					}
+//					}
 					conn.commit();
 					rcd[0] = 1;
 
