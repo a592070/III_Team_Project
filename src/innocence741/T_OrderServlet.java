@@ -79,22 +79,29 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setDestination(destination);
 		tBean.setDeparatureDate(Timestamp.valueOf(LocalDate.of(departureDate[0], departureDate[1], departureDate[2]).atStartOfDay()));
 		tBean.setOrderType(orderType);
-		tBean.setCustomerName(customerName);	//先假裝
-		tBean.setCustomerPhone(customerPhone);	//先假裝
+		tBean.setCustomerName(customerName);	
+		tBean.setCustomerPhone(customerPhone);	
         
 		
 		user.setUserName("innocence741");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
 
-		int[] rec = new int[1];
+		int[] rcd = new int[1];
+		String[] rcdOrder_id = new String[1];
 		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
-		t_Order_ListDAO.createOrder(bean,rec);
-		System.out.println("rec= "+rec[0]);
-		printJSON(request,response,rec);
+		t_Order_ListDAO.createOrderTable(bean, rcd, rcdOrder_id);
+		System.out.println("rec= "+rcd[0]);
+		
+		BigDecimal order_id = new BigDecimal(rcdOrder_id[0]);
+		tBean.setOrder_id(order_id);
+		t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		t_Order_ListDAO.createT_Order_List(bean, rcd);
+		printJSON(request,response,rcd);
     }
     
     public void printJSON(HttpServletRequest request, HttpServletResponse response, int[] rcd) throws IOException {
+//    	System.out.println("rcd_printJSON" + rcd[0]);
     	String str = "";
     	if(rcd[0] == 1) {
     		str = "{\"check\" : \"success\"}";

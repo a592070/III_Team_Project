@@ -82,13 +82,13 @@ button {
 
 .div1 {
 	margin: 50px auto;
-	width: 800px;
+	width: 850px;
 	height: 100px;
 	border: 1px solid black;
 }
 
 .div2 {
-	width: 600px;
+	width: 750px;
 	float: left;
 }
 

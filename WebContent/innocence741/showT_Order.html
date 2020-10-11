@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div id="T_Order"></div>
+
+
+
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+
+                     type:"POST",                    //指定http參數傳輸格式為POST
+
+                     url: "../ShowHistricalT_OrderServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     success : function(response){
+
+                        // console.log(response[0].length);
+                        // console.log(response.length);
+                        // console.log(response[1].length)
+                        // console.log(response[1][1]["order_id"])
+                        var data=[];
+                        for(let i=0; i<response.length; i++){
+                            var table = $('<table></table>').addClass('T_OrderTable');
+                            for(let j=0; j<2; j++){
+                                data.push(
+                                    $("<tr></tr>").append(
+                                        $("<td></td>").append(response[1][1]["order_id"]),
+                                        $("<td></td>").append("yeee")
+                                    )
+                                )
+                            }
+                            $("#T_Order").append(table);
+                            $(".T_OrderTable").eq(i).append(data);
+                            data=[];
+                        }
+                        console.log($(".T_Order"));
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+        })
+    </script>
+</body>
+</html>

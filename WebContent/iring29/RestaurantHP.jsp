@@ -49,12 +49,16 @@ h2 {
         } */
 .title {
 	text-align: center;
+	background-color: #BEBEBE;
+	
 }
 
 .top {
 	display: flex;
 }
-
+h2{
+	border-bottom: 1px solid gray;
+}
 .booking {
 	width: 300px;
 	padding: 10px 0;
@@ -63,7 +67,7 @@ h2 {
 	color: #000000;
 	cursor: pointer;
 	/* border-bottom: solid 1.5px #f04e2f; */
-}
+} 
 
 .info {
 	width: 300px;
@@ -74,14 +78,14 @@ h2 {
 	cursor: pointer;
 }
 
-.comment {
+ .comment {
 	width: 300px;
 	padding: 10px 0;
 	line-height: 22px;
 	text-align: center;
 	color: #000000;
 	cursor: pointer;
-}
+}  
 
 .res_data {
 	/*position: relative;*/
@@ -138,7 +142,7 @@ h3 {
 	text-align: right;
 	float: right;
 }
-.btn.btn-primary.order{
+.btn.btn-success.order{
 	padding: 5px;
 	margin-left:30px;
 	margin-bottom: 20px;
@@ -164,10 +168,10 @@ h3 {
 			<div>
 				<h2 class="title">餐廳資訊</h2>
 				<div class="top">
-					<div class="booking">訂位</div>
+					<!-- <div class="booking">訂位</div>
 					<div class="info">資訊</div>
-					<div class="comment">評論</div>
-				</div>
+					<div class="comment">評論</div> -->
+				</div> 
 				<p class="modify-img">
 					<button class="btn btn-light">修改</button>
 				</p>
@@ -238,12 +242,12 @@ h3 {
 
 
 						<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary order" data-toggle="modal"
-							data-target="#${roBean.customerName}">
+						<button type="button" class="btn btn-success order" data-toggle="modal"
+							data-target="#訂單${roBean.r_sn_order}">
 							訂單${roBean.r_sn_order}</button>
 						
 						<!-- Modal -->
-						<div class="modal fade" id="${roBean.customerName}" tabindex="-1"
+						<div class="modal fade" id="訂單${roBean.r_sn_order}" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalCenterTitle"
 							aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">

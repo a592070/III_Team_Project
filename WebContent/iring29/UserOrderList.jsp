@@ -80,7 +80,7 @@
         <div class="container">
             <form name="form-c" action="<c:url value='OrderListServlet' />" method="POST">
                 
-               		<h1> 訂位成功 </h1>
+               		
                     <h1> Fun Taiwan 訂單號碼 </h1>
                     <div class="div-1">
                         <span>${roBean.order_id}</span>
@@ -94,7 +94,11 @@
                 <div class="">
                     <div class="div-1">
                         <label for="r-name">訂位餐廳</label>
-                        <span>${r_name}</span>
+                        <span>${roBean.restaurant.name}</span>
+                    </div>
+                    <div class="div-1">
+                        <label for="r-name">餐廳地址</label>
+                        <span>${roBean.restaurant.address}</span>
                     </div>
 
                     <div class="div-1">
@@ -130,8 +134,9 @@
             
             
              <div class="div-btn"> 
+             <!-- 聯繫到訂單查詢 -->
              <FORM  class="form" action="<c:url value='/iring29/Restaurant_index.jsp' />" method="POST">
-                <button class="btn btn-success" name="" value="">訂其他餐廳</button>
+                <button class="btn btn-success" name="" value="">回訂單查詢</button>
              </FORM>
              </div> 
             

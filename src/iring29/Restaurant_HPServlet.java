@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import controller.ConnectionPool;
 import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
+import oracle.security.o3logon.b;
 import pojo.OrderTableBean;
 
 @WebServlet("/Restaurant_HPServlet")
@@ -92,6 +93,9 @@ public class Restaurant_HPServlet extends HttpServlet {
 		OrderTableBean otBean = r_Order_ListDAO.findR_Order(r_sn); //多個
 		Set<R_OrderBean> roBean = otBean.getR_OderBeans();
 		
+		for(R_OrderBean bean : roBean) {
+			System.out.println(bean.getR_sn_order());
+		}
 		
 		request.getSession().setAttribute("r_hp", rBean);
 		request.getSession().setAttribute("roBean", roBean);
