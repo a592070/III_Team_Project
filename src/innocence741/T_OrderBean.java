@@ -10,7 +10,7 @@ public class T_OrderBean {
 	private BigDecimal t_sn_order = null;
 	private BigDecimal order_id = null;
 	private hsrDO hsrDO = null;	//取得snSchedule
-	private BigDecimal trafficPrice = null;	//交通訂單總價格
+	private BigDecimal trafficPrice = null;	//交通訂單價格per Day
 	private BigDecimal nums_days = null;	//票價張數租車天數
 	private String startPoint = null;	//出發地
 	private String destination = null;	//目的地

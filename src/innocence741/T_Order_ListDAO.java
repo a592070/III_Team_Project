@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -14,6 +16,7 @@ import javax.sql.DataSource;
 import controller.ConnectionPool;
 import iring29.bean.R_OrderBean;
 import pojo.OrderTableBean;
+import rambo0021.AccountBean;
 
 public class T_Order_ListDAO {
 
@@ -74,10 +77,9 @@ public class T_Order_ListDAO {
 		for(T_OrderBean ele : traffic ) {
 			if (ele.getOrderType().equals("0")) {
 				try {
-//					System.out.println("whyyyyyyyyy");
+
 					conn = ds.getConnection();
 					PreparedStatement pstmt3 = conn.prepareStatement(sqlT_Order_LiString);
-//					System.out.println("whyyyyyyyyy");
 
 //					for(T_OrderBean ele : traffic ) {
 						pstmt3.setBigDecimal(1, ele.getOrder_id()); //ORDER_ID from ORDER_TABLE
@@ -123,9 +125,6 @@ public class T_Order_ListDAO {
 				}catch (SQLException ex) {
 					conn.rollback();
 					rcd[0] = 0;
-//					System.out.println("-----------------------------");
-//					System.out.println("rcd[0]=" + rcd[0]);
-//					System.out.println("-----------------------------");
 					System.err.println("新增資料時發生錯誤:" + ex);
 					conn.rollback();
 
@@ -136,7 +135,75 @@ public class T_Order_ListDAO {
 		}
 
 	}
+	
+	public void searchHistoricalOrder(ArrayList<ArrayList> combineArrayList, String userid) throws SQLException {
+		ArrayList<OrderTableBean> tmp_orderTableBeans = new ArrayList<>();
+		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
+		String sql = "select * from order_table o, t_order_list t " + 
+					 "where o.order_id = t.order_id(+) and " + 
+					 "o.username = " + "\'" + userid + "\'" +
+					 "order by o.order_id";
+		AccountBean user = new AccountBean();
 
+		try {
+			conn = ds.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				OrderTableBean oBean = new OrderTableBean();
+				T_OrderBean tBean = new T_OrderBean();
+				hsrDO hsrDO = new hsrDO();
+				CarTypeBean carTypeBean = new CarTypeBean();
+				
+				oBean.setOrder_id(rs.getBigDecimal("ORDER_ID"));
+				oBean.setOrder_date(rs.getTimestamp("ORDER_DATE"));
+				
+				user.setUserName(rs.getString("USERNAME"));
+				oBean.setUser(user);
+				
+				tBean.setT_sn_order(rs.getBigDecimal("SN_ORDER"));
+				hsrDO.setSnSchedule(rs.getInt("SN_SCHEDULE"));
+				tBean.setHsrDO(hsrDO);	//設置SN_SCHEDULE
+				tBean.setTrafficPrice(rs.getBigDecimal("TICKETPRICE"));
+				tBean.setNums_days(rs.getBigDecimal("NUMBERS_DAYS"));
+				tBean.setStartPoint(rs.getString("STARTPOINT"));
+				tBean.setDestination(rs.getString("DESTINATION"));
+				tBean.setDeparatureDate(rs.getTimestamp("DEPARTUREDATE"));
+				carTypeBean.setSn_carType(rs.getBigDecimal("SN_CARTYPE"));
+				tBean.setCarTypeBean(carTypeBean);	//設置SN_CARTYPE
+				tBean.setOrderType(rs.getString("ORDER_TYPE"));
+				tBean.setCustomerName(rs.getString("NAME"));
+				tBean.setCustomerPhone(rs.getString("PHONE"));
+				
+				oBean.addT_OderBean(tBean);
+				
+				if(!(tBean.getT_sn_order() == null)) {
+					orderTableBeans.add(oBean);
+					if(orderTableBeans.size()>1) {
+						int tmp = (orderTableBeans.get(orderTableBeans.size()-1 ).getOrder_id().compareTo(orderTableBeans.get(orderTableBeans.size()-2).getOrder_id()));
+						if(tmp != 0) {
+							tmp_orderTableBeans.add(orderTableBeans.get(orderTableBeans.size()-1));
+							orderTableBeans.remove(orderTableBeans.size()-1);
+							combineArrayList.add(orderTableBeans);
+							orderTableBeans = new ArrayList<>();
+							orderTableBeans.add(tmp_orderTableBeans.get(0));
+							tmp_orderTableBeans.clear();
+						}
+						System.out.println("orderTableBeans= " + orderTableBeans.size());
+					}
+				}
+			}
+			combineArrayList.add(orderTableBeans);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		
+	}
 //	public void createOrder(OrderTableBean bean,int[] a) throws SQLException {
 //		
 //		String sqlOrder_Table = "insert into ORDER_TABLE (ORDER_DATE, USERNAME) values(?, ?)";
