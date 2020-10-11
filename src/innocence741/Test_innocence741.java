@@ -141,23 +141,23 @@ public class Test_innocence741 {
 		
 		
 //		------------------------------------------------------
-
-		OrderTableBean bean = new OrderTableBean();
-		T_OrderBean tBean = new T_OrderBean();
-		AccountBean user = new AccountBean();
-		hsrDO hsrDO = new hsrDO();
-		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
+		/*historicalOrderInfo*/
+//		OrderTableBean bean = new OrderTableBean();
+//		T_OrderBean tBean = new T_OrderBean();
+//		AccountBean user = new AccountBean();
+//		hsrDO hsrDO = new hsrDO();
+//		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
 		ArrayList<ArrayList> combineArrayList = new ArrayList<>();
 		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		t_Order_ListDAO.searchHistoricalOrder(orderTableBeans, combineArrayList);
+		t_Order_ListDAO.searchHistoricalOrder(combineArrayList, "abab");
 		System.out.println("combineArrayList.size= " + combineArrayList.size());
 		
         ObjectMapper objectMapper = new ObjectMapper();
         String ujson = objectMapper.writeValueAsString(combineArrayList);
 		JsonNode jsonNode = objectMapper.readTree(ujson);
-//		System.out.println(jsonNode.path(0).path("user").size());
-		JsonNode node = jsonNode.path(0).path("user");
-//		System.out.println(node);
+		System.out.println(jsonNode.path(0).size());
+		JsonNode node = jsonNode.path(1).path(1).path("order_id");
+		System.out.println(node);
         System.out.println(ujson+"\n");
 
         
@@ -174,6 +174,8 @@ public class Test_innocence741 {
 //				System.out.println("Sn_carType= " + tEleBean.getCarTypeBean().getSn_carType());
 //			}
 //		}
+//		------------------------------------------------------
+
 	}
 
 }
