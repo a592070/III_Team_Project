@@ -1,5 +1,7 @@
 package a592070.pojo;
 
+import utils.StringUtil;
+
 import java.math.BigDecimal;
 
 public class HotelVO {
@@ -9,6 +11,7 @@ public class HotelVO {
     private int doubleRoomPrice;
     private int quadrupleRoomPrice;
     private BigDecimal rating;
+    private String description;
 
     public HotelVO() {
     }
@@ -59,6 +62,15 @@ public class HotelVO {
 
     public void setRating(BigDecimal rating) {
         this.rating = rating;
+    }
+
+    public String getDescription() {
+        if(StringUtil.isEmpty(description)) description="暫時不提供資訊";
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

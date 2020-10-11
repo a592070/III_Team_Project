@@ -36,16 +36,22 @@ public class TravelSetSelectServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        System.out.println("TravelSetSelectServlet\t"+session.getId());
+//        System.out.println("TravelSetSelectServlet\t"+session.getId());
         String username = "system";
+
+        String method = req.getParameter("method");
+        if("initCurrentTravelSet".equals(method)){
+            TravelSetDO travelSetDO = new TravelSetDO();
+            travelSetDO.setCreatedUser(username);
+            session.setAttribute(Constant.TravelSetEdit_session, travelSetDO);
+            return;
+        }else if("deleteTravelSet".equals(method)){
+            deleteTravelSet(req, resp);
+        }
 
         List<TravelSetDO> list = service.listTravelSet(username);
         session.setAttribute(Constant.TravelSetList_session, list);
 
-//        session.setAttribute(Constant.TravelSetListCar_session, travelSetDO.getListTravelCar());
-//        session.setAttribute(Constant.TravelSetListHotel_session, travelSetDO.getListTravelHotel());
-//        session.setAttribute(Constant.TravelSetListRestaurant_session, travelSetDO.getListTravelRestaurant());
-//        session.setAttribute(Constant.TravelSetListAttraction_session, travelSetDO.getListTravelAttraction());
 
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();
@@ -58,6 +64,33 @@ public class TravelSetSelectServlet extends HttpServlet {
             objectNode.put("createdTime", travelSetDO.getCreatedTime().getTime());
             arrayNode.add(objectNode);
         }
-        mapper.writeValue(resp.getWriter(), arrayNode);
+
+        ObjectNode jsonObj = mapper.createObjectNode();
+        jsonObj.set("historyTravelSets", arrayNode);
+
+        TravelSetDO travelSet = (TravelSetDO) session.getAttribute(Constant.TravelSetEdit_session);
+        if(travelSet != null){
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("sn", travelSet.getSn());
+            objectNode.put("name", travelSet.getName());
+            objectNode.put("description", travelSet.getDescription());
+
+            jsonObj.set("currentTravelSet", objectNode);
+        }
+        mapper.writeValue(resp.getWriter(), jsonObj);
+    }
+
+    private void deleteTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sSn = req.getParameter("sn");
+        if(!StringUtil.isEmpty(sSn)){
+            int sn = Integer.parseInt(sSn);
+
+            boolean flag = service.removeTravelSet(sn);
+
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+        }
     }
 }

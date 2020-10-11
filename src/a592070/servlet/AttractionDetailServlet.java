@@ -36,7 +36,7 @@ public class AttractionDetailServlet extends HttpServlet {
             AttractionDO ele = attractionService.getEle(sn);
 
             req.setAttribute("attraction", ele);
-            System.out.println(ele);
+//            System.out.println(ele);
 
             req.getRequestDispatcher("/a592070/attractionDetail.jsp").forward(req,resp);
         }

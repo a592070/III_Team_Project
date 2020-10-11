@@ -13,26 +13,59 @@
 
 <div class="container">
     <h2>你共有x套行程規劃</h2>
-    <table class="table">
-        <thead class="thead-dark">
+<!--    <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>-->
+
+    <table class="table table-hover">
+        <thead class="thead-dark ">
         <tr>
+            <th>名稱</th>
             <th>描述</th>
             <th>last update time</th>
             <th>created time</th>
+            <th></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr>
+            <td colspan="6"><button type='button' class='btn btn-info btn-lg btn-block' onclick=''>新建項目</button></td>
+        </tr>
+        <tr>
+            <th colspan="2">當前項目</th>
+            <td colspan="2">first</td>
+            <td><button type='button' class='btn btn-info' onclick=''>看詳細</button></td>
+<!--            <td><button type='button' class='btn btn-danger' onclick=''>刪除項目</button></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="tbody_id">
+        <tr>
+            <th>first</th>
             <td>first</td>
             <td>yyyy-mm-dd</td>
             <td>yyyy-mm-dd</td>
             <td><button type='button' class='btn btn-info' onclick=''>看詳細</button></td>
+            <td><button type='button' class='btn btn-danger' onclick=''>刪除項目</button></td>
+
         </tr>
         <tr>
+            <th>second</th>
             <td>second</td>
             <td>yyyy-mm-dd</td>
             <td>yyyy-mm-dd</td>
+            <td><button type='button' class='btn btn-info' onclick=''>看詳細</button></td>
+            <td><button type='button' class='btn btn-danger' onclick=''>刪除項目</button></td>
         </tr>
         </tbody>
     </table>

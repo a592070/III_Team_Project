@@ -64,7 +64,8 @@
             }else if(type == optionRestaurant){
                 currentPage = null;
                 currentType=optionRestaurant;
-                $("#selectArea_id").addClass("d-none");
+                // $("#selectArea_id").addClass("d-none");
+                $("#selectArea_id").removeClass("d-none");
             }else if(type==optionAttraction){
                 currentPage = null;
                 currentArea = null;
@@ -107,42 +108,41 @@
                         for (let i = 0; i < list.length; i++) {
                             let tempobj = JSON.stringify(list[i]);
                             // let tempobj = list[i];
-                            contextBody += "<tr>"+
-                                "<td>" + list[i].name + "</td>" +
-                                "<td>" + list[i].price + "</td>" +
-                                "<td>" + list[i].company + "</td>" +
-                                "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
-                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this))'>+</button></td>"+
-                                "</tr>";
+                            contextBody += `<tr>
+                                <td>\${list[i].name}</td>
+                                <td>\${list[i].price}</td>
+                                <td>\${list[i].company}</td>
+                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionCar,"\${list[i].sn}")'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem(\${currentType},$(this))'>+</button></td>
+                                </tr>`;
                         }
                     }else if(optionType == optionHotel){
                         contextHead += "<tr> <th>旅館名稱</th> <th>雙人房價格</th> <th>四人房價格</th> <th>地址</th> <th>評分</th> </tr>";
                         for (let i = 0; i < list.length; i++) {
                             let tempobj = JSON.stringify(list[i]);
-                            contextBody += "<tr>"+
-                                "<td>" + list[i].name + "</td>" +
-                                "<td>" + list[i].doubleRoomPrice + "</td>" +
-                                "<td>" + list[i].quadrupleRoomPrice + "</td>" +
-                                "<td>" + list[i].address + "</td>" +
-                                "<td>" + list[i].rating + "</td>" +
-                                "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
-                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this))'>+</button></td>"+
-                                "</tr>";
+                            contextBody += `<tr>"+
+                                <td >\${list[i].name}</td>
+                                <td>\${list[i].doubleRoomPrice}</td>
+                                <td>\${list[i].quadrupleRoomPrice}</td>
+                                <td>\${list[i].address}</td>
+                                <td>\${list[i].rating}</td>
+                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionHotel,\${list[i].sn})'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
+                                </tr>`;
                         }
                     }else if(optionType == optionRestaurant){
                         contextHead += "<tr> <th>圖片</th> <th>餐廳名稱</th> <th>類型</th> <th>地址</th> <th>評分</th> </tr>";
                         for (let i = 0; i < list.length; i++) {
                             let tempobj = JSON.stringify(list[i]);
-                            contextBody += "<tr>"+
-                                "<td>" + "<img src='"+list[i].picture+"' class='img-thumbnail' onerror=\"this.src='../static/nopic.jpg'\"/>" + "</td>" +
-                                "<td>" + list[i].name + "</td>" +
-                                "<td>" + list[i].type + "</td>" +
-                                // "<td>" + list[i].description + "</td>" +
-                                "<td>" + list[i].address + "</td>" +
-                                "<td>" + list[i].rating + "</td>" +
-                                "<td><button type='button' class='btn btn-info' onclick='toDetailPage("+list[i].sn+")'>看詳細</button></td>"+
-                                "<td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem(\""+currentType+"\",$(this))'>+</button></td>"+
-                                "</tr>";
+                            contextBody += `<tr>
+                                <td><img src='\${list[i].picture}' class='img-thumbnail' onerror="this.src='../static/nopic.jpg'"/></td>
+                                <td >\${list[i].name}</td>
+                                <td>\${list[i].type}</td>
+                                <td>\${list[i].address}</td>
+                                <td>\${list[i].rating}</td>
+                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionRestaurant, \${list[i].sn})'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem("\${currentType}",$(this))'>+</button></td>
+                                </tr>`;
                         }
                     }else if(optionType == optionAttraction){
                         contextHead += "<tr> <th>圖片</th> <th>名稱</th> <th>地址</th> <th>票價</th> </tr>";
@@ -150,10 +150,10 @@
                             let tempobj = JSON.stringify(list[i]);
                             contextBody += `<tr>
                                 <td><img src='\${list[i].picture}' class='img-thumbnail' onerror="this.src='../static/nopic.jpg'" width='304' height='236'/></td>
-                                <td>\${list[i].name}</td>
+                                <td >\${list[i].name}</td>
                                 <td>\${list[i].address}</td>
                                 <td>\${list[i].ticketInfo}</td>
-                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(\${list[i].sn})'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionAttraction, \${list[i].sn})'>看詳細</button></td>
                                 <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
                                 </tr>`;
                         }
@@ -197,15 +197,25 @@
         function selectArea(value){
             $("#myInput").val("");
             currentArea = value;
-            selectPage(null, currentType, value);
+            selectPage(null, currentType, currentArea);
         }
 
 
-        function toDetailPage(sn){
+        function toDetailPage(type, sn){
             console.log(sn);
+            if(type == optionCar){
+
+            }else if(type == optionHotel){
+
+            }else if(type == optionRestaurant){
+
+            }else if(type == optionAttraction){
+                document.location.href="${pageContext.servletContext.contextPath}/AttractionDetailServlet?attractionSn="+sn;
+            }
         }
 
         function addItem(type, ele){
+            console.log(ele.val());
             let target;
             let tempArr;
             let json = JSON.parse(ele.val());
@@ -285,11 +295,11 @@
             $.get("${pageContext.servletContext.contextPath}/TravelSetServlet",
                 {"method":"setItems", "selectType":type, "list":JSON.stringify(arr)});
             let content = "";
-            for (let i = 0; i < arr.length; i++) {
+            for (let i = 0; i < arr.length ; i++) {
                 content += `<tr>
                     <td>\${arr[i].name}</td>
                     <td><input type='datetime-local' class='btn btn-secondary' index='\${i}' onchange='setTravelTime("\${type}",$(this))'/></td>
-                    <td><button type='button' class='btn btn-info'>看詳細</button></td>
+                    <td><button type='button' class='btn btn-info' onclick='toDetailPage(\${type} ,\${arr[i].sn})'>看詳細</button></td>
                     <td><button type='button' class='btn btn-danger' value='\${i}' onclick='removeItem("\${type}",$(this).val())'>取消</button></td></tr>`;
             }
             target.html(content);
@@ -300,30 +310,86 @@
                 {"method":"setItemsTime", "selectType":type, "index":obj.attr('index'), "time":Date.parse(obj.val())});
         }
 
-        function setParams(){
-            $("#submitCarId").val(listCar);
-            $("#submitHotelId").val(listHotel);
-            $("#submitRestaurantId").val(listRestaurant);
-            $("#submitAttractionId").val(listAttraction);
-            $("#submitMethodId").val("submitForm");
+
+        function checkSubmit(){
+            if(listCar.length == 0 && listHotel.length ==0 && listRestaurant.length==0 && listAttraction.length==0){
+                alert("沒有任何規劃")
+                return false;
+            }
+            if($("#travelSetName").val() == "我的旅程"){
+                if(!confirm("是否使用預設名稱: 我的旅程")){
+                    let text = prompt("請輸入名稱");
+                    $("#travelSetName").val(text);
+                }
+            }
             return true;
         }
 
+        function saveTravelSet(){
+            if(checkSubmit()){
+                $.get({
+                    url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                    data:{"method":"saveTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
+                    success:function (data){
+                        let json=JSON.parse(data);
+                        if(json.status){
+                            if(!alert("保存成功")) {
+                                document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
+                            }
+                        }else{
+                            alert("保存失敗");
+                        }
+                    }
+                })
+            }
+        }
+        function newTravelSet(){
+            if(checkSubmit()){
+                $.get({
+                    url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                    data:{"method":"newTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
+                    success:function (data){
+                        let json=JSON.parse(data);
+                        if(json.status){
+                            if(!alert("新建成功")) {
+                                document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
+                            }
+                        }else{
+                            alert("新建失敗");
+                        }
+                    }
+                })
+            }
+        }
+
+
+        var sn;
+        <c:if test="${! empty param.sn}">
+             sn = ${param.sn};
+        </c:if>
         $(document).ready(
             $.get({
                 url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
-                data:{"method":"initTravelSet", "sn":${param.sn}},
+                data:{"method":"initTravelSet", "sn":sn},
                 success: function (data){
                     let json = JSON.parse(data);
-                    listCar = json.listEleCar;
-                    listHotel = json.listEleHotel;
-                    listRestaurant = json.listEleRestaurant;
-                    listAttraction = json.listEleAttraction;
+                    for (let i = 0; i < json.listEleCar.length; i++) {
+                        listCar.push(JSON.parse(json.listEleCar[i]));
+                    }
+                    for (let i = 0; i < json.listEleHotel.length; i++) {
+                        listHotel.push(JSON.parse(json.listEleHotel[i]));
+                    }
+                    for (let i = 0; i < json.listEleRestaurant.length; i++) {
+                        listRestaurant.push(JSON.parse(json.listEleRestaurant[i]));
+                    }
+                    for (let i = 0; i < json.listEleAttraction.length; i++) {
+                        listAttraction.push(JSON.parse(json.listEleAttraction[i]));
+                    }
 
-                    refreshSelectItem($("#addItemCar"),listCar, );
-                    refreshSelectItem($("#addItemHotel"),listHotel);
-                    refreshSelectItem($("#addItemRestaurant"),listRestaurant);
-                    refreshSelectItem($("#addItemAttraction"),listAttraction);
+                    refreshSelectItem($("#addItemCar"),listCar, optionCar);
+                    refreshSelectItem($("#addItemHotel"),listHotel, optionHotel);
+                    refreshSelectItem($("#addItemRestaurant"),listRestaurant, optionRestaurant);
+                    refreshSelectItem($("#addItemAttraction"),listAttraction, optionAttraction);
                 }
             })
         );
@@ -418,18 +484,18 @@
         </tbody>
     </table>
     <div class="navbar-nav">
-        <form action="${pageContext.servletContext.contextPath}/" method="post" onsubmit="return setParams();" class="form-group ">
-            <input class="d-none" id="submitMethodId" name="method" >
-            <input class="d-none" id="submitCarId" name="travelSetCarList" >
-            <input class="d-none" id="submitHotelId" name="travelSetHotelList" >
-            <input class="d-none" id="submitRestaurantId" name="travelSetRestaurantList" >
-            <input class="d-none" id="submitAttractionId" name="travelSetAttractionList" >
-            <label for="usr">Name:</label>
-            <input type="text" class="form-control" id="usr">
-            <label for="comment">備註:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
-            <button type="submit" class="btn btn-primary" >保存當前</button>
-            <button type="submit" class="btn btn-success" >新項目</button>
+        <form action="${pageContext.servletContext.contextPath}/" method="post" class="form-group ">
+<%--            <input class="d-none" id="submitMethodId" name="method" >--%>
+<%--            <input class="d-none" id="submitCarId" name="travelSetCarList" >--%>
+<%--            <input class="d-none" id="submitHotelId" name="travelSetHotelList" >--%>
+<%--            <input class="d-none" id="submitRestaurantId" name="travelSetRestaurantList" >--%>
+<%--            <input class="d-none" id="submitAttractionId" name="travelSetAttractionList" >--%>
+            <label for="travelSetName">Name:</label>
+            <input type="text" class="form-control" id="travelSetName" placeholder='我的旅程' value='我的旅程'>
+            <label for="travelSetDescription">備註:</label>
+            <textarea class="form-control" rows="5" id="travelSetDescription"></textarea>
+            <button type="button" class="btn btn-primary" onclick="saveTravelSet()">保存當前</button>
+            <button type="button" class="btn btn-success" onclick="newTravelSet()">新項目</button>
             <button type="button" class="btn btn-outline-danger" onclick="removeAllItem()">取消</button>
         </form>
 

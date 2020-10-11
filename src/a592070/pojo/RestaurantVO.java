@@ -1,5 +1,7 @@
 package a592070.pojo;
 
+import utils.StringUtil;
+
 import java.math.BigDecimal;
 
 public class RestaurantVO {
@@ -10,6 +12,7 @@ public class RestaurantVO {
     private String address;
     private String description;
     private BigDecimal rating;
+    private String region;
 
     public RestaurantVO() {
     }
@@ -55,6 +58,7 @@ public class RestaurantVO {
     }
 
     public String getDescription() {
+        if(StringUtil.isEmpty(description)) description="暫時不提供資訊";
         return description;
     }
 
@@ -68,6 +72,14 @@ public class RestaurantVO {
 
     public void setRating(BigDecimal rating) {
         this.rating = rating;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     @Override

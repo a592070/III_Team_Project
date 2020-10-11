@@ -3,6 +3,7 @@ package a592070.dao;
 import a592070.pojo.HotelVO;
 import a592070.pojo.RestaurantVO;
 import controller.ConnectionPool;
+import utils.StringUtil;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -57,14 +58,23 @@ public class RestaurantViewDAO {
         return restaurantVO;
     }
 
-    public List<RestaurantVO> listEle() throws SQLException {
-        sql = "select * " +
-                "from restaurant " +
-                "order by r_sn";
+    public List<RestaurantVO> listEle(String region) throws SQLException {
+        Object[] params = null;
+
+        StringBuffer sqlBuffer = new StringBuffer();
+        sqlBuffer.append("select * from restaurant ");
+        if(!StringUtil.isEmpty(region)) {
+            sqlBuffer.append("where address like ? or region like ? ");
+            params = new Object[]{"%"+region+"%", "%"+region+"%"};
+        }
+        sqlBuffer.append("order by r_sn");
+
+        sql = sqlBuffer.toString();
         List<RestaurantVO> list = new ArrayList<>();
         try {
             conn = ds.getConnection();
             predStmt = conn.prepareStatement(sql);
+            predStmt = ConnectionPool.setParams(predStmt, params);
             rs = predStmt.executeQuery();
             while (rs.next()) {
                 RestaurantVO restaurantVO = new RestaurantVO();
@@ -75,6 +85,7 @@ public class RestaurantViewDAO {
                 restaurantVO.setDescription(rs.getString("description"));
                 restaurantVO.setType(rs.getString("type"));
                 restaurantVO.setRating(rs.getBigDecimal("rating"));
+                restaurantVO.setRegion(rs.getString("region"));
 
                 list.add(restaurantVO);
             }
@@ -84,6 +95,11 @@ public class RestaurantViewDAO {
             ConnectionPool.closeResources(conn, predStmt, rs);
         }
         return list;
+    }
+
+
+    public List<RestaurantVO> listEle() throws SQLException {
+        return listEle(null);
     }
 
     public List<RestaurantVO> listEleByRownum(int startIndex, int endIndex) throws SQLException {

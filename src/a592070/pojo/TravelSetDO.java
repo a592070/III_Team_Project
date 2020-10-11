@@ -14,6 +14,7 @@ public class TravelSetDO {
     private Timestamp createdTime;
     private Timestamp updateTime;
     private String name;
+    private int available;
 
     private List<TravelEleCarDO> listTravelCar;
     private List<TravelEleHotelDO> listTravelHotel;
@@ -49,7 +50,7 @@ public class TravelSetDO {
     }
 
     public String getDescription() {
-        if(StringUtil.isEmpty(description)) return "快樂溫馨之旅，現在加入只要8787元";
+        if(StringUtil.isEmpty(description)) return "...";
         return description;
     }
 
@@ -82,6 +83,14 @@ public class TravelSetDO {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
     public List<TravelEleCarDO> getListTravelCar() {

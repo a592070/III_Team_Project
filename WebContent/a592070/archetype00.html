@@ -8,6 +8,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/chat.css">
+
 </head>
 <body class="text-center">
 <header class="masthead mb-auto">
@@ -69,11 +72,47 @@
 </div>
 </div>
 
-<div class="d-flex flex-row-reverse bg-secondary">
-<button class="btn btn-primary btn-lg">
-    <span class="spinner-grow spinner-grow-sm"></span>
-    聯絡客服
-</button>
+<div class="container-fluid d-flex flex-row-reverse fixed-bottom">
+    <button class="btn btn-primary btn-lg">
+        <span class="spinner-grow spinner-grow-sm"></span>聯絡客服
+    </button>
+</div>
+<div class="chatContainer chatBox chatBox-info" ref="chatBox">
+    <div class="chatBox-kuang" ref="chatBoxkuang">
+        <div class="chatBox-content">
+            <div class="chatBox-content-demo" id="chatBox-content-demo">
+
+                <div class="clearfloat">
+                    <div class="author-name">
+                        <small class="chat-date">2017-12-02 14:26:58</small>
+                    </div>
+                    <div class="left">
+                        <div class="chat-avatars"><img src="img/icon01.png" alt="頭像"/></div>
+                        <div class="chat-message">
+                            給你看圖
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfloat">
+                    <div class="author-name">
+                        <small class="chat-date">2017-12-02 14:26:58</small>
+                    </div>
+                    <div class="right">
+                        <div class="chat-message">...壁紙</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="chatBox-send">
+            <div class="div-textarea" contenteditable="true"></div>
+            <div>
+                <button id="chat-fasong" class="btn-default-styles">send</i>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

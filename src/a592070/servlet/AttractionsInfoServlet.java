@@ -67,10 +67,6 @@ public class AttractionsInfoServlet extends HttpServlet {
         String area = req.getParameter("area");
         String keyword = req.getParameter("keyword");
 
-//            System.out.println(currentPage);
-//            System.out.println(area);
-//            System.out.println(keyword);
-
         List<AttractionDO> list;
 
         PageSupport pageSupport = new PageSupport();
