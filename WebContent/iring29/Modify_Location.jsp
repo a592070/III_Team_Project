@@ -15,24 +15,20 @@
             margin: 0;
             padding: 0;
         }
-
         .wrapper {
             margin: 100px auto;
             border: 1px solid black;
             width: 800px;
             padding: 50px;
         }
-
         h2 {
             margin-left: 50px;
             padding-bottom: 30px;
         }
-
         .div-1 {
             margin-left: 50px;
             padding-bottom: 20px;
         }
-
         label {
             width: 100px;
             float: left;

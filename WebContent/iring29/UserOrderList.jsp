@@ -94,11 +94,11 @@
                 <div class="">
                     <div class="div-1">
                         <label for="r-name">訂位餐廳</label>
-                        <span>${roBean.restaurant.name}</span>
+                        <span>${roBean.restaurantBean.name}</span>
                     </div>
                     <div class="div-1">
                         <label for="r-name">餐廳地址</label>
-                        <span>${roBean.restaurant.address}</span>
+                        <span>${roBean.restaurantBean.address}</span>
                     </div>
 
                     <div class="div-1">
