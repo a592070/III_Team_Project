@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%
 session=request.getSession(false);
 if (session.getAttribute("Login") == null) {
@@ -25,6 +26,10 @@ if (session.getAttribute("Login") == null) {
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	   <script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -33,7 +38,7 @@ if (session.getAttribute("Login") == null) {
 	<jsp:include page="/fragment/header.jsp" />
 	<div align="center">
 		<form action="<%=pageContext.getServletContext().getContextPath()%>/HomePageUpdateServlet" enctype="multipart/form-data" method="post">
-			<table border="1" width="300px">
+			<table class="table" border="1" width="300px">
 				<tr bgcolor="#FFFFE1">
 					<td>
 						<c:out value="身分:${Login.identityString}" />

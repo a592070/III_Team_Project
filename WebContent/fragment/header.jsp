@@ -5,7 +5,7 @@
   Time: 下午 03:15
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -16,53 +16,69 @@
 <%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>--%>
 
 <header class="masthead mb-auto sticky-top">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/index.jsp">Logo</a>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<a class="navbar-brand"
+			href="${pageContext.servletContext.contextPath}/index.jsp">Logo</a>
+			<c:if test="${!empty Login}"><a class="navbar-brand">您好，<c:out value="${Login.nickName}" /></a></c:if>
 
-        <div class="collapse navbar-collapse nav justify-content-center" id="navb">
-            <ul class="navbar-nav ">
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/asx54630/HotelService.jsp">找旅館</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/iring29/Restaurant_index.jsp">找餐廳</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                找交通 
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-item"><a href="${pageContext.servletContext.contextPath}/innocence741/ajax_traffic.jsp">找高鐵</a></li>
-                                <li class="dropdown-item"><a href="#">找租車</a></li>
-                                <li class="dropdown-item"><a href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.html">我的交通訂單</a></li>
-                            </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/attractionInfo.jsp">找景點</a>
-                </li>
+		<div class="collapse navbar-collapse nav justify-content-center"
+			id="navb">
+			<ul class="navbar-nav ">
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/asx54630/HotelService.jsp">找旅館</a>
+				</li>
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/iring29/Restaurant_index.jsp">找餐廳</a>
+				</li>
+				<li class="nav-item dropdown"><a href="#"
+					class="nav-link dropdown-toggle" data-toggle="dropdown"> 找交通 <b
+						class="caret"></b>
+				</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-item"><a
+							href="${pageContext.servletContext.contextPath}/innocence741/ajax_traffic.jsp">找高鐵</a></li>
+						<li class="dropdown-item"><a href="#">找租車</a></li>
+						<li class="dropdown-item"><a
+							href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.html">我的交通訂單</a></li>
+					</ul></li>
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/a592070/attractionInfo.jsp">找景點</a>
+				</li>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp">我的行程</a>
-                </li>
-            </ul>
-        </div>
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp">我的行程</a>
+				</li>
+			</ul>
+		</div>
 
-        <div>
-            <form class="form-inline my-3">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-                <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
-            </form>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary"  onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/login.jsp'"/>
-            登陸</button>
-            <button type="button" class="btn btn-primary" onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/register.jsp'">
-            註冊</button>
-            <button type="button" class="btn btn-primary" onclick="document.location.href='${pageContext.servletContext.contextPath}/azaz4498/Forum.jsp'">
-            論壇</button>
-        </div>
-    </nav>
+		<div>
+			<form class="form-inline my-3">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" />
+				<button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+			</form>
+		</div>
+		<div class="btn-group">
+			<c:if test="${empty Login}">
+				<button type="button" class="btn btn-primary"
+					onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/login.jsp'" />
+            登入</button>
+				<button type="button" class="btn btn-primary"
+					onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/register.jsp'">
+					註冊</button>
+			</c:if>
+			<c:if test="${!empty Login}">
+			<button type="button" class="btn btn-primary"
+					onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/homePage.jsp'" />
+           個人頁面</button>
+            <button type="button" class="btn btn-primary"
+					onclick="document.location.href='${pageContext.servletContext.contextPath}/Logout'" />
+            登出</button>
+			</c:if>
+			<button type="button" class="btn btn-primary"
+				onclick="document.location.href='${pageContext.servletContext.contextPath}/azaz4498/Forum.jsp'">
+				論壇</button>
+		</div>
+	</nav>
 </header>
 <script type="text/javascript">
 // function toDetailPage(url){
