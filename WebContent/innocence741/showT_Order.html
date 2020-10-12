@@ -15,6 +15,9 @@
         td{
         	width: 80px;
         }
+        .snCol{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +69,8 @@
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"][startPoint]),
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["trafficPrice"]),
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["nums_days"]),
-                                        $("<td></td>").append('<input type="button" class="cancelTicket" value="取消訂單">')
+                                        $("<td></td>").append('<input type="button" class="cancelTicket" value="取消訂單">'),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["t_sn_order"]).addClass('snCol')
 
                                     )
                                 )
@@ -84,7 +88,7 @@
                                              "<th>票價</th>"+
                                              "<th>訂購張數</th></tr></thead>"];
                         }
-                        console.log($(".T_Order"));
+                        //console.log($(".T_Order"));
 
                      },
 
@@ -100,7 +104,19 @@
 
         $("#T_Order").on("click", ".cancelTicket", function(){
                 var index = $(".cancelTicket").index(this);
-                console.log(index);
+                //console.log("index= " + index);
+                
+
+                console.log($(this).parent().parent().children("td.snCol").text());
+
+                console.log($(this).parent().parent().siblings("tr").length===0)
+
+                if($(this).parent().parent().siblings("tr").length===0){
+                    $(this).parent().parent().siblings().remove();
+                    $(this).parent().parent().remove();
+                }else{
+                    $(this).parent().parent().remove();
+                }
             //     var table = document.getElementById('ajaxTable');
             //    //console.log(table.rows[index+1].cells[0].innerHTML);
             //     //console.log($("#destination").val().toLowerCase())
