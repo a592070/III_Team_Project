@@ -39,43 +39,83 @@ public class Restaurant_HPServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
+//		System.out.println(request.getParameter("finalDecision"));
 		HttpSession session = request.getSession(false);
+//		System.out.println(request.getParameter("confirm"));
 		if (request.getParameter("QUERY") != null) {
 			try {
 				processQueryR_HP(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (request.getParameter("cancel") != null) {
-			try {
-				processCancelModify(request, response);
-				System.out.println("go cancel");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if (request.getParameter("confirm-location") != null) {
-			try {
-				processModifyLocation(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if (request.getParameter("confirm-type") != null) {
-			try {
-				processModifyType(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if (request.getParameter("confirm-info") != null) {
-			try {
-				processModifyInfo(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if (request.getParameter("confirm-img") != null) {
+		} 
+//		else if (request.getParameter("cancel") != null) {
+//			try {
+//				processCancelModify(request, response);
+//				System.out.println("go cancel");
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		} 
+//		else if (request.getParameter("confirm-location") != null) {
+//			try {
+//				processModifyLocation(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		else if (request.getParameter("confirm-type") != null) {
+//			try {
+//				processModifyType(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		else if (request.getParameter("confirm-info") != null) {
+//			try {
+//				processModifyInfo(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+		else if (request.getParameter("confirm-img") != null) {
 			try {
 				processModifyImg(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+		}
+		
+		else if(request.getParameter("finalDecision") != null){
+			if(request.getParameter("finalDecision").equals("confirmL")) {
+			try {
+				System.out.println("in confirm L");
+				processModifyLocation(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			}else if(request.getParameter("finalDecision").equals("confirmT")) {
+				try {
+					System.out.println("in confirm T");
+					processModifyType(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(request.getParameter("finalDecision").equals("confirmI")) {
+				try {
+					System.out.println("in confirm T");
+					processModifyInfo(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if(request.getParameter("finalDecision").equals("cancel")) {
+				try {
+					System.out.println("in cancel");
+					processCancelModify(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

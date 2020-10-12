@@ -64,6 +64,13 @@ public class OrderListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+//		else if(r_sn_order != null) { //使用者訂單
+//		try {
+//		user_OrderList(request, response);
+//		} catch (IOException | SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 //		else if (request.getParameter("time") != null) {
 //			updateBookTime(request, response);
 //		}
@@ -78,7 +85,9 @@ public class OrderListServlet extends HttpServlet {
 		OrderTableBean bean = new OrderTableBean();
 		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
-		user.setUserName("Irene"); // 正式使用要改username
+		AccountBean aBean = (AccountBean) session.getAttribute("Login"); //取得AccountBean
+//		user.setUserName("Irene"); // 正式使用要改username
+		user.setUserName(aBean.getUserName());
 		bean.setUser(user);
 		RestaurantBean resBean = new RestaurantBean();
 		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));

@@ -41,11 +41,12 @@
         }
         h2 {
             padding: 20px;
+            color:white;
         }
 
         .title {
             text-align: center;
-            background-color: #BEBEBE;
+            background-color: 	#BB3D00;
             margin:0px;
         }
 
