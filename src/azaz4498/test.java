@@ -12,6 +12,7 @@ public class test {
 		ForumDAO forumDAO = new ForumDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
 		
 		
+		
 //		forumDAO.articleListInit();
 //		System.out.println(forumDAO.artileList());
 		

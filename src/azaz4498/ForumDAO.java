@@ -34,6 +34,7 @@ public class ForumDAO {
 	public ForumDAO(int dataSourceType) throws IOException, SQLException{
 		ds = ConnectionPool.getDataSource(dataSourceType);
 		articleListInit();
+
 		artTypeListInit();
 	}
 	// 各清單初始化
@@ -166,6 +167,7 @@ public class ForumDAO {
 			pstmt.setInt(6, articleDO.getArtTypeId());
 			pstmt.setString(7, articleDO.getArtTitle());
 
+		
 			pstmt.executeUpdate();
 			pstmt.clearBatch();
 
@@ -174,17 +176,21 @@ public class ForumDAO {
 		}
 	}
 	//新增評論
+	
 	public void addNewComment(String commentString, int artId, String userid) throws SQLException{
 			
 		try {
 			conn=ds.getConnection();
+			
 			sql="INSERT INTO F_COMMENT (COM_CONTENT, COM_ART_ID, COM_USER_ID, COM_DATE) VALUES(?,?,?,?)";
 			pstmt=conn.prepareStatement(sql);
+			
 			
 			pstmt.setNString(1, commentString);
 			pstmt.setInt(2, artId);
 			pstmt.setString(3, userid);
 			pstmt.setTimestamp(4, new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+			
 			
 			pstmt.executeUpdate();
 			conn.commit();
@@ -297,8 +303,10 @@ public class ForumDAO {
 		ArticleDO articleDO=null;
 		try {
 			conn=ds.getConnection();
+			
 			sql="SELECT * FROM F_ARTICLE WHERE ART_ID=?";
 			pstmt=conn.prepareStatement(sql);
+			
 			pstmt.setInt(1,articleId);
 			ResultSet rs= pstmt.executeQuery();
 			if (rs.next()) {

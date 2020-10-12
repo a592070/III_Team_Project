@@ -15,10 +15,12 @@ public class AccountBean {
 	private int identity;
 	private String email;
 	private Blob picture;
-	private Date modify_Date = new Date();
+	private Date modify_Date;
 	private String nickName;
-	private Date register = new Date();
+	private Date register;
 	private String identityString;
+	private String getModify_DateString;
+	private String getRegisterString;
 	
 	public AccountBean() {
 		
@@ -70,7 +72,7 @@ public class AccountBean {
 //	public Date getModify_Date() {
 //		return modify_Date;
 //	}
-	public String getModify_Date() {
+	public String getModify_DateString() {
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sdf.setLenient(false);
 		String Date = sdf.format(modify_Date);
@@ -96,7 +98,7 @@ public class AccountBean {
 //	public Date getRegister() {
 //		return register;
 //	}
-	public String getRegister() {
+	public String getRegisterString() {
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sdf.setLenient(false);
 		String Date2 = sdf.format(register);
@@ -122,6 +124,16 @@ public class AccountBean {
 
 
 
+
+
+	public Date getModify_Date() {
+		return modify_Date;
+	}
+
+
+	public Date getRegister() {
+		return register;
+	}
 
 
 	public void setPicture(Blob picture) {

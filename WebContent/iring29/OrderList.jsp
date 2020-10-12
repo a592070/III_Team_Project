@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+session=request.getSession(false);
+if (session.getAttribute("Login") == null) {
+	// 請使用者登入
+	response.sendRedirect(response.encodeRedirectURL(
+			request.getContextPath() + "/rambo0021/login.jsp"));
+	return;
+} %>
+
 <!DOCTYPE html>
 <html>
 <head>

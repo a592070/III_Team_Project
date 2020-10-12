@@ -27,14 +27,17 @@
             margin-left: 50px;
             padding-bottom: 30px;
         }
-
+		h5 {
+            margin-left: 50px;
+            padding-bottom: 30px;
+        }
         .div-1 {
             margin-left: 50px;
             padding-bottom: 20px;
         }
 
         label {
-            width: 100px;
+            width: 120px;
             float: left;
             padding-right: 20px;
             /* margin-left: 50px; */
@@ -50,7 +53,7 @@
 <!-- 引入共同的頁首 -->
 <jsp:include page="/fragment/header.jsp" />
 <div class="wrapper">
-	<FORM action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet" method="POST">
+	<FORM id="formL" name="formL" action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet" method="POST">
 	
         <div class="container">
             <h2>修改${r_hp.name}資訊</h2>
@@ -67,16 +70,50 @@
 
             </div>
         </div>
-        <div class="div-btn">
-       		<button  name="confirm-info" value="confirm" class="btn btn-primary">確認</button>
-        	<button  name="cancel" value="cancel" class="btn btn-secondary">取消</button>
-        	
+        
+        <input type="hidden" id="finalDecision" name="finalDecision" value=""> 
         	<!-- 隱藏資訊 -->
         	<Input type='hidden' name='rBean' value='${r_hp}'>
         	<Input type='hidden' name='roBean' value='${roBean}'>
+        	
+        <div class="div-btn">
+       		<input type="button" class="btn btn-primary" name="confirm" value="confrim" onclick="confirmL()"> 
+			<input type="button" class="btn btn-secondary" name="CancelBtn" value="cancel" onclick="cancelL()">
         </div>
         
 	</FORM>
+	
+	<script type="text/javascript">
+function confirmL(){
+	if (confirm("確定送出修改 ? ") ) {
+		console.log(document.forms["formL"]);
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].finalDecision.value = "confirmI";
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].action="<%=application.getContextPath()%>/Restaurant_HPServlet";
+		document.forms["formL"].method="POST";
+		document.forms["formL"].submit();
+		return;
+	} else {
+		return;
+	}
+}
+function cancelL(){
+	if (confirm("確定取消修改 ? ") ) {
+		console.log(document.forms["formL"]);
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].finalDecision.value = "cancel";
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].action="<%=application.getContextPath()%>/Restaurant_HPServlet";
+		document.forms["formL"].method="POST";
+		document.forms["formL"].submit();
+		return;
+	} else {
+		return;
+	}
+}
+</script>
+	
 </div>
 
 </body>

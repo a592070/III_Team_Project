@@ -55,5 +55,5 @@ public class RegisterDAO {
 		e.printStackTrace();
 	}
 	}
-	public void selectUserData(String path) {}
+	
 }

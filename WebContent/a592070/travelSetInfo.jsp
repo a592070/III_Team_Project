@@ -112,7 +112,7 @@
                                 <td>\${list[i].name}</td>
                                 <td>\${list[i].price}</td>
                                 <td>\${list[i].company}</td>
-                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionCar,"\${list[i].sn}")'>看詳細</button></td>
+<!--                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionCar,"\${list[i].sn}")'>看詳細</button></td>-->
                                 <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem(\${currentType},$(this))'>+</button></td>
                                 </tr>`;
                         }
@@ -126,7 +126,7 @@
                                 <td>\${list[i].quadrupleRoomPrice}</td>
                                 <td>\${list[i].address}</td>
                                 <td>\${list[i].rating}</td>
-                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionHotel,\${list[i].sn})'>看詳細</button></td>
+<!--                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionHotel,\${list[i].sn})'>看詳細</button></td>-->
                                 <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
                                 </tr>`;
                         }
@@ -140,8 +140,8 @@
                                 <td>\${list[i].type}</td>
                                 <td>\${list[i].address}</td>
                                 <td>\${list[i].rating}</td>
-                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionRestaurant, \${list[i].sn})'>看詳細</button></td>
-                                <td><button type='button' class='btn btn-danger' value='"+tempobj+"' onclick='addItem("\${currentType}",$(this))'>+</button></td>
+                                <td><button type='button' class='btn btn-info' value='\${tempobj}' onclick='toDetailPage(optionRestaurant, $(this))'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
                                 </tr>`;
                         }
                     }else if(optionType == optionAttraction){
@@ -153,7 +153,7 @@
                                 <td >\${list[i].name}</td>
                                 <td>\${list[i].address}</td>
                                 <td>\${list[i].ticketInfo}</td>
-                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionAttraction, \${list[i].sn})'>看詳細</button></td>
+                                <td><button type='button' class='btn btn-info' value='\${tempobj}' onclick='toDetailPage(optionAttraction, $(this))'>看詳細</button></td>
                                 <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
                                 </tr>`;
                         }
@@ -201,16 +201,17 @@
         }
 
 
-        function toDetailPage(type, sn){
-            console.log(sn);
+        function toDetailPage(type, obj){
+            let json = JSON.parse(obj.val());
+            console.log(json);
             if(type == optionCar){
 
             }else if(type == optionHotel){
 
             }else if(type == optionRestaurant){
-
+                document.location.href="${pageContext.servletContext.contextPath}/RestaurantServlet?QUERY=QUERY&restaurant_name="+json.name;
             }else if(type == optionAttraction){
-                document.location.href="${pageContext.servletContext.contextPath}/AttractionDetailServlet?attractionSn="+sn;
+                document.location.href="${pageContext.servletContext.contextPath}/AttractionDetailServlet?attractionSn="+json.sn;
             }
         }
 
@@ -296,10 +297,11 @@
                 {"method":"setItems", "selectType":type, "list":JSON.stringify(arr)});
             let content = "";
             for (let i = 0; i < arr.length ; i++) {
+                let json = JSON.stringify(arr[i]);
                 content += `<tr>
                     <td>\${arr[i].name}</td>
                     <td><input type='datetime-local' class='btn btn-secondary' index='\${i}' onchange='setTravelTime("\${type}",$(this))'/></td>
-                    <td><button type='button' class='btn btn-info' onclick='toDetailPage(\${type} ,\${arr[i].sn})'>看詳細</button></td>
+                    <td><button type='button' class='btn btn-info' value='\${json}' onclick='toDetailPage("\${type}" ,$(this))'>看詳細</button></td>
                     <td><button type='button' class='btn btn-danger' value='\${i}' onclick='removeItem("\${type}",$(this).val())'>取消</button></td></tr>`;
             }
             target.html(content);

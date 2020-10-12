@@ -22,8 +22,8 @@
 }
 
 .div_img {
-	width: 850px;
-	height: 300px;
+	width: 800px;
+	height: 530px;
 	margin: auto;
 	overflow: hidden;
 	display: flex;
@@ -43,22 +43,22 @@ img {
 
 h2 {
 	padding: 20px;
+	border-bottom: 1px solid gray;
+	color:white;
 }
 /* div {
             border: 1px solid rgb(212, 212, 212);
         } */
 .title {
 	text-align: center;
-	background-color: #BEBEBE;
+	background-color: #003060;
 	
 }
 
 .top {
 	display: flex;
 }
-h2{
-	border-bottom: 1px solid gray;
-}
+
 .booking {
 	width: 300px;
 	padding: 10px 0;
@@ -155,6 +155,9 @@ h3 {
 .modal-title{
 	margin-left:10px;
 }
+p{
+	font-size:16px;
+}
 </style>
 </head>
 <body>
@@ -164,7 +167,8 @@ h3 {
 
 	<div class="container">
 		<div class="box">
-
+			
+			
 			<div>
 				<h2 class="title">餐廳資訊</h2>
 				<div class="top">
@@ -172,15 +176,19 @@ h3 {
 					<div class="info">資訊</div>
 					<div class="comment">評論</div> -->
 				</div> 
+				<FORM action="<c:url value='/iring29/ModifyImg.jsp'/>"
+					method="POST">
 				<p class="modify-img">
 					<button class="btn btn-light">修改</button>
 				</p>
 				<div class="div_img">
 					<img src="${r_hp.picture}">
 				</div>
+				</FORM>
 				<div class="div-1">
 					<h3>${r_hp.name}</h3>
 				</div>
+				
 				<FORM action="<c:url value='/iring29/Modify_Location.jsp'/>"
 					method="POST">
 					<div>
@@ -196,7 +204,7 @@ h3 {
 					</div>
 					<div>
 						<h4 class="res_result">交通方式</h4>
-						<p class="p_result">${r_hp.transportation}</p>
+						<pre><p class="p_result">${r_hp.transportation}</p></pre>
 					</div>
 					<Input type='hidden' name='rBean' value='${r_hp}'> <Input
 						type='hidden' name='roBean' value='${roBean}'>
@@ -229,7 +237,7 @@ h3 {
 					</div>
 					<div>
 						<h4 class="res_result">營業時間</h4>
-						<p class="p_result">${r_hp.opentime}</p>
+						<pre><p class="p_result">${r_hp.opentime}</p></pre>
 					</div>
 					<div>
 						<h4 class="res_result">餐廳描述</h4>

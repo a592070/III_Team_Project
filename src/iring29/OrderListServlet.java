@@ -57,13 +57,20 @@ public class OrderListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} 
-		else if(r_sn_order != null) { //使用者訂單
+		else if(request.getParameter("QUERY") != null) { //使用者訂單
 			try {
 			user_OrderList(request, response);
 			} catch (IOException | SQLException e) {
 				e.printStackTrace();
 			}
 		}
+//		else if(r_sn_order != null) { //使用者訂單
+//		try {
+//		user_OrderList(request, response);
+//		} catch (IOException | SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 //		else if (request.getParameter("time") != null) {
 //			updateBookTime(request, response);
 //		}
@@ -78,7 +85,9 @@ public class OrderListServlet extends HttpServlet {
 		OrderTableBean bean = new OrderTableBean();
 		R_OrderBean rBean = new R_OrderBean();
 		AccountBean user = new AccountBean();
-		user.setUserName("Irene"); // 正式使用要改username
+		AccountBean aBean = (AccountBean) session.getAttribute("Login"); //取得AccountBean
+//		user.setUserName("Irene"); // 正式使用要改username
+		user.setUserName(aBean.getUserName());
 		bean.setUser(user);
 		RestaurantBean resBean = new RestaurantBean();
 		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
@@ -115,7 +124,8 @@ public class OrderListServlet extends HttpServlet {
 		request.getSession().setAttribute("bean", bean);
 
 		
-		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
+//		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/iring29/DisplayOrderList.jsp"); //才不會refresh page又重新下單
 
 	}
 
@@ -150,9 +160,11 @@ public class OrderListServlet extends HttpServlet {
 	public void user_OrderList(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		HttpSession session = request.getSession(false);
 		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
-		//取得
-		BigDecimal r_sn_order = null;
+		//取得r_sn_order
+		BigDecimal r_sn_order = new BigDecimal(request.getParameter("r_sn_order"));
+		System.out.println(r_sn_order);
 		R_OrderBean roBean = r_Order_ListDAO.UserOrderList(r_sn_order);
+		System.out.println(roBean);
 		request.getSession().setAttribute("roBean", roBean);
 
 		request.getRequestDispatcher("/iring29/UserOrderList.jsp").forward(request, response);
@@ -173,4 +185,5 @@ public class OrderListServlet extends HttpServlet {
 //		System.out.println(time);
 //		request.getRequestDispatcher("/iring29/OrderList.jsp").forward(request, response);
 //	}
+
 }

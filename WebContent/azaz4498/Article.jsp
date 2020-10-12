@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="azaz4498.ArticleDO"%>
@@ -50,38 +51,48 @@
     </nav>
     <!--media objects-->
     <div class="media pl-5 pt-3">
+
         
         <img class="mr-3" src="azaz4498\img\iconfinder_8_3898372.png" width="60px" height="60px"
             alt="user image">
         <div class="media-body">
+
             <h5 class="mt-0">${Article.artTitle}</h5>
             <p>
+
                 <button type="button" class="btn btn-info btn-sm">#${Type.typeName }</button>
                 
             </p> 
            
+
            ${Article.artContent }
            <c:forEach var='comm' items='${Comment}'>
             <div class="media mt-3">
                 <a class="pr-3" href="#">
+
                     <img src="azaz4498\img\iconfinder_8_3898372.png" width="60px" height="60px" alt="Generic placeholder image">
                 </a>
                 <div class="media-body">
+
                     <h5 class="mt-0">${comm.comUserId }</h5>
                     ${comm.comContent }
                 </div>
             </div>
+
             </c:forEach>
             
         </div>
     </div>
+
 	<form action="<%=pageContext.getServletContext().getContextPath() %>/NewCommentServlet" name="CommentForm">
 		<div class="form-group pl-5">
 			<label for="exampleInputEmail1">撰寫評論...</label>
+
 			<textarea class="form-control" name="commentarea" id="commentarea" rows="3"
 				aria-describedby="commentHelp"></textarea>
 			<small id="commentHelp" class="form-text text-muted">留言請勿包含謾罵以及人身攻擊等字句。</small>
 		</div>
+
 
 		<button type="submit" class="btn btn-primary ml-5" onClick="window.alert('新增評論成功');">送出</button>
 	</form>
