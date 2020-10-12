@@ -79,13 +79,12 @@ public class HomePageDAO {
 		try {
 			DataSource dataSource = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
 			Connection connection = dataSource.getConnection();
-			PreparedStatement prepareStatement = connection.prepareStatement("update account set PASSWORD=? EMAIL=? PICTURE=? MODIFY_DATE=? NICKNAME=? where username=?");
+			PreparedStatement prepareStatement = connection.prepareStatement("update account set PASSWORD=?,EMAIL=?,PICTURE=?,MODIFY_DATE=?,NICKNAME=? where USERNAME=?");
 			System.out.println("db2 update is on");
-			prepareStatement.setString(1, account.getPassword());
-			prepareStatement.setString(2, account.getEmail());
-			prepareStatement.setBlob(3, account.getPicture().getBinaryStream());
-			Date date = new Date(new java.util.Date().getTime());
-			prepareStatement.setDate(4, date);
+			prepareStatement.setString(1,account.getPassword());
+			prepareStatement.setString(2,account.getEmail());
+			prepareStatement.setBlob(3,account.getPicture().getBinaryStream());
+			prepareStatement.setDate(4, new Date(account.getModify_Date().getTime()));
 			prepareStatement.setString(5, account.getNickName());
 			prepareStatement.setString(6, account.getUserName());
 			int executeUpdate = prepareStatement.executeUpdate();
