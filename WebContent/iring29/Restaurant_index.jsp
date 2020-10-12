@@ -151,7 +151,7 @@ button {
 					</select>
 				</div>
 				<div class="search">
-					<button name="QUERY" type="SUBMIT" value="QUERY" class="btn btn-secondary">Search</button>
+					<button name="QUERY" type="SUBMIT" value="QUERY" class="btn btn-success">Search</button>
 				</div>
 			</div>
 

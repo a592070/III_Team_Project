@@ -50,13 +50,15 @@ public class NewCommentServlet extends HttpServlet {
 			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session =request.getSession();
 			int currArticleid = (int) session.getAttribute("currArticle");
+			int typeid=Integer.valueOf(request.getParameter("art_TypeId"));
+			System.out.println("this is new comment servlet = "+typeid);
 			String commentString = request.getParameter("commentarea");
 			System.out.println(commentString);
 			System.out.println(session.getAttribute("currArticle"));
 			System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
-			forumDAO.addNewComment(commentString, currArticleid, "azaz4498");
+//			forumDAO.addNewComment(commentString, currArticleid, "azaz4498");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/ArticleServlet?artId="+currArticleid);
+			RequestDispatcher rd = request.getRequestDispatcher("/ArticleServlet?artId="+currArticleid+"&art_TypeId"+typeid);
 			rd.forward(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();

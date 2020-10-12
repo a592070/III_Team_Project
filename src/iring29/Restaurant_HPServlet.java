@@ -19,6 +19,7 @@ import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
 import oracle.security.o3logon.b;
 import pojo.OrderTableBean;
+import rambo0021.AccountBean;
 
 @WebServlet("/Restaurant_HPServlet")
 public class Restaurant_HPServlet extends HttpServlet {
@@ -40,9 +41,10 @@ public class Restaurant_HPServlet extends HttpServlet {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 //		System.out.println(request.getParameter("finalDecision"));
+		System.out.println("inHP");
 		HttpSession session = request.getSession(false);
-//		System.out.println(request.getParameter("confirm"));
-		if (request.getParameter("QUERY") != null) {
+		AccountBean aBean = (AccountBean) session.getAttribute("Login");
+		if (aBean.getUserName() != null) {
 			try {
 				processQueryR_HP(request, response);
 			} catch (Exception e) {
@@ -123,8 +125,9 @@ public class Restaurant_HPServlet extends HttpServlet {
 	//顯示Restaurant HP
 	public void processQueryR_HP(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-		request.getSession();
-		String name = request.getParameter("username").trim();
+		HttpSession session = request.getSession(false);
+		AccountBean aBean = (AccountBean) session.getAttribute("Login");
+		String name = aBean.getUserName();
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 		RestaurantBean rBean = restaurantDAO.Restaurant_HP(name);
 		BigDecimal r_sn = rBean.getR_sn();

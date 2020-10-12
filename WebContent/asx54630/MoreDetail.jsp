@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,44 +20,42 @@
 <br>
 <table class="table mx-auto my-3" style="width: 1100px">
             <tbody>
-            <c:forEach var="hotels" items="${hoteldata}">
             <tr>
                 <th>名稱</th>
-                <td>${hotels.NAME}</td>
+                <td>${detaildata.NAME}</td>
             </tr>
             <tr>
                 <th>地址</th>
-                <td>${hotels.ADDRESS}</td>
+                <td>${detaildata.ADDRESS}</td>
             </tr>
             <tr>
                 <th>電話</th>
-                <td>${hotels.TEL}</td>
+                <td>${detaildata.TEL}</td>
             </tr>
             <tr>
                 <th>房型:雙人房</th>
-                <td>${hotels.DOUBLE_ROOM}</td>
+                <td>${detaildata.DOUBLE_ROOM}</td>
             </tr>
             <tr>
                	<th>房型:四人房</th>
-                <td>${hotels.QUADRUPLE_ROOM}</td>
+                <td>${detaildata.QUADRUPLE_ROOM}</td>
             </tr>
             <tr>
                 <th>介紹</th>
-                <td>${hotels.DESCRIPTION}</td>
+                <td>${detaildata.DESCRIPTION}</td>
             </tr>
             <tr>
                 <th>營業時間</th>
-                <td>${hotels.OPENTIME}</td>
+                <td>${detaildata.OPENTIME}</td>
             </tr>
             <tr>
                 <th>住宿類型</th>
-                <td>${hotels.TYPE}</td>
+                <td>${detaildata.TYPE}</td>
             </tr>
             <tr>
                 <th>功能</th>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" >我要訂房</button></td>
             </tr>
-            </c:forEach>
             </body>
         </table>
         

@@ -81,16 +81,17 @@ public class HotelDAO {
         }
     }
     
-    public List<HotelDO> DetailSearch(String detailname) throws SQLException {
+    public HotelDO DetailSearch(int detsn) throws SQLException {
         try {
+        	
+        	HotelDO hoteldo = null;
           conn = ds.getConnection();
-          predStmt = conn.prepareStatement("SELECT * FROM HOTEL WHERE NAME like ?");
+          predStmt = conn.prepareStatement("SELECT * FROM HOTEL WHERE SN like ?");
 
-          predStmt.setString(1, "%" + detailname + "%");
+          predStmt.setInt(1, detsn);
     	  ResultSet rs = predStmt.executeQuery();
-    	  ArrayList<HotelDO> detailList = new ArrayList<>();
     	  while (rs.next()) {
-    		  HotelDO hoteldo = new HotelDO();
+    		  hoteldo = new HotelDO();
 				BigDecimal id = rs.getBigDecimal("SN");
 				hoteldo.setSN(id);
 				String name = rs.getString("NAME");
@@ -115,11 +116,11 @@ public class HotelDAO {
 				hoteldo.setRATING(rating);
 				String account = rs.getString("ACCOUNT");
 				hoteldo.setACCOUNT(account);
-				detailList.add(hoteldo);
+				
     	  }
     	  rs.close();
     	  predStmt.close();
-    	  return detailList;
+    	  return hoteldo;
     	  
         } catch (Exception e) {
     	    System.err.println("尋找住宿資料時發生錯誤:" + e);

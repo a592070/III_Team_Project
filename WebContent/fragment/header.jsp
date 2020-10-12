@@ -51,7 +51,7 @@
                 <!--餐廳 -->
 				<c:if test="${Login.identity eq 3}">
 				<li class="nav-item"><a class="nav-link active"
-					href="${pageContext.servletContext.contextPath}/">店家頁面</a>
+					href="${pageContext.servletContext.contextPath}/Restaurant_HPServlet">店家頁面</a>
 				</li>
 				</c:if>
 				<!--住宿 -->
