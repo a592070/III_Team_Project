@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
 import iring29.bean.RestaurantBean;
+import org.omg.PortableInterceptor.SUCCESSFUL;
+import utils.StringUtil;
 
 @WebServlet("/RestaurantServlet")
 public class RestaurantServlet extends HttpServlet {
@@ -92,9 +94,18 @@ public class RestaurantServlet extends HttpServlet {
 
 	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, SQLException {
-		String name = request.getParameter("restaurant_name").trim();
-		String book_date = request.getParameter("book_date").trim();
-		String person_numer = request.getParameter("person_numer").trim();
+		String name = null;
+		if(!StringUtil.isEmpty(request.getParameter("restaurant_name"))){
+			name = request.getParameter("restaurant_name").trim();
+		}
+		String book_date = null;
+		if(!StringUtil.isEmpty(request.getParameter("book_date"))){
+			book_date = request.getParameter("book_date").trim();
+		}
+		String person_numer = null;
+		if(!StringUtil.isEmpty(request.getParameter("person_numer"))){
+			person_numer = request.getParameter("person_numer").trim();
+		}
 		request.getSession().setAttribute("book_date", book_date);
 		request.getSession().setAttribute("person_numer", person_numer);
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
