@@ -12,9 +12,7 @@
         .T_OrderDiv{
             padding: 15px;
         }
-        td{
-        	/* width: 80px; */
-        }
+
         .snCol{
             display: none;
         }
@@ -128,28 +126,71 @@
                  });
         })
 
+
+
+
         $("#T_Order").on("click", ".cancelTicket", function(){
-                var index = $(".cancelTicket").index(this);
+                // var index = $(".cancelTicket").index(this);
                 //console.log("index= " + index);
-                
+                console.log($(this).parent().parent().children("td.snCol").text())
 
-                console.log($(this).parent().parent().children("td.snCol").text());
+                    $.ajax({
+                        
+                     type:"POST",                    //指定http參數傳輸格式為POST
 
-                console.log($(this).parent().parent().siblings("tr").length===0)
+                     url: "../cancelT_Order_ListServlet",        //請求目標的url，可在url內加上GET參數，如 www.xxxx.com?xx=yy&xxx=yyy
 
-                if($(this).parent().parent().siblings("tr").length===0){
-                    $(this).parent().parent().siblings().remove();
-                    $(this).parent().parent().remove();
-                }else{
-                    $(this).parent().parent().remove();
-                }
-            //     var table = document.getElementById('ajaxTable');
-            //    //console.log(table.rows[index+1].cells[0].innerHTML);
-            //     //console.log($("#destination").val().toLowerCase())
-            //     strCookies = table.rows[index+1].cells[0].innerHTML+","+startPoint+","+destination+","+$("#departureDate").val();
-            //     Cookies.set('HSR', strCookies)
-            //     window.location="\orderHSRticket.html";
-                //console.log(startPoint)
+                     data: "t_sn_order=" + $(this).parent().parent().children("td.snCol").text(), //要傳給目標的data為id=formId的Form其序列化(serialize)為的值，之
+
+                                                     //內含有name的物件value
+
+                     dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
+
+                     //Ajax成功後執行的function，response為回傳的值
+
+                     //此範列回傳的JSON Object的內容格式如右所示: {userName:XXX,uswerInterest:[y1,y2,y3,...]}
+
+                     success : (response) => {
+
+                        // console.log($(this).parent().parent().children("td.snCol").text())
+
+                        if(response["check"]==="success"){
+                            if($(this).parent().parent().siblings("tr").length===0){
+                                // $(this).parent().parent().siblings().remove();
+                                $(this).parent().parent().siblings().remove();
+                                $(this).parent().parent().remove();
+                            }else{
+                                $(this).parent().parent().remove();
+                            }
+                            alert("取消成功");
+                        }else{
+                            alert("刪除失敗")
+                        }
+
+
+                     },
+
+                     //Ajax失敗後要執行的function，此例為印出錯誤訊息
+
+                     error:function(xhr, ajaxOptions, thrownError){
+
+                         console.log(xhr.status+"\n"+thrownError);
+                     }
+
+                 });
+
+
+                // console.log($(this).parent().parent().children("td.snCol").text());
+
+                // console.log($(this).parent().parent().siblings("tr").length===0)
+
+                // if($(this).parent().parent().siblings("tr").length===0){
+                //     $(this).parent().parent().siblings().remove();
+                //     $(this).parent().parent().remove();
+                // }else{
+                //     $(this).parent().parent().remove();
+                // }
+
             })
     </script>
 </body>

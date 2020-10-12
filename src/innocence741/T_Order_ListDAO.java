@@ -229,8 +229,25 @@ public class T_Order_ListDAO {
 		
 	}
 	
-	public void delT_Order_List() {
-		
+	public void delT_Order_List(BigDecimal t_sn_order, int[] rcd) throws SQLException {
+		String sql = "delete t_order_list where sn_order = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setBigDecimal(1, t_sn_order);
+			pstmt.executeQuery();
+			pstmt.clearBatch();
+			conn.commit();
+			rcd[0]=1;
+		}catch (Exception e) {
+			System.err.println("刪除資料時發生錯誤:" + e);
+			conn.rollback();
+			rcd[0]=0;
+		}finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 	}
 //	public void createOrder(OrderTableBean bean,int[] a) throws SQLException {
 //		
