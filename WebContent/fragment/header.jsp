@@ -98,10 +98,11 @@
 		</div>
 	</nav>
 </header>
-<script type="text/javascript">
-// function toDetailPage(url){
-//     document.location.href="${pageContext.servletContext.contextPath}/"+url;
-// }
-</script>
+
+<div class="container-fluid d-flex flex-row-reverse fixed-bottom">
+	<button class="btn btn-primary btn-lg" onclick="document.location.href='${pageContext.servletContext.contextPath}/ChatServlet'">
+		<span class="spinner-grow spinner-grow-sm"></span>聯絡客服
+	</button>
+</div>
 
 

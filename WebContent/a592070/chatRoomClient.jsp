@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .chat-container {
-            height: 600px;
+            height: 400px;
             overflow: auto;
         }
         .send-message-form input {
@@ -44,7 +44,7 @@
 <body>
 <jsp:include page="../fragment/header.jsp" />
 
-<div class="container">
+<div class="container p-3 my-3">
     <h2>Chat Messages</h2>
     <div class="chat-container  border p-4" id="msg_div">
 
@@ -65,17 +65,16 @@
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="請輸入..." id="input_msg">
         <div class="input-group-append">
-            <form onsubmit="send()">
-            <button class="btn btn-primary" type="submit">Send</button>
-            <button class="btn btn-danger" type="reset">Cancel</button>
-            </form>
+
+            <button class="btn btn-primary" type="button" onclick="send()">Send</button>
+            <button class="btn btn-danger" type="button" onclick="clear()">Cancel</button>
+
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
 
-    document.querySelector(".user").value = username;
 
     const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat";
     websocket = new WebSocket(url);
@@ -91,10 +90,11 @@
 
         let method = messageJson.method;
 
-        if("toServiceMsg" == method){
-            let httpsessionID = messageJson.httpSessionID;
+        if("noService" == method){
+            let msg = "目前沒有客服在線";
+            setMessageInHTML(msg,1);
+        }else if("toClientMsg" == method){
             let msg = messageJson.content;
-
             setMessageInHTML(msg, 1);
         }
     }
@@ -116,8 +116,10 @@
             content += `<h4>Service</h4><p>\${msg}</p>`;
         }
         content+=`</div></div>`;
-
-        $("#msg_div").appendTo(content);
+        // console.log(content);
+        // let temp = $("#msg_div").html();
+        // $("#msg_div").html(temp+content);
+        $("#msg_div").append(content);
     }
 
     function send(){
@@ -125,8 +127,11 @@
         setMessageInHTML(val, 0);
         let json = {content:val};
         websocket.send(JSON.stringify(json));
+        clear();
     }
-
+    function clear(){
+        $("#input_msg").val("");
+    }
 
 
 </script>

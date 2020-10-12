@@ -47,63 +47,46 @@ public class ChatWebSocket {
         this.session = session;
         this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
 
-        // application attribute (httpSession Id ,username)
-//        Map<String, String> applicationClients;
-//        if(httpSession.getServletContext().getAttribute(Constant.CHATROOM_CLIENTS) != null){
-//            applicationClients = (Map<String, String>) httpSession.getServletContext().getAttribute(Constant.CHATROOM_CLIENTS);
-//        }else{
-//            applicationClients = new HashMap<>();
-//        }
 
-        String userChatId;
         if(httpSession.getAttribute(Constant.LOGIN) != null){
             AccountBean user = (AccountBean) httpSession.getAttribute(Constant.LOGIN);
             this.user = user;
             if(user.getIdentity() == 1){
                 webSocketService.put(httpSession.getId(), this);
+                System.out.println("webSocketService:"+webSocketService);
             }else{
                 webSocketClient.put(httpSession.getId(), this);
 //                applicationClients.put(httpSession.getId(), user.getUserName());
                 addClient(httpSession.getId());
+                System.out.println("webSocketClient:"+webSocketClient);
             }
         }else{
             webSocketClient.put(httpSession.getId(), this);
 //            applicationClients.put(httpSession.getId(), "Guest"+httpSession.getId());
             addClient(httpSession.getId());
+            System.out.println("webSocketClient:"+webSocketClient);
+            this.user = new AccountBean();
         }
-        this.user = new AccountBean();
-
-
-        System.out.println(getRemoteAddress((WsSession) session).getAddress().toString());
-        this.ip = getRemoteAddress((WsSession) session).getAddress().toString();
-
 
         addOnlineCount();
 
         System.out.println("ip:"+ip+"\thttpsession:"+httpSession.getId()+"\tsession: "+session.getId());
 
-//        sendMessage(historyMsg, session);
     }
 
     @OnClose
     public void onClose() throws IOException {
-        if(webSocketClient.contains(httpSession)){
-            webSocketClient.remove(httpSession);
-            removeClient(httpSession.getId());
-        }
-        if(webSocketService.contains(httpSession)){
-            webSocketService.remove(httpSession);
-        }
+        webSocketService.remove(httpSession.getId());
+        webSocketClient.remove(httpSession.getId());
+        removeClient(httpSession.getId());
+
 
         subOnlineCount();
-        System.out.println("close");
+        System.out.println(httpSession+":close");
     }
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         System.out.println(message);
-
-//        historyMsg.put(System.currentTimeMillis(), message);
-
 
         Map<String, String> messageJson = mapper.readValue(message, new TypeReference<Map<String, String>>(){});
 
@@ -112,6 +95,7 @@ public class ChatWebSocket {
         String content = messageJson.get("content");
 
         if(this.user.getIdentity() == 1){
+            System.out.println("service");
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.put("method","toClientMsg");
             objectNode.put("content", content);
@@ -125,6 +109,7 @@ public class ChatWebSocket {
                 }
             });
         }else{
+            System.out.println("client");
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.put("method","toServiceMsg");
             objectNode.put("httpSessionID", httpSession.getId());
@@ -134,7 +119,6 @@ public class ChatWebSocket {
     }
 
     public synchronized void sendMessageToService(ObjectNode objJson) throws IOException {
-
         String str = mapper.writeValueAsString(objJson);
         webSocketService.forEach((k,v) ->{
             try {
@@ -146,17 +130,22 @@ public class ChatWebSocket {
     }
 
     public synchronized void sendMessageToClient(ObjectNode objJson, Session session) throws IOException {
-
         String str = mapper.writeValueAsString(objJson);
         session.getBasicRemote().sendText(str);
     }
 
     public synchronized void addClient(String httpSessionID) throws IOException {
-        ObjectNode objectNode = mapper.createObjectNode();
-        objectNode.put("method", "addClient");
-        objectNode.put("httpSessionID", httpSessionID);
+        if(webSocketService.size() == 0){
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("method", "noService");
+            sendMessageToClient(objectNode, this.session);
+        }else {
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("method", "addClient");
+            objectNode.put("httpSessionID", httpSessionID);
 
-        sendMessageToService(objectNode);
+            sendMessageToService(objectNode);
+        }
     }
     public synchronized void removeClient(String httpSessionID) throws IOException {
         ObjectNode objectNode = mapper.createObjectNode();

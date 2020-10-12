@@ -10,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .chat-container {
-            height: 550px;
+            height: 400px;
             overflow: auto;
         }
         .send-message-form input {
@@ -37,7 +37,12 @@
 
 </head>
 <body>
-<div class="container">
+<header class="masthead mb-auto sticky-top">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand">Logo</a>
+    </nav>
+</header>
+<div class="container p-3 my-3">
     <div class="btn-group" id="client_btn">
         <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">client1</button>
         <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">client2</button>
@@ -94,6 +99,28 @@
         </div>
     </div>
 </div>
+<div id="collapseTwo" class="panel-collapse collapse">
+    //想要被折叠起来的代码
+    //就使劲往这里放
+    //就对了
+</div>
+<div class="col-md-1" style="float: right; margin-top: 2px">
+    <div data-toggle="collapse" data-parent="#accordion" onclick="clickCollapse()"
+         href="#collapseTwo">
+        <div id="open">
+            <img src="" title="展开"/><a>展开</a>
+        </div>
+        <div id="close" hidden="hidden">
+            <img src="" title="关闭"/><a>收起</a>
+        </div>
+    </div>
+</div>
 
+<script type="text/javascript">
+    function clickCollapse() {
+        $('#open').toggle("fast");
+        $('#close').toggle("fast");
+    }
+</script>
 </body>
 </html>

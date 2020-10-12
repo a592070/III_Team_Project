@@ -16,7 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .chat-container {
-            height: 550px;
+            height: 400px;
             overflow: auto;
         }
         .send-message-form input {
@@ -32,111 +32,18 @@
         }
     </style>
 
-    <script type="text/javascript">
-        var clientList;
 
-        function getChatClients(){
-            $.get("${pageContext.servletContext.contextPath}/ChatServlet",
-                {"method":"getChatClients"},
-                function (data) {
-                    let json = JSON.parse(data);
-                    clientList = json;
-                    let contentBtn = "";
-                    let contentDiv = "";
-                    for(let ele in json){
-                        contentBtn += `<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#\${json[ele]}" aria-expanded="false" aria-controls="\${json[ele]}">\${json[ele]}</button>`;
-                        contentDiv += `
-            <div class="collapse multi-collapse" id="\${json[ele]}" data-parent="#accordion"></div>`;
-                    }
-                    $("#client_btn").html(contentBtn);
-                    $("#accordion").html(contentDiv);
-                })
-        }
-
-
-        const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat/<%=request.getAttribute("userChatId")%>";
-        websocket = new WebSocket(url);
-
-        websocket.onopen = function (event){
-
-        }
-        websocket.onmessage = function (event){
-            let value = event.data;
-            let messageJson = JSON.parse(value);
-            console.log(messageJson);
-
-            let method = messageJson.method;
-
-            // let addClientID = messageJson.addClient;
-            // let removeClientID = messageJson.removeClient;
-
-            if("addClient" == method){
-                addClient(messageJson.httpSessionID);
-            }else if("removeClient" == method){
-                removeClient(messageJson.httpSessionID);
-            }else if("toServiceMsg" == method){
-                let httpsessionID = messageJson.httpSessionID;
-
-            }
-        }
-        websocket.onclose = function (event){
-            websocket.close();
-        }
-        window.onbeforeunload = function (event){
-            websocket.close();
-        }
-
-        function addClient(httpSessionID){
-            let contentBtn = "";
-            contentBtn += `<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#\${httpSessionID}_div" aria-expanded="false" aria-controls="\${httpSessionID}_div" id="\${httpSessionID}_btn" onclick="setCurrentClient($(this))">\${httpSessionID}</button>`;
-            $("#client_btn").appendTo(contentBtn);
-
-            let contentDiv = "";
-            contentDiv += `<div class="collapse multi-collapse" id="\${httpSessionID}_div" data-parent="#accordion"></div>`;
-            $("#accordion").appendTo(contentDiv);
-        }
-        function removeClient(httpSessionID){
-            $("#"+httpSessionID+"_btn").remove();
-            $("#"+httpSessionID+"_div").remove();
-        }
-
-        function setMessageInHTML(msg, type, httpsessionID){
-            let content = "";
-            content += `<div class="media border p-3" ><div class="media-body">`;
-            if(type == 0){
-                content += `<h4>YOU</h4><p>\${msg}</p>`;
-            }else if(type == 1){
-                content += `<h4>\${httpsessionID}</h4><p>\${msg}</p>`;
-            }
-            content+=`</div></div>`;
-
-            $("#"+httpsessionID+"_div").appendTo(content);
-        }
-        var currentClient;
-        function send(){
-            let val = $("#input_msg").val();
-            setMessageInHTML(val, 0, currentClient);
-            let json = {receive:currentClient,content:val};
-
-            websocket.send(JSON.stringify(json));
-        }
-        function setCurrentClient(obj){
-            currentClient = obj.text();
-        }
-
-
-    </script>
 </head>
 <body>
 <jsp:include page="../fragment/header.jsp" />
-<div class="container">
+<div class="container p-3 my-3">
+    <h2>Chat Messages</h2>
     <div class="btn-group" id="client_btn">
-<%--        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">client1</button>--%>
+<%--        <button type="button" class="btn btn-primary hidden" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">client1</button>--%>
 <%--        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">client2</button>--%>
 <%--        <button type="button" class="btn btn-primary">client3</button>--%>
     </div>
-    <h2>Chat Messages</h2>
-    <div class="chat-container" id="accordion">
+    <div class="chat-container " id="accordion">
 
 <%--        <div class="collapse multi-collapse" id="multiCollapseExample1" data-parent="#accordion">--%>
 <%--            <div class="media border p-3">--%>
@@ -179,12 +86,131 @@
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="請輸入..." id="input_msg">
         <div class="input-group-append">
-            <form onsubmit="send()">
-            <button class="btn btn-primary" type="submit">Send</button>
-            <button class="btn btn-danger" type="reset">Cancel</button>
-            </form>
+            <button class="btn btn-primary" type="button" onclick="send()">Send</button>
+            <button class="btn btn-danger" type="button" onclick="clear()">Cancel</button>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var clientList = [];
+
+    function getChatClients(){
+        $.get("${pageContext.servletContext.contextPath}/ChatServlet",
+            {"method":"getChatClients"},
+            function (data) {
+                let json = JSON.parse(data);
+                clientList = json;
+                let contentBtn = "";
+                let contentDiv = "";
+                for(let ele in json){
+                    contentBtn += `<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#\${json[ele]}" aria-expanded="false" aria-controls="\${json[ele]}">\${json[ele]}</button>`;
+                    contentDiv += `
+            <div class="collapse multi-collapse" id="\${json[ele]}" data-parent="#accordion"></div>`;
+                }
+                $("#client_btn").html(contentBtn);
+                $("#accordion").html(contentDiv);
+            })
+    }
+
+
+    const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat";
+    websocket = new WebSocket(url);
+
+    websocket.onopen = function (event){
+
+    }
+    websocket.onmessage = function (event){
+        let value = event.data;
+        let messageJson = JSON.parse(value);
+        console.log(messageJson);
+
+        let method = messageJson.method;
+
+        // let addClientID = messageJson.addClient;
+        // let removeClientID = messageJson.removeClient;
+        let httpsessionID = messageJson.httpSessionID;
+        if("addClient" == method){
+            if(!clientList.includes(httpsessionID)){
+                clientList.push(httpsessionID);
+                addClient(httpsessionID);
+            }
+        }else if("removeClient" == method){
+            let i = clientList.indexOf(httpsessionID);
+            if(i>-1){
+                clientList.splice(i,1);
+                removeClient(httpsessionID);
+            }
+        }else if("toServiceMsg" == method){
+            let msg = messageJson.content;
+            setMessageInHTML(msg, 1, httpsessionID);
+        }
+    }
+    websocket.onclose = function (event){
+        websocket.close();
+    }
+    window.onbeforeunload = function (event){
+        websocket.close();
+    }
+
+    function addClient(httpSessionID){
+        // $(".multi-collapse").toggle();
+
+
+        let contentBtn = "";
+        contentBtn += `<button type='button' class='btn btn-primary' data-toggle='collapse' data-target='#\${httpSessionID}' aria-expanded='false' aria-controls="\${httpSessionID}" id="\${httpSessionID}_btn" onclick="setCurrentClient($(this))">\${httpSessionID}</button>`;
+        $("#client_btn").append(contentBtn);
+        // tmp = $("#client_btn").html();
+        // $("#client_btn").html(tmp+contentBtn);
+
+
+        let contentDiv = "";
+        contentDiv += `<div class="collapse multi-collapse" id="\${httpSessionID}" ></div>`;
+        // data-parent="#accordion"
+        $("#accordion").append(contentDiv);
+        // let tmp = $("#accordion").html();
+        // $("#accordion").html(tmp+contentDiv);
+
+        $(".multi-collapse").collapse('hide');
+        $('#'+httpSessionID).collapse('show');
+
+    }
+    function removeClient(httpSessionID){
+        $("#"+httpSessionID).remove();
+        $("#"+httpSessionID+"_btn").remove();
+    }
+
+    function setMessageInHTML(msg, type, httpsessionID){
+        let content = "";
+        content += `<div class="media border p-3" ><div class="media-body">`;
+        if(type == 0){
+            content += `<h4>YOU</h4><p>\${msg}</p>`;
+        }else if(type == 1){
+            content += `<h4>\${httpsessionID}</h4><p>\${msg}</p>`;
+        }
+        content+=`</div></div>`;
+
+        $("#"+httpsessionID).append(content);
+    }
+    var currentClient;
+    function send(){
+        let val = $("#input_msg").val();
+        setMessageInHTML(val, 0, currentClient);
+        let json = {receive:currentClient,content:val};
+
+        websocket.send(JSON.stringify(json));
+        clear();
+    }
+    function setCurrentClient(obj){
+        currentClient = obj.text();
+        $("#input_msg").attr("placeholder","請輸入...to "+currentClient);
+
+        $(".multi-collapse").collapse('hide');
+        $('#'+currentClient).collapse('show');
+    }
+    function clear(){
+        $("#input_msg").val("");
+    }
+
+</script>
 </body>
 </html>

@@ -81,10 +81,22 @@ public class RestaurantServlet extends HttpServlet {
 
 	public void processMultiQuery(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-		String name = request.getParameter("restaurant_name").trim();
-		String region = request.getParameter("region_name").trim();
-		String book_date = request.getParameter("book_date").trim();
-		String person_numer = request.getParameter("person_numer").trim();
+		String name = null;
+		if(!StringUtil.isEmpty(request.getParameter("restaurant_name"))){
+			name = request.getParameter("restaurant_name").trim();
+		}
+		String region = null;
+		if(!StringUtil.isEmpty(request.getParameter("region_name"))){
+			region = request.getParameter("region_name").trim();
+		}
+		String book_date = null;
+		if(!StringUtil.isEmpty(request.getParameter("book_date"))){
+			book_date = request.getParameter("book_date").trim();
+		}
+		String person_numer = null;
+		if(!StringUtil.isEmpty(request.getParameter("person_numer"))){
+			person_numer = request.getParameter("person_numer").trim();
+		}
 		request.getSession().setAttribute("book_date", book_date);
 		request.getSession().setAttribute("person_numer", person_numer);
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
