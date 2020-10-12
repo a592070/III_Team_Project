@@ -33,16 +33,18 @@
                         // console.log(response[1][1]["order_id"])
                         var data=[];
                         for(let i=0; i<response.length; i++){
+                            var div = $('<div></div>').addClass('T_OrderDiv');
                             var table = $('<table></table>').addClass('T_OrderTable');
-                            for(let j=0; j<2; j++){
+                            for(let j=0; j<response[i].length; j++){
                                 data.push(
                                     $("<tr></tr>").append(
-                                        $("<td></td>").append(response[1][1]["order_id"]),
+                                        $("<td></td>").append(response[i][j]["order_id"]),
                                         $("<td></td>").append("yeee")
                                     )
                                 )
                             }
-                            $("#T_Order").append(table);
+                            $("#T_Order").append(div);
+                            $(".T_OrderDiv").eq(i).append(table);
                             $(".T_OrderTable").eq(i).append(data);
                             data=[];
                         }

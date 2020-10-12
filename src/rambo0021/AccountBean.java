@@ -15,9 +15,9 @@ public class AccountBean {
 	private int identity;
 	private String email;
 	private Blob picture;
-	private Date modify_Date = new Date();
+	private Date modify_Date;
 	private String nickName;
-	private Date register = new Date();
+	private Date register;
 	private String identityString;
 	
 	public AccountBean() {
