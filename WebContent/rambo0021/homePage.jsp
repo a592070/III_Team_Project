@@ -71,6 +71,11 @@ if (session.getAttribute("Login") == null) {
 						<c:out value="最後修改日期:${Login.modify_Date}" />
 					</td>
 				</tr>
+				<tr bgcolor="#FFFFE1">
+					<td>
+						<c:out value="訂單編號" />
+					</td>
+				</tr>
 			</table>
 			<input type="button" value="修改" id="update" name="update">
 			<input type="hidden" value="儲存" id="submit" name="submit">

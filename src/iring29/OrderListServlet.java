@@ -57,13 +57,13 @@ public class OrderListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} 
-		else if(r_sn_order != null) { //使用者訂單
-			try {
-			user_OrderList(request, response);
-			} catch (IOException | SQLException e) {
-				e.printStackTrace();
-			}
-		}
+//		else if(r_sn_order != null) { //使用者訂單
+//			try {
+//			user_OrderList(request, response);
+//			} catch (IOException | SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
 //		else if (request.getParameter("time") != null) {
 //			updateBookTime(request, response);
 //		}
