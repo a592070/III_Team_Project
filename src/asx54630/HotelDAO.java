@@ -28,19 +28,19 @@ public class HotelDAO {
         ds = ConnectionPool.getDataSource(connType);
     }
 
-    public List<HotelDO> hSearch(String keyword) throws SQLException {
+    public List<HotelDO> hSearch(String keyword,String regionkeywd,String typekeywd) throws SQLException {
         try {
           conn = ds.getConnection();
-          predStmt = conn.prepareStatement("SELECT * FROM HOTEL WHERE NAME like ? or REGION like ? or ADDRESS like ? or TYPE like ? ");
+          predStmt = conn.prepareStatement("SELECT * FROM HOTEL WHERE NAME like ? and REGION like ? and TYPE like ?  ");
 
           predStmt.setString(1, "%" + keyword + "%");
-          predStmt.setString(2, "%" + keyword + "%");
-          predStmt.setString(3, "%" + keyword + "%");
-          predStmt.setString(4, "%" + keyword + "%");
+          predStmt.setString(2, "%" + regionkeywd + "%");
+//          predStmt.setString(3, "%" + keyword + "%");
+          predStmt.setString(3, "%" + typekeywd + "%");
     	  ResultSet rs = predStmt.executeQuery();
     	  ArrayList<HotelDO> hotelList = new ArrayList<>();
-          if (rs.next()) {
-        	 HotelDO hoteldo = new HotelDO();
+    	  while (rs.next()) {
+    		  HotelDO hoteldo = new HotelDO();
 				BigDecimal id = rs.getBigDecimal("SN");
 				hoteldo.setSN(id);
 				String name = rs.getString("NAME");
@@ -65,6 +65,7 @@ public class HotelDAO {
 				hoteldo.setRATING(rating);
 				String account = rs.getString("ACCOUNT");
 				hoteldo.setACCOUNT(account);
+				hotelList.add(hoteldo);
     	  }
     	  rs.close();
     	  predStmt.close();
@@ -79,6 +80,58 @@ public class HotelDAO {
 			}
         }
     }
+    
+    public List<HotelDO> DetailSearch(String detailname) throws SQLException {
+        try {
+          conn = ds.getConnection();
+          predStmt = conn.prepareStatement("SELECT * FROM HOTEL WHERE NAME like ?");
+
+          predStmt.setString(1, "%" + detailname + "%");
+    	  ResultSet rs = predStmt.executeQuery();
+    	  ArrayList<HotelDO> detailList = new ArrayList<>();
+    	  while (rs.next()) {
+    		  HotelDO hoteldo = new HotelDO();
+				BigDecimal id = rs.getBigDecimal("SN");
+				hoteldo.setSN(id);
+				String name = rs.getString("NAME");
+				hoteldo.setNAME(name);
+				String region = rs.getString("REGION");
+				hoteldo.setREGION(region);
+				String address = rs.getString("ADDRESS");
+				hoteldo.setADDRESS(address);
+				String tel = rs.getString("TEL");
+				hoteldo.setTEL(tel);
+				BigDecimal dbroom = rs.getBigDecimal("DOUBLE_ROOM");
+				hoteldo.setDOUBLE_ROOM(dbroom);
+				BigDecimal quadroom = rs.getBigDecimal("QUADRUPLE_ROOM");
+				hoteldo.setQUADRUPLE_ROOM(quadroom);
+				String description = rs.getString("DESCRIPTION");
+				hoteldo.setDESCRIPTION(description);
+				String opentime = rs.getString("OPENTIME");
+				hoteldo.setOPENTIME(opentime);
+				String type = rs.getString("TYPE");
+				hoteldo.setTYPE(type);
+				BigDecimal rating = rs.getBigDecimal("RATING");
+				hoteldo.setRATING(rating);
+				String account = rs.getString("ACCOUNT");
+				hoteldo.setACCOUNT(account);
+				detailList.add(hoteldo);
+    	  }
+    	  rs.close();
+    	  predStmt.close();
+    	  return detailList;
+    	  
+        } catch (Exception e) {
+    	    System.err.println("尋找住宿資料時發生錯誤:" + e);
+    	    return null;
+        }finally {
+			if (conn != null) {
+				conn.close();
+			}
+        }
+    }
+    
+    
     
     public void createHotel(HotelDO hotDO) throws SQLException {
 		try {
