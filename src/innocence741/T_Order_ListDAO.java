@@ -175,6 +175,19 @@ public class T_Order_ListDAO {
 				tBean.setT_sn_order(rs.getBigDecimal("SN_ORDER"));
 				hsrDO.setSnSchedule(rs.getInt("SN_SCHEDULE"));
 				hsrDO.setIdHSR(rs.getString("ID_HSR"));
+				hsrDO.setDirection(rs.getString("DIRECTION"));
+				hsrDO.setNangang(rs.getString("NANGANG"));
+				hsrDO.setTaipei(rs.getString("TAIPEI"));
+				hsrDO.setBanqiao(rs.getString("BANQIAO"));
+				hsrDO.setTaoyuan(rs.getString("Taoyuan"));
+				hsrDO.setHsinchu(rs.getString("Hsinchu"));
+				hsrDO.setMiaoli(rs.getString("Miaoli"));
+				hsrDO.setTaichung(rs.getString("Taichung"));
+				hsrDO.setChanghua(rs.getString("Changhua"));
+				hsrDO.setYunlin(rs.getString("Yunlin"));
+				hsrDO.setChiayi(rs.getString("Chiayi"));
+				hsrDO.setTainan(rs.getString("Tainan"));
+				hsrDO.setZuoying(rs.getString("Zuoying"));
 				tBean.setHsrDO(hsrDO);	//設置SN_SCHEDULE
 				tBean.setTrafficPrice(rs.getBigDecimal("TICKETPRICE"));
 				tBean.setNums_days(rs.getBigDecimal("NUMBERS_DAYS"));

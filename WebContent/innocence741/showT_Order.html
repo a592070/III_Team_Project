@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +55,9 @@
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["startPoint"]),
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["destination"]),
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["deparatureDate"]),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"][startPoint])
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"][startPoint]),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["trafficPrice"]),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["nums_days"])
 
                                     )
                                 )
@@ -89,3 +90,4 @@
         })
     </script>
 </body>
+</html>
