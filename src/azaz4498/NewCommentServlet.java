@@ -2,6 +2,7 @@ package azaz4498;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,19 +16,18 @@ import javax.servlet.http.HttpSession;
 import controller.ConnectionPool;
 
 /**
- * Servlet implementation class ArticleServlet
+ * Servlet implementation class NewComment
  */
-@WebServlet("/ArticleServlet")
-public class ArticleServlet extends HttpServlet {
+@WebServlet("/NewCommentServlet")
+public class NewCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ArticleServlet() {
+    public NewCommentServlet() {
         super();
-        
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,6 +35,7 @@ public class ArticleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
+		
 	}
 
 	/**
@@ -48,27 +49,20 @@ public class ArticleServlet extends HttpServlet {
 		try {
 			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session =request.getSession();
-			int artid=Integer.valueOf(request.getParameter("artId"));
-			int typeid=Integer.valueOf(request.getParameter("typeId"));
+			int currArticleid = (int) session.getAttribute("currArticle");
+			String commentString = request.getParameter("commentarea");
+			System.out.println(commentString);
+			System.out.println(session.getAttribute("currArticle"));
+			System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+			forumDAO.addNewComment(commentString, currArticleid, "azaz4498");
 			
-			CommentDO commentDO = null;
-			
-			List<CommentDO> commentList=forumDAO.showCommentByArticleId(artid);
-			
-			request.setAttribute("Article", forumDAO.showArticleByArticleId(artid));
-			request.setAttribute("Comment", commentList);
-			request.setAttribute("Type",forumDAO.showArtTypeByTypeId(typeid) );
-			session.setAttribute("currArticle",artid);
-			RequestDispatcher rd = request.getRequestDispatcher("azaz4498/Article.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/ArticleServlet?artId="+currArticleid);
 			rd.forward(request, response);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 	}
 

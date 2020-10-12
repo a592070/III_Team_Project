@@ -34,8 +34,8 @@ public class ForumDAO {
 	public ForumDAO(int dataSourceType) throws IOException, SQLException{
 		ds = ConnectionPool.getDataSource(dataSourceType);
 		articleListInit();
-		commentListInit();
-		commentListInit();
+
+		artTypeListInit();
 	}
 	// 各清單初始化
 	public  void articleListInit() throws SQLException{
@@ -52,6 +52,7 @@ public class ForumDAO {
 
 				articleDO.setArtTypeId(rs.getInt("art_type_id"));
 				articleDO.setArtTitle(rs.getString("art_title"));
+				articleDO.setArtId(rs.getInt("art_id"));
 				articleDO.setArtUserId(rs.getString("art_userid"));
 				articleDO.setArtContent(rs.getNString("art_content"));
 				articleDO.setArtCommNum(rs.getInt("art_comm_num"));
@@ -76,6 +77,7 @@ public class ForumDAO {
 
 	}
 
+	/*
 	public void commentListInit() throws SQLException {
 		commentList = new ArrayList<>();
 		try {
@@ -107,7 +109,7 @@ public class ForumDAO {
 
 		}
 	}
-
+*/
 	public void artTypeListInit() throws SQLException {
 		artTypeList = new ArrayList<>();
 		try {
@@ -165,7 +167,8 @@ public class ForumDAO {
 			pstmt.setInt(6, articleDO.getArtTypeId());
 			pstmt.setString(7, articleDO.getArtTitle());
 
-			pstmt.executeQuery();
+		
+			pstmt.executeUpdate();
 			pstmt.clearBatch();
 
 		} catch (Exception e) {
@@ -173,18 +176,26 @@ public class ForumDAO {
 		}
 	}
 	//新增評論
-	public void addNewComment(CommentDO commentDO) throws SQLException{
+	
+	public void addNewComment(String commentString, int artId, String userid) throws SQLException{
+			
 		try {
 			conn=ds.getConnection();
-			sql="INSERT INTO f_comment (COM_CONTENT, COM_ART_ID, COM_USER_ID, COM_DATE) VALUES(?,?,?,?)";
+			
+			sql="INSERT INTO F_COMMENT (COM_CONTENT, COM_ART_ID, COM_USER_ID, COM_DATE) VALUES(?,?,?,?)";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setNString(1, commentDO.getComContent());
-			pstmt.setInt(2, commentDO.getComArtId());
-			pstmt.setString(3, commentDO.getComUserId());
+			
+			
+			pstmt.setNString(1, commentString);
+			pstmt.setInt(2, artId);
+			pstmt.setString(3, userid);
 			pstmt.setTimestamp(4, new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
 			
-			pstmt.executeQuery();
-			pstmt.clearBatch();
+			
+			pstmt.executeUpdate();
+			conn.commit();
+			System.out.println("新增評論成功");
+			
 			
 			
 		}catch (Exception e) {
@@ -286,23 +297,80 @@ public class ForumDAO {
 			e.printStackTrace();
 		}
 	}
-	//依當前文章ID顯示所有評論
-	public void showCommentByArticleId(CommentDO commentDO)throws SQLException{
+	
+	//依文章id顯示文章
+	public  ArticleDO showArticleByArticleId(int articleId) throws SQLException{
+		ArticleDO articleDO=null;
 		try {
 			conn=ds.getConnection();
-			sql="SELECT * FROM F_COMMENT WHERE COM_ART_ID=? ORDER BY COM_DATE";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,commentDO.getComArtId());
 			
-			pstmt.executeQuery();
-			pstmt.clearBatch();
+			sql="SELECT * FROM F_ARTICLE WHERE ART_ID=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,articleId);
+			ResultSet rs= pstmt.executeQuery();
+			if (rs.next()) {
+				articleDO = new ArticleDO();
+				articleDO.setArtId(articleId);
+				articleDO.setArtTitle(rs.getString("ART_TITLE"));
+				articleDO.setArtContent(rs.getNString("ART_CONTENT"));
+				articleDO.setArtCreTime(rs.getDate("ART_CRE_TIME"));
+				articleDO.setArtTypeId(rs.getInt("ART_TYPE_ID"));
+				articleDO.setArtUserId(rs.getString("ART_USERID"));
+				
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		return articleDO;
 	}
-	
-	
-
+	//依文章id顯示評論
+	public List<CommentDO> showCommentByArticleId(int commentArticleId) throws SQLException{
+		commentList = new ArrayList<>();
+		try {
+			conn=ds.getConnection();
+			sql="SELECT * FROM F_COMMENT WHERE COM_ART_ID=? ORDER BY COM_DATE";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,commentArticleId);
+			ResultSet rs= pstmt.executeQuery();
+			while (rs.next()) {
+				CommentDO commentDO = new CommentDO();
+				commentDO.setComArtId(commentArticleId);
+				commentDO.setComContent(rs.getString("COM_CONTENT"));
+				commentDO.setComUserId(rs.getString("COM_USER_ID"));
+				commentDO.setComId(rs.getInt("COM_ID"));
+				commentDO.setComDate(rs.getDate("COM_DATE"));
+				
+				commentList.add(commentDO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return commentList;
+	}
+	//依文章類型ID顯示文章類型
+	public ArticleTypeDO showArtTypeByTypeId(int typeId) throws SQLException{
+		ArticleTypeDO articleTypeDO = null;
+		try {
+			conn=ds.getConnection();
+			sql="SELECT * FROM F_ART_TYPE WHERE TYPE_ID=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,typeId);
+			ResultSet rs= pstmt.executeQuery();
+			if (rs.next()) {
+				articleTypeDO = new ArticleTypeDO();
+				articleTypeDO.setTypeId(typeId);
+				articleTypeDO.setTypeName(rs.getString("TYPE_NAME"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articleTypeDO;
+		
+	}
 
 }

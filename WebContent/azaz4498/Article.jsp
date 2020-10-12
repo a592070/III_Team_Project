@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="azaz4498.ArticleDO"%>
+<%@ page import="azaz4498.CommentDO"%>
+<%@ page import="azaz4498.ArticleTypeDO"%>
+<%@ page import="azaz4498.ForumDAO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,48 +51,52 @@
     </nav>
     <!--media objects-->
     <div class="media pl-5 pt-3">
-        <img class="mr-3" src="../azaz4498/img/iconfinder_8_3898372.png" width="60px" height="60px"
-            alt="Generic placeholder image">
-        <div class="media-body">
-            <h5 class="mt-0">文章標題</h5>
-            <p>
-                <button type="button" class="btn btn-info btn-sm">#景點</button>
-                <button type="button" class="btn btn-info btn-sm">#住宿</button>
-            </p> 
-            
 
-            今年的家庭旅遊因買了花蓮煙波的住宿券，決定就來去花蓮遊玩囉~有鑒於蘇花公路山路路程長而難走，想到就卻步，所以之前只有跟公司員工旅遊坐火車去了幾次花東，花蓮的好山好水一直是台灣著名的景點之一，也吸引許多觀光客前往，喜歡大自然的我們這次要來好好感受一下花蓮的美麗景緻！為了不讓旅程都浪費在開車上，本次旅遊安排四天三夜，也跟大家分享我們的行程規劃~
+        
+        <img class="mr-3" src="azaz4498\img\iconfinder_8_3898372.png" width="60px" height="60px"
+            alt="user image">
+        <div class="media-body">
+
+            <h5 class="mt-0">${Article.artTitle}</h5>
+            <p>
+
+                <button type="button" class="btn btn-info btn-sm">#${Type.typeName }</button>
+                
+            </p> 
            
+
+           ${Article.artContent }
+           <c:forEach var='comm' items='${Comment}'>
             <div class="media mt-3">
                 <a class="pr-3" href="#">
-                    <img src="../azaz4498/img/iconfinder_8_3898372.png" width="60px" height="60px" alt="Generic placeholder image">
+
+                    <img src="azaz4498\img\iconfinder_8_3898372.png" width="60px" height="60px" alt="Generic placeholder image">
                 </a>
                 <div class="media-body">
-                    <h5 class="mt-0">abc123</h5>
-                    謝謝分享太棒了呢
+
+                    <h5 class="mt-0">${comm.comUserId }</h5>
+                    ${comm.comContent }
                 </div>
             </div>
-            <div class="media mt-3">
-                <a class="pr-3" href="#">
-                    <img src="../azaz4498/img/iconfinder_8_3898372.png" width="60px" height="60px" alt="Generic placeholder image">
-                </a>
-                <div class="media-body">
-                    <h5 class="mt-0">abc123</h5>
-                    讚啦
-                </div>
-            </div>
+
+            </c:forEach>
+            
         </div>
     </div>
-    <form>
-        <div class="form-group pl-5" >
-          <label for="exampleInputEmail1">撰寫評論...</label>
-          <textarea class="form-control" id="commentarea" rows="3" aria-describedby="commentHelp"></textarea>
-          <small id="commentHelp" class="form-text text-muted">留言請勿包含謾罵以及人身攻擊等字句。</small>
-        </div>
-       
-        <button type="submit" class="btn btn-primary ml-5">送出</button>
-      </form>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+
+	<form action="<%=pageContext.getServletContext().getContextPath() %>/NewCommentServlet" name="CommentForm">
+		<div class="form-group pl-5">
+			<label for="exampleInputEmail1">撰寫評論...</label>
+
+			<textarea class="form-control" name="commentarea" id="commentarea" rows="3"
+				aria-describedby="commentHelp"></textarea>
+			<small id="commentHelp" class="form-text text-muted">留言請勿包含謾罵以及人身攻擊等字句。</small>
+		</div>
+
+
+		<button type="submit" class="btn btn-primary ml-5" onClick="window.alert('新增評論成功');">送出</button>
+	</form>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
