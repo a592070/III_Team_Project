@@ -1,5 +1,6 @@
 package azaz4498;
 
+import java.io.DataOutput;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -48,17 +49,20 @@ public class ArticleServlet extends HttpServlet {
 		try {
 			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session =request.getSession();
-			int artid=Integer.valueOf(request.getParameter("artId"));
-			int typeid=Integer.valueOf(request.getParameter("typeId"));
-			
+			int artid;
+			int typeid;
 			CommentDO commentDO = null;
+			artid=Integer.valueOf(request.getParameter("artId"));
+			typeid=Integer.valueOf(request.getParameter("art_TypeId"));
 			
+//			System.out.println("typeid 有沒有抓到 = "+typeid);
 			List<CommentDO> commentList=forumDAO.showCommentByArticleId(artid);
 			
 			request.setAttribute("Article", forumDAO.showArticleByArticleId(artid));
 			request.setAttribute("Comment", commentList);
-			request.setAttribute("Type",forumDAO.showArtTypeByTypeId(typeid) );
+			request.setAttribute("Type",forumDAO.showArtTypeByTypeId(typeid));
 			session.setAttribute("currArticle",artid);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("azaz4498/Article.jsp");
 			rd.forward(request, response);
 		} catch (IOException e) {

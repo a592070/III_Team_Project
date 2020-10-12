@@ -57,9 +57,9 @@
 				</h5>
 				<p class="card-text"></p>
 				
-				<a href="<c:url value='/ArticleServlet?artId=${art.artId}'>
-				<c:param name="typeId" value='${art.artTypeId }'/> 
-				</c:url>" class="btn btn-primary">閱讀文章</a>
+				<a href="<c:url value='/ArticleServlet?artId=${art.artId}&art_TypeId=${art.artTypeId}'/>"class="btn btn-primary">閱讀文章</a>
+				
+				
 				<p class="card-text">
 
 					<small class="text-muted">${art.artCommNum } comments ${art.artView} views </small>
