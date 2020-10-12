@@ -15,7 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
+import asx54630.HotelDAO;
+import asx54630.HotelDO;
 import controller.ConnectionPool;
+import innocence741.CarRentalCompanyBean;
+import innocence741.CarRentalCompanyDAO;
+import innocence741.CarTypeBean;
 import iring29.RestaurantDAO;
 import iring29.bean.RestaurantBean;
 import utils.IOUtils;
@@ -82,29 +87,82 @@ public class RegisterServlet extends HttpServlet {
 		registerDAO.insertData(account);
 		//儲存店家基本資料
 		//餐廳
-		
-		RestaurantBean rBean = new RestaurantBean();
-		rBean.setName(request.getParameter("rsname").trim()); //餐廳名稱
-		rBean.setAddress(request.getParameter("address").trim()); //餐廳地址
-		rBean.setOpentime(request.getParameter("opentime").trim()); //餐廳營業時間
-		rBean.setDescription(request.getParameter("description").trim()); //餐廳描述
-		rBean.setTransportation(request.getParameter("transportation").trim()); //餐廳交通方式
-		rBean.setType(request.getParameter("type").trim()); //餐廳類型
-		rBean.setRating(BigDecimal.ZERO); //rating初始值設為0
-		rBean.setPicture(request.getParameter("rpicture").trim()); //餐廳照片，url格式
-		rBean.setServiceinfo(request.getParameter("serviceinfo").trim()); //餐廳用餐訊息
-		rBean.setAccount(username); // session中的username(account)
+		if(identity==3) {
+			RestaurantBean rBean = new RestaurantBean();
+			rBean.setName(request.getParameter("rname").trim()); //餐廳名稱
+			rBean.setAddress(request.getParameter("raddress").trim()); //餐廳地址
+			rBean.setOpentime(request.getParameter("ropentime").trim()); //餐廳營業時間
+			rBean.setDescription(request.getParameter("rdescription").trim()); //餐廳描述
+			rBean.setTransportation(request.getParameter("rtransportation").trim()); //餐廳交通方式
+			rBean.setType(request.getParameter("rtype").trim()); //餐廳類型
+			rBean.setRating(BigDecimal.ZERO); //rating初始值設為0
+			rBean.setPicture(request.getParameter("rpicture").trim()); //餐廳照片，url格式
+			rBean.setServiceinfo(request.getParameter("serviceinfo").trim()); //餐廳用餐訊息
+			rBean.setAccount(username); // session中的username(account)
 
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
-		try {
-			restaurantDAO.createRestaurant(rBean);
-		} catch (SQLException e) {
-			System.out.println("店家新增失敗");
-			e.printStackTrace();
+			RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+			try {
+				restaurantDAO.createRestaurant(rBean);
+				System.out.println("餐廳新增成功");
+			} catch (SQLException e) {
+				System.out.println("餐廳新增失敗");
+				e.printStackTrace();
+			}
 		}
-
 		//住宿
+		else if (identity==4) {
+
+			HotelDO hotDO = new HotelDO();
+
+			hotDO.setNAME(request.getParameter("hname").trim());
+			hotDO.setREGION(request.getParameter("hregion").trim()); 
+			hotDO.setADDRESS(request.getParameter("haddress").trim());
+			hotDO.setTEL(request.getParameter("htel").trim());
+			hotDO.setDOUBLE_ROOM(BigDecimal.valueOf(Integer.parseInt(request.getParameter("droom").trim())));
+			hotDO.setQUADRUPLE_ROOM(BigDecimal.valueOf(Integer.parseInt(request.getParameter("qroom").trim())));
+			hotDO.setDESCRIPTION(request.getParameter("hdescription"));        
+			hotDO.setOPENTIME(request.getParameter("hopentime"));                                
+			hotDO.setTYPE(request.getParameter("htype"));                                
+			hotDO.setRATING(BigDecimal.ZERO);
+			hotDO.setACCOUNT(username);
+
+			HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);                        
+			try {
+				hotelDAO.createHotel(hotDO);
+				System.out.println("住宿新增成功");
+			} catch (SQLException e) {
+				System.out.println("住宿新增失敗");
+				e.printStackTrace();
+			}
+
+		}
 		//交通
+		else if (identity==5) {
+			CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
+			CarTypeBean carTypeBean = new CarTypeBean();
+			
+
+			carRentalCompanyBean.setCompanyName(request.getParameter("tname").trim());
+			carRentalCompanyBean.setAddress(request.getParameter("taddress").trim());
+			carRentalCompanyBean.setDescription(request.getParameter("tdescription").trim());
+			carRentalCompanyBean.setOpenHours(request.getParameter("topentime").trim());
+			carRentalCompanyBean.setTelphoneNum(request.getParameter("ttel").trim());
+			carRentalCompanyBean.setCompanyAccount(username);
+			carTypeBean.setCarType(request.getParameter("carType").trim());
+			carTypeBean.setPrice(BigDecimal.valueOf(Integer.parseInt(request.getParameter("tprice").trim())));
+
+			carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);
+
+
+			CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+			try {
+				carRentalCompanyDAO.signUPCarRentalCompany(carRentalCompanyBean);
+				System.out.println("交通新增成功");
+			} catch (SQLException e) {
+				System.out.println("交通新增失敗");
+				e.printStackTrace();
+			}
+		}
 
 
 		pictrure.close();
