@@ -26,27 +26,52 @@
                      dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
 
                      success : function(response){
-
                         // console.log(response[0].length);
                         // console.log(response.length);
                         // console.log(response[1].length)
                         // console.log(response[1][1]["order_id"])
-                        var data=[];
+                        var data=["<thead><tr><th>訂單編號</th>"+
+                                             "<th>下訂日期</th>"+
+                                             "<th>車次號</th>"+
+                                             "<th>起點站</th>"+
+                                             "<th>到達站</th>"+
+                                             "<th>出發日期</th>"+
+                                             "<th>出發時間</th>"+
+                                             "<th>票價</th>"+
+                                             "<th>訂購張數</th></tr></thead>"];
                         for(let i=0; i<response.length; i++){
                             var div = $('<div></div>').addClass('T_OrderDiv');
                             var table = $('<table></table>').addClass('T_OrderTable');
                             for(let j=0; j<response[i].length; j++){
+                                let startPoint = response[i][j]["t_OderBeans"][0]["startPoint"];
                                 data.push(
                                     $("<tr></tr>").append(
                                         $("<td></td>").append(response[i][j]["order_id"]),
-                                        $("<td></td>").append("yeee")
+                                        $("<td></td>").append(response[i][j]["order_date"]),
+                                        //$("<td></td>").append(response[i][j]["user"]["userName"])
+                                        // $("<td></td>").append(response[i][j]["t_OderBeans"][0]["t_sn_order"])
+                                        // $("<td></td>").append(response[i][j]["t_OderBeans"][0]["orderType"]) //可抓到orderType
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"]["idHSR"]),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["startPoint"]),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["destination"]),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["deparatureDate"]),
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"][startPoint])
+
                                     )
                                 )
                             }
                             $("#T_Order").append(div);
                             $(".T_OrderDiv").eq(i).append(table);
                             $(".T_OrderTable").eq(i).append(data);
-                            data=[];
+                            data=["<thead><tr><th>訂單編號</th>"+
+                                             "<th>下訂日期</th>"+
+                                             "<th>車次號</th>"+
+                                             "<th>起點站</th>"+
+                                             "<th>到達站</th>"+
+                                             "<th>出發日期</th>"+
+                                             "<th>出發時間</th>"+
+                                             "<th>票價</th>"+
+                                             "<th>訂購張數</th></tr></thead>"];
                         }
                         console.log($(".T_Order"));
 

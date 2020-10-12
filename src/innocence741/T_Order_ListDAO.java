@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -139,10 +140,16 @@ public class T_Order_ListDAO {
 	public void searchHistoricalOrder(ArrayList<ArrayList> combineArrayList, String userid) throws SQLException {
 		ArrayList<OrderTableBean> tmp_orderTableBeans = new ArrayList<>();
 		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
-		String sql = "select * from order_table o, t_order_list t " + 
-					 "where o.order_id = t.order_id(+) and " + 
-					 "o.username = " + "\'" + userid + "\'" +
-					 "order by o.order_id";
+//		String sql = "select * from order_table o, t_order_list t " + 
+//					 "where o.order_id = t.order_id(+) and " + 
+//					 "o.username = " + "\'" + userid + "\'" +
+//					 "order by o.order_id";
+		String sql = "select * from order_table o, t_order_list t, highspeedrail h "
+				+ "where o.order_id = t.order_id(+) "
+				+ "and t.sn_schedule = h.sn_schedule(+) "
+				+ "and o.username = " + "\'" + userid +"\'" 
+				+ " order by o.order_id";
+
 		AccountBean user = new AccountBean();
 
 		try {
@@ -160,10 +167,13 @@ public class T_Order_ListDAO {
 				oBean.setOrder_date(rs.getTimestamp("ORDER_DATE"));
 				
 				user.setUserName(rs.getString("USERNAME"));
+				user.setModify_Date(new Date());
+				user.setRegister(new Date());
 				oBean.setUser(user);
 				
 				tBean.setT_sn_order(rs.getBigDecimal("SN_ORDER"));
 				hsrDO.setSnSchedule(rs.getInt("SN_SCHEDULE"));
+				hsrDO.setIdHSR(rs.getString("ID_HSR"));
 				tBean.setHsrDO(hsrDO);	//設置SN_SCHEDULE
 				tBean.setTrafficPrice(rs.getBigDecimal("TICKETPRICE"));
 				tBean.setNums_days(rs.getBigDecimal("NUMBERS_DAYS"));

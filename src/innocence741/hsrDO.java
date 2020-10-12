@@ -135,5 +135,33 @@ public class hsrDO {
 			return null;
 		}
 	}
+	
+	public void setArriveTime(String location) {
+		if(location.equals("Nangang")) {
+			setNangang(location);
+		}else if(location.equals("Taipei")) {
+			setTaipei(location);
+		}else if (location.equals("Banqiao")) {
+			setBanqiao(location);
+		}else if (location.equals("Taoyuan")) {
+			setTaoyuan(location);
+		}else if (location.equals("Hsinchu")) {
+			setHsinchu(location);
+		}else if (location.equals("Miaoli")) {
+			setMiaoli(location);
+		}else if (location.equals("Taichung")) {
+			setTaichung(location);
+		}else if (location.equals("Changhua")) {
+			setChanghua(location);
+		}else if (location.equals("Yunlin")) {
+			setYunlin(location);
+		}else if (location.equals("Chiayi")) {
+			setChiayi(location);
+		}else if (location.equals("Tainan")) {
+			setTainan(location);
+		}else if (location.equals("Zuoying")) {
+			setZuoying(location);
+		}
+	}
 
 }
