@@ -10,6 +10,8 @@ import java.util.List;
 import javax.naming.*;
 import javax.sql.*;
 
+import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+
 import controller.ConnectionPool;
 import iring29.RestaurantDAO;
 import iring29.bean.RestaurantBean;
@@ -46,7 +48,7 @@ public class HotelController extends HttpServlet {
 		    response.setContentType(CONTENT_TYPE);
 		    System.out.print("in");
 	
-			if (request.getParameter("search")!=null)
+			if (request.getParameter("search")!=null) 
 				try {
 					gotoSearchProcess(request,response);
 				} catch (SQLException e) {
@@ -59,22 +61,50 @@ public class HotelController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
+			if (request.getParameter("moredetail")!=null) 
+				try {
+					gotoDetailProcess(request,response);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			 
 	}
 	
 	private void gotoSearchProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException, ServletException {
 			String keyword = request.getParameter("keyword").trim();
-			System.out.print(keyword);
-
+			String regionkeywd = request.getParameter("regionkeywd").trim();
+			String typekeywd = request.getParameter("typekeywd").trim();
+			System.out.print("("+keyword+")");
+			System.out.print("("+regionkeywd+")");
+			System.out.print("("+typekeywd+")");
+			
 			HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);
-			List<HotelDO> hoteldata = hotelDAO.hSearch(keyword);
-			request.getSession().setAttribute("hoteldata", hoteldata);
+			List<HotelDO> hoteldata = hotelDAO.hSearch(keyword,regionkeywd,typekeywd);
+			request.setAttribute("hoteldata", hoteldata);
 			System.out.print(hoteldata);
 				if (hoteldata == null) request.getRequestDispatcher("/asx54630/SelectError.jsp").forward(request,response);
 				else 	 request.getRequestDispatcher("/asx54630/HotelServiceResult.jsp").forward(request,response);
 }
 	
+	
+	private void gotoDetailProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException, ServletException {
+		String detailname = request.getParameter("detailname").trim();
+		System.out.print("("+detailname+")");
+		
+		HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);
+		List<HotelDO> detaildata = hotelDAO.DetailSearch(detailname);
+		request.setAttribute("detaildata", detaildata);
+		System.out.print(detaildata);
+			if (detaildata == null) request.getRequestDispatcher("/asx54630/SelectError.jsp").forward(request,response);
+			else 	 request.getRequestDispatcher("/asx54630/MoreDetail.jsp").forward(request,response);
+}
 	
 }
