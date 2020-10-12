@@ -13,7 +13,7 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <jsp:include page="/asx54630/TestHeader.jsp" />
+    <jsp:include page="/fragment/header.jsp" />
   <!--------------------------------------------以上為導覽列--------------------------------------------------------->  
   <!--------------------------------------------以下為搜尋列--------------------------------------------------------->    
     <div class="container">
@@ -51,6 +51,9 @@
                         <option value="屏東縣">屏東縣</option>
                         <option value="花蓮縣">花蓮縣</option>
                         <option value="臺東縣">臺東縣</option>
+                        <option value="澎湖縣">澎湖縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
@@ -68,10 +71,11 @@
   <!--------------------------------------------以上為搜尋列----------------------------------------------------------->  
   <!--------------------------------------------以下為飯店內容---------------------------------------------------------> 
         <br>
-        <from action="<%=pageContext.getServletContext().getContextPath()%>/HotelController" method="POST">
-        <table class="table" id="testtb1">
+        <from>
+        <table class="table">
             <thead>
             <tr>
+<!--             	<th></th> -->
                 <th>名稱</th>
                 <th>地址</th>
                 <th>住宿類型</th>
@@ -83,32 +87,32 @@
             <tbody>
             <c:forEach var="hotels" items="${hoteldata}">
             <tr>
+            	<td><input type="hidden" name="hotelsn" value="${hotels.SN}"></td>
                 <td>${hotels.NAME}</td>
                 <td>${hotels.ADDRESS}</td>
                 <td>${hotels.TYPE}</td>
                 <td>${hotels.RATING}</td>
-                <td><a class="nav-link" href="<c:url value='/asx54630/MoreDetail.jsp' />" name="moredetail">更多資訊..</a></td>
+                <td><button type='button' class='btn btn-info'  onclick="clickdetail(${hotels.SN})" >更多資訊</button></td>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" >我要訂房</button></td>
             </tr>
            </c:forEach>           
             </tbody>
         </table>
-        <script> 
-        	var table = document.getElementById("testtb1");//获取第一个表格
-		
-        	var child = table.getElementsByTagName("tr")[rowIndex - 3];
-        	
-        	 var text = child.firstChild.innerHTML;
-				
-        	 console.log("text");
-        </script>
 		</from>
+		
+		<script type="text/javascript">
+		function clickdetail(sn){
+			
+			document.location.href="${pageContext.servletContext.contextPath}/HotelDetailServlet?detailsn="+sn;
+		}
+		
+		</script>
 		
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel" >預訂飯店:$('table tbody tr').eq(0).children("td:eq(0)").text();</h5>
+                  <h5 class="modal-title" id="exampleModalLabel" >預訂飯店:</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

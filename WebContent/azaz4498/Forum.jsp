@@ -55,12 +55,17 @@
 				<h5 class="card-title">
 					
 				</h5>
-				<p class="card-text">${art.artContent }</p>
+				<p class="card-text"></p>
+				
+				<a href="<c:url value='/ArticleServlet?artId=${art.artId}'>
+				<c:param name="typeId" value='${art.artTypeId }'/> 
+				</c:url>" class="btn btn-primary">閱讀文章</a>
 				<p class="card-text">
-					<small class="text-muted">${art.artCommNum } comments ${art.artView} views ${art.artId}</small>
+
+					<small class="text-muted">${art.artCommNum } comments ${art.artView} views </small>
 				</p>
-				<a href="<c:url value='../azaz4498/ArticleServlet?artId='/>" class="btn btn-primary">閱讀文章</a>
 			</div>
+			
 		</div>
 		</c:forEach>
 

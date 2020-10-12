@@ -13,8 +13,6 @@ import javax.sql.*;
 import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 
 import controller.ConnectionPool;
-import iring29.RestaurantDAO;
-import iring29.bean.RestaurantBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,19 +59,7 @@ public class HotelController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			if (request.getParameter("moredetail")!=null) 
-				try {
-					gotoDetailProcess(request,response);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ServletException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			
 				
 			 
 	}
@@ -95,16 +81,15 @@ public class HotelController extends HttpServlet {
 }
 	
 	
-	private void gotoDetailProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException, ServletException {
-		String detailname = request.getParameter("detailname").trim();
-		System.out.print("("+detailname+")");
-		
-		HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);
-		List<HotelDO> detaildata = hotelDAO.DetailSearch(detailname);
-		request.setAttribute("detaildata", detaildata);
-		System.out.print(detaildata);
-			if (detaildata == null) request.getRequestDispatcher("/asx54630/SelectError.jsp").forward(request,response);
-			else 	 request.getRequestDispatcher("/asx54630/MoreDetail.jsp").forward(request,response);
-}
+//	private void gotoDetailProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException, ServletException {
+//		String detailsn = request.getParameter("detailsn").trim();
+//		System.out.print("("+detailsn+")");
+//		int detsn = Integer.parseInt(detailsn);
+//		HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);
+//		HotelDO detaildata = hotelDAO.DetailSearch(detsn);
+//		request.setAttribute("detsn", detsn);
+//		System.out.print(detsn);
+//		request.getRequestDispatcher("/asx54630/MoreDetail.jsp").forward(request,response);
+//}
 	
 }

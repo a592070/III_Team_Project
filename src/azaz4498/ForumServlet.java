@@ -60,7 +60,6 @@ public class ForumServlet extends HttpServlet {
 			
 			Map<String, String> errorMsgMap = new HashMap<String, String>();
 			request.setAttribute("ErrorMsgKey", errorMsgMap);
-			
 			request.setAttribute("Article", artList);
 			RequestDispatcher rd = request.getRequestDispatcher("azaz4498/Forum.jsp");
 			rd.forward(request, response);

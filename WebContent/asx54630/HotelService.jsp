@@ -13,7 +13,7 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<jsp:include page="/asx54630/TestHeader.jsp" />
+<jsp:include page="/fragment/header.jsp" />
   <!--------------------------------------------以上為導覽列--------------------------------------------------------->  
   <!--------------------------------------------以下為搜尋列---------------------------------------------------------> 
     <div class="container">
@@ -51,6 +51,9 @@
                         <option value="屏東縣">屏東縣</option>
                         <option value="花蓮縣">花蓮縣</option>
                         <option value="臺東縣">臺東縣</option>
+                        <option value="澎湖縣">澎湖縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
                     </select>
                   </div>
                   <div class="form-group col-md-2">
