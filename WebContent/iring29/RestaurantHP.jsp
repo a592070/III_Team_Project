@@ -155,6 +155,9 @@ h3 {
 .modal-title{
 	margin-left:10px;
 }
+p{
+	font-size:16px;
+}
 </style>
 </head>
 <body>
@@ -201,7 +204,7 @@ h3 {
 					</div>
 					<div>
 						<h4 class="res_result">交通方式</h4>
-						<p class="p_result">${r_hp.transportation}</p>
+						<pre><p class="p_result">${r_hp.transportation}</p></pre>
 					</div>
 					<Input type='hidden' name='rBean' value='${r_hp}'> <Input
 						type='hidden' name='roBean' value='${roBean}'>
@@ -234,7 +237,7 @@ h3 {
 					</div>
 					<div>
 						<h4 class="res_result">營業時間</h4>
-						<p class="p_result">${r_hp.opentime}</p>
+						<pre><p class="p_result">${r_hp.opentime}</p></pre>
 					</div>
 					<div>
 						<h4 class="res_result">餐廳描述</h4>

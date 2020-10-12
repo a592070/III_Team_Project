@@ -124,7 +124,8 @@ public class OrderListServlet extends HttpServlet {
 		request.getSession().setAttribute("bean", bean);
 
 		
-		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
+//		request.getRequestDispatcher("/iring29/DisplayOrderList.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/iring29/DisplayOrderList.jsp"); //才不會refresh page又重新下單
 
 	}
 
