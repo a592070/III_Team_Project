@@ -19,7 +19,7 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand"
 			href="${pageContext.servletContext.contextPath}/index.jsp">Logo</a>
-			<c:if test="${!empty Login}"><a class="navbar-brand">您好，<c:out value="${Login.nickName}" /></a></c:if>
+			<c:if test="${!empty Login}"><p style="font-size: 10px;" class="navbar-brand">您好，<c:out value="${Login.nickName}" /></p></c:if>
 
 		<div class="collapse navbar-collapse nav justify-content-center"
 			id="navb">
@@ -48,6 +48,24 @@
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp">我的行程</a>
 				</li>
+                <!--餐廳 -->
+				<c:if test="${Login.identity eq 3}">
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/">店家頁面</a>
+				</li>
+				</c:if>
+				<!--住宿 -->
+				<c:if test="${Login.identity eq 4}">
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/">店家頁面</a>
+				</li>
+				</c:if>
+				<!--交通 -->
+				<c:if test="${Login.identity eq 5}">
+				<li class="nav-item"><a class="nav-link active"
+					href="${pageContext.servletContext.contextPath}/">店家頁面</a>
+				</li>
+				</c:if>
 			</ul>
 		</div>
 
