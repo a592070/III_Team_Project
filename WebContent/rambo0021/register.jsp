@@ -10,7 +10,7 @@
     <title>註冊頁面</title>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
 
     <style>
         body {
@@ -95,64 +95,134 @@
             <!-- <div style="display:none" id="includeDiv"
                 w3-include-html="">
             </div><br> -->
-            <div id="rsdiv" style="display:none">
-                <form>
-                    <fieldset>
-                        <legend>餐廳資料</legend>
-                        <div class="st1">
-                            <label for="">餐廳名稱:</label>
-                            <input type="text" id="rname" name="rname" placeholder="請輸入餐廳名稱" onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">地址:</label>
-                            <input type="text" id="address" name="address" placeholder="請輸入地址" onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">營業時間:</label>
-                            <input type="text" id="opentime" name="opentime" placeholder="請輸入營業時間" onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">餐廳描述:</label>
-                            <input type="text" id="description" name="description" placeholder="請輸入餐廳描述" onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">交通方式:</label>
-                            <input type="text" id="transportation" name="transportation" placeholder="請輸入交通方式"
-                                onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">餐廳類型:</label>
-                            <input type="text" id="type" name="type" placeholder="請輸入餐廳類型" onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">餐廳照片url:</label>
-                            <input type="text" id="rpicture" name="rpicture" placeholder="請輸入照片url" onblur="" />
-                        </div>
-                        <div class="st1">
-                            <label for="">餐廳用餐訊息:</label>
-                            <input type="text" id="serviceinfo" name="serviceinfo" placeholder="請輸入用餐訊息" onblur="" />
-                        </div>
-                    </fieldset>
-                </form>
+            <!-- r=restaurant h=hotel t=transportation  -->
+            <div id="rdiv" style="display:none">
+
+                <fieldset>
+                    <legend>餐廳資料</legend>
+                    <div class="st1">
+                        <label for="">餐廳名稱:</label>
+                        <input type="text" id="rname" name="rname" placeholder="請輸入餐廳名稱" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">地址:</label>
+                        <input type="text" id="raddress" name="raddress" placeholder="請輸入地址" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">營業時間:</label>
+                        <input type="text" id="ropentime" name="ropentime" placeholder="請輸入營業時間" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">餐廳簡介:</label>
+                        <input type="text" id="rdescription" name="rdescription" placeholder="請輸入餐廳描述" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">交通方式:</label>
+                        <input type="text" id="rtransportation" name="rtransportation" placeholder="請輸入交通方式"
+                            onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">餐廳類型:</label>
+                        <input type="text" id="rtype" name="rtype" placeholder="請輸入餐廳類型" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">餐廳照片url:</label>
+                        <input type="text" id="rpicture" name="rpicture" placeholder="請輸入照片url" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">餐廳用餐訊息:</label>
+                        <input type="text" id="serviceinfo" name="serviceinfo" placeholder="請輸入用餐訊息" onblur="" />
+                    </div>
+                </fieldset>
+
             </div>
-            <div>
+            <div id="hdiv" style="display:none">
                 <fieldset>
                     <legend>住宿資料</legend>
                     <div class="st1">
-                    <label for="">餐廳名稱:</label> 
-                    <input type="text" id="rname" name="rname" placeholder="請輸入餐廳名稱" onblur="" />
+                        <label for="">住宿名稱:</label>
+                        <input type="text" id="hname" name="hname" placeholder="請輸入住宿名稱" onblur="" />
                     </div>
+                    <div class="st1">
+                        <label for="">縣市:</label>
+                        <input type="text" id="hregion" name="hregion" placeholder="請輸入縣市名稱" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">地址:</label>
+                        <input type="text" id="haddress" name="haddress" placeholder="請輸入地址" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">電話:</label>
+                        <input type="text" id="htel" name="htel" placeholder="請輸入電話" onblur="" />
+                    </div>
+                    <!-- d=double q=quadruple -->
+                    <div class="st1">
+                        <label for="">雙人房價格:</label>
+                        <input type="text" id="droom" name="droom" placeholder="請輸入雙人房價格" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">四人房價格:</label>
+                        <input type="text" id="qroom" name="qroom" placeholder="請輸入四人房價格" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">住宿簡介:</label>
+                        <input type="text" id="hdescription" name="hdescription" placeholder="請輸入住宿描述" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">營業時間:</label>
+                        <input type="text" id="hopentime" name="hopentime" placeholder="請輸入營業時間" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">住宿類型:</label>
+                        <input type="text" id="htype" name="htype" placeholder="請輸入住宿類型" onblur="" />
+                    </div>
+                </fieldset>
+            </div>
+            <div id="tdiv" style="display:none">
+                <fieldset>
+                    <legend>車行資料</legend>
+                    <div class="st1">
+                        <label for="">公司名稱:</label>
+                        <input type="text" id="tname" name="tname" placeholder="請輸入公司名稱" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">地址:</label>
+                        <input type="text" id="taddress" name="taddress" placeholder="請輸入地址" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">簡介:</label>
+                        <input type="text" id="tdescription" name="tdescription" placeholder="請輸入簡介" onblur="" />
+                    </div>
+                    <div class=" st1">
+                        <label for="">營業時間:</label>
+                        <input type="text" id="topentime" name="topentime" placeholder="請輸入營業時間" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">電話:</label>
+                        <input type="text" id="ttel" name="ttel" placeholder="請輸入電話" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">租車車種:</label>
+                        <input type="text" id="carType" name="carType" placeholder="請輸入租車車種" onblur="" />
+                    </div>
+                    <div class="st1">
+                        <label for="">價格:</label>
+                        <input type="text" id="tprice" name="tprice" placeholder="價格" onblur="" />
+                    </div>
+                </fieldset>
             </div>
 
             <input type="submit" id="submit" name="submit" value="送出" disabled>
+
         </form>
+    </div>
 
 
 
 
     </div>
     <script>
-        w3.includeHTML();
+        
         function checkusr() {
             let username = document.getElementById("username").value;
             let sp = document.getElementById("idsp");
@@ -206,7 +276,9 @@
                     // $("#includeDiv").css("display", "none");
                     // $("#includeDiv").attr("w3-include-html", "")
                     // w3.includeHTML();
-                    $("#rsdiv").css("display", "none");
+                    $("#rdiv").css("display", "none");
+                    $("#hdiv").css("display", "none");
+                    $("#tdiv").css("display", "none");
                 }
                 else if (identity == 3) {
                     // $("#includeDiv").css("display", "block");
@@ -214,17 +286,25 @@
                     // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
 
                     // w3.includeHTML();
-                    $("#rsdiv").css("display", "block");
+                    $("#rdiv").css("display", "block");
+                    $("#hdiv").css("display", "none");
+                    $("#tdiv").css("display", "none");
                 }
                 else if (identity == 4) {
                     // $("#includeDiv").css("display", "block");
                     // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
                     // w3.includeHTML();
+                    $("#rdiv").css("display", "none");
+                    $("#hdiv").css("display", "block");
+                    $("#tdiv").css("display", "none");
                 }
                 else if (identity == 5) {
                     // $("#includeDiv").css("display", "block");
                     // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
                     // w3.includeHTML();
+                    $("#rdiv").css("display", "none");
+                    $("#hdiv").css("display", "none");
+                    $("#tdiv").css("display", "block");
                 }
 
 
