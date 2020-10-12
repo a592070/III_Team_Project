@@ -113,6 +113,7 @@
             float: left;
             padding-right: 20px; 
             padding: 10px 30px;
+            
         }
         
         .sp_rating{
@@ -136,6 +137,9 @@
         p{
 			font-size:16px;
 		}
+		.star{
+			width:20px;
+		}
     </style>
 </head>
 <body>
@@ -146,7 +150,12 @@
         <div>
             <h2 class="title">餐廳資訊</h2>
             <div class="top">
+            	<FORM  action="<c:url value='BookRestaurantServlet' />" method="POST">
                 <div class="booking">訂位</div>
+                <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
+          		<Input type='hidden' name='res_name' value='${res_data.name}'>
+          		<Input type='hidden' name='r_id' value='${res_data.r_sn}'>
+                </FORM>
                 <div class="info">資訊</div>
                 <div class="comment">評論</div>
             </div>
@@ -156,7 +165,36 @@
             <div class="div-1">
                 <h3>${res_data.name}</h3>
                     <h5 class="rating">Rating</h5>
-                    <h5 class="sp_rating">${res_data.rating}</h5>
+                    <input type="hidden" id="test" value="${res_data.rating}">
+                    <!-- star -->
+                    <span>
+        <img class="star" src="iring29/img/star.png" alt="">
+        <img class="star" src="iring29/img/star.png" alt="">
+        <img class="star" src="iring29/img/star.png" alt="">
+        <img class="star" src="iring29/img/star.png" alt="">
+        <img class="star" src="iring29/img/star.png" alt="">
+   					</span>
+                    <span class="sp_rating">${res_data.rating}</span>
+                    
+         <script type="text/javascript">
+        
+        var num = parseInt((document.getElementById("test").value)*10,10);
+        console.log(num);
+        var imgs = document.getElementsByClassName("star");
+        first = Math.floor(num/10);
+        console.log(first);
+        second = Math.ceil(num%10);
+        console.log(second);
+        for(let i = 0; i < first; i++){
+            imgs[i].src="iring29/img/chngstar.gif";
+        }
+        if(second != 0){
+        	imgs[first].src="iring29/img/halfstar.png";
+        }
+        
+        
+    </script>
+                    
                <FORM  action="<c:url value='BookRestaurantServlet' />" method="POST">
                	<Input class="btn btn-warning" type='submit' value='Booking'>
           <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  

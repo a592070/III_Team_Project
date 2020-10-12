@@ -42,7 +42,8 @@ public class RestaurantServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (request.getParameter("QUERY") != null) {
 
-			if (request.getParameter("restaurant_name") != "" && request.getParameter("region_name") != null) {
+			System.out.println("1" + request.getParameter("restaurant_name") + request.getParameter("region_name"));
+			if (request.getParameter("restaurant_name") != "" && request.getParameter("region_name") != "") {
 				try {
 					processMultiQuery(request, response);
 				} catch (Exception e) {
@@ -50,18 +51,21 @@ public class RestaurantServlet extends HttpServlet {
 				}
 			}
 
-			if (request.getParameter("restaurant_name") != "") {
+			else if (request.getParameter("restaurant_name") != "") {
 				try {
 					processQueryRestaurant(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (request.getParameter("region_name") != null) {
+			} else if (request.getParameter("region_name") != "") {
 				try {
 					processQueryRegion(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			} else {
+				System.out.println("back home");
+				response.sendRedirect(request.getContextPath() + "/iring29/BackHome.jsp");
 			}
 		}
 
@@ -74,8 +78,9 @@ public class RestaurantServlet extends HttpServlet {
 			}
 		}
 	}
-	
-	public void processMultiQuery(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
+
+	public void processMultiQuery(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, SQLException, ServletException {
 		String name = request.getParameter("restaurant_name").trim();
 		String region = request.getParameter("region_name").trim();
 		String book_date = request.getParameter("book_date").trim();
@@ -84,52 +89,54 @@ public class RestaurantServlet extends HttpServlet {
 		request.getSession().setAttribute("person_numer", person_numer);
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 
-		if(name != "" && region != "") {
+		if (name != "" && region != "") {
 			List<RestaurantBean> Multi_Rdata = restaurantDAO.findMulti_Name_Region(name, region);
 			request.getSession().setAttribute("Multi_Rdata", Multi_Rdata);
+			System.out.println("size=" + Multi_Rdata.size());
+			if(Multi_Rdata.size() == 0) {
+				response.sendRedirect(request.getContextPath() + "/iring29/BackHome.jsp");
+			}else if(Multi_Rdata.size() > 0){
 			request.getRequestDispatcher("/iring29/MultiRestaurant.jsp").forward(request, response);
-			
+			}
 		}
 	}
 
 	public void processQueryRestaurant(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, SQLException {
 		String name = null;
-		if(!StringUtil.isEmpty(request.getParameter("restaurant_name"))){
+		if (!StringUtil.isEmpty(request.getParameter("restaurant_name"))) {
 			name = request.getParameter("restaurant_name").trim();
 		}
 		String book_date = null;
-		if(!StringUtil.isEmpty(request.getParameter("book_date"))){
+		if (!StringUtil.isEmpty(request.getParameter("book_date"))) {
 			book_date = request.getParameter("book_date").trim();
 		}
 		String person_numer = null;
-		if(!StringUtil.isEmpty(request.getParameter("person_numer"))){
+		if (!StringUtil.isEmpty(request.getParameter("person_numer"))) {
 			person_numer = request.getParameter("person_numer").trim();
 		}
 		request.getSession().setAttribute("book_date", book_date);
 		request.getSession().setAttribute("person_numer", person_numer);
 		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
 
-		
-			int numR = restaurantDAO.numRestaurant(name);
-			System.out.println(numR);
-			
-		
-			if(numR == 1) {
-				RestaurantBean res_data = restaurantDAO.findRestaurant(name);
-				System.out.println(name);
-				request.getSession().setAttribute("res_data", res_data);
-				request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
-			}
-			else if(numR > 1) {
+		int numR = restaurantDAO.numRestaurant(name);
+		System.out.println(numR);
+
+		if (numR == 1) {
+			RestaurantBean res_data = restaurantDAO.findRestaurant(name);
+			System.out.println(name);
+			request.getSession().setAttribute("res_data", res_data);
+			request.getRequestDispatcher("/iring29/DisplayRestaurant.jsp").forward(request, response);
+		} else if (numR > 1) {
 			List<RestaurantBean> Multi_Rdata = restaurantDAO.findMulti_R(name);
 			request.getSession().setAttribute("Multi_Rdata", Multi_Rdata);
 			request.getRequestDispatcher("/iring29/MultiRestaurant.jsp").forward(request, response);
-			
-			} else {
+
+		} else {
+			System.out.println("back home");
 			request.getRequestDispatcher("/iring29/BackHome.jsp").forward(request, response);
-			}
-		
+		}
+
 	}
 
 	public void processQueryRegion(HttpServletRequest request, HttpServletResponse response)

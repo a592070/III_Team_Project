@@ -61,7 +61,7 @@
             <div class="">
                 <div class="div-1">
                     <label for="r-name">請提供圖片網址</label> 
-                    <textarea name="picture" id="" cols="40" rows="5" placeholder="http://"></textarea>
+                    <textarea name="picture" id="newimg" cols="40" rows="5" placeholder="http://" onblur="checkimg()" ></textarea>
                 </div>
 	
 				<div class="div-1">
@@ -84,7 +84,17 @@
 	</FORM>
 	
 	<script type="text/javascript">
-function confirmL(){
+	function checkimg() {
+        var newimg = document.getElementById('newimg').value;
+        var img = document.querySelector("img");
+        if (newimg != "") {
+            img.src= newimg;
+        } else { 
+        	img.src="${r_hp.picture}"; 
+        	}
+    }
+	
+	function confirmL(){
 	if (confirm("確定送出修改 ? ") ) {
 		console.log(document.forms["formL"]);
 		console.log(document.forms["formL"].finalDecision.value);
@@ -97,8 +107,8 @@ function confirmL(){
 	} else {
 		return;
 	}
-}
-function cancelL(){
+	}
+	function cancelL(){
 	if (confirm("確定取消修改 ? ") ) {
 		console.log(document.forms["formL"]);
 		console.log(document.forms["formL"].finalDecision.value);

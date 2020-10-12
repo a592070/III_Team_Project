@@ -27,6 +27,7 @@
 	margin: auto;
 	overflow: hidden;
 	display: flex;
+	padding-bottom: 5px;
 }
 
 img {
@@ -142,7 +143,7 @@ h3 {
 	text-align: right;
 	float: right;
 }
-.btn.btn-success.order{
+.btn.btn-primary.order{
 	padding: 5px;
 	margin-left:30px;
 	margin-bottom: 20px;
@@ -170,7 +171,7 @@ p{
 			
 			
 			<div>
-				<h2 class="title">餐廳資訊</h2>
+				<h2 class="title">${r_hp.name}</h2>
 				<div class="top">
 					<!-- <div class="booking">訂位</div>
 					<div class="info">資訊</div>
@@ -184,10 +185,11 @@ p{
 				<div class="div_img">
 					<img src="${r_hp.picture}">
 				</div>
+				
 				</FORM>
-				<div class="div-1">
+				<%-- <div class="div-1">
 					<h3>${r_hp.name}</h3>
-				</div>
+				</div> --%>
 				
 				<FORM action="<c:url value='/iring29/Modify_Location.jsp'/>"
 					method="POST">
@@ -250,7 +252,7 @@ p{
 
 
 						<!-- Button trigger modal -->
-						<button type="button" class="btn btn-success order" data-toggle="modal"
+						<button type="button" class="btn btn-primary order" data-toggle="modal"
 							data-target="#訂單${roBean.r_sn_order}">
 							訂單${roBean.r_sn_order}</button>
 						
