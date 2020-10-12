@@ -75,6 +75,43 @@ public class HomePageDAO {
 
 	
 		
+	}public void updateUserData(AccountBean account) {
+		try {
+			DataSource dataSource = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
+			Connection connection = dataSource.getConnection();
+			PreparedStatement prepareStatement = connection.prepareStatement("update account set PASSWORD=? EMAIL=? PICTURE=? MODIFY_DATE=? NICKNAME=? where username=?");
+			System.out.println("db2 update is on");
+			prepareStatement.setString(1, account.getPassword());
+			prepareStatement.setString(2, account.getEmail());
+			prepareStatement.setBlob(3, account.getPicture().getBinaryStream());
+			Date date = new Date(new java.util.Date().getTime());
+			prepareStatement.setDate(4, date);
+			prepareStatement.setString(5, account.getNickName());
+			prepareStatement.setString(6, account.getUserName());
+			int executeUpdate = prepareStatement.executeUpdate();
+			if(executeUpdate==1) {
+				System.out.println("更新成功");
+				connection.commit();
+				prepareStatement.clearParameters();
+				prepareStatement.close();
+			    connection.close();
+			}else {
+				System.out.println("更新失敗");
+				connection.rollback();
+				prepareStatement.clearParameters();
+				prepareStatement.close();
+			    connection.close();
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

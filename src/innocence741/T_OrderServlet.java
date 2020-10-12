@@ -83,7 +83,7 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setCustomerPhone(customerPhone);	
         
 		
-		user.setUserName("innocence741");	//假裝訂購人為innocence
+		user.setUserName("abab");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
 
