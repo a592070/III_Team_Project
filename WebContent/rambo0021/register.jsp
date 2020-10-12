@@ -38,7 +38,7 @@
 </head>
 
 <body>
-    <jsp:include page="/rambo0021/top.jsp" />
+    <jsp:include page="/fragment/header.jsp" />
     <div>
         <form ACTION="<%=pageContext.getServletContext().getContextPath()%>/registerServlet"
             enctype="multipart/form-data" method="post">
@@ -145,7 +145,30 @@
                     </div>
                     <div class="st1">
                         <label for="">縣市:</label>
-                        <input type="text" id="hregion" name="hregion" placeholder="請輸入縣市名稱" onblur="" />
+                        <select name="hregion" id="hregion">
+                            <option value="基隆市">基隆市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="臺北市">臺北市</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="新竹市">新竹市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="苗栗縣">苗栗縣</option>
+                            <option value="宜蘭縣">宜蘭縣</option>
+                            <option value="臺中市">臺中市</option>
+                            <option value="彰化縣">彰化縣</option>
+                            <option value="南投縣">南投縣</option>
+                            <option value="雲林縣">雲林縣</option>
+                            <option value="嘉義市">嘉義市</option>
+                            <option value="嘉義縣">嘉義縣</option>
+                            <option value="臺南市">臺南市</option>
+                            <option value="高雄市">高雄市</option>
+                            <option value="屏東縣">屏東縣</option>
+                            <option value="花蓮縣">花蓮縣</option>
+                            <option value="臺東縣">臺東縣</option>
+                            <option value="澎湖縣">澎湖縣</option>
+                            <option value="金門縣">金門縣</option>
+                            <option value="連江縣">連江縣</option>
+                        </select>
                     </div>
                     <div class="st1">
                         <label for="">地址:</label>
@@ -222,7 +245,7 @@
 
     </div>
     <script>
-        
+
         function checkusr() {
             let username = document.getElementById("username").value;
             let sp = document.getElementById("idsp");
