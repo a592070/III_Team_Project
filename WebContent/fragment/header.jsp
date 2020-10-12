@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 
 <%--樣式跑掉，將下面4行加入引入頁面--%>
 <%--    <script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>--%>
@@ -20,13 +22,21 @@
         <div class="collapse navbar-collapse nav justify-content-center" id="navb">
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0)">找旅館</a>
+                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/asx54630/HotelService.jsp">找旅館</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0)">找餐廳</a>
+                    <a class="nav-link active" href="${pageContext.servletContext.contextPath}/iring29/Restaurant_index.jsp">找餐廳</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0)">找租車</a>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                找交通 
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item"><a href="${pageContext.servletContext.contextPath}/innocence741/ajax_traffic.jsp">找高鐵</a></li>
+                                <li class="dropdown-item"><a href="#">找租車</a></li>
+                                <li class="dropdown-item"><a href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.html">我的交通訂單</a></li>
+                            </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/attractionInfo.jsp">找景點</a>
@@ -45,11 +55,19 @@
             </form>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary">登陸</button>
-            <button type="button" class="btn btn-primary">註冊</button>
-            <button type="button" class="btn btn-primary">論壇</button>
+            <button type="button" class="btn btn-primary"  onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/login.jsp'"/>
+            登陸</button>
+            <button type="button" class="btn btn-primary" onclick="document.location.href='${pageContext.servletContext.contextPath}/rambo0021/register.jsp'">
+            註冊</button>
+            <button type="button" class="btn btn-primary" onclick="document.location.href='${pageContext.servletContext.contextPath}/azaz4498/Forum.jsp'">
+            論壇</button>
         </div>
     </nav>
 </header>
+<script type="text/javascript">
+// function toDetailPage(url){
+//     document.location.href="${pageContext.servletContext.contextPath}/"+url;
+// }
+</script>
 
 
