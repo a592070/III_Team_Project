@@ -27,8 +27,16 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="${pageContext.servletContext.contextPath}/iring29/Restaurant_index.jsp">找餐廳</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0)">找租車</a>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                找交通 
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item"><a href="${pageContext.servletContext.contextPath}/innocence741/ajax_traffic.jsp">找高鐵</a></li>
+                                <li class="dropdown-item"><a href="#">找租車</a></li>
+                                <li class="dropdown-item"><a href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.html">我的交通訂單</a></li>
+                            </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="${pageContext.servletContext.contextPath}/a592070/attractionInfo.jsp">找景點</a>
