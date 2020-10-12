@@ -80,7 +80,7 @@
         <fieldset>
             <legend>基本資料</legend>
             <div class="form-group">
-                <label for="email">暱稱:</label>
+                <label for="nickname">暱稱:</label>
                 <input type="text" id="nickname" name="nickname">
                 <img class="img" id="idfimg4" src=""><span id="idsp"></span><br />
 
@@ -91,7 +91,7 @@
                 <img class="img" id="idfimg5" src=""><span id="idsp"></span><br />
             </div>
             <div class="form-group">
-                <label for="account">照片:</label>
+                <label for="picture">照片:</label>
                 <input type="file" id="picture" name="picture" accept="image/*">
             </div>
         </fieldset>

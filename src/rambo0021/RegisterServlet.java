@@ -58,6 +58,7 @@ public class RegisterServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//儲存會員基本資料
 		AccountBean account = new AccountBean();
+		SHA2DAO sha2 = new SHA2DAO();
 		RegisterDAO registerDAO = new RegisterDAO();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
@@ -65,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
 
 		String username = request.getParameter("username").trim();
 		account.setUserName(username);	
-		String password = request.getParameter("password").trim();
+		String password = sha2.getSHA256(request.getParameter("password").trim());
 		account.setPassword(password);	
 		int identity = Integer.parseInt(request.getParameter("identity").trim());
 		account.setIdentity(identity);
