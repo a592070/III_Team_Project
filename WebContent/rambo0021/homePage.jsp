@@ -30,9 +30,9 @@ if (session.getAttribute("Login") == null) {
 
 <body>
 
-	<jsp:include page="/rambo0021/top.jsp" />
+	<jsp:include page="/fragment/header.jsp" />
 	<div align="center">
-		<form action="HomePageUpdateServlet">
+		<form action="<%=pageContext.getServletContext().getContextPath()%>/HomePageUpdateServlet" enctype="multipart/form-data" method="post">
 			<table border="1" width="300px">
 				<tr bgcolor="#FFFFE1">
 					<td>
@@ -55,7 +55,7 @@ if (session.getAttribute("Login") == null) {
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFE1">
-					<td>暱稱<input type="text" id="nickName" name="nickName" value=":${Login.nickName}" disabled />
+					<td>暱稱:<input type="text" id="nickName" name="nickName" value="${Login.nickName}" disabled />
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFE1">
@@ -63,12 +63,12 @@ if (session.getAttribute("Login") == null) {
 				</tr>
 				<tr bgcolor="#FFFFE1">
 					<td>
-						<c:out value="註冊日期:${Login.register}" />
+						<c:out value="註冊日期:${Login.registerString}" />
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFE1">
 					<td>
-						<c:out value="最後修改日期:${Login.modify_Date}" />
+						<c:out value="最後修改日期:${Login.modify_DateString}" />
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFE1">

@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="/rambo0021/top.jsp" />
+<jsp:include page="/fragment/header.jsp" />
 <%-- 	<img src="<%=application.getContextPath()%>/Homepage" method="get" /> --%>
 	<FORM ACTION="<%=pageContext.getServletContext().getContextPath()%>/LoginServlet" method="POST" name="loginForm">
 		<div id='content' align="center">
