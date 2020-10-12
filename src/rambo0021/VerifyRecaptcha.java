@@ -1,14 +1,17 @@
 package rambo0021;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL; 
-import javax.json.Json; 
-import javax.json.JsonObject;
-import javax.json.JsonReader;
+//import javax.json.Json;
+//import javax.json.JsonObject;
+//import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
 
 public class VerifyRecaptcha {
@@ -50,10 +53,19 @@ public class VerifyRecaptcha {
 		// print result
 		System.out.println(response.toString());
 		//parse JSON response and return 'success' value
-		JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
-		JsonObject jsonObject = jsonReader.readObject();
-		jsonReader.close();
-		return jsonObject.getBoolean("success");
+//		JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
+//		JsonObject jsonObject = jsonReader.readObject();
+//		jsonReader.close();
+//		return jsonObject.getBoolean("success");
+
+			/**
+			 * rewrite using jackson
+			 * */
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode jsonNode = mapper.readTree(response.toString());
+			return jsonNode.get("success").asBoolean();
+
+
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
