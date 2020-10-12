@@ -113,7 +113,7 @@ public class ChatWebSocket {
 
         if(this.user.getIdentity() == 1){
             ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("method","toClient");
+            objectNode.put("method","toClientMsg");
             objectNode.put("content", content);
             webSocketClient.forEach((k,v)->{
                 if(k.equals(receive)){
@@ -126,7 +126,7 @@ public class ChatWebSocket {
             });
         }else{
             ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("method","toService");
+            objectNode.put("method","toServiceMsg");
             objectNode.put("httpSessionID", httpSession.getId());
             objectNode.put("content", content);
             sendMessageToService(objectNode);

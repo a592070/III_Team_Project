@@ -46,132 +46,87 @@
 
 <div class="container">
     <h2>Chat Messages</h2>
-    <div class="chat-container  border p-4">
+    <div class="chat-container  border p-4" id="msg_div">
 
-        <div class="media border p-3">
-            <div class="media-body">
-                <h4>YOU<small><i>2020/10/12 07:21:33</i></small></h4>
-                <p>Lorem ipsum...</p>
-            </div>
-        </div>
-        <div class="media border p-3">
-            <div class="media-body">
-                <h4>service<small><i>2020/10/12 07:22:33</i></small></h4>
-                <p>Lorem ipsum...</p>
-            </div>
-        </div>
+<%--        <div class="media border p-3" >--%>
+<%--            <div class="media-body">--%>
+<%--                <h4>YOU<small><i>2020/10/12 07:21:33</i></small></h4>--%>
+<%--                <p>Lorem ipsum...</p>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="media border p-3">--%>
+<%--            <div class="media-body">--%>
+<%--                <h4>service<small><i>2020/10/12 07:22:33</i></small></h4>--%>
+<%--                <p>Lorem ipsum...</p>--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
     </div>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="請輸入...">
+        <input type="text" class="form-control" placeholder="請輸入..." id="input_msg">
         <div class="input-group-append">
-            <button class="btn btn-primary" type="button">Send</button>
-            <button class="btn btn-danger" type="button">Cancel</button>
+            <form onsubmit="send()">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <button class="btn btn-danger" type="reset">Cancel</button>
+            </form>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    const darkType = 1;
-    var websocket = null;
-    var onlineCount;
-    var onlineCountDiv = document.querySelector("#onlineCount");
-
-    var input =  document.querySelector(".input");
-
-    var messageJson = {"message":"null"};
-    var ip;
-    var message;
 
     document.querySelector(".user").value = username;
 
-    const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat/<%=request.getAttribute("userChatId")%>";
+    const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat";
     websocket = new WebSocket(url);
     // console.log(websocket.);
 
     websocket.onopen = function (event){
-        messageJson["message"] = "online";
-        websocket.send(JSON.stringify(messageJson));
     }
 
     websocket.onmessage = function (event){
-
-        console.log(event.data);
-        console.log(websocket);
-        var value = event.data;
-
-        messageJson = JSON.parse(value);
+        let value = event.data;
+        let messageJson = JSON.parse(value);
         console.log(messageJson);
 
+        let method = messageJson.method;
 
-        if(messageJson["message"] == "online" || messageJson["message"] == "offline"){
-            setMessageInnerHtml(messageJson["ip"]+": "+messageJson["message"], darkType);
-            onlineCountDiv.textContent = "目前人數: "+messageJson["count"];
-        }else{
-            setMessageInnerHtml(messageJson["ip"]+": "+messageJson["message"], 0);
-            onlineCountDiv.textContent = "目前人數: "+messageJson["count"];
+        if("toServiceMsg" == method){
+            let httpsessionID = messageJson.httpSessionID;
+            let msg = messageJson.content;
+
+            setMessageInHTML(msg, 1);
         }
-
     }
     websocket.onclose = function (event){
-        messageJson["message"] = "offline";
-        websocket.send(JSON.stringify(messageJson));
-        setMessageInnerHtml("close", darkType);
         websocket.close();
     }
     window.onbeforeunload = function (){
-        messageJson["message"] = "offline";
-        websocket.send(JSON.stringify(messageJson));
         websocket.close();
     }
 
 
-    function setMessageInnerHtml(context, type){
-        let chat = document.querySelector(".chat-container");
-
-        let eleDiv = document.createElement("div");
-        eleDiv.className = "message";
-        if(type == darkType){
-            eleDiv.className = "message darker";
+    function setMessageInHTML(msg, type){
+        let content = "";
+        content += `<div class="media border p-3" ><div class="media-body">
+                    `;
+        if(type == 0){
+            content += `<h4>YOU</h4><p>\${msg}</p>`;
+        }else if(type == 1){
+            content += `<h4>Service</h4><p>\${msg}</p>`;
         }
+        content+=`</div></div>`;
 
-        let eleContext = document.createElement("p");
-        eleContext.className = "p";
-        eleContext.textContent = context;
-
-        eleDiv.appendChild(eleContext);
-
-        chat.appendChild(eleDiv);
-        chat.scrollTop = chat.scrollHeight;
-        $("p").linkify();
+        $("#msg_div").appendTo(content);
     }
-
-    function closeWebSocket(){
-        websocket.close();
-    }
-
-    window.addEventListener("keypress", function (event){
-        if(event.key == "Enter"){
-            input.focus();
-        }
-    });
-
-    input.addEventListener("keypress", function (event){
-        if(event.key == "Enter"){
-            send();
-        }
-    });
-
 
     function send(){
-        let message = input.value;
-        if(input.value != null && input.value!=""){
-            messageJson["message"] = message;
-            messageJson["user"] = username;
-            websocket.send(JSON.stringify(messageJson));
-            input.value = "";
-        }
+        let val = $("#input_msg").val();
+        setMessageInHTML(val, 0);
+        let json = {content:val};
+        websocket.send(JSON.stringify(json));
     }
+
 
 
 </script>

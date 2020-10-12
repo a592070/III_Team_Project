@@ -74,14 +74,10 @@
                 addClient(messageJson.httpSessionID);
             }else if("removeClient" == method){
                 removeClient(messageJson.httpSessionID);
-            }else if("toClient" == metho){
-
-            }else if("toService" == metho){
+            }else if("toServiceMsg" == method){
                 let httpsessionID = messageJson.httpSessionID;
 
             }
-
-
         }
         websocket.onclose = function (event){
             websocket.close();
@@ -92,11 +88,11 @@
 
         function addClient(httpSessionID){
             let contentBtn = "";
-            contentBtn += `<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#\${httpSessionID}" aria-expanded="false" aria-controls="\${httpSessionID}" id="\${httpSessionID}_btn">\${json[ele]}</button>`;
+            contentBtn += `<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#\${httpSessionID}_div" aria-expanded="false" aria-controls="\${httpSessionID}_div" id="\${httpSessionID}_btn" onclick="setCurrentClient($(this))">\${httpSessionID}</button>`;
             $("#client_btn").appendTo(contentBtn);
 
             let contentDiv = "";
-            contentDiv += `<div class="collapse multi-collapse" id="\${httpSessionID}" data-parent="#accordion" id="\${httpSessionID}_div"></div>`;
+            contentDiv += `<div class="collapse multi-collapse" id="\${httpSessionID}_div" data-parent="#accordion"></div>`;
             $("#accordion").appendTo(contentDiv);
         }
         function removeClient(httpSessionID){
@@ -104,7 +100,29 @@
             $("#"+httpSessionID+"_div").remove();
         }
 
+        function setMessageInHTML(msg, type, httpsessionID){
+            let content = "";
+            content += `<div class="media border p-3" ><div class="media-body">`;
+            if(type == 0){
+                content += `<h4>YOU</h4><p>\${msg}</p>`;
+            }else if(type == 1){
+                content += `<h4>\${httpsessionID}</h4><p>\${msg}</p>`;
+            }
+            content+=`</div></div>`;
 
+            $("#"+httpsessionID+"_div").appendTo(content);
+        }
+        var currentClient;
+        function send(){
+            let val = $("#input_msg").val();
+            setMessageInHTML(val, 0, currentClient);
+            let json = {receive:currentClient,content:val};
+
+            websocket.send(JSON.stringify(json));
+        }
+        function setCurrentClient(obj){
+            currentClient = obj.text();
+        }
 
 
     </script>
@@ -159,10 +177,12 @@
 
     </div>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="請輸入...">
+        <input type="text" class="form-control" placeholder="請輸入..." id="input_msg">
         <div class="input-group-append">
-            <button class="btn btn-primary" type="button">Send</button>
-            <button class="btn btn-danger" type="button">Cancel</button>
+            <form onsubmit="send()">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <button class="btn btn-danger" type="reset">Cancel</button>
+            </form>
         </div>
     </div>
 </div>
