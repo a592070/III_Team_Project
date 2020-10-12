@@ -84,7 +84,7 @@
         </div>
     </div>
 
-	<form action="<%=pageContext.getServletContext().getContextPath() %>/NewCommentServlet" name="CommentForm">
+	<form action="<c:url value='/NewCommentServlet?artId=${Article.artId}&art_TypeId=${art.artTypeId }'/> " name="CommentForm">
 		<div class="form-group pl-5">
 			<label for="exampleInputEmail1">撰寫評論...</label>
 
