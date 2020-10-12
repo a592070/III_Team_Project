@@ -14,6 +14,7 @@ alter table ORDER_TABLE drop column SN_NO;
 
 /*
 -- 執行上面或是刪表重建
+--alter table ORDER_DATA drop constraint ORDER_DATA_ACCOUNT_USERNAME_FK;
 --drop table order_table;
 --purge table order_table;
 create table order_table
