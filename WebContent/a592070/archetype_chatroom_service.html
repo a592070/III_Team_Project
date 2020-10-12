@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .chat-container {
+            height: 550px;
+            overflow: auto;
+        }
+        .send-message-form input {
+            width: 100%;
+            border: 2px solid #cccccc;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .send-message-form button {
+            border: #cccccc;
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function test(id){
+            $(".chat-container").toggle();
+            $(id).toggle();
+        }
+
+    </script>
+
+
+</head>
+<body>
+<div class="container">
+    <div class="btn-group" id="client_btn">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">client1</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">client2</button>
+        <button type="button" class="btn btn-primary">client3</button>
+    </div>
+    <h2>Chat Messages</h2>
+    <div class="chat-container" id="accordion">
+        <div>
+            <div class="collapse multi-collapse" id="multiCollapseExample1" data-parent="#accordion">
+                <div class="media border p-3">
+                    <div class="media-body">
+                        <h4>YOU<small><i>2020/10/12 07:21:33</i></small></h4>
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </div>
+                <div class="media border p-3">
+                    <div class="media-body">
+                        <h4>client1<small><i>2020/10/12 07:22:33</i></small></h4>
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </div>
+                <div class="media border p-3">
+                    <div class="media-body">
+                        <h4>client1<small><i>2020/10/12 07:22:33</i></small></h4>
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="collapse multi-collapse" id="multiCollapseExample2" data-parent="#accordion">
+
+                <div class="media border p-3">
+                    <div class="media-body">
+                        <h4>YOU<small><i>2020/10/12 07:21:33</i></small></h4>
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </div>
+                <div class="media border p-3">
+                    <div class="media-body">
+                        <h4>client1<small><i>2020/10/12 07:22:33</i></small></h4>
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="請輸入...">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Send</button>
+            <button class="btn btn-danger" type="button">Cancel</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

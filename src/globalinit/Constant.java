@@ -10,6 +10,10 @@ public class Constant {
     public static final String TravelSetList_session = "travelSetList";
     public static final String TravelSetEdit_session = "travelSetEdit";
 
+    public static final String CHATROOM_CLIENTS = "chatRoomClients";
+    public static final String LOGIN = "Login";
+    public static final String HISTORY_MESSAGE = "historyMsg";
+
     public String getUser(){
         return USER_SESSION;
     }
