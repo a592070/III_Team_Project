@@ -8,6 +8,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .T_OrderDiv{
+            padding: 15px;
+        }
+        td{
+        	width: 80px;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,7 +38,7 @@
                         // console.log(response.length);
                         // console.log(response[1].length)
                         // console.log(response[1][1]["order_id"])
-                        var data=["<thead><tr><th>訂單編號</th>"+
+                        var data=["<thead><tr><th>訂單序號</th>"+
                                              "<th>下訂日期</th>"+
                                              "<th>車次號</th>"+
                                              "<th>起點站</th>"+
@@ -57,7 +65,8 @@
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["deparatureDate"]),
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"][startPoint]),
                                         $("<td></td>").append(response[i][j]["t_OderBeans"][0]["trafficPrice"]),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["nums_days"])
+                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["nums_days"]),
+                                        $("<td></td>").append('<input type="button" class="cancelTicket" value="取消訂單">')
 
                                     )
                                 )
@@ -65,7 +74,7 @@
                             $("#T_Order").append(div);
                             $(".T_OrderDiv").eq(i).append(table);
                             $(".T_OrderTable").eq(i).append(data);
-                            data=["<thead><tr><th>訂單編號</th>"+
+                            data=["<thead><tr><th>訂單序號</th>"+
                                              "<th>下訂日期</th>"+
                                              "<th>車次號</th>"+
                                              "<th>起點站</th>"+
@@ -88,6 +97,18 @@
 
                  });
         })
+
+        $("#T_Order").on("click", ".cancelTicket", function(){
+                var index = $(".cancelTicket").index(this);
+                console.log(index);
+            //     var table = document.getElementById('ajaxTable');
+            //    //console.log(table.rows[index+1].cells[0].innerHTML);
+            //     //console.log($("#destination").val().toLowerCase())
+            //     strCookies = table.rows[index+1].cells[0].innerHTML+","+startPoint+","+destination+","+$("#departureDate").val();
+            //     Cookies.set('HSR', strCookies)
+            //     window.location="\orderHSRticket.html";
+                //console.log(startPoint)
+            })
     </script>
 </body>
 </html>
