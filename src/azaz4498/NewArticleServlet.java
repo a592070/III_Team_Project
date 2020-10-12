@@ -2,9 +2,8 @@ package azaz4498;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +15,16 @@ import javax.servlet.http.HttpSession;
 import controller.ConnectionPool;
 
 /**
- * Servlet implementation class NewComment
+ * Servlet implementation class NewArticleServlet
  */
-@WebServlet("/NewCommentServlet")
-public class NewCommentServlet extends HttpServlet {
+@WebServlet("/NewArticleServlet")
+public class NewArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewCommentServlet() {
+    public NewArticleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,21 +48,17 @@ public class NewCommentServlet extends HttpServlet {
 		try {
 			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session =request.getSession();
-			int currArticleid = (int) session.getAttribute("currArticle");
-			int currTypeid =(int)session.getAttribute("currTypeId");
-//			int typeid=Integer.valueOf(request.getParameter("art_TypeId"));
-//			System.out.println("this is new comment servlet = "+typeid);
-			String commentString = request.getParameter("commentarea");
-			System.out.println(commentString);
-			System.out.println(session.getAttribute("currArticle"));
-			System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
-			forumDAO.addNewComment(commentString, currArticleid, "azaz4498");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/ArticleServlet?artId="+currArticleid+"&art_TypeId="+currTypeid);
+			String articleTitle=request.getParameter("article_title");
+			int articleTypeSelect = Integer.parseInt(request.getParameter("article_type_select"));
+			String articleContent = request.getParameter("article_content");
+			System.out.println("文章標題是  "+articleTitle+" 文章類型是"+articleTypeSelect+"文章內容"+articleContent);
+			forumDAO.addNewArticle(articleTitle, articleTypeSelect, articleContent, "azaz4498");
+			RequestDispatcher rd =request.getRequestDispatcher("/ForumServlet");
 			rd.forward(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
