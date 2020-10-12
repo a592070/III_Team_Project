@@ -154,26 +154,32 @@ public class ForumDAO {
 	}
 
 	//新增文章
-	public void addNewArticle(ArticleDO articleDO) throws SQLException {
+	public void addNewArticle(String articleTitle, int articleTypeId, String articleContent, String userid) throws SQLException {
 		try {
 			conn = ds.getConnection();
 			sql = "INSERT INTO f_article (ART_CONTENT, ART_CRE_TIME, ART_USERID, ART_COMM_NUM, ART_VIEW, ART_TYPE_ID, ART_TITLE) VALUES(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setNString(1, articleDO.getArtContent());
+			pstmt.setNString(1, articleContent);
 			pstmt.setTimestamp(2, new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
-			pstmt.setString(3, articleDO.getArtUserId());
-			pstmt.setInt(4, articleDO.getArtCommNum());
-			pstmt.setInt(5, articleDO.getArtView());
-			pstmt.setInt(6, articleDO.getArtTypeId());
-			pstmt.setString(7, articleDO.getArtTitle());
+			pstmt.setString(3, userid);
+			pstmt.setInt(4, 0);
+			pstmt.setInt(5, 0);
+			pstmt.setInt(6, articleTypeId);
+			pstmt.setString(7, articleTitle);
 
 		
 			pstmt.executeUpdate();
+			conn.commit();
 			pstmt.clearBatch();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} finally {
+			if (pstmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
+			}
 	}
 	//新增評論
 	
@@ -194,13 +200,19 @@ public class ForumDAO {
 			
 			pstmt.executeUpdate();
 			conn.commit();
-			System.out.println("新增評論成功");
+			pstmt.clearBatch();
+			
 			
 			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-		}
+		} finally {
+			if (pstmt != null)
+				pstmt.close();
+			if (conn != null)
+				conn.close();
+			}
 	}
 
 	// 依文章ID刪除文章

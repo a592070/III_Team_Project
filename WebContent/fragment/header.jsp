@@ -93,7 +93,7 @@
             登出</button>
 			</c:if>
 			<button type="button" class="btn btn-primary"
-				onclick="document.location.href='${pageContext.servletContext.contextPath}/azaz4498/Forum.jsp'">
+				onclick="document.location.href='${pageContext.servletContext.contextPath}/ForumServlet'">
 				論壇</button>
 		</div>
 	</nav>

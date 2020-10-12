@@ -62,6 +62,7 @@ public class ArticleServlet extends HttpServlet {
 			request.setAttribute("Comment", commentList);
 			request.setAttribute("Type",forumDAO.showArtTypeByTypeId(typeid));
 			session.setAttribute("currArticle",artid);
+			session.setAttribute("currTypeId", typeid);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("azaz4498/Article.jsp");
 			rd.forward(request, response);
