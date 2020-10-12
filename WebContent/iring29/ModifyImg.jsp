@@ -34,7 +34,7 @@
         }
 
         label {
-            width: 100px;
+            width: 150px;
             float: left;
             padding-right: 20px;
             /* margin-left: 50px; */
@@ -43,6 +43,10 @@
         .div-btn {
 			text-align: center;
 		}
+		img{
+			width:300px;
+			height:200px;
+		}
     </style>
 </head>
 
@@ -50,29 +54,66 @@
 <!-- 引入共同的頁首 -->
 <jsp:include page="/fragment/header.jsp" />
 <div class="wrapper">
-	<FORM action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet" method="POST">
+	<FORM id="formL" name="formL" action="<%=pageContext.getServletContext().getContextPath()%>/Restaurant_HPServlet" method="POST">
 	
         <div class="container">
             <h2>修改${r_hp.name}地點資訊</h2>
             <div class="">
                 <div class="div-1">
-                    <label for="r-name">請輸入圖片網址</label> 
-                    <textarea name="picture" id="" cols="40" rows="5" placeholder="${r_hp.picture}"></textarea>
+                    <label for="r-name">請提供圖片網址</label> 
+                    <textarea name="picture" id="" cols="40" rows="5" placeholder="http://"></textarea>
                 </div>
-
-
+	
+				<div class="div-1">
+				<label for="r-name">顯示圖片如下：</label> 
+				<img src="${r_hp.picture}" alt="">
+				</div>
             </div>
         </div>
-        <div class="div-btn">
-       		<button  name="confirm-img" value="confirm" class="btn btn-primary">確認</button>
-        	<button  name="cancel" value="cancel" class="btn btn-secondary">取消</button>
-        	
+        
+        <input type="hidden" id="finalDecision" name="finalDecision" value=""> 
         	<!-- 隱藏資訊 -->
         	<Input type='hidden' name='rBean' value='${r_hp}'>
         	<Input type='hidden' name='roBean' value='${roBean}'>
+        
+        <div class="div-btn">
+       		<input type="button" class="btn btn-primary" name="confirm" value="confrim" onclick="confirmL()"> 
+		<input type="button" class="btn btn-secondary" name="CancelBtn" value="cancel" onclick="cancelL()">
         </div>
         
 	</FORM>
+	
+	<script type="text/javascript">
+function confirmL(){
+	if (confirm("確定送出修改 ? ") ) {
+		console.log(document.forms["formL"]);
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].finalDecision.value = "confirmL";
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].action="<%=application.getContextPath()%>/Restaurant_HPServlet";
+		document.forms["formL"].method="POST";
+		document.forms["formL"].submit();
+		return;
+	} else {
+		return;
+	}
+}
+function cancelL(){
+	if (confirm("確定取消修改 ? ") ) {
+		console.log(document.forms["formL"]);
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].finalDecision.value = "cancel";
+		console.log(document.forms["formL"].finalDecision.value);
+		document.forms["formL"].action="<%=application.getContextPath()%>/Restaurant_HPServlet";
+		document.forms["formL"].method="POST";
+		document.forms["formL"].submit();
+		return;
+	} else {
+		return;
+	}
+}
+</script>
+	
 </div>
 
 </body>

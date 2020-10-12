@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%
 session=request.getSession(false);
 if (session.getAttribute("Login") == null) {
@@ -25,55 +26,60 @@ if (session.getAttribute("Login") == null) {
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	   <script src="${pageContext.servletContext.contextPath}/static/jquery-3.5.1.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
 
-	<jsp:include page="/rambo0021/top.jsp" />
-	<div align="center">
-		<form action="HomePageUpdateServlet">
-			<table border="1" width="300px">
-				<tr bgcolor="#FFFFE1">
+	<jsp:include page="/fragment/header.jsp" />
+	
+	<div align="center" style="margin:0 auto;width:300px">
+		<form action="<%=pageContext.getServletContext().getContextPath()%>/HomePageUpdateServlet" enctype="multipart/form-data" method="post">
+			<table class="table" border="1" width="300px">
+				<tr>
 					<td>
 						<c:out value="身分:${Login.identityString}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td> <img width='300px'
 							src="${pageContext.request.contextPath}/Homepage?userName=${Login.userName}">
 							<input type="hidden" id="picture" name="picture" value="更新照片" accept="image/*" disabled>
 						</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
 						<c:out value="帳號:${Login.userName}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>密碼:<input type="password" id="password" name="password" value="${Login.password}" disabled />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
-					<td>暱稱<input type="text" id="nickName" name="nickName" value=":${Login.nickName}" disabled />
+				<tr>
+					<td>暱稱:<input type="text" id="nickName" name="nickName" value="${Login.nickName}" disabled />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>email:<input type="text" id="email" name="email" value="${Login.email}" disabled /></td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
-						<c:out value="註冊日期:${Login.register}" />
+						<c:out value="註冊日期:${Login.registerString}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
-						<c:out value="最後修改日期:${Login.modify_Date}" />
+						<c:out value="最後修改日期:${Login.modify_DateString}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
-						<c:out value="訂單編號" />
+						<c:out value="訂單編號:" />
 					</td>
 				</tr>
 			</table>

@@ -41,11 +41,12 @@
         }
         h2 {
             padding: 20px;
+            color:white;
         }
 
         .title {
             text-align: center;
-            background-color: #BEBEBE;
+            background-color: 	#BB3D00;
             margin:0px;
         }
 
@@ -132,6 +133,9 @@
         h3 {
             padding: 10px 30px;
         }
+        p{
+			font-size:16px;
+		}
     </style>
 </head>
 <body>
@@ -169,7 +173,7 @@
             </div>
             <div>
                 <h4 class="res_result">交通方式</h4>
-                <p class="p_result">${res_data.transportation}</p>
+                <pre><p class="p_result">${res_data.transportation}</p></pre>
             </div>
             <div>
                 <h4 class="res_data">菜色介紹</h4>
@@ -187,7 +191,7 @@
             </div>
             <div>
                 <h4 class="res_result">營業時間</h4>
-                <p class="p_result">${res_data.opentime}</p>
+                <pre><p class="p_result">${res_data.opentime}</p></pre>
             </div>
             <div>
                 <h4 class="res_result">餐廳描述</h4>
