@@ -228,6 +228,10 @@ public class T_Order_ListDAO {
 		}
 		
 	}
+	
+	public void delT_Order_List() {
+		
+	}
 //	public void createOrder(OrderTableBean bean,int[] a) throws SQLException {
 //		
 //		String sqlOrder_Table = "insert into ORDER_TABLE (ORDER_DATE, USERNAME) values(?, ?)";
