@@ -36,49 +36,50 @@ if (session.getAttribute("Login") == null) {
 <body>
 
 	<jsp:include page="/fragment/header.jsp" />
-	<div align="center">
+	
+	<div align="center" style="margin:0 auto;width:300px">
 		<form action="<%=pageContext.getServletContext().getContextPath()%>/HomePageUpdateServlet" enctype="multipart/form-data" method="post">
 			<table class="table" border="1" width="300px">
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
 						<c:out value="身分:${Login.identityString}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td> <img width='300px'
 							src="${pageContext.request.contextPath}/Homepage?userName=${Login.userName}">
 							<input type="hidden" id="picture" name="picture" value="更新照片" accept="image/*" disabled>
 						</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
 						<c:out value="帳號:${Login.userName}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>密碼:<input type="password" id="password" name="password" value="${Login.password}" disabled />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>暱稱:<input type="text" id="nickName" name="nickName" value="${Login.nickName}" disabled />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>email:<input type="text" id="email" name="email" value="${Login.email}" disabled /></td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
 						<c:out value="註冊日期:${Login.registerString}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
 						<c:out value="最後修改日期:${Login.modify_DateString}" />
 					</td>
 				</tr>
-				<tr bgcolor="#FFFFE1">
+				<tr>
 					<td>
-						<c:out value="訂單編號" />
+						<c:out value="訂單編號:" />
 					</td>
 				</tr>
 			</table>

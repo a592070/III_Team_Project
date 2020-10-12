@@ -15,35 +15,43 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/floating-labels/">
+
+	<!-- Bootstrap core CSS -->
+	<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="floating-labels.css" rel="stylesheet">
 
 </head>
 
 <body>
 	<jsp:include page="/fragment/header.jsp" />
-	<FORM ACTION="<%=pageContext.getServletContext().getContextPath()%>/LoginServlet" method="POST" name="loginForm">
-		<div id='content' align="center" class="form-group">
-			<fieldset>
-				<legend>登入</legend>
-				<Table class="table" style="border-width: 2; width: 500px; border-style: inset">
-					<tr>
-						<td>帳號: <INPUT TYPE="TEXT" id="userName" NAME="userName" onblur="checkusr()" />
-							<img class="img" id="idfimg" src=""><span id="idsp"></span><br />
-						</td>
-					</tr>
-					<tr>
-						<td><BR> 密碼: <INPUT TYPE="PASSWORD" id="password" NAME="password" onblur="checkpwd()" />
-							<img class="img" id="idfimg2" src=""><span id="idsp2"></span><br />
-							<CENTER>
-								<INPUT TYPE="SUBMIT" id="submit" value="登入" disabled class="btn btn-primary">
-									<Font color='red' size="-1">
-										${ErrorMsgKey.LoginError}</Font>
-							</CENTER>
-						</td>
-					</tr>
-				
+	<div style="margin:0 auto;width:300px">
+	<FORM ACTION="<%=pageContext.getServletContext().getContextPath()%>/LoginServlet" method="POST" name="loginForm"
+		class="form-signin">
+		<fieldset>
+			<legend>登入</legend>
+			<div class="form-label-group">
+				帳號: <INPUT TYPE="TEXT" id="userName" NAME="userName" onblur="checkusr()" class="form-control"
+					placeholder="username" autofocus />
+				<img class="img" id="idfimg" src=""><span id="idsp"></span><br />
+			</div>
+			<div class="form-label-group">
+				密碼: <INPUT TYPE="PASSWORD" id="password" NAME="password" class="form-control" placeholder="Password"
+					onblur="checkpwd()" />
+				<img class="img" id="idfimg2" src=""><span id="idsp2"></span><br />
+			</div>
+			<CENTER>
+				<INPUT TYPE="SUBMIT" id="submit" value="登入" disabled class="btn btn-primary">
+				<Font color='red' size="-1">
+					${ErrorMsgKey.LoginError}</Font>
+			</CENTER>
+
 	</FORM>
-	</Table>
-	</div>
+</div>
+
+
 	<script>
 		function checkusr() {
 			let theUsrObjVal = document.getElementById("userName").value;
