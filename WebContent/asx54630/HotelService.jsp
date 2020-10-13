@@ -88,36 +88,45 @@
                 <td>臺北市中山區中山北路2段39巷3號</td>
                 <td>飯店</td>
                 <td>5.8</td>
-                <td><a class="nav-link" href="<c:url value='/asx54630/MoreDetail.jsp' />" name="moredetail">更多資訊..</a></td>
+                <td><button type='button' class='btn btn-info'  onclick="clickdetail(晶華酒店)" >更多資訊</button></td>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" >我要訂房</button></td>
             </tr>
             <tr>
-                <td>花田民宿</td>
-                <td>臺中市新社區興中街17-6號</td>
-                <td>民宿</td>
-                <td>4.4</td>
-                <td><a class="nav-link" href="<c:url value='/asx54630/MoreDetail.jsp' />" name="moredetail">更多資訊..</a></td>
+                <td>日月光國際大飯店</td>
+                <td>新竹市東區中央路355巷16號1,3-6樓</td>
+                <td>飯店</td>
+                <td>5</td>
+                <td><button type='button' class='btn btn-info'  onclick="clickdetail(日月光國際大飯店)" >更多資訊</button></td>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
             <tr>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
+                <td>約客頂級汽車旅館</td>
+                <td>桃園市桃園區泰山街58號1-4樓</td>
+                <td>汽車旅館</td>
+                <td>4.6</td>
+                <td><button type='button' class='btn btn-info'  onclick="clickdetail(約客頂級汽車旅館)" >更多資訊</button></td>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
             <tr>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
-                <td>xxx</td>
+                <td>榮興金鬱金香酒店</td>
+                <td>臺南市中西區民族路二段128號1至9樓</td>
+                <td>4.5</td>
+                <td>飯店</td>
+                <td><button type='button' class='btn btn-info'  onclick="clickdetail(榮興金鬱金香酒店)" >更多資訊</button></td>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
             </tbody>
         </table>
 
+
+		<script type="text/javascript">
+		function clickdetail(sn){
+			
+			document.location.href="${pageContext.servletContext.contextPath}/HotelDetailServlet?detailsn="+sn;
+		}
+		
+		</script>
+		
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
