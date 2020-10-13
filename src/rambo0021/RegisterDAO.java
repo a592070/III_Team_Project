@@ -55,5 +55,32 @@ public class RegisterDAO {
 		e.printStackTrace();
 	}
 	}
+	public boolean checkUser(AccountBean account) {
+		boolean bl = false;
+		try {
+			
+			DataSource dataSource = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITH_SERVER);
+			Connection connection = dataSource.getConnection();
+			PreparedStatement prepareStatement = connection.prepareStatement("select USERNAME from account where USERNAME=?");
+             
+			prepareStatement.setString(1, account.getUserName());
+			ResultSet rs = prepareStatement.executeQuery();
+			if(rs.next()) {
+				bl=true;
+			}else {
+				bl=false;
+			}prepareStatement.clearParameters();
+			prepareStatement.close();
+			connection.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return bl;
+
+		
+	}
 	
 }

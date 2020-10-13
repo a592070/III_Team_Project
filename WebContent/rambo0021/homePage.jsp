@@ -161,7 +161,7 @@ if (session.getAttribute("Login") == null) {
                     {
                         type: 'POST',
                         url: '../OrderAjaxController',
-						dataType: "json", 
+						dataType: "boolean", 
                         success:function(response){
 						  buildOrderTable(response);
                         }

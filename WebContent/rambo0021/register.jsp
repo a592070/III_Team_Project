@@ -13,26 +13,21 @@
     <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
 
     <style>
-
-
         form {
             display: inline-block;
         }
-
         fieldset {
             width: 430px;
             margin: 15px;
             border: 2px solid gray;
             border-radius: 15px;
         }
-
         .st1 {
             width: 400px;
             border-bottom: 1px solid gray;
             margin: 5px;
             padding-bottom: 5px;
         }
-
         .img {
             width: 13px;
         }
@@ -60,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label for="username">帳號:</label>
-                <input type="text" id="username" name="username" placeholder="請輸入帳號" onblur="checkusr()" />
+                <input type="text" id="username" name="username" placeholder="請輸入帳號" onblur="ajaxusr()" />
                 <img class="img" id="idfimg" src=""><span id="idsp"></span><br />
 
             </div>
@@ -254,8 +249,22 @@
 
 
     <script>
-
-        function checkusr() {
+        function ajaxusr() {
+            let username = document.getElementById("username").value;
+              $.ajax(
+                    {
+                        type: 'POST',
+                        data: { "username": username },
+                        url: '../UserAjaxController',
+                        dataType: 'json',
+                        success:function(response){
+                            checkusr(response);                   
+                        }
+                    }
+                )
+            
+        }function checkusr(response){
+            console.log(response)
             let username = document.getElementById("username").value;
             let sp = document.getElementById("idsp");
             if (username == "") {
@@ -265,7 +274,16 @@
                 sp.style.fontStyle = "italic";
                 document.getElementById("idfimg").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
                 document.getElementById("submit").disabled = true;
-            } else {
+            }else if(response){
+                sp.innerHTML = "帳號已被註冊"
+                sp.style.color = "red";
+                sp.style.fontSize = "13px";
+                sp.style.fontStyle = "italic";
+                document.getElementById("idfimg").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
+                document.getElementById("submit").disabled = true;
+
+            }
+            else {
                 sp.innerHTML = "正確";
                 sp.style.color = "black";
                 sp.style.fontSize = "13px";
@@ -273,6 +291,7 @@
                 document.getElementById("idfimg").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/check.png"
                 document.getElementById("submit").disabled = false;
             }
+
         }
         function checkpwd() {
             let pwd = document.getElementById("password").value;
@@ -314,9 +333,7 @@
                 }
                 else if (identity == 3) {
                     // $("#includeDiv").css("display", "block");
-
                     // $("#includeDiv").attr("w3-include-html", "<%=pageContext.getServletContext().getContextPath()%>/rambo0021/restaurantForm.jsp")
-
                     // w3.includeHTML();
                     $("#rdiv").css("display", "block");
                     $("#hdiv").css("display", "none");
@@ -338,22 +355,17 @@
                     $("#hdiv").css("display", "none");
                     $("#tdiv").css("display", "block");
                 }
-
-
                 // $.ajax(
                 //     {
                 //         type: 'POST',
                 //         data: { identity: identity },
                 //         url: '../StoreAjaxController',
                 //         success:function(identity){
-
                 //         }
                 //     }
                 // )
             })
-
         })
-
     </script>
 </body>
 
