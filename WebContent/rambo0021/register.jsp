@@ -45,7 +45,7 @@
 
 <body class="body">
     <jsp:include page="/fragment/header.jsp" />
-<div style="margin:0 auto;width:300px" >
+<div style="margin:0 auto;width:300px;height: 1500px;" >
     <form ACTION="<%=pageContext.getServletContext().getContextPath()%>/registerServlet" enctype="multipart/form-data"
         method="post">
         <fieldset>
@@ -244,7 +244,7 @@
             </fieldset>
         </div>
 
-        <input type="submit" id="submit" name="submit" value="送出" disabled class="btn btn-primary">
+        <input type="submit" class="btn btn-primary" id="submit" name="submit" value="送出" disabled >
 
     </form>
 </div>

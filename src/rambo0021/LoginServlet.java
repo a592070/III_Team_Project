@@ -2,6 +2,7 @@ package rambo0021;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -34,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 		AccountBean account = new AccountBean();
         HomePageDAO homePage = new HomePageDAO();
         SHA2DAO sha2 = new SHA2DAO();
+//        OrderDAO orderDAO = new OrderDAO();
         HttpSession session = request.getSession();
         Map<String, String> errorMsgMap = new HashMap<String, String>();       
         request.setAttribute("ErrorMsgKey", errorMsgMap);
@@ -42,13 +44,17 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8"); 
 		account.setUserName(request.getParameter("userName").trim());	
 		String password=sha2.getSHA256(request.getParameter("password").trim());
+		
 		//圖靈測試
 		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 		boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
-		
+		//查密碼
 		homePage.selectUserData(account);
+		//判斷帳密&驗證
 		if (password.equals(account.getPassword()) && verify) {
 			session.setAttribute("Login",account);
+//			List<OrderBean> list = orderDAO.selectOrder(account);
+//			session.setAttribute("Order", list);
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
 		}else if(!verify) {
 			errorMsgMap.put("LoginError", "驗證不通過");
