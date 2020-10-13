@@ -99,7 +99,7 @@
 	</nav>
 </header>
 
-<div class="container-fluid d-flex flex-row-reverse fixed-bottom">
+<div class="container-fluid-sm d-flex flex-row-reverse fixed-bottom pt-0">
 	<button class="btn btn-primary btn-lg" onclick="document.location.href='${pageContext.servletContext.contextPath}/ChatServlet'">
 		<span class="spinner-grow spinner-grow-sm"></span>聯絡客服
 	</button>

@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 
-    $(document).load(loadPage());
+    // $(document).load(loadPage());
 
     function loadPage(){
         $.get({

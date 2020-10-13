@@ -263,14 +263,14 @@
                 sp.style.color = "red";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
-                document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/error.png"
+                document.getElementById("idfimg").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
                 document.getElementById("submit").disabled = true;
             } else {
                 sp.innerHTML = "正確";
                 sp.style.color = "black";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
-                document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/check.png"
+                document.getElementById("idfimg").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/check.png"
                 document.getElementById("submit").disabled = false;
             }
         }
@@ -283,21 +283,21 @@
                 sp.style.color = "red";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
-                document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/error.png"
+                document.getElementById("idfimg3").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
                 document.getElementById("submit").disabled = true;
             } else if (pwd == ckpwd) {
                 sp.innerHTML = "正確";
                 sp.style.color = "black";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
-                document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/check.png"
+                document.getElementById("idfimg3").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/check.png"
                 document.getElementById("submit").disabled = false;
             } else {
                 sp.innerHTML = "密碼與確認密碼不符"
                 sp.style.color = "red";
                 sp.style.fontSize = "13px";
                 sp.style.fontStyle = "italic";
-                document.getElementById("idfimg3").src = "/III_Team_Project/rambo0021/Images/error.png"
+                document.getElementById("idfimg3").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
                 document.getElementById("submit").disabled = true;
             }
         }

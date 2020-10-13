@@ -126,7 +126,7 @@
                                 <td>\${list[i].quadrupleRoomPrice}</td>
                                 <td>\${list[i].address}</td>
                                 <td>\${list[i].rating}</td>
-<!--                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionHotel,\${list[i].sn})'>看詳細</button></td>-->
+                                <td><button type='button' class='btn btn-info' value='\${tempobj}' onclick='toDetailPage(optionHotel, $(this))'>看詳細</button></td>
                                 <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
                                 </tr>`;
                         }
@@ -207,7 +207,7 @@
             if(type == optionCar){
 
             }else if(type == optionHotel){
-
+                document.location.href="${pageContext.servletContext.contextPath}/HotelDetailServlet?detailsn="+json.sn;
             }else if(type == optionRestaurant){
                 document.location.href="${pageContext.servletContext.contextPath}/RestaurantServlet?QUERY=QUERY&restaurant_name="+json.name;
             }else if(type == optionAttraction){
@@ -450,8 +450,8 @@
         </tr>
         </tbody>
     </table>
-    <div class="navbar-nav">
-        <form class="form-group ">
+    <div class="navbar-nav ">
+        <form class="form-group">
 <%--            <input class="d-none" id="submitMethodId" name="method" >--%>
 <%--            <input class="d-none" id="submitCarId" name="travelSetCarList" >--%>
 <%--            <input class="d-none" id="submitHotelId" name="travelSetHotelList" >--%>
@@ -461,9 +461,11 @@
             <input type="text" class="form-control" id="travelSetName" placeholder='我的旅程' value='我的旅程'>
             <label for="travelSetDescription">備註:</label>
             <textarea class="form-control" rows="5" id="travelSetDescription"></textarea>
+            <div class="container">
             <button type="button" class="btn btn-primary" id='saveTravelSet_id' onclick='saveTravelSet()'>保存當前</button>
             <button type="button" class="btn btn-success" id='newTravelSet_id' onclick='newTravelSet()'>新項目</button>
             <button type="button" class="btn btn-outline-danger" onclick='removeAllItem()' >取消</button>
+            </div>
         </form>
 
     </div>

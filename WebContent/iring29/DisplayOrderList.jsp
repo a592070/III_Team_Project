@@ -144,7 +144,7 @@
     	if (confirm("確定取消此份訂單 ? ") ) {
     		// 接收此資料的Servlet會使用 finalDecision 參數的值
     		document.forms["form-c"].c.value="cancel";
-    		document.forms["form-c"].action="<c:url value='OrderListServlet' />";
+    		document.forms["form-c"].action="${pageContext.servletContext.contextPath}/OrderListServlet";
     		document.forms["form-c"].method="POST";
     		document.forms["form-c"].submit();
     		return;

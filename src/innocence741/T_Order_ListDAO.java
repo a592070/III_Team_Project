@@ -135,7 +135,7 @@ public class T_Order_ListDAO {
 				}
 			}
 		}
-
+		if(conn != null) conn.close();
 	}
 	
 	public void searchHistoricalOrder(ArrayList<ArrayList> combineArrayList, String userid) throws SQLException {
