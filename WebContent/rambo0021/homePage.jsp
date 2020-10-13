@@ -30,7 +30,7 @@ if (session.getAttribute("Login") == null) {
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 </head>
 
 <body>
@@ -135,6 +135,7 @@ if (session.getAttribute("Login") == null) {
 		</div>
 	</div>
 	<script>
+		
 		$("#update").click(function () {
 			console.log("aaaaa")
 			$("#update").prop("type", "hidden");
@@ -198,7 +199,8 @@ if (session.getAttribute("Login") == null) {
 							console.log(response["r_orderId"])							
 							document.getElementById("r").innerHTML=response["r_orderId"]
 							document.getElementById("h").innerHTML=response["h_orderId"]
-							document.getElementById("t").innerHTML=response["t_orderId"]				    
+							document.getElementById("t").innerHTML=response["t_orderId"]	
+
                         }
                     }
                 )

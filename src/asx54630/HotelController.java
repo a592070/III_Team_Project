@@ -81,15 +81,5 @@ public class HotelController extends HttpServlet {
 }
 	
 	
-//	private void gotoDetailProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException, ServletException {
-//		String detailsn = request.getParameter("detailsn").trim();
-//		System.out.print("("+detailsn+")");
-//		int detsn = Integer.parseInt(detailsn);
-//		HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);
-//		HotelDO detaildata = hotelDAO.DetailSearch(detsn);
-//		request.setAttribute("detsn", detsn);
-//		System.out.print(detsn);
-//		request.getRequestDispatcher("/asx54630/MoreDetail.jsp").forward(request,response);
-//}
 	
 }
