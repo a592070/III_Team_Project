@@ -166,8 +166,16 @@
                 <div class="comment">評論</div>
             </div>
             <div class="div_img" >
-                <img src="${res_data.picture}">
+                <img id="Rimg" src="${res_data.picture}">
             </div>
+            
+            <script>
+            if((document.getElementById("Rimg").getAttribute("src")) === ""){
+                document.getElementById("Rimg").src = "https://thumbs.dreamstime.com/b/to-be-continued-seal-print-grunge-texture-red-vector-rubber-label-text-tag-placed-double-parallel-lines-131620528.jpg";
+                console.log(document.getElementById("Rimg").src)
+            }
+            </script>
+            
             <div class="div-1">
                 <h3>${res_data.name}</h3>
                     <h5 class="rating">Rating</h5>
