@@ -60,7 +60,7 @@ public class Test_innocence741 {
 		
 //		------------------------------------------------------
 		
-		/*carRentalCompany測試*/
+//		/*carRentalCompany測試*/
 //		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
 ////		CarTypeBean carTypeBean = new CarTypeBean();
 ////		AccountBean user = new AccountBean();
@@ -91,6 +91,22 @@ public class Test_innocence741 {
 		
 //		------------------------------------------------------
 		
+		/*addCarType測試*/
+		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
+		carRentalCompanyBean.setCompanyAccount("306478QQ");	//先假裝CompanyAccount為306478QQ
+		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		carRentalCompanyDAO.getSN_RENTALCOMPANY(carRentalCompanyBean);
+		
+		CarTypeBean carTypeBean = new CarTypeBean();
+		carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);	//將取得的SN放入carTypeBean中
+		System.out.println(carTypeBean.getCarRentalCompanyBean().getSn_carRentalCompany());
+		carTypeBean.setCarType("三輪車");
+		carTypeBean.setPrice(BigDecimal.valueOf(306478));
+		carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		carRentalCompanyDAO.addCarType(carTypeBean);
+		
+		
+//		------------------------------------------------------
 //		/*orderTest分開版本*/
 //		OrderTableBean bean = new OrderTableBean();
 //		T_OrderBean tBean = new T_OrderBean();
@@ -141,24 +157,24 @@ public class Test_innocence741 {
 		
 		
 //		------------------------------------------------------
-		/*historicalOrderInfo*/
-//		OrderTableBean bean = new OrderTableBean();
-//		T_OrderBean tBean = new T_OrderBean();
-//		AccountBean user = new AccountBean();
-//		hsrDO hsrDO = new hsrDO();
-//		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
-		ArrayList<ArrayList> combineArrayList = new ArrayList<>();
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		t_Order_ListDAO.searchHistoricalOrder(combineArrayList, "abab");
-		System.out.println("combineArrayList.size= " + combineArrayList.size());
-		
-        ObjectMapper objectMapper = new ObjectMapper();
-        String ujson = objectMapper.writeValueAsString(combineArrayList);
-		JsonNode jsonNode = objectMapper.readTree(ujson);
-		System.out.println(jsonNode.path(0).size());
-		JsonNode node = jsonNode.path(1).path(1).path("order_id");
-		System.out.println(node);
-        System.out.println(ujson+"\n");
+//		/*historicalOrderInfo*/
+////		OrderTableBean bean = new OrderTableBean();
+////		T_OrderBean tBean = new T_OrderBean();
+////		AccountBean user = new AccountBean();
+////		hsrDO hsrDO = new hsrDO();
+////		ArrayList<OrderTableBean> orderTableBeans = new ArrayList<>();
+//		ArrayList<ArrayList> combineArrayList = new ArrayList<>();
+//		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		t_Order_ListDAO.searchHistoricalOrder(combineArrayList, "abab");
+//		System.out.println("combineArrayList.size= " + combineArrayList.size());
+//		
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String ujson = objectMapper.writeValueAsString(combineArrayList);
+//		JsonNode jsonNode = objectMapper.readTree(ujson);
+//		System.out.println(jsonNode.path(0).size());
+//		JsonNode node = jsonNode.path(1).path(1).path("order_id");
+//		System.out.println(node);
+//        System.out.println(ujson+"\n");
 
         
 
