@@ -58,7 +58,7 @@ if (session.getAttribute("Login") == null) {
 					</td>
 				</tr>
 				<tr>
-					<td>密碼:<input type="password" id="password" name="password" value="${Login.password}" disabled />
+					<td>密碼:<input type="password" id="password" name="password" value="" disabled />
 					</td>
 				</tr>
 				<tr>
