@@ -13,57 +13,85 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<jsp:include page="/asx54630/TestHeader.jsp" />
+<jsp:include page="/fragment/header.jsp" />
 
 <div class="container">
         <h2>歡迎回來! 業者</h2>
         <br>
-        <div class="mx-auto my-3" style="width: 1100px">
-            <form class="form-inline" action="<%=pageContext.getServletContext().getContextPath()%>/HotelController" method="POST">
-                <div class="form-group mb-2">
-                  <h5>請選擇要使用的功能:</h5>
-                </div>
-                
-                <div class="form-group mx-sm-3 mb-2">
-				<button type="submit" class="btn btn-primary mb-2" value="search" name="insert">新增店家資料</button>
-                </div>
-                
-                 
-                <div class="form-group mx-sm-3 mb-2">
-				<button type="submit" class="btn btn-primary mb-2" value="search" name="update">修改店家資料</button>
-                </div>
-                
-                <div class="form-group mx-sm-3 mb-2">
-				<button type="submit" class="btn btn-primary mb-2" value="search" name="delete">刪除店家資料</button>
-                </div>
-            </form>
-        </div>
-		<br>
 		<table class="table">
             <thead>
             <tr>
                 <th>名稱</th>
+                <td>${hotelDO.NAME}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.NAME})" >修改</button></td>
+            </tr>
+            <tr>
                 <th>地址</th>
+                <td>${hotelDO.ADDRESS}</td>
+				<td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.ADDRESS})">修改</button></td>
+          	</tr>
+            <tr>
                 <th>電話</th>
+                <td>${hotelDO.TEL}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.TEL})">修改</button></td>
+            </tr>
+            <tr>
                 <th>房型:雙人房</th>
+                <td>${hotelDO.DOUBLE_ROOM}</td> 
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.DOUBLE_ROOM})">修改</button></td>
+            </tr>
+            <tr>
                 <th>房型:四人房</th>
+                 <td>${hotelDO.QUADRUPLE_ROOM}</td>
+                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.QUADRUPLE_ROOM})">修改</button></td>
+            </tr>
+            <tr>
                 <th>介紹</th>
+                <td>${hotelDO.DESCRIPTION}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.DESCRIPTION})">修改</button></td>
+            </tr>
+            <tr>
                 <th>營業時間</th>
+                <td>${hotelDO.OPENTIME}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.OPENTIME})">修改</button></td>
+            </tr>
+            <tr>
                 <th>住宿類型</th>
+                <td>${hotelDO.TYPE}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.TYPE})">修改</button></td>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>晶華酒店</td>
-                <td>臺北市中山區中山北路2段39巷3號</td>
-                <td>886-2-25238000</td>
-                <td>5000</td>
-                <td>8000</td>
-                <td>台北晶華酒店是國際麗晶酒店集團的旗艦店，也是全台北市最卓越、最受歡迎的國際五星級飯店之一。</td>
-                <td>全年無休</td>
-                <td>飯店</td>
-            </tr>
-            </tbody>
         </table>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">店家資訊修改</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form action="<%=pageContext.getServletContext().getContextPath()%>/H_HomePageUpdateServlet" method="POST">
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">要修改為:</label><br>
+                      <p>temp</p>
+                      <input type="text" name="" >
+                    </div>                
+                    <div class="modal-footer">
+                  		<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                 		<button type="submit" class="btn btn-primary">確認</button>
+               		 </div> 
+               	</form>	
+               		<script type="text/javascript">
+					function clickdetail(getval){
+						let temp = getval.value;
+							
+							}		
+				</script>    
+              	</div>
+            </div>
+          </div>
+        </div>
 </body>
 </html>

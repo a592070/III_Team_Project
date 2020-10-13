@@ -34,11 +34,11 @@
             </tr>
             <tr>
                 <th>房型:雙人房</th>
-                <td>${detaildata.DOUBLE_ROOM}</td>
+                <td>${detaildata.DOUBLE_ROOM} $</td>
             </tr>
             <tr>
                	<th>房型:四人房</th>
-                <td>${detaildata.QUADRUPLE_ROOM}</td>
+                <td>${detaildata.QUADRUPLE_ROOM} $</td>
             </tr>
             <tr>
                 <th>介紹</th>

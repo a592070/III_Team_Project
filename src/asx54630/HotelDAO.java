@@ -133,6 +133,57 @@ public class HotelDAO {
     }
     
     
+    public HotelDO HomePageSearch(String hhomepage) throws SQLException {
+        try {
+        	
+        	HotelDO hoteldo = null;
+          conn = ds.getConnection();
+          predStmt = conn.prepareStatement("SELECT * FROM HOTEL WHERE ACCOUNT like ?");
+
+          predStmt.setString(1, hhomepage);
+    	  ResultSet rs = predStmt.executeQuery();
+    	  while (rs.next()) {
+    		  hoteldo = new HotelDO();
+				BigDecimal id = rs.getBigDecimal("SN");
+				hoteldo.setSN(id);
+				String name = rs.getString("NAME");
+				hoteldo.setNAME(name);
+				String region = rs.getString("REGION");
+				hoteldo.setREGION(region);
+				String address = rs.getString("ADDRESS");
+				hoteldo.setADDRESS(address);
+				String tel = rs.getString("TEL");
+				hoteldo.setTEL(tel);
+				BigDecimal dbroom = rs.getBigDecimal("DOUBLE_ROOM");
+				hoteldo.setDOUBLE_ROOM(dbroom);
+				BigDecimal quadroom = rs.getBigDecimal("QUADRUPLE_ROOM");
+				hoteldo.setQUADRUPLE_ROOM(quadroom);
+				String description = rs.getString("DESCRIPTION");
+				hoteldo.setDESCRIPTION(description);
+				String opentime = rs.getString("OPENTIME");
+				hoteldo.setOPENTIME(opentime);
+				String type = rs.getString("TYPE");
+				hoteldo.setTYPE(type);
+				BigDecimal rating = rs.getBigDecimal("RATING");
+				hoteldo.setRATING(rating);
+				String account = rs.getString("ACCOUNT");
+				hoteldo.setACCOUNT(account);
+				
+    	  }
+    	  rs.close();
+    	  predStmt.close();
+    	  return hoteldo;
+    	  
+        } catch (Exception e) {
+    	    System.err.println("尋找住宿資料時發生錯誤:" + e);
+    	    return null;
+        }finally {
+			if (conn != null) {
+				conn.close();
+			}
+        }
+    }
+    
     
     public void createHotel(HotelDO hotDO) throws SQLException {
 		try {
