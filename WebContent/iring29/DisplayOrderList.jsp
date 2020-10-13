@@ -99,12 +99,8 @@
 
                     <div class="div-1">
                         <label for="r-date"><b>用餐日期</b></label>
-                        <span id="b-time"></span>
-                   <script>
-						let bspan = document.getElementById("b-time");
-						let bTime = new Date("${roBean.booking_date}").toLocaleString();
-						bspan.innerHTML= bTime;
-					</script>     
+                        <span id="b-time">${roBean.booking_dateString}</span>
+                     
                         
                     </div>
                     <div class="div-1">

@@ -271,7 +271,7 @@ p{
 									</div>
 									<div class="modal-body">
 										<div class="div-1">
-											<label for="r-date"><b>用餐日期</b></label> <span id="b-time">${roBean.booking_date}</span>
+											<label for="r-date"><b>用餐日期</b></label> <span id="b-time">${roBean.booking_dateString}</span>
 										</div>
 										
 										<div class="div-1">
