@@ -66,7 +66,9 @@ public class T_Order_ListDAO {
 			conn.rollback();
 		}finally {
 			if (conn != null) {
-			conn.close();
+				pstmt.clearParameters();
+				pstmt.close();
+				conn.close();
 			}
 		}
 	}
@@ -132,6 +134,11 @@ public class T_Order_ListDAO {
 
 //					ex.printStackTrace();
 //					throw new RuntimeException("發生SQL例外: " + ex.getMessage());
+				}finally {
+					if (conn != null) {
+
+						conn.close();
+					}
 				}
 			}
 		}
@@ -245,6 +252,8 @@ public class T_Order_ListDAO {
 			rcd[0]=0;
 		}finally {
 			if (conn != null) {
+				pstmt.clearParameters();
+				pstmt.close();
 				conn.close();
 			}
 		}
