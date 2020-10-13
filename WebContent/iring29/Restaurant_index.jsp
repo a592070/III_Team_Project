@@ -117,7 +117,7 @@ button {
 				</div>
 				<div class="search_date">
 					<span class="sp_search">日期</span> 
-					<input type="date" name="book_date" id="theDate">
+					<input type="date" name="book_date" id="theDate" min="">
 					<script>
 						var date = new Date();
 
@@ -133,6 +133,8 @@ button {
 						var today = year + "-" + month + "-" + day;
 						console.log(typeof(today));
 						document.getElementById("theDate").value = today;
+						document.getElementById("theDate").min = today;
+						
 					</script>
 				</div>
 				<div class="search"  class="form-group col-md-2">

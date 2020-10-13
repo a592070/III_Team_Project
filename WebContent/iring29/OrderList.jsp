@@ -96,12 +96,26 @@ input {
 					<div class="div-1">
 						<label for="r-date">用餐日期</label>
 						<!--  	<span>${book_date}</span>-->
-						<input type="date" name="book_date" id="theDate">
+						<input type="date" name="book_date" id="theDate" min="">
 						<script>
 						var book = "${book_date}";
 						console.log(book);
 						console.log(typeof(book));
 						document.getElementById("theDate").value = book;
+						
+						var date = new Date();
+
+						var day = date.getDate();
+						var month = date.getMonth() + 1;
+						var year = date.getFullYear();
+
+						if (month < 10)
+							month = "0" + month;
+						if (day < 10)
+							day = "0" + day;
+
+						var today = year + "-" + month + "-" + day;
+						document.getElementById("theDate").min = today;
 						</script>
 					</div>
 
