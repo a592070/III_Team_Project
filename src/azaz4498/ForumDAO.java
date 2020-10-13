@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 //import org.apache.naming.java.javaURLContextFactory;
 
 import controller.ConnectionPool;
+import globalinit.Constant;
 
 public class ForumDAO {
 	private Connection conn;
@@ -35,7 +36,7 @@ public class ForumDAO {
 	public ForumDAO(int dataSourceType) throws IOException, SQLException {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 		articleListInit();
-		artTypeListInit();
+		if(artTypeList == null) artTypeListInit();
 	}
 
 	// 各清單初始化
@@ -46,6 +47,9 @@ public class ForumDAO {
 			conn = ds.getConnection();
 			stmt = conn.createStatement();
 			sql = "SELECT * FROM f_article ORDER BY art_cre_time";
+			//"select COUNT(1) " +
+			//"FROM F_comment " +
+			//"WHERE COM_ART_ID=?";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
@@ -56,14 +60,13 @@ public class ForumDAO {
 				articleDO.setArtId(rs.getInt("art_id"));
 				articleDO.setArtUserId(rs.getString("art_userid"));
 				articleDO.setArtContent(rs.getNString("art_content"));
-				articleDO.setArtCommNum(getCommNumByArtId(rs.getInt("art_id")));
+//				articleDO.setArtCommNum(getCommNumByArtId(rs.getInt("art_id")));
 				articleDO.setArtView(rs.getInt("art_view"));
 				articleDO.setArtPic(rs.getString("art_pic"));
 				articleDO.setArtCreTime(rs.getDate("art_cre_time"));
 
 				articleList.add(articleDO);
 //				System.out.println("新增成功");
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,9 +75,11 @@ public class ForumDAO {
 				stmt.close();
 			if (conn != null)
 				conn.close();
-
 		}
-
+		for (ArticleDO articleDO : articleList) {
+			int commNumByArtId = getCommNumByArtId(articleDO.getArtId());
+			articleDO.setArtCommNum(commNumByArtId);
+		}
 	}
 
 	/*
@@ -119,11 +124,11 @@ public class ForumDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (stmt != null)
-				stmt.close();
-			if (conn != null)
-				conn.close();
-
+			ConnectionPool.closeResources(conn, stmt, null);
+//			if (stmt != null)
+//				stmt.close();
+//			if (conn != null)
+//				conn.close();
 		}
 	}
 
@@ -156,8 +161,9 @@ public class ForumDAO {
 			pstmt.setString(7, articleTitle);
 
 			pstmt.executeUpdate();
+			pstmt.clearParameters();
 			conn.commit();
-			pstmt.clearBatch();
+//			pstmt.clearBatch();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,8 +190,9 @@ public class ForumDAO {
 			pstmt.setTimestamp(4, new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
 
 			pstmt.executeUpdate();
+			pstmt.clearParameters();
 			conn.commit();
-			pstmt.clearBatch();
+//			pstmt.clearBatch();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -206,7 +213,7 @@ public class ForumDAO {
 			pstmt.setInt(1, articleDO.getArtId());
 
 			pstmt.executeQuery();
-			pstmt.clearBatch();
+//			pstmt.clearBatch();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -227,7 +234,8 @@ public class ForumDAO {
 			pstmt.setInt(1, commentDO.getComId());
 
 			pstmt.executeQuery();
-			pstmt.clearBatch();
+			pstmt.clearParameters();
+//			pstmt.clearBatch();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,14 +251,16 @@ public class ForumDAO {
 	public void editArticleTitle(ArticleDO articleDO) throws SQLException {
 		try {
 			conn = ds.getConnection();
-			sql = "UPDATE f_article SET art_title='?'";
+			sql = "UPDATE f_article SET art_title=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, articleDO.getArtTitle());
 
 			pstmt.executeUpdate();
-			pstmt.clearBatch();
+			pstmt.clearParameters();
 
+			conn.commit();
 		} catch (Exception e) {
+			conn.rollback();
 			e.printStackTrace();
 		} finally {
 			if (pstmt != null)
@@ -265,12 +275,13 @@ public class ForumDAO {
 	public void editArticleContent(ArticleDO articleDO) throws SQLException {
 		try {
 			conn = ds.getConnection();
-			sql = "UPDATE f_article SET art_content='?'";
+			sql = "UPDATE f_article SET art_content=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setNString(1, articleDO.getArtContent());
 
 			pstmt.executeQuery();
-			pstmt.clearBatch();
+			pstmt.clearParameters();
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,7 +298,7 @@ public class ForumDAO {
 	public void editCommentArticleContent(CommentDO commentDO) throws SQLException {
 		try {
 			conn = ds.getConnection();
-			sql = "UPDATE f_comment SET com_content='?'";
+			sql = "UPDATE f_comment SET com_content=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, commentDO.getComContent());
 
@@ -331,7 +342,7 @@ public class ForumDAO {
 				resultList.add(articleDO);
 			}
 
-			pstmt.clearBatch();
+			pstmt.clearParameters();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -365,6 +376,7 @@ public class ForumDAO {
 				articleDO.setArtUserId(rs.getString("ART_USERID"));
 
 			}
+			pstmt.clearParameters();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -397,6 +409,7 @@ public class ForumDAO {
 
 				commentList.add(commentDO);
 			}
+			pstmt.clearParameters();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -422,7 +435,7 @@ public class ForumDAO {
 				articleTypeDO.setTypeId(typeId);
 				articleTypeDO.setTypeName(rs.getString("TYPE_NAME"));
 			}
-
+			pstmt.clearParameters();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -439,35 +452,29 @@ public class ForumDAO {
 		int commNum = 0;
 		try {
 			conn = ds.getConnection();
-			sql = "select\r\n" + 
-					"    COUNT(*)\r\n" + 
-					"    FROM F_comment\r\n" + 
-					"    WHERE COM_ART_ID=?";
+			sql = "select " +
+					"COUNT(1) " +
+					"FROM F_comment " +
+					"WHERE COM_ART_ID=?";
 			
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, artId);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				commNum=rs.getInt("count(*)");				
+				commNum=rs.getInt(1);
 			}
-				
-			
-			
+			pstmt.clearParameters();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			if (pstmt!=null) {
 				pstmt.close();
+			}
 			if (conn!=null) {
 				conn.close();
 			}
-			}
 		}
-		
-		
 		return commNum;
-		
-		
 	}
 
 }

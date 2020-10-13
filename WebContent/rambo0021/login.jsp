@@ -49,7 +49,7 @@
 				<Font color='red' size="-1">
 					${ErrorMsgKey.LoginError}</Font>
 			</CENTER>
-
+		</fieldset>
 	</FORM>
 </div>
 
@@ -67,7 +67,7 @@
 				sp.style.color = "red";
 				sp.style.fontSize = "13px";
 				sp.style.fontStyle = "italic";
-				document.getElementById("idfimg").src = "/III_Team_Project/rambo0021/Images/error.png"
+				document.getElementById("idfimg").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
 				document.getElementById("submit").disabled = true;
 			} else {
 				sp.innerHTML = "";
@@ -86,7 +86,7 @@
 				sp.style.color = "red";
 				sp.style.fontSize = "13px";
 				sp.style.fontStyle = "italic";
-				document.getElementById("idfimg2").src = "/III_Team_Project/rambo0021/Images/error.png"
+				document.getElementById("idfimg2").src = "${pageContext.servletContext.contextPath}/rambo0021/Images/error.png"
 				document.getElementById("submit").disabled = true;
 			} else {
 				sp.innerHTML = "";

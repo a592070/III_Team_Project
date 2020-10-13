@@ -46,10 +46,11 @@ public class ChatWebSocket {
     public void onOpen(Session session, EndpointConfig config) throws IOException {
         this.session = session;
         this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-
+        System.out.println("current session: "+this.httpSession);
 
         if(httpSession.getAttribute(Constant.LOGIN) != null){
             AccountBean user = (AccountBean) httpSession.getAttribute(Constant.LOGIN);
+            System.out.println(user);
             this.user = user;
             if(user.getIdentity() == 1){
                 webSocketService.put(httpSession.getId(), this);
@@ -70,7 +71,7 @@ public class ChatWebSocket {
 
         addOnlineCount();
 
-        System.out.println("ip:"+ip+"\thttpsession:"+httpSession.getId()+"\tsession: "+session.getId());
+        System.out.println("httpsession:"+httpSession.getId()+"\tsession: "+session.getId());
 
     }
 
@@ -163,38 +164,38 @@ public class ChatWebSocket {
         ChatWebSocket.onlineCount--;
     }
 
-    public static InetSocketAddress getRemoteAddress(WsSession session) {
-        if(session == null){
-            return null;
-        }
-
-        RemoteEndpoint.Async async = session.getAsyncRemote();
-        InetSocketAddress addr = (InetSocketAddress) getFieldInstance(async,
-                "base#socketWrapper#socket#sc#remoteAddress");
-        return addr;
-    }
-
-    private static Object getFieldInstance(Object obj, String fieldPath) {
-        String fields[] = fieldPath.split("#");
-        for(String field : fields) {
-            obj = getField(obj, obj.getClass(), field);
-            if(obj == null) {
-                return null;
-            }
-        }
-        return obj;
-    }
-
-    private static Object getField(Object obj, Class<?> clazz, String fieldName) {
-        for(;clazz != Object.class; clazz = clazz.getSuperclass()) {
-            try {
-                Field field;
-                field = clazz.getDeclaredField(fieldName);
-                field.setAccessible(true);
-                return field.get(obj);
-            } catch (Exception e) {
-            }
-        }
-        return null;
-    }
+//    public static InetSocketAddress getRemoteAddress(WsSession session) {
+//        if(session == null){
+//            return null;
+//        }
+//
+//        RemoteEndpoint.Async async = session.getAsyncRemote();
+//        InetSocketAddress addr = (InetSocketAddress) getFieldInstance(async,
+//                "base#socketWrapper#socket#sc#remoteAddress");
+//        return addr;
+//    }
+//
+//    private static Object getFieldInstance(Object obj, String fieldPath) {
+//        String fields[] = fieldPath.split("#");
+//        for(String field : fields) {
+//            obj = getField(obj, obj.getClass(), field);
+//            if(obj == null) {
+//                return null;
+//            }
+//        }
+//        return obj;
+//    }
+//
+//    private static Object getField(Object obj, Class<?> clazz, String fieldName) {
+//        for(;clazz != Object.class; clazz = clazz.getSuperclass()) {
+//            try {
+//                Field field;
+//                field = clazz.getDeclaredField(fieldName);
+//                field.setAccessible(true);
+//                return field.get(obj);
+//            } catch (Exception e) {
+//            }
+//        }
+//        return null;
+//    }
 }

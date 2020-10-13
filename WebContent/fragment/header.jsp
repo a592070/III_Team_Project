@@ -18,7 +18,8 @@
 <header class="masthead mb-auto sticky-top">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand"
-			href="${pageContext.servletContext.contextPath}/index.jsp">Logo</a>
+			href="${pageContext.servletContext.contextPath}/index.jsp"><img src="../static/Logo.png" height="80"/></a>
+		
 			<c:if test="${!empty Login}"><p style="font-size: 10px;" class="navbar-brand">您好，<c:out value="${Login.nickName}" /></p></c:if>
 
 		<div class="collapse navbar-collapse nav justify-content-center"
@@ -99,8 +100,8 @@
 	</nav>
 </header>
 
-<div class="container-fluid d-flex flex-row-reverse fixed-bottom">
-	<button class="btn btn-primary btn-lg" onclick="document.location.href='${pageContext.servletContext.contextPath}/ChatServlet'">
+<div class="d-flex flex-row-reverse fixed-bottom pt-0">
+	<button class="btn btn-primary" onclick="document.location.href='${pageContext.servletContext.contextPath}/ChatServlet'">
 		<span class="spinner-grow spinner-grow-sm"></span>聯絡客服
 	</button>
 </div>

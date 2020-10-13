@@ -9,9 +9,10 @@
                password="iiidba"
                auth="Container"
                type="javax.sql.DataSource"
-
-               maxIdle="8"
-               maxWaitMillis="10000"
+               logAbandoned="true"
+               removeAbandoned="true"
+               removeAbandonedTimeout="10"
+               maxWaitMillis="5000"
                defaultAutoCommit="false"/>
 
 </Context>

@@ -75,12 +75,12 @@
 
 <script type="text/javascript">
 
-
-    const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat";
-    websocket = new WebSocket(url);
+    // const url = ;
+    var websocket = new WebSocket("ws://172.16.39.63:8080${pageContext.servletContext.contextPath}/chat");
     // console.log(websocket.);
 
     websocket.onopen = function (event){
+        console.log("websocket connect");
     }
 
     websocket.onmessage = function (event){
@@ -99,7 +99,11 @@
         }
     }
     websocket.onclose = function (event){
+        console.log("websocket close")
         websocket.close();
+    }
+    websocket.onerror = function (event){
+        console.log("websocket error")
     }
     window.onbeforeunload = function (){
         websocket.close();

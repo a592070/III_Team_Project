@@ -66,8 +66,10 @@
         function newTravelSet(){
             $.get(
                 "${pageContext.servletContext.contextPath}/TravelSetSelectServlet",
-                {"method": "initCurrentTravelSet"});
-            document.location.href = "${pageContext.servletContext.contextPath}/a592070/travelSetInfo.jsp";
+                {"method": "initCurrentTravelSet"},
+                function (data){
+                    document.location.href = "${pageContext.servletContext.contextPath}/a592070/travelSetInfo.jsp";
+                });
         }
 
         function deleteTravelSet(obj){
@@ -84,8 +86,6 @@
                 }
             );
         }
-
-
     </script>
 
 </head>

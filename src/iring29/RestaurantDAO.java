@@ -49,27 +49,28 @@ public class RestaurantDAO {
 			}
 			rs.close();
 			pstmt.close();
-			return num;
 		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
-			return 0;
+
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
+		return num;
 	}
 
 	// find multiple restaurant by restaurant name
 	public List<RestaurantBean> findMulti_R(String name) throws SQLException {
 		sql = "select * from restaurant where name like ?";
+		ArrayList<RestaurantBean> restaurantList = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + name + "%");
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
-			ArrayList<RestaurantBean> restaurantList = new ArrayList<>();
+			restaurantList = new ArrayList<>();
 			while (rs.next()) {
 				RestaurantBean restaurantdata = new RestaurantBean();
 				restaurantdata.setName(rs.getString("NAME"));
@@ -81,20 +82,21 @@ public class RestaurantDAO {
 			}
 			rs.close();
 			pstmt.close();
-			return restaurantList;
+
 		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
-			return null;
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
+		return restaurantList;
 	}
 
 	// find multiple restaurant by restaurant name & region
 	public List<RestaurantBean> findMulti_Name_Region(String name, String region) throws SQLException{
 		sql = "select * from restaurant where name like ? and region = ?";
+		ArrayList<RestaurantBean> restaurantList = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -102,7 +104,7 @@ public class RestaurantDAO {
 			pstmt.setString(2, region);
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
-			ArrayList<RestaurantBean> restaurantList = new ArrayList<>();
+			restaurantList = new ArrayList<>();
 			while (rs.next()) {
 				RestaurantBean restaurantdata = new RestaurantBean();
 				restaurantdata.setName(rs.getString("NAME"));
@@ -114,28 +116,29 @@ public class RestaurantDAO {
 			}
 			rs.close();
 			pstmt.close();
-			return restaurantList;
 		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
-			return null;
+
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
+		return restaurantList;
 	}
 	
 	
 	// find specific restaurant by restaurant name
 	public RestaurantBean findRestaurant(String name) throws SQLException {
 		sql = "select * from restaurant where name like ? ";
+		RestaurantBean restaurantdata = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + name + "%");
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
-			RestaurantBean restaurantdata = new RestaurantBean();
+			restaurantdata = new RestaurantBean();
 			while (rs.next()) {
 				BigDecimal r_sn = rs.getBigDecimal("R_SN");
 				name = rs.getString("NAME");
@@ -156,29 +159,29 @@ public class RestaurantDAO {
 			}
 			rs.close();
 			pstmt.close();
-			return restaurantdata;
 
 		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
-			return null;
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
-
+		return restaurantdata;
 	}
 
 	// find specific region
 	public List<RestaurantBean> findRegion(String region) throws SQLException {
 		sql = "select name, region, type from restaurant where region = ?";
+		ArrayList<RestaurantBean> restaurantList = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, region);
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
-			ArrayList<RestaurantBean> restaurantList = new ArrayList<>();
+
+			restaurantList = new ArrayList<>();
 			while (rs.next()) {
 				RestaurantBean restaurantdata = new RestaurantBean();
 				restaurantdata.setName(rs.getString("NAME"));
@@ -189,15 +192,14 @@ public class RestaurantDAO {
 			}
 			rs.close();
 			pstmt.close();
-			return restaurantList;
 		} catch (Exception e) {
 			System.err.println("尋找資料時發生錯誤:" + e);
-			return null;
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
+		return restaurantList;
 
 	}
 
@@ -240,6 +242,7 @@ public class RestaurantDAO {
 
 	//set RestaurantBean for display HP
 	public RestaurantBean Restaurant_HP(String username) throws SQLException {
+		RestaurantBean r_data = null;
 		try {
 			sql = "select * from restaurant where account = ? ";
 			conn = ds.getConnection();
@@ -247,7 +250,7 @@ public class RestaurantDAO {
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.clearBatch();
-			RestaurantBean r_data = new RestaurantBean();
+			r_data = new RestaurantBean();
 			while (rs.next()) {
 				BigDecimal r_sn = rs.getBigDecimal("R_SN");
 				String name = rs.getString("NAME");
@@ -267,18 +270,18 @@ public class RestaurantDAO {
 			}
 			rs.close();
 			pstmt.close();
-			return r_data;
+
 
 		} catch (Exception e) {
 			System.err.println("新增資料時發生錯誤:" + e);
 			conn.rollback();
-			return null;
 
 		} finally {
 			if (conn != null) {
 				conn.close();
 			}
 		}
+		return r_data;
 	}
 
 
