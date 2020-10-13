@@ -110,8 +110,8 @@
             <tr>
                 <td>榮興金鬱金香酒店</td>
                 <td>臺南市中西區民族路二段128號1至9樓</td>
-                <td>4.5</td>
                 <td>飯店</td>
+                <td>4.5</td>
                 <td><button type='button' class='btn btn-info'  onclick="clickdetail(榮興金鬱金香酒店)" >更多資訊</button></td>
                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">我要訂房</button></td>
             </tr>
