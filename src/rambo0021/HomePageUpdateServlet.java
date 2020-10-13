@@ -65,14 +65,14 @@ public class HomePageUpdateServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				account.setPassword(sha2.getSHA256(request.getParameter("password")));
-				account.setNickName(request.getParameter("nickName"));
-				account.setEmail(request.getParameter("email"));
-				account.setModify_Date(new Date());
-				homePageDAO.updateUserData(account);
+				
 				picture.close();
 	}
-	
+	account.setPassword(sha2.getSHA256(request.getParameter("password")));
+	account.setNickName(request.getParameter("nickName"));
+	account.setEmail(request.getParameter("email"));
+	account.setModify_Date(new Date());
+	homePageDAO.updateUserData(account);
 	response.sendRedirect(request.getContextPath()+"/rambo0021/homePage.jsp");
 
 
