@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import globalinit.Constant;
+import rambo0021.AccountBean;
 import utils.PageSupport;
 import utils.StringUtil;
 
@@ -69,10 +70,12 @@ public class TravelSetServlet extends HttpServlet {
     private void initTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession session = req.getSession();
 
+
+
         String sSn = req.getParameter("sn");
         int sn = 0;
         TravelSetDO travelSet;
-        if(!StringUtil.isEmpty(sSn)){
+        if(!StringUtil.isEmpty(sSn) ){
             sn = Integer.parseInt(sSn);
             travelSet = service.getTravelSet(sn);
             session.setAttribute(Constant.TravelSetEdit_session, travelSet);
@@ -168,6 +171,10 @@ public class TravelSetServlet extends HttpServlet {
 
         jsonObj.set("listEleAttraction", arrayNode);
 
+        if(session.getAttribute(Constant.LOGIN) != null){
+            jsonObj.put("isLogin", true);
+        }
+
         mapper.writeValue(resp.getWriter(), jsonObj);
     }
     private void newTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -180,8 +187,12 @@ public class TravelSetServlet extends HttpServlet {
         TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
         travelSet.setName(name);
         travelSet.setDescription(description);
-//        System.out.println(travelSet);
+        AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+        travelSet.setCreatedUser(user.getUserName());
+
+        System.out.println(travelSet);
         boolean flag = service.addTravelSet(travelSet);
+        System.out.println(flag);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode = mapper.createObjectNode();
@@ -200,8 +211,9 @@ public class TravelSetServlet extends HttpServlet {
         TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
         travelSet.setName(name);
         travelSet.setDescription(description);
-
-//        System.out.println(travelSet);
+        AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+        travelSet.setCreatedUser(user.getUserName());
+        System.out.println(travelSet);
 
         boolean flag = service.updateTravelSet(travelSet);
 
@@ -210,7 +222,6 @@ public class TravelSetServlet extends HttpServlet {
 
         objectNode.put("status", flag);
         mapper.writeValue(resp.getWriter(), objectNode);
-
     }
 
     private void setItemsTime(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

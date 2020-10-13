@@ -29,27 +29,15 @@ public class ChatServlet extends HttpServlet {
         if("getChatClients".equals(method)){
             getChatClients(req, resp);
         }else {
-
             HttpSession session = req.getSession();
-            System.out.println(session.getId());
             String username;
             if (session.getAttribute("Login") != null) {
                 AccountBean user = (AccountBean) session.getAttribute("Login");
                 if (user.getIdentity() == 1) {
-                    req.getRequestDispatcher("/a592070/chatRoomService.jsp").forward(req, resp);
+                    req.getRequestDispatcher("a592070/chatRoomService.jsp").forward(req, resp);
                     return;
                 }
-                username = user.getUserName();
-            } else {
-                username = "Guest" + session.getId();
             }
-            Map<String, String> map;
-            if (getServletContext().getAttribute(Constant.CHATROOM_CLIENTS) != null) {
-                map = (Map<String, String>) getServletContext().getAttribute(Constant.CHATROOM_CLIENTS);
-            } else {
-                map = new HashMap<>();
-            }
-            map.put(session.getId(), username);
 
             req.getRequestDispatcher("a592070/chatRoomClient.jsp").forward(req, resp);
         }

@@ -49,7 +49,7 @@
 				<Font color='red' size="-1">
 					${ErrorMsgKey.LoginError}</Font>
 			</CENTER>
-
+		</fieldset>
 	</FORM>
 </div>
 

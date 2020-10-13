@@ -63,7 +63,7 @@
                     for (let i = 0; i < list.length; i++) {
                         // let tempobj = JSON.stringify(list[i]);
                         context += "<tr>"+
-                            "<td>" + "<img src='"+list[i].picture+"' class='img-thumbnail' width='304' height='236' onerror=\"this.src='../static/nopic.jpg'\"/>" + "</td>" +
+                            "<td>" + "<img src='"+list[i].picture+"' class='img-thumbnail' width='1280' height='960' onerror=\"this.src='../static/nopic.jpg'\"/>" + "</td>" +
                             "<td>" + list[i].name + "</td>" +
                             "<td>" + list[i].address + "</td>" +
                             // "<td>" + list[i].description + "</td>" +

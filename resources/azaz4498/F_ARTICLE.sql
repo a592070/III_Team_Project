@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  ¤w«Ø¥ßÀÉ®× - ¬P´Á¤G-¤Q¤ë-13-2020   
+--  å·²å»ºç«‹æª”æ¡ˆ - æ˜ŸæœŸäºŒ-åæœˆ-13-2020   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table F_ARTICLE
@@ -29,7 +29,7 @@
   PCTINCREASE 0
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)) ;
 
-   COMMENT ON COLUMN "III_TEAM_DBA"."F_ARTICLE"."ART_TYPE_ID" IS '¤å³¹¤ÀÃþ';
+   COMMENT ON COLUMN "III_TEAM_DBA"."F_ARTICLE"."ART_TYPE_ID" IS 'æ–‡ç« åˆ†é¡ž';
 --------------------------------------------------------
 --  DDL for Index F_ARTICLE_PK
 --------------------------------------------------------

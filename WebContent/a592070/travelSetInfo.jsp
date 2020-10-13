@@ -245,6 +245,7 @@
                 <%--    {"method":"setItems", "selectType":"restaurant", "list":JSON.stringify(listRestaurant)});--%>
                 tempArr = listRestaurant;
                 target = $("#addItemRestaurant");
+                ele.addClass("disabled");
                 ele.attr('disabled',"true");
             }else if(type == optionAttraction){
                 listAttraction.push(json);
@@ -313,56 +314,8 @@
         }
 
 
-        function checkSubmit(){
-            if(listCar.length == 0 && listHotel.length ==0 && listRestaurant.length==0 && listAttraction.length==0){
-                alert("沒有任何規劃")
-                return false;
-            }
-            if($("#travelSetName").val() == "我的旅程"){
-                if(!confirm("是否使用預設名稱: 我的旅程")){
-                    let text = prompt("請輸入名稱");
-                    $("#travelSetName").val(text);
-                }
-            }
-            return true;
-        }
 
-        function saveTravelSet(){
-            if(checkSubmit()){
-                $.get({
-                    url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
-                    data:{"method":"saveTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
-                    success:function (data){
-                        let json=JSON.parse(data);
-                        if(json.status){
-                            if(!alert("保存成功")) {
-                                document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
-                            }
-                        }else{
-                            alert("保存失敗");
-                        }
-                    }
-                })
-            }
-        }
-        function newTravelSet(){
-            if(checkSubmit()){
-                $.get({
-                    url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
-                    data:{"method":"newTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
-                    success:function (data){
-                        let json=JSON.parse(data);
-                        if(json.status){
-                            if(!alert("新建成功")) {
-                                document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
-                            }
-                        }else{
-                            alert("新建失敗");
-                        }
-                    }
-                })
-            }
-        }
+
 
 
         var sn;
@@ -392,6 +345,18 @@
                     refreshSelectItem($("#addItemHotel"),listHotel, optionHotel);
                     refreshSelectItem($("#addItemRestaurant"),listRestaurant, optionRestaurant);
                     refreshSelectItem($("#addItemAttraction"),listAttraction, optionAttraction);
+
+                    if(json.isLogin != true){
+                        $("#saveTravelSet_id").addClass("disabled");
+                        $("#saveTravelSet_id").attr('disabled',"true");
+                        $("#newTravelSet_id").addClass("disabled");
+                        $("#newTravelSet_id").attr('disabled',"true");
+                    }else{
+                        $("#saveTravelSet_id").removeClass("disabled");
+                        $("#saveTravelSet_id").removeAttr("disabled");
+                        $("#newTravelSet_id").removeClass("disabled");
+                        $("#newTravelSet_id").removeAttr("disabled");
+                    }
                 }
             })
         );
@@ -486,7 +451,7 @@
         </tbody>
     </table>
     <div class="navbar-nav">
-        <form action="${pageContext.servletContext.contextPath}/" method="post" class="form-group ">
+        <form class="form-group ">
 <%--            <input class="d-none" id="submitMethodId" name="method" >--%>
 <%--            <input class="d-none" id="submitCarId" name="travelSetCarList" >--%>
 <%--            <input class="d-none" id="submitHotelId" name="travelSetHotelList" >--%>
@@ -496,9 +461,9 @@
             <input type="text" class="form-control" id="travelSetName" placeholder='我的旅程' value='我的旅程'>
             <label for="travelSetDescription">備註:</label>
             <textarea class="form-control" rows="5" id="travelSetDescription"></textarea>
-            <button type="button" class="btn btn-primary" onclick="saveTravelSet()">保存當前</button>
-            <button type="button" class="btn btn-success" onclick="newTravelSet()">新項目</button>
-            <button type="button" class="btn btn-outline-danger" onclick="removeAllItem()">取消</button>
+            <button type="button" class="btn btn-primary" id='saveTravelSet_id' onclick='saveTravelSet()'>保存當前</button>
+            <button type="button" class="btn btn-success" id='newTravelSet_id' onclick='newTravelSet()'>新項目</button>
+            <button type="button" class="btn btn-outline-danger" onclick='removeAllItem()' >取消</button>
         </form>
 
     </div>
@@ -567,5 +532,61 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function checkSubmit(){
+        if(listCar.length == 0 && listHotel.length ==0 && listRestaurant.length==0 && listAttraction.length==0){
+            alert("沒有任何規劃")
+            return false;
+        }
+        if($("#travelSetName").val() == "我的旅程"){
+            if(!confirm("是否使用預設名稱: 我的旅程")){
+                let text = prompt("請輸入名稱");
+                $("#travelSetName").val(text);
+            }
+        }
+        return true;
+    }
+    function saveTravelSet(){
+        let flag = checkSubmit();
+        console.log(flag);
+        if(flag){
+            $.get({
+                url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                data:{"method":"saveTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
+                success:function (data){
+                    let json=JSON.parse(data);
+                    if(json.status){
+                        if(!alert("保存成功")) {
+                            document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
+                        }
+                    }else{
+                        alert("保存失敗");
+                    }
+                }
+            });
+        }
+    }
+    function newTravelSet(){
+        let flag = checkSubmit();
+        if(flag){
+            $.get({
+                url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                data:{"method":"newTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
+                success:function (data){
+                    let json=JSON.parse(data);
+                    if(json.status){
+                        if(!alert("新建成功")) {
+                            document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
+                        }else{
+                            alert("新建失敗");
+                        }
+                    }else{
+                        alert("新建失敗");
+                    }
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>
