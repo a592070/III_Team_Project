@@ -40,8 +40,9 @@
           <label for="article_content">本文</label>
           <textarea class="form-control "name="article_content" id="article_content"" rows="3"></textarea>
         </div>
-        
+        <div style="height:100px;">
         <button type="submit" class="btn btn-primary ml-5">送出</button>
+        </div>
       </form>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
