@@ -118,6 +118,32 @@ public class CarRentalCompanyDAO {
 		 
 	}
 	
+	
+	public void addCarType(CarTypeBean carTypeBean) throws SQLException {
+		String sql = "insert into CARTYPE (CARTYPE, PRICE, SN_RENTCARCOMPANY) values(?, ?, ?)";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, carTypeBean.getCarType());  
+			pstmt.setBigDecimal(2, carTypeBean.getPrice());
+			pstmt.setBigDecimal(3, carTypeBean.getCarRentalCompanyBean().getSn_carRentalCompany()); 
+			pstmt.executeQuery();
+			pstmt.clearBatch();			
+			
+			conn.commit();
+
+		}catch (Exception e) {
+			System.err.println("新增資料時發生錯誤:" + e);
+			conn.rollback();
+
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+
+	}
+	
 
 	
 }

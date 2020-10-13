@@ -40,6 +40,7 @@
           <label for="article_content">本文</label>
           <textarea class="form-control "name="article_content" id="article_content"" rows="3"></textarea>
         </div>
+        
         <button type="submit" class="btn btn-primary ml-5">送出</button>
       </form>
     

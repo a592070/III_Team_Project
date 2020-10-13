@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="azaz4498.ArticleDO"%>
+ <%@ page import="azaz4498.ArticleDO"%>
+<%@ page import="azaz4498.CommentDO"%>
+<%@ page import="azaz4498.ArticleTypeDO"%>
 <%@ page import="azaz4498.ForumDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -32,14 +34,14 @@
                 <a href=<c:url value='/azaz4498/article_editing.jsp' /> class="nav-link">撰寫文章</a>
             </li>
           <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 文章分類
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">旅遊</a>
-                <a class="dropdown-item" href="#">住宿</a>
-                <a class="dropdown-item" href="#">美食</a>
-                <a class="dropdown-item" href="#">景點</a>
+                <a class="dropdown-item" href=<c:url value='/SelectArticleType?typeId=1' />>旅遊</a>
+                <a class="dropdown-item" href=<c:url value='/SelectArticleType?typeId=2' />>住宿</a>
+                <a class="dropdown-item" href=<c:url value='/SelectArticleType?typeId=3' />>美食</a>
+                <a class="dropdown-item" href=<c:url value='/SelectArticleType?typeId=4' />>景點</a>
               </div>
             </li>
         </ul>
