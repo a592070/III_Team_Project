@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.ConnectionPool;
+import rambo0021.AccountBean;
 
 /**
  * Servlet implementation class ShowHistricalT_Order
@@ -47,10 +48,13 @@ public class ShowHistricalT_OrderServlet extends HttpServlet {
             out.println(ujson1.toString());
         }else {
         
-        
+        	AccountBean account = (AccountBean) session.getAttribute("Login");
+        	
+        	String userName = account.getUserName();
+        	
 	        ArrayList<ArrayList> combineArrayList = new ArrayList<>();
 			T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
-			t_Order_ListDAO.searchHistoricalOrder(combineArrayList, "abab");	//假設使用者為abab 之後從session取得
+			t_Order_ListDAO.searchHistoricalOrder(combineArrayList, userName);	//假設使用者為abab 之後從session取得
 	//		System.out.println("combineArrayList.size= " + combineArrayList.size());
 			
 	        ObjectMapper objectMapper = new ObjectMapper();

@@ -69,10 +69,12 @@ public class T_OrderServlet extends HttpServlet {
 //        System.out.println("departureDate_tmp= "+departureDate);
 //        System.out.println("departureDate= "+departureDate[0]+" "+departureDate[1]+" "+departureDate[2]);
 //        System.out.println("orderType= "+orderType);
+        HttpSession session = request.getSession(false);
+        
         hsrDO hsrDO = new hsrDO();
         OrderTableBean bean = new OrderTableBean();
         T_OrderBean tBean = new T_OrderBean();
-        AccountBean user = new AccountBean();
+        AccountBean user = (AccountBean) session.getAttribute("Login");
         
 		hsrDO.setSnSchedule(Integer.parseInt(snSchedule));
 		tBean.setHsrDO(hsrDO);
@@ -90,7 +92,7 @@ public class T_OrderServlet extends HttpServlet {
 		
 			
 			
-		user.setUserName("abab");	//假裝訂購人為innocence
+//		user.setUserName("abab");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
 
