@@ -91,19 +91,19 @@ public class Test_innocence741 {
 		
 //		------------------------------------------------------
 		
-		/*addCarType測試*/
-		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
-		carRentalCompanyBean.setCompanyAccount("306478QQ");	//先假裝CompanyAccount為306478QQ
-		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		carRentalCompanyDAO.getSN_RENTALCOMPANY(carRentalCompanyBean);
-		
-		CarTypeBean carTypeBean = new CarTypeBean();
-		carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);	//將取得的SN放入carTypeBean中
-		System.out.println(carTypeBean.getCarRentalCompanyBean().getSn_carRentalCompany());
-		carTypeBean.setCarType("三輪車");
-		carTypeBean.setPrice(BigDecimal.valueOf(306478));
-		carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		carRentalCompanyDAO.addCarType(carTypeBean);
+//		/*addCarType測試*/
+//		CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
+//		carRentalCompanyBean.setCompanyAccount("306478QQ");	//先假裝CompanyAccount為306478QQ
+//		CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		carRentalCompanyDAO.getSN_RENTALCOMPANY(carRentalCompanyBean);
+//		
+//		CarTypeBean carTypeBean = new CarTypeBean();
+//		carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);	//將取得的SN放入carTypeBean中
+//		System.out.println(carTypeBean.getCarRentalCompanyBean().getSn_carRentalCompany());
+//		carTypeBean.setCarType("三輪車");
+//		carTypeBean.setPrice(BigDecimal.valueOf(306478));
+//		carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		carRentalCompanyDAO.addCarType(carTypeBean);
 		
 		
 //		------------------------------------------------------
