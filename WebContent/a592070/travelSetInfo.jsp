@@ -461,15 +461,13 @@
             <input type="text" class="form-control" id="travelSetName" placeholder='我的旅程' value='我的旅程'>
             <label for="travelSetDescription">備註:</label>
             <textarea class="form-control" rows="5" id="travelSetDescription"></textarea>
-            <div class="container">
             <button type="button" class="btn btn-primary" id='saveTravelSet_id' onclick='saveTravelSet()'>保存當前</button>
             <button type="button" class="btn btn-success" id='newTravelSet_id' onclick='newTravelSet()'>新項目</button>
             <button type="button" class="btn btn-outline-danger" onclick='removeAllItem()' >取消</button>
-            </div>
         </form>
-
     </div>
 </div>
+<div class="container  pt-3"></div>
 
 
 

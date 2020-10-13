@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 
-    // $(document).load(loadPage());
+    $(document).load(loadPage());
 
     function loadPage(){
         $.get({
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-
+<div class="container  pt-3"></div>
 <script type="text/javascript">
 </script>
 </body>
