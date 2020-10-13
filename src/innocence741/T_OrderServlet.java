@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
 //import oracle.net.aso.a;
@@ -38,6 +39,8 @@ public class T_OrderServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+
 		hsrDAO hsrDAO = new hsrDAO(ConnectionPool.LOADING_WITH_SERVER);
         
         String snSchedule = request.getParameter("snSchedule");
@@ -81,8 +84,12 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setOrderType(orderType);
 		tBean.setCustomerName(customerName);	
 		tBean.setCustomerPhone(customerPhone);	
-        
 		
+		
+
+		
+			
+			
 		user.setUserName("abab");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
