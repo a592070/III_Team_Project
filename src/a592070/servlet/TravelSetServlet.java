@@ -106,16 +106,16 @@ public class TravelSetServlet extends HttpServlet {
 
         List<TravelEleCarDO> listEleCar = travelSet.getListTravelCar();
         for (TravelEleCarDO ele : listEleCar) {
-//            ObjectNode objectNode = mapper.createObjectNode();
-//            objectNode.put("sn", ele.getSn());
-//            objectNode.put("name", ele.getCar().getCarType());
-//            objectNode.put("price", ele.getCar().getPrice());
-//            objectNode.put("company", ele.getCar().getCompany());
-//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("sn", ele.getCar().getSn());
+            objectNode.put("name", ele.getCar().getCarType());
+            objectNode.put("price", ele.getCar().getPrice());
+            objectNode.put("company", ele.getCar().getCompany());
+            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
 
-            String sJson = mapper.writeValueAsString(ele.getCar());
-            arrayNode.add(sJson);
-//            arrayNode.add(objectNode);
+//            String sJson = mapper.writeValueAsString(ele.getCar());
+//            arrayNode.add(sJson);
+            arrayNode.add(objectNode);
         }
 
         jsonObj.set("listEleCar", arrayNode);
@@ -123,17 +123,17 @@ public class TravelSetServlet extends HttpServlet {
 
         List<TravelEleHotelDO> listEleHotel = travelSet.getListTravelHotel();
         for (TravelEleHotelDO ele : listEleHotel) {
-//            ObjectNode objectNode = mapper.createObjectNode();
-//            objectNode.put("sn", ele.getSn());
-//            objectNode.put("name", ele.getHotel().getName());
-//            objectNode.put("doubleRoomPrice", ele.getHotel().getDoubleRoomPrice());
-//            objectNode.put("quadrupleRoomPrice", ele.getHotel().getQuadrupleRoomPrice());
-//            objectNode.put("address", ele.getHotel().getAddress());
-//            objectNode.put("rating", ele.getHotel().getRating());
-//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
-//            arrayNode.add(objectNode);
-            String sJson = mapper.writeValueAsString(ele.getHotel());
-            arrayNode.add(sJson);
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("sn", ele.getHotel().getSn());
+            objectNode.put("name", ele.getHotel().getName());
+            objectNode.put("doubleRoomPrice", ele.getHotel().getDoubleRoomPrice());
+            objectNode.put("quadrupleRoomPrice", ele.getHotel().getQuadrupleRoomPrice());
+            objectNode.put("address", ele.getHotel().getAddress());
+            objectNode.put("rating", ele.getHotel().getRating());
+            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
+            arrayNode.add(objectNode);
+//            String sJson = mapper.writeValueAsString(ele.getHotel());
+//            arrayNode.add(sJson);
         }
 
         jsonObj.set("listEleHotel", arrayNode);
@@ -141,16 +141,22 @@ public class TravelSetServlet extends HttpServlet {
 
         List<TravelEleRestaurantDO> listEleRestaurant = travelSet.getListTravelRestaurant();
         for (TravelEleRestaurantDO ele : listEleRestaurant) {
-//            ObjectNode objectNode = mapper.createObjectNode();
-//            objectNode.put("sn", ele.getSn());
-//            objectNode.put("name", ele.getRestaurant().getName());
-//            objectNode.put("type", ele.getRestaurant().getType());
-//            objectNode.put("address", ele.getRestaurant().getAddress());
-//            objectNode.put("rating", ele.getRestaurant().getRating());
-//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
-//            arrayNode.add(objectNode);
-            String sJson = mapper.writeValueAsString(ele.getRestaurant());
-            arrayNode.add(sJson);
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("sn", ele.getRestaurant().getSn());
+            objectNode.put("name", ele.getRestaurant().getName());
+            objectNode.put("type", ele.getRestaurant().getType());
+            objectNode.put("address", ele.getRestaurant().getAddress());
+            objectNode.put("description", ele.getRestaurant().getDescription());
+            objectNode.put("region", ele.getRestaurant().getRating());
+            objectNode.put("rating", ele.getRestaurant().getRating());
+            if(ele.getTime() != null) {
+                objectNode.put("time", ele.getTime().getTime());
+            }else{
+                objectNode.put("time", System.currentTimeMillis());
+            }
+            arrayNode.add(objectNode);
+//            String sJson = mapper.writeValueAsString(ele.getRestaurant());
+//            arrayNode.add(sJson);
         }
 
         jsonObj.set("listEleRestaurant", arrayNode);
@@ -158,19 +164,22 @@ public class TravelSetServlet extends HttpServlet {
 
         List<TravelEleAttractionDO> listEleAttraction = travelSet.getListTravelAttraction();
         for (TravelEleAttractionDO ele : listEleAttraction) {
-//            ObjectNode objectNode = mapper.createObjectNode();
-//            objectNode.put("sn", ele.getSn());
-//            objectNode.put("name", ele.getAttraction().getName());
-//            objectNode.put("address", ele.getAttraction().getAddress());
-//            objectNode.put("ticketInfo", ele.getAttraction().getTicketInfo());
-//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
-//            arrayNode.add(objectNode);
-            String sJson = mapper.writeValueAsString(ele.getAttraction());
-            arrayNode.add(sJson);
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("sn", ele.getAttraction().getSn());
+            objectNode.put("name", ele.getAttraction().getName());
+            objectNode.put("address", ele.getAttraction().getAddress());
+            objectNode.put("picture", ele.getAttraction().getPicture());
+            objectNode.put("ticketInfo", ele.getAttraction().getTicketInfo());
+            objectNode.put("description", ele.getAttraction().getDescription());
+            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
+            arrayNode.add(objectNode);
+//            String sJson = mapper.writeValueAsString(ele.getAttraction());
+//            arrayNode.add(sJson);
         }
 
         jsonObj.set("listEleAttraction", arrayNode);
-
+        jsonObj.put("travelSetName", travelSet.getName());
+        jsonObj.put("travelSetDescription", travelSet.getDescription());
         if(session.getAttribute(Constant.LOGIN) != null){
             jsonObj.put("isLogin", true);
         }

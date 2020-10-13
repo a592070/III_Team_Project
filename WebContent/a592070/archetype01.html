@@ -28,13 +28,13 @@
                 <table class="table">
                     <tr>
                         <td>租車1</td>
-                        <td><input type="datetime-local" class="btn btn-secondary"/></td>
+                        <td><input type="datetime-local" class="btn btn-secondary input_time" id="input_time"/></td>
                         <td><button type="button" class="btn btn-info">看詳細</button></td>
                         <td><button type="button" class="btn btn-danger">取消</button></td>
                     </tr>
                     <tr>
                         <td>租車2</td>
-                        <td><input type="datetime-local" class="btn btn-secondary"/></td>
+                        <td><input type="datetime-local" class="btn btn-secondary input_time"/></td>
                         <td><button type="button" class="btn btn-info">看詳細</button></td>
                         <td><button type="button" class="btn btn-danger">取消</button></td>
                     </tr>
@@ -131,7 +131,7 @@
                 <table class="table">
                     <tr>
                         <td>旅館1</td>
-                        <td><input type="datetime-local" class="btn btn-secondary"/></td>
+                        <td><input type="datetime" class="btn btn-secondary"/></td>
                         <td><button type="button" class="btn btn-info">看詳細</button></td>
                         <td><button type="button" class="btn btn-danger">取消</button></td>
                     </tr>
@@ -164,5 +164,37 @@
     <div class="navbar-nav"><button type="submit" class="btn btn-primary">確認</button></div>
 </div>
 
+<script>
+    function convertToISO(timebit) {
+        // remove GMT offset
+        timebit.setHours(0, -timebit.getTimezoneOffset(), 0, 0);
+
+        // format convert and take first 10 characters of result
+        var isodate = timebit.toISOString().slice(0,19);
+        return isodate;
+    }
+    function toISO(timebit) {
+        return timebit.getFullYear() +
+            '-' + (timebit.getMonth() + 1) +
+            '-' + timebit.getDate() +
+            'T' + timebit.getHours() +
+            ':' + timebit.getMinutes() +
+            ':' + timebit.getSeconds();
+    }
+    function toISO2(timebit) {
+        timebit = new Date(timebit.getTime() - timebit.getTimezoneOffset()*60*1000);
+        var isodate = timebit.toISOString().slice(0,19);
+        return isodate;
+    }
+    function setDateTimeMin(){
+        $("input[type='datetime-local']").attr('min', toISO(new Date()));
+        // $("input[type='datetime-local']").val(convertToISO(new Date(1234567890789)));
+        console.log(new Date(1234567890789));
+        console.log(convertToISO(new Date()));
+        console.log(toISO(new Date()));
+        console.log(toISO2(new Date()));
+    }
+    setDateTimeMin();
+</script>
 </body>
 </html>

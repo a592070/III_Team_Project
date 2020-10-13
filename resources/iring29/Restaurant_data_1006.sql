@@ -269,7 +269,8 @@ Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRAN
  週一 - 週五 11:00-15:00
  週六 - 週日 11:00-22:00
  週一 - 週五 17:00-22:00','適合青少年, 受大學生歡迎, 適合肉食愛好者, 提供優質甜點, 提供優質啤酒選項, 提供酒精飲料, 信用卡','嘉北火車站步行約10分','亞洲料理, 日式料理, 燒烤',3.9,'嘉義','https://dgo9uctxwg500.cloudfront.net/images/1200x1200/R15575_EZTABLE_0421_1_a27ad2729d.png','浪漫約會, 商業聚餐, 家庭聚餐, 團體聚餐, 朋友聚餐, 生日慶祝',null,null);
-Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT) values ('64','漢來軒 - 台中店',null,'[午餐]
+Insert into III_TEAM_DBA.RESTAURANT (R_SN,NAME,ADDRESS,OPENTIME,DESCRIPTION,TRANSPORTATION,TYPE,RATING,REGION,PICTURE,SERVICEINFO,BOOKING_ID,ACCOUNT)
+values ('64','漢來軒 - 台中店',null,'[午餐]
  週一 - 週五 11:30-14:00
  週六 - 週日 11:00-14:30
 [晚餐]

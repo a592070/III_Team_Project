@@ -66,7 +66,7 @@
 	
 				<div class="div-1">
 				<label for="r-name">顯示圖片如下：</label> 
-				<img src="${r_hp.picture}" alt="">
+				<img src="${r_hp.picture}" alt="" id="img_id">
 				</div>
             </div>
         </div>
@@ -86,7 +86,8 @@
 	<script type="text/javascript">
 	function checkimg() {
         var newimg = document.getElementById('newimg').value;
-        var img = document.querySelector("img");
+        // var img = document.querySelector("img");
+        var img = document.getElementById("img_id");
         if (newimg != "") {
             img.src= newimg;
         } else { 
@@ -100,6 +101,7 @@
 		console.log(document.forms["formL"].finalDecision.value);
 		document.forms["formL"].finalDecision.value = "confirmL";
 		console.log(document.forms["formL"].finalDecision.value);
+		// $("#finalDecision").val("confirm-img");
 		document.forms["formL"].action="<%=application.getContextPath()%>/Restaurant_HPServlet";
 		document.forms["formL"].method="POST";
 		document.forms["formL"].submit();

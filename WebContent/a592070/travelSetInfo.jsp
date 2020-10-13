@@ -300,12 +300,18 @@
             for (let i = 0; i < arr.length ; i++) {
                 let json = JSON.stringify(arr[i]);
                 content += `<tr>
-                    <td>\${arr[i].name}</td>
-                    <td><input type='datetime-local' class='btn btn-secondary' index='\${i}' onchange='setTravelTime("\${type}",$(this))'/></td>
+                    <td>\${arr[i].name}</td>`;
+                let tempTime;
+                if(arr[i].time != null){
+                    tempTime = new Date(arr[i].time);
+                }
+                content +=
+                    `<td><input type='datetime-local' class='btn btn-secondary input_time' index='\${i}' onchange='setTravelTime("\${type}",$(this))' value='\${convertToISO(tempTime)}'/></td>
                     <td><button type='button' class='btn btn-info' value='\${json}' onclick='toDetailPage("\${type}" ,$(this))'>看詳細</button></td>
                     <td><button type='button' class='btn btn-danger' value='\${i}' onclick='removeItem("\${type}",$(this).val())'>取消</button></td></tr>`;
             }
             target.html(content);
+            setDateTimeMin();
         }
 
         function setTravelTime(type, obj){
@@ -315,7 +321,16 @@
 
 
 
-
+        function convertToISO(timebit) {
+            if(timebit != null){
+                timebit = new Date(timebit.getTime() - timebit.getTimezoneOffset()*60*1000);
+                timebit = timebit.toISOString().slice(0,19);
+            }
+            return timebit;
+        }
+        function setDateTimeMin(){
+            $("input[type='datetime-local']").attr('min', convertToISO(new Date()));
+        }
 
 
         var sn;
@@ -329,22 +344,28 @@
                 success: function (data){
                     let json = JSON.parse(data);
                     for (let i = 0; i < json.listEleCar.length; i++) {
-                        listCar.push(JSON.parse(json.listEleCar[i]));
+                        listCar.push(json.listEleCar[i]);
                     }
                     for (let i = 0; i < json.listEleHotel.length; i++) {
-                        listHotel.push(JSON.parse(json.listEleHotel[i]));
+                        listHotel.push(json.listEleHotel[i]);
                     }
                     for (let i = 0; i < json.listEleRestaurant.length; i++) {
-                        listRestaurant.push(JSON.parse(json.listEleRestaurant[i]));
+                        listRestaurant.push(json.listEleRestaurant[i]);
                     }
                     for (let i = 0; i < json.listEleAttraction.length; i++) {
-                        listAttraction.push(JSON.parse(json.listEleAttraction[i]));
+                        listAttraction.push(json.listEleAttraction[i]);
                     }
 
                     refreshSelectItem($("#addItemCar"),listCar, optionCar);
                     refreshSelectItem($("#addItemHotel"),listHotel, optionHotel);
                     refreshSelectItem($("#addItemRestaurant"),listRestaurant, optionRestaurant);
                     refreshSelectItem($("#addItemAttraction"),listAttraction, optionAttraction);
+                    if(json.travelSetName != null){
+                        $("#travelSetName").val(json.travelSetName);
+                    }
+                    if(json.travelSetDescription != null){
+                        $("#travelSetDescription").text(json.travelSetDescription);
+                    }
 
                     if(json.isLogin != true){
                         $("#saveTravelSet_id").addClass("disabled");

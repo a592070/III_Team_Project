@@ -18,7 +18,7 @@
 <header class="masthead mb-auto sticky-top">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand"
-			href="${pageContext.servletContext.contextPath}/index.jsp"><img src="../static/Logo.png" height="80"/></a>
+			href="${pageContext.servletContext.contextPath}/index.jsp"><img src="${pageContext.servletContext.contextPath}/static/Logo.png" height="50"/></a>
 		
 			<c:if test="${!empty Login}"><p style="font-size: 10px;" class="navbar-brand">您好，<c:out value="${Login.nickName}" /></p></c:if>
 
