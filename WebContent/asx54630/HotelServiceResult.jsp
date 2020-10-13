@@ -87,7 +87,6 @@
             <tbody>
             <c:forEach var="hotels" items="${hoteldata}">
             <tr>
-            	<td><input type="hidden" name="hotelsn" value="${hotels.SN}"></td>
                 <td>${hotels.NAME}</td>
                 <td>${hotels.ADDRESS}</td>
                 <td>${hotels.TYPE}</td>
