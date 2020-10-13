@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
+import rambo0021.AccountBean;
 
 /**
  * Servlet implementation class NewComment
@@ -49,15 +50,17 @@ public class NewCommentServlet extends HttpServlet {
 		try {
 			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session =request.getSession();
+			AccountBean account = (AccountBean) session.getAttribute("Login");
 			int currArticleid = (int) session.getAttribute("currArticle");
 			int currTypeid =(int)session.getAttribute("currTypeId");
 //			int typeid=Integer.valueOf(request.getParameter("art_TypeId"));
 //			System.out.println("this is new comment servlet = "+typeid);
 			String commentString = request.getParameter("commentarea");
-			System.out.println(commentString);
-			System.out.println(session.getAttribute("currArticle"));
-			System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
-			forumDAO.addNewComment(commentString, currArticleid, "azaz4498");
+			String commUserId = account.getUserName();
+//			System.out.println(commentString);
+//			System.out.println(session.getAttribute("currArticle"));
+//			System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+			forumDAO.addNewComment(commentString, currArticleid, commUserId);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/ArticleServlet?artId="+currArticleid+"&art_TypeId="+currTypeid);
 			rd.forward(request, response);

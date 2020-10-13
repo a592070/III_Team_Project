@@ -56,7 +56,7 @@ public class ForumDAO {
 				articleDO.setArtId(rs.getInt("art_id"));
 				articleDO.setArtUserId(rs.getString("art_userid"));
 				articleDO.setArtContent(rs.getNString("art_content"));
-				articleDO.setArtCommNum(rs.getInt("art_comm_num"));
+				articleDO.setArtCommNum(getCommNumByArtId(rs.getInt("art_id")));
 				articleDO.setArtView(rs.getInt("art_view"));
 				articleDO.setArtPic(rs.getString("art_pic"));
 				articleDO.setArtCreTime(rs.getDate("art_cre_time"));
@@ -433,6 +433,41 @@ public class ForumDAO {
 		}
 		return articleTypeDO;
 
+	}
+	//依文章ID獲取留言數量
+	public int getCommNumByArtId(int artId) throws SQLException{
+		int commNum = 0;
+		try {
+			conn = ds.getConnection();
+			sql = "select\r\n" + 
+					"    COUNT(*)\r\n" + 
+					"    FROM F_comment\r\n" + 
+					"    WHERE COM_ART_ID=?";
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, artId);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				commNum=rs.getInt("count(*)");				
+			}
+				
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if (pstmt!=null) {
+				pstmt.close();
+			if (conn!=null) {
+				conn.close();
+			}
+			}
+		}
+		
+		
+		return commNum;
+		
+		
 	}
 
 }
