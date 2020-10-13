@@ -40,8 +40,9 @@ public class HomepagServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
 		response.setCharacterEncoding("UTF-8"); 
+		
 		HttpSession session = request.getSession(false);
-		if (session == null) {
+		if (session.getAttribute("Login") == null) {
 			// 請使用者登入
 			response.sendRedirect(response.encodeRedirectURL(
 					request.getContextPath() + "/rambo0021/login.jsp"));

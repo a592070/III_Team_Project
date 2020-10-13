@@ -156,7 +156,7 @@ public class RegisterServlet extends HttpServlet {
 			carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);
 
 
-			CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+			CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITH_SERVER);
 			try {
 				carRentalCompanyDAO.signUPCarRentalCompany(carRentalCompanyBean);
 				System.out.println("交通新增成功");
