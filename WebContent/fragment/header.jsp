@@ -39,7 +39,7 @@
 							href="${pageContext.servletContext.contextPath}/innocence741/ajax_traffic.jsp">找高鐵</a></li>
 						<li class="dropdown-item"><a href="#">找租車</a></li>
 						<li class="dropdown-item"><a
-							href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.html">我的交通訂單</a></li>
+							href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.jsp">我的交通訂單</a></li>
 					</ul></li>
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.servletContext.contextPath}/a592070/attractionInfo.jsp">找景點</a>
