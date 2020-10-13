@@ -50,7 +50,7 @@ public class OrderDAO {
 			PreparedStatement prepareStatement = connection.prepareStatement("select R_SN_ORDER from R_ORDER_LIST where ORDER_ID=?");
 						prepareStatement.setInt(1,order.getOrderId());
 			ResultSet rs = prepareStatement.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				order.setR_orderId(rs.getInt("R_SN_ORDER"));
 			}
 			prepareStatement.clearParameters();
@@ -61,7 +61,7 @@ public class OrderDAO {
 		
 			prepareStatement2.setInt(1,order.getOrderId());
 			ResultSet rs2 = prepareStatement2.executeQuery();
-			if(rs2.next()) {
+			while(rs2.next()) {
 				order.setH_orderId(rs2.getInt("SN_ORDER"));
 			}
 			prepareStatement2.clearParameters();
@@ -71,7 +71,7 @@ public class OrderDAO {
 			PreparedStatement prepareStatement3 = connection.prepareStatement("select SN_ORDER from T_ORDER_LIST  where ORDER_ID=?");
 			prepareStatement3.setInt(1,order.getOrderId());
 			ResultSet rs3 = prepareStatement3.executeQuery();
-			if(rs3.next()) {
+			while(rs3.next()) {
 				order.setT_orderId(rs3.getInt("SN_ORDER"));
 			}
 			prepareStatement3.clearParameters();
