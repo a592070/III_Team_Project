@@ -271,20 +271,21 @@ p{
 									</div>
 									<div class="modal-body">
 										<div class="div-1">
-											<label for="r-date">用餐日期</label> <span>${roBean.booking_date}</span>
+											<label for="r-date"><b>用餐日期</b></label> <span id="b-time">${roBean.booking_date}</span>
 										</div>
+										
 										<div class="div-1">
-											<label for="b-name">訂位人姓名</label> <span>${roBean.customerName}</span>
+											<label for="b-name"><b>訂位人姓名</b></label> <span>${roBean.customerName}</span>
 										</div>
 									
 									<div class="div-1">
-										<label for="b-phone">訂位人手機</label> <span>${roBean.customerPhone}</span>
+										<label for="b-phone"><b>訂位人手機</b></label> <span>${roBean.customerPhone}</span>
 									</div>
 									<div class="div-1">
-										<label for="b-number">用餐人數</label> <span>${roBean.customerNum}</span>
+										<label for="b-number"><b>用餐人數</b></label> <span>${roBean.customerNum}</span>
 									</div>
 									<div class="div-1">
-										<label for="price">尚未付款</label> <span>500 元</span>
+										<label for="price"><b>尚未付款</b></label> <span>500 元</span>
 									</div>
 									</div>
 									<div class="modal-footer">
