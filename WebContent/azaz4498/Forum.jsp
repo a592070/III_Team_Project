@@ -1,3 +1,4 @@
+<%@page import="controller.ConnectionPool"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="azaz4498.ArticleDO"%>
@@ -25,12 +26,12 @@
 			<div class="col-sm2">
 			<div class="card">
 					<div class="card-body">
-						<img src="azaz4498\img\sc_01.jpg" class="card-img-top h-75" alt="...">
+						<img src="${art.artPic }" class="card-img-top h-75" alt="...">
 						<hr>
 						<h3 class="card-title">${art.artTitle}</h3>
 						<h5 class="card-title"></h5>
 						<p class="card-text">
-								<small class="text-muted">${art.artCommNum }
+								<small class="text-muted">${art.artCommNum}
 								comments ${art.artView} views </small>
 
 							<a

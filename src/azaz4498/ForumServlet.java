@@ -57,7 +57,7 @@ public class ForumServlet extends HttpServlet {
 		try {
 			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
 			List<ArticleDO> artList =forumDAO.articleList();
-			
+			HttpSession session = request.getSession();
 			Map<String, String> errorMsgMap = new HashMap<String, String>();
 			request.setAttribute("ErrorMsgKey", errorMsgMap);
 			request.setAttribute("Article", artList);
@@ -76,8 +76,8 @@ public class ForumServlet extends HttpServlet {
 		
 		
 
-		//還不知道放甚麼		
-		//HttpSession session = request.getSession();
+		
+		
 		
 		
 

@@ -15,7 +15,8 @@ public class test {
 		
 //		forumDAO.articleListInit();
 //		System.out.println(forumDAO.artileList());
-		
+//		int commNum = forumDAO.getCommNumByArtId(2);
+//		System.out.println(commNum);
 		
 //		System.out.println(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
 
