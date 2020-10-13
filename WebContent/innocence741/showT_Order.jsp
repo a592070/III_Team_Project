@@ -37,6 +37,12 @@
                      dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
 
                      success : function(response){
+                    	 
+                         console.log(response["check"]);
+                         if(response["check"] === "rederict"){
+//                         	 console.log("112233445566");
+                             window.location="../rambo0021/login.jsp"
+                         }
                         // console.log(response[0].length);
                         // console.log(response.length);
                         // console.log(response[1].length)
