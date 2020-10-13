@@ -33,8 +33,8 @@
             <h6>作者:${Article.artUserId }</h6>
 
             <p>
-
-                <button type="button" class="btn btn-info btn-sm">#${Type.typeName }</button>
+				
+                <a class="btn btn-primary" role="button"  href="<c:url value='/SelectArticleType?typeId=${Type.typeId }' />">#${Type.typeName }</a>
                 
             </p> 
            
@@ -68,7 +68,7 @@
 		</div>
 
 
-		<button type="submit" class="btn btn-primary ml-5" onClick="">送出</button>
+		<button type="submit" class="btn btn-primary ml-5" >送出</button>
 	</form>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
