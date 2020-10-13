@@ -39,7 +39,7 @@ public class HomePageUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//update db,session
-		InputStream picture = null;
+//		InputStream picture = null;
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
 		response.setCharacterEncoding("UTF-8"); 
@@ -54,9 +54,10 @@ public class HomePageUpdateServlet extends HttpServlet {
 			return;
 		}
 		AccountBean account = (AccountBean)session.getAttribute("Login");
+		System.out.println(request.getPart("picture").getSize());
 	if(request.getPart("picture").getSize() > 0) { //有上傳照片
 		System.out.println("有照片");
-		picture = request.getPart("picture").getInputStream();
+		InputStream picture = request.getPart("picture").getInputStream();
 			
 				try {
 					account.setPicture(new SerialBlob(IOUtils.toByteArray(picture)));
@@ -69,8 +70,9 @@ public class HomePageUpdateServlet extends HttpServlet {
 				account.setEmail(request.getParameter("email"));
 				account.setModify_Date(new Date());
 				homePageDAO.updateUserData(account);
+				picture.close();
 	}
-	picture.close();
+	
 	response.sendRedirect(request.getContextPath()+"/rambo0021/homePage.jsp");
 
 
