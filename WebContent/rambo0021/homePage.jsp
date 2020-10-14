@@ -160,8 +160,8 @@ if (session.getAttribute("Login") == null) {
 			$.ajax(
                     {
                         type: 'POST',
-                        url: '../OrderAjaxController',
-						dataType: "boolean", 
+                        url: '${pageContext.servletContext.contextPath}/OrderAjaxController',
+						dataType: "json",
                         success:function(response){
 						  buildOrderTable(response);
                         }
