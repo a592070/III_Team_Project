@@ -18,7 +18,8 @@
 <header class="masthead mb-auto sticky-top">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand"
-			href="${pageContext.servletContext.contextPath}/index.jsp">Logo</a>
+			href="${pageContext.servletContext.contextPath}/index.jsp"><img src="${pageContext.servletContext.contextPath}/static/Logo.png" height="50"/></a>
+		
 			<c:if test="${!empty Login}"><p style="font-size: 10px;" class="navbar-brand">您好，<c:out value="${Login.nickName}" /></p></c:if>
 
 		<div class="collapse navbar-collapse nav justify-content-center"
@@ -39,7 +40,7 @@
 							href="${pageContext.servletContext.contextPath}/innocence741/ajax_traffic.jsp">找高鐵</a></li>
 						<li class="dropdown-item"><a href="#">找租車</a></li>
 						<li class="dropdown-item"><a
-							href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.html">我的交通訂單</a></li>
+							href="${pageContext.servletContext.contextPath}/innocence741/showT_Order.jsp">我的交通訂單</a></li>
 					</ul></li>
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.servletContext.contextPath}/a592070/attractionInfo.jsp">找景點</a>
@@ -57,7 +58,7 @@
 				<!--住宿 -->
 				<c:if test="${Login.identity eq 4}">
 				<li class="nav-item"><a class="nav-link active"
-					href="${pageContext.servletContext.contextPath}/">店家頁面</a>
+					href="${pageContext.servletContext.contextPath}/H_HomepageServlet">店家頁面</a>
 				</li>
 				</c:if>
 				<!--交通 -->
@@ -99,8 +100,8 @@
 	</nav>
 </header>
 
-<div class="container-fluid d-flex flex-row-reverse fixed-bottom">
-	<button class="btn btn-primary btn-lg" onclick="document.location.href='${pageContext.servletContext.contextPath}/ChatServlet'">
+<div class="d-flex flex-row-reverse fixed-bottom pt-0">
+	<button class="btn btn-primary" onclick="document.location.href='${pageContext.servletContext.contextPath}/ChatServlet'">
 		<span class="spinner-grow spinner-grow-sm"></span>聯絡客服
 	</button>
 </div>

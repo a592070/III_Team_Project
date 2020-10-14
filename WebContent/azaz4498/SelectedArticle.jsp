@@ -1,4 +1,3 @@
-<%@page import="controller.ConnectionPool"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="azaz4498.ArticleDO"%>
@@ -19,19 +18,19 @@
 	<jsp:include page="/fragment/header.jsp" />
 	<jsp:include page="/azaz4498/ForumHeader.jsp" />
 
-
+	<h2>當前文章分類為: ${Type.typeName }</h2>
 	<!--card group-->
 	<div class="row">
 		<c:forEach var='art' items='${Article}'>
 			<div class="col-sm2">
 			<div class="card">
 					<div class="card-body">
-						<img src='${art.artPic }' class="card-img-top h-75" alt="..." onerror="this.src='${pageContext.servletContext.contextPath}/azaz4498/img/sc_01.jpg'">
+						<img src="${art.artPic }" class="card-img-top h-75" alt="..." onerror="this.src='${pageContext.servletContext.contextPath}/azaz4498/img/sc_01.jpg'">
 						<hr>
 						<h3 class="card-title">${art.artTitle}</h3>
 						<h5 class="card-title"></h5>
 						<p class="card-text">
-								<small class="text-muted">${art.artCommNum}
+								<small class="text-muted">${art.artCommNum }
 								comments ${art.artView} views </small>
 
 							<a

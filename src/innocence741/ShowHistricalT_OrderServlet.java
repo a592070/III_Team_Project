@@ -11,11 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.ConnectionPool;
+import rambo0021.AccountBean;
 
 /**
  * Servlet implementation class ShowHistricalT_Order
@@ -36,20 +38,35 @@ public class ShowHistricalT_OrderServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        ArrayList<ArrayList> combineArrayList = new ArrayList<>();
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
-		t_Order_ListDAO.searchHistoricalOrder(combineArrayList, "abab");	//假設使用者為abab 之後從session取得
-//		System.out.println("combineArrayList.size= " + combineArrayList.size());
-		
-        ObjectMapper objectMapper = new ObjectMapper();
-        String ujson = objectMapper.writeValueAsString(combineArrayList);
-//		JsonNode jsonNode = objectMapper.readTree(ujson);
-//		System.out.println(jsonNode.path(0).size());	
-//		JsonNode node = jsonNode.path(1).path(1).path("order_id");	//取得orderID的位置
-//		System.out.println(node);
-        System.out.println(ujson+"\n");
-        PrintWriter out = response.getWriter();
-        out.println(ujson.toString());
+        
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("Login") == null) {
+            // 請使用者登入
+//        	System.out.println("hahahahaha");
+        	String ujson1 = "{\"check\" : \"rederict\"}";
+            PrintWriter out = response.getWriter();
+            out.println(ujson1.toString());
+        }else {
+        
+        	AccountBean account = (AccountBean) session.getAttribute("Login");
+        	
+        	String userName = account.getUserName();
+        	
+	        ArrayList<ArrayList> combineArrayList = new ArrayList<>();
+			T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+			t_Order_ListDAO.searchHistoricalOrder(combineArrayList, userName);	//假設使用者為abab 之後從session取得
+	//		System.out.println("combineArrayList.size= " + combineArrayList.size());
+			
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        String ujson = objectMapper.writeValueAsString(combineArrayList);
+	//		JsonNode jsonNode = objectMapper.readTree(ujson);
+	//		System.out.println(jsonNode.path(0).size());	
+	//		JsonNode node = jsonNode.path(1).path(1).path("order_id");	//取得orderID的位置
+	//		System.out.println(node);
+	        System.out.println(ujson+"\n");
+	        PrintWriter out = response.getWriter();
+	        out.println(ujson.toString());
+	    }
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

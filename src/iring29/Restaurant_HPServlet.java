@@ -44,13 +44,7 @@ public class Restaurant_HPServlet extends HttpServlet {
 		System.out.println("inHP");
 		HttpSession session = request.getSession(false);
 		AccountBean aBean = (AccountBean) session.getAttribute("Login");
-		if (aBean.getUserName() != null) {
-			try {
-				processQueryR_HP(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
+
 //		else if (request.getParameter("cancel") != null) {
 //			try {
 //				processCancelModify(request, response);
@@ -80,22 +74,20 @@ public class Restaurant_HPServlet extends HttpServlet {
 //				e.printStackTrace();
 //			}
 //		}
-		else if (request.getParameter("confirm-img") != null) {
+		if (request.getParameter("picture") != null) {
 			try {
 				processModifyImg(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		
-		else if(request.getParameter("finalDecision") != null){
+		} else if(request.getParameter("finalDecision") != null){
 			if(request.getParameter("finalDecision").equals("confirmL")) {
-			try {
-				System.out.println("in confirm L");
-				processModifyLocation(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				try {
+					System.out.println("in confirm L");
+					processModifyLocation(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}else if(request.getParameter("finalDecision").equals("confirmT")) {
 				try {
 					System.out.println("in confirm T");
@@ -118,6 +110,12 @@ public class Restaurant_HPServlet extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+		}else if (aBean.getUserName() != null) {
+			try {
+				processQueryR_HP(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

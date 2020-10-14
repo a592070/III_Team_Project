@@ -140,6 +140,10 @@
 		.star{
 			width:20px;
 		}
+		.book-top{
+			border-style:none; 
+			background-color:transparent;
+		}
     </style>
 </head>
 <body>
@@ -151,7 +155,9 @@
             <h2 class="title">餐廳資訊</h2>
             <div class="top">
             	<FORM  action="<c:url value='BookRestaurantServlet' />" method="POST">
-                <div class="booking">訂位</div>
+                <div class="booking">
+                	<Input class="book-top" type='submit' value='訂位'>
+                </div>
                 <!-- 隱藏欄位都會送到後端 /BookRestaurantServlet-->  
           		<Input type='hidden' name='res_name' value='${res_data.name}'>
           		<Input type='hidden' name='r_id' value='${res_data.r_sn}'>
@@ -160,8 +166,16 @@
                 <div class="comment">評論</div>
             </div>
             <div class="div_img" >
-                <img src="${res_data.picture}">
+                <img id="Rimg" src="${res_data.picture}">
             </div>
+            
+            <script>
+            if((document.getElementById("Rimg").getAttribute("src")) === ""){
+                document.getElementById("Rimg").src = "https://thumbs.dreamstime.com/b/to-be-continued-seal-print-grunge-texture-red-vector-rubber-label-text-tag-placed-double-parallel-lines-131620528.jpg";
+                console.log(document.getElementById("Rimg").src)
+            }
+            </script>
+            
             <div class="div-1">
                 <h3>${res_data.name}</h3>
                     <h5 class="rating">Rating</h5>
@@ -212,6 +226,14 @@
             <div>
                 <h4 class="res_result">交通方式</h4>
                 <pre><p class="p_result">${res_data.transportation}</p></pre>
+            </div>
+            <div>
+            	<iframe
+                        width="100%"
+                        height="300"
+                        frameborder="0"
+                        src="https://www.google.com/maps?q=${res_data.address}&mrt=all&hl=zh-TW&z=15&output=embed ">
+                </iframe>
             </div>
             <div>
                 <h4 class="res_data">菜色介紹</h4>

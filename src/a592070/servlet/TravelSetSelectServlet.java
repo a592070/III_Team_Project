@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import globalinit.Constant;
+import rambo0021.AccountBean;
 import utils.StringUtil;
 
 import javax.servlet.ServletException;
@@ -30,30 +31,38 @@ public class TravelSetSelectServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPut(req, resp);
+        doPost(req, resp);
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-//        System.out.println("TravelSetSelectServlet\t"+session.getId());
-        String username = "system";
+        String username;
+        if(!StringUtil.isEmpty(req.getParameter("system_travelset"))){
+            username = "system1";
+        } else if(session.getAttribute(Constant.LOGIN) != null){
+            AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+            username = user.getUserName();
+        }else{
+            username = "guest"+session.getId();
+//            username = "null";
+        }
 
         String method = req.getParameter("method");
         if("initCurrentTravelSet".equals(method)){
-            TravelSetDO travelSetDO = new TravelSetDO();
-            travelSetDO.setCreatedUser(username);
-            session.setAttribute(Constant.TravelSetEdit_session, travelSetDO);
-            return;
+            initCurrentTravelSet(username, req, resp);
         }else if("deleteTravelSet".equals(method)){
             deleteTravelSet(req, resp);
         }
+
+
+
+        ObjectMapper mapper = new ObjectMapper();
 
         List<TravelSetDO> list = service.listTravelSet(username);
         session.setAttribute(Constant.TravelSetList_session, list);
 
 
-        ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();
         for (TravelSetDO travelSetDO : list) {
             ObjectNode objectNode = mapper.createObjectNode();
@@ -78,6 +87,22 @@ public class TravelSetSelectServlet extends HttpServlet {
             jsonObj.set("currentTravelSet", objectNode);
         }
         mapper.writeValue(resp.getWriter(), jsonObj);
+
+    }
+
+    private void initCurrentTravelSet(String username, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession session = req.getSession();
+        ObjectMapper mapper = new ObjectMapper();
+
+//        System.out.println("TravelSetSelectServlet\t"+session.getId());
+
+        TravelSetDO travelSetDO = new TravelSetDO();
+        travelSetDO.setCreatedUser(username);
+        session.setAttribute(Constant.TravelSetEdit_session, travelSetDO);
+
+        ObjectNode objectNode = mapper.createObjectNode();
+        objectNode.put("initTravelSet", true);
+        mapper.writeValue(resp.getWriter(), objectNode);
     }
 
     private void deleteTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

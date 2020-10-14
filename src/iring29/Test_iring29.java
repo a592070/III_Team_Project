@@ -60,11 +60,12 @@ public class Test_iring29 {
 //		restaurantDAO.updateimg("宮原眼科醉月樓");
 		
 		//TEST6 DATE
-//		Date date = new Date();
-//		System.out.println(date);
+		Date date = new Date();
+		System.out.println(date);
+		Timestamp ts = new Timestamp(System.currentTimeMillis());  
 //		//格式化日期
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		System.out.println(sdf.format(date));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		System.out.println(sdf.format(ts));
 		
 		//TEST7 R_Order_ListDAO
 //		Order_DateBean order_DateBean = new Order_DateBean("Irene","Chung","123456");
@@ -147,9 +148,9 @@ public class Test_iring29 {
 //		System.out.println(ts);
 		
 		//Test
-		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
-		R_OrderBean bean = r_Order_ListDAO.UserOrderList(BigDecimal.valueOf(101));
-		System.out.println(bean);
+//		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+//		R_OrderBean bean = r_Order_ListDAO.UserOrderList(BigDecimal.valueOf(101));
+//		System.out.println(bean);
 		
 	}
 }

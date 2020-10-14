@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
 //import oracle.net.aso.a;
@@ -38,6 +39,8 @@ public class T_OrderServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+
 		hsrDAO hsrDAO = new hsrDAO(ConnectionPool.LOADING_WITH_SERVER);
         
         String snSchedule = request.getParameter("snSchedule");
@@ -66,10 +69,12 @@ public class T_OrderServlet extends HttpServlet {
 //        System.out.println("departureDate_tmp= "+departureDate);
 //        System.out.println("departureDate= "+departureDate[0]+" "+departureDate[1]+" "+departureDate[2]);
 //        System.out.println("orderType= "+orderType);
+        HttpSession session = request.getSession(false);
+        
         hsrDO hsrDO = new hsrDO();
         OrderTableBean bean = new OrderTableBean();
         T_OrderBean tBean = new T_OrderBean();
-        AccountBean user = new AccountBean();
+        AccountBean user = (AccountBean) session.getAttribute("Login");
         
 		hsrDO.setSnSchedule(Integer.parseInt(snSchedule));
 		tBean.setHsrDO(hsrDO);
@@ -81,9 +86,13 @@ public class T_OrderServlet extends HttpServlet {
 		tBean.setOrderType(orderType);
 		tBean.setCustomerName(customerName);	
 		tBean.setCustomerPhone(customerPhone);	
-        
 		
-		user.setUserName("abab");	//假裝訂購人為innocence
+		
+
+		
+			
+			
+//		user.setUserName("abab");	//假裝訂購人為innocence
 		bean.setUser(user);	//假裝訂購人為innocence
 		bean.addT_OderBean(tBean);
 

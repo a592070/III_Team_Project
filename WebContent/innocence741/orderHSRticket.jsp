@@ -59,7 +59,7 @@
         <label for="departureDate" class="trainShow">出發日期:</label>
         <input type="date" id="departureDate" name="departureDate" min="2020-04-01" max="2020-04-30" class="trainShow">
 
-        <input type="button" id="trainSubmit" value="更改查詢">
+        <input type="button" id="trainSubmit" value="返回查詢">
     </form>
     </div>
 
@@ -70,7 +70,7 @@
 
      <fieldset>
 
-         <legend>Response from jQuery Ajax Request</legend>
+         <legend>確認訂單</legend>
 
          <div id="ajaxResponse" style="width: 800px; margin: 0 auto;">
             <table id="ajaxTable" style="margin: 0 auto;">
@@ -118,6 +118,11 @@
                      dataType: "json",               //目標url處理完後回傳的值之type，此列為一個JSON Object
 
                      success : function(response){
+                    	 console.log(response["check"]);
+                         if(response["check"] === "rederict"){
+//                         	 console.log("112233445566");
+                             window.location="../rambo0021/login.jsp"
+                         }
                         //  console.log("123123")
                          //在id=ajaxResponse的fieldset中顯示Ajax的回傳值
                         // console.log(response.length);

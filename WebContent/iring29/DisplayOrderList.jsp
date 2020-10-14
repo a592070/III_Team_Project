@@ -93,30 +93,32 @@
                 <h1>  訂單訊息 </h1>
                 <div class="">
                     <div class="div-1">
-                        <label for="r-name">訂位餐廳</label>
+                        <label for="r-name"><b>訂位餐廳</b></label>
                         <span>${r_name}</span>
                     </div>
 
                     <div class="div-1">
-                        <label for="r-date">用餐日期</label>
-                        <span>${roBean.booking_date}</span>
+                        <label for="r-date"><b>用餐日期</b></label>
+                        <span id="b-time">${roBean.booking_dateString}</span>
+                     
+                        
                     </div>
                     <div class="div-1">
-                        <label for="b-name">訂位人姓名</label>
+                        <label for="b-name"><b>訂位人姓名</b></label>
                         <span>${roBean.customerName}</span>
                     </div>
                 </div>
                 <div class="div-1">
-                    <label for="b-phone">訂位人手機</label>
+                    <label for="b-phone"><b>訂位人手機</b></label>
                     <span>${roBean.customerPhone}</span>
                 </div>
                 <div class="div-1">
-                    <label for="b-number">用餐人數</label>
+                    <label for="b-number"><b>用餐人數</b></label>
                     <span>${roBean.customerNum}</span>
                 </div>
                 <h1> 付款資訊</h1>
                 <div class="div-1">
-                    <label for="price">尚未付款</label>
+                    <label for="price"><b>尚未付款</b></label>
                     <span>500 元</span>
                 </div>
                 <div class="div-btn-1">
@@ -142,7 +144,7 @@
     	if (confirm("確定取消此份訂單 ? ") ) {
     		// 接收此資料的Servlet會使用 finalDecision 參數的值
     		document.forms["form-c"].c.value="cancel";
-    		document.forms["form-c"].action="<c:url value='OrderListServlet' />";
+    		document.forms["form-c"].action="${pageContext.servletContext.contextPath}/OrderListServlet";
     		document.forms["form-c"].method="POST";
     		document.forms["form-c"].submit();
     		return;

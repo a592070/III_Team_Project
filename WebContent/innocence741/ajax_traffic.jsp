@@ -122,7 +122,7 @@
  
          <fieldset>
  
-             <legend>Response from jQuery Ajax Request</legend>
+             <legend>查詢結果</legend>
  
              <div id="ajaxResponse" style="width: 800px; margin: 0 auto;">
                 <table id="ajaxTable" style="margin: 0 auto;">

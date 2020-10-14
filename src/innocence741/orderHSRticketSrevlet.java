@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,49 +36,59 @@ public class orderHSRticketSrevlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-		String idHSR = request.getParameter("idHSR");
-		String startPoint = request.getParameter("startPoint");
-		String destination = request.getParameter("destination");
-		String ticketNum = request.getParameter("ticketNum");
-		String departureDate = request.getParameter("departureDate");
-//		System.out.println("idHSR= " + idHSR);
-//		System.out.println("departureDate=" + departureDate);
-		
-		List<hsrDO> list;
-    	int price = 0;
-		hsrDAO hsrDAO = new hsrDAO(ConnectionPool.LOADING_WITH_SERVER);
-		hsrDAO.getSN_Schedule(idHSR);
-		list = hsrDAO.listHsrDO();
-		System.out.println(list.size());
-		price = hsrDAO.ticketPrice(startPoint, destination);
-		Boolean check = false;
-		System.out.println(hsrDAO.getDirection(startPoint, destination).equals(list.get(0).getDirection()));
-		if(hsrDAO.getDirection(startPoint, destination).equals(list.get(0).getDirection()))
-			check = true;
-        ObjectMapper objectMapper = new ObjectMapper();
-        String ujson = objectMapper.writeValueAsString(list);
-        ujson = "[" + ujson + ",{\"price\" : " + price + "},{\"ticketNum\" : " + ticketNum +"},"
-        		+ "{\"departureDate\" : " + '\"'+departureDate+'\"' +"},"
-        				+ "{\"startPoint\" : " + '\"'+startPoint+'\"' +"},{\"destination\" : " + '\"'+destination+'\"' +"}]";
-//        ujson = "[" + ujson + ",{\"price\" : " + price + "}]";
-
         
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode jsonNode = mapper.readTree(ujson);
-		JsonNode node1 = jsonNode.path(0).path(0).path(startPoint);
-		JsonNode node2 = jsonNode.path(0).path(0).path(destination);
-//		System.out.println(node1);
-//		System.out.println(node1.toString().equals("null"));
-		ujson = ujson.substring(0,ujson.length()-1);
-        if(node1.toString().equals("null") || node2.toString().equals("null") || !check) {
-        	ujson = ujson + ",{\"check\" : \"false\"}]";
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("Login") == null) {
+            // 請使用者登入
+//        	System.out.println("hahahahaha");
+        	String ujson1 = "{\"check\" : \"rederict\"}";
+            PrintWriter out = response.getWriter();
+            out.println(ujson1.toString());
         }else {
-        	ujson = ujson + ",{\"check\" : \"true\"}]";
-		}
-        System.out.println(ujson+"\n");
-
-        PrintWriter out = response.getWriter();
-        out.println(ujson.toString());
+			String idHSR = request.getParameter("idHSR");
+			String startPoint = request.getParameter("startPoint");
+			String destination = request.getParameter("destination");
+			String ticketNum = request.getParameter("ticketNum");
+			String departureDate = request.getParameter("departureDate");
+	//		System.out.println("idHSR= " + idHSR);
+	//		System.out.println("departureDate=" + departureDate);
+			
+			List<hsrDO> list;
+	    	int price = 0;
+			hsrDAO hsrDAO = new hsrDAO(ConnectionPool.LOADING_WITH_SERVER);
+			hsrDAO.getSN_Schedule(idHSR);
+			list = hsrDAO.listHsrDO();
+			System.out.println(list.size());
+			price = hsrDAO.ticketPrice(startPoint, destination);
+			Boolean check = false;
+			System.out.println(hsrDAO.getDirection(startPoint, destination).equals(list.get(0).getDirection()));
+			if(hsrDAO.getDirection(startPoint, destination).equals(list.get(0).getDirection()))
+				check = true;
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        String ujson = objectMapper.writeValueAsString(list);
+	        ujson = "[" + ujson + ",{\"price\" : " + price + "},{\"ticketNum\" : " + ticketNum +"},"
+	        		+ "{\"departureDate\" : " + '\"'+departureDate+'\"' +"},"
+	        				+ "{\"startPoint\" : " + '\"'+startPoint+'\"' +"},{\"destination\" : " + '\"'+destination+'\"' +"}]";
+	//        ujson = "[" + ujson + ",{\"price\" : " + price + "}]";
+	
+	        
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode jsonNode = mapper.readTree(ujson);
+			JsonNode node1 = jsonNode.path(0).path(0).path(startPoint);
+			JsonNode node2 = jsonNode.path(0).path(0).path(destination);
+	//		System.out.println(node1);
+	//		System.out.println(node1.toString().equals("null"));
+			ujson = ujson.substring(0,ujson.length()-1);
+	        if(node1.toString().equals("null") || node2.toString().equals("null") || !check) {
+	        	ujson = ujson + ",{\"check\" : \"false\"}]";
+	        }else {
+	        	ujson = ujson + ",{\"check\" : \"true\"}]";
+			}
+	        System.out.println(ujson+"\n");
+	
+	        PrintWriter out = response.getWriter();
+	        out.println(ujson.toString());
+	    }
     }
 
 	/**

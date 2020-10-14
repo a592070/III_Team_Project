@@ -126,7 +126,7 @@
                                 <td>\${list[i].quadrupleRoomPrice}</td>
                                 <td>\${list[i].address}</td>
                                 <td>\${list[i].rating}</td>
-<!--                                <td><button type='button' class='btn btn-info' onclick='toDetailPage(optionHotel,\${list[i].sn})'>看詳細</button></td>-->
+                                <td><button type='button' class='btn btn-info' value='\${tempobj}' onclick='toDetailPage(optionHotel, $(this))'>看詳細</button></td>
                                 <td><button type='button' class='btn btn-danger' value='\${tempobj}' onclick='addItem("\${currentType}",$(this))'>+</button></td>
                                 </tr>`;
                         }
@@ -207,7 +207,7 @@
             if(type == optionCar){
 
             }else if(type == optionHotel){
-
+                document.location.href="${pageContext.servletContext.contextPath}/HotelDetailServlet?detailsn="+json.sn;
             }else if(type == optionRestaurant){
                 document.location.href="${pageContext.servletContext.contextPath}/RestaurantServlet?QUERY=QUERY&restaurant_name="+json.name;
             }else if(type == optionAttraction){
@@ -245,6 +245,7 @@
                 <%--    {"method":"setItems", "selectType":"restaurant", "list":JSON.stringify(listRestaurant)});--%>
                 tempArr = listRestaurant;
                 target = $("#addItemRestaurant");
+                ele.addClass("disabled");
                 ele.attr('disabled',"true");
             }else if(type == optionAttraction){
                 listAttraction.push(json);
@@ -299,12 +300,18 @@
             for (let i = 0; i < arr.length ; i++) {
                 let json = JSON.stringify(arr[i]);
                 content += `<tr>
-                    <td>\${arr[i].name}</td>
-                    <td><input type='datetime-local' class='btn btn-secondary' index='\${i}' onchange='setTravelTime("\${type}",$(this))'/></td>
+                    <td>\${arr[i].name}</td>`;
+                let tempTime;
+                if(arr[i].time != null){
+                    tempTime = new Date(arr[i].time);
+                }
+                content +=
+                    `<td><input type='datetime-local' class='btn btn-secondary input_time' index='\${i}' onchange='setTravelTime("\${type}",$(this))' value='\${convertToISO(tempTime)}'/></td>
                     <td><button type='button' class='btn btn-info' value='\${json}' onclick='toDetailPage("\${type}" ,$(this))'>看詳細</button></td>
                     <td><button type='button' class='btn btn-danger' value='\${i}' onclick='removeItem("\${type}",$(this).val())'>取消</button></td></tr>`;
             }
             target.html(content);
+            setDateTimeMin();
         }
 
         function setTravelTime(type, obj){
@@ -313,55 +320,16 @@
         }
 
 
-        function checkSubmit(){
-            if(listCar.length == 0 && listHotel.length ==0 && listRestaurant.length==0 && listAttraction.length==0){
-                alert("沒有任何規劃")
-                return false;
-            }
-            if($("#travelSetName").val() == "我的旅程"){
-                if(!confirm("是否使用預設名稱: 我的旅程")){
-                    let text = prompt("請輸入名稱");
-                    $("#travelSetName").val(text);
-                }
-            }
-            return true;
-        }
 
-        function saveTravelSet(){
-            if(checkSubmit()){
-                $.get({
-                    url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
-                    data:{"method":"saveTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
-                    success:function (data){
-                        let json=JSON.parse(data);
-                        if(json.status){
-                            if(!alert("保存成功")) {
-                                document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
-                            }
-                        }else{
-                            alert("保存失敗");
-                        }
-                    }
-                })
+        function convertToISO(timebit) {
+            if(timebit != null){
+                timebit = new Date(timebit.getTime() - timebit.getTimezoneOffset()*60*1000);
+                timebit = timebit.toISOString().slice(0,19);
             }
+            return timebit;
         }
-        function newTravelSet(){
-            if(checkSubmit()){
-                $.get({
-                    url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
-                    data:{"method":"newTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
-                    success:function (data){
-                        let json=JSON.parse(data);
-                        if(json.status){
-                            if(!alert("新建成功")) {
-                                document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
-                            }
-                        }else{
-                            alert("新建失敗");
-                        }
-                    }
-                })
-            }
+        function setDateTimeMin(){
+            $("input[type='datetime-local']").attr('min', convertToISO(new Date()));
         }
 
 
@@ -376,22 +344,40 @@
                 success: function (data){
                     let json = JSON.parse(data);
                     for (let i = 0; i < json.listEleCar.length; i++) {
-                        listCar.push(JSON.parse(json.listEleCar[i]));
+                        listCar.push(json.listEleCar[i]);
                     }
                     for (let i = 0; i < json.listEleHotel.length; i++) {
-                        listHotel.push(JSON.parse(json.listEleHotel[i]));
+                        listHotel.push(json.listEleHotel[i]);
                     }
                     for (let i = 0; i < json.listEleRestaurant.length; i++) {
-                        listRestaurant.push(JSON.parse(json.listEleRestaurant[i]));
+                        listRestaurant.push(json.listEleRestaurant[i]);
                     }
                     for (let i = 0; i < json.listEleAttraction.length; i++) {
-                        listAttraction.push(JSON.parse(json.listEleAttraction[i]));
+                        listAttraction.push(json.listEleAttraction[i]);
                     }
 
                     refreshSelectItem($("#addItemCar"),listCar, optionCar);
                     refreshSelectItem($("#addItemHotel"),listHotel, optionHotel);
                     refreshSelectItem($("#addItemRestaurant"),listRestaurant, optionRestaurant);
                     refreshSelectItem($("#addItemAttraction"),listAttraction, optionAttraction);
+                    if(json.travelSetName != null){
+                        $("#travelSetName").val(json.travelSetName);
+                    }
+                    if(json.travelSetDescription != null){
+                        $("#travelSetDescription").text(json.travelSetDescription);
+                    }
+
+                    if(json.isLogin != true){
+                        $("#saveTravelSet_id").addClass("disabled");
+                        $("#saveTravelSet_id").attr('disabled',"true");
+                        $("#newTravelSet_id").addClass("disabled");
+                        $("#newTravelSet_id").attr('disabled',"true");
+                    }else{
+                        $("#saveTravelSet_id").removeClass("disabled");
+                        $("#saveTravelSet_id").removeAttr("disabled");
+                        $("#newTravelSet_id").removeClass("disabled");
+                        $("#newTravelSet_id").removeAttr("disabled");
+                    }
                 }
             })
         );
@@ -485,8 +471,8 @@
         </tr>
         </tbody>
     </table>
-    <div class="navbar-nav">
-        <form action="${pageContext.servletContext.contextPath}/" method="post" class="form-group ">
+    <div class="navbar-nav ">
+        <form class="form-group">
 <%--            <input class="d-none" id="submitMethodId" name="method" >--%>
 <%--            <input class="d-none" id="submitCarId" name="travelSetCarList" >--%>
 <%--            <input class="d-none" id="submitHotelId" name="travelSetHotelList" >--%>
@@ -496,13 +482,13 @@
             <input type="text" class="form-control" id="travelSetName" placeholder='我的旅程' value='我的旅程'>
             <label for="travelSetDescription">備註:</label>
             <textarea class="form-control" rows="5" id="travelSetDescription"></textarea>
-            <button type="button" class="btn btn-primary" onclick="saveTravelSet()">保存當前</button>
-            <button type="button" class="btn btn-success" onclick="newTravelSet()">新項目</button>
-            <button type="button" class="btn btn-outline-danger" onclick="removeAllItem()">取消</button>
+            <button type="button" class="btn btn-primary" id='saveTravelSet_id' onclick='saveTravelSet()'>保存當前</button>
+            <button type="button" class="btn btn-success" id='newTravelSet_id' onclick='newTravelSet()'>新項目</button>
+            <button type="button" class="btn btn-outline-danger" onclick='removeAllItem()' >取消</button>
         </form>
-
     </div>
 </div>
+<div class="container  pt-3"></div>
 
 
 
@@ -567,5 +553,61 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function checkSubmit(){
+        if(listCar.length == 0 && listHotel.length ==0 && listRestaurant.length==0 && listAttraction.length==0){
+            alert("沒有任何規劃")
+            return false;
+        }
+        if($("#travelSetName").val() == "我的旅程"){
+            if(!confirm("是否使用預設名稱: 我的旅程")){
+                let text = prompt("請輸入名稱");
+                $("#travelSetName").val(text);
+            }
+        }
+        return true;
+    }
+    function saveTravelSet(){
+        let flag = checkSubmit();
+        console.log(flag);
+        if(flag){
+            $.get({
+                url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                data:{"method":"saveTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
+                success:function (data){
+                    let json=JSON.parse(data);
+                    if(json.status){
+                        if(!alert("保存成功")) {
+                            document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
+                        }
+                    }else{
+                        alert("保存失敗");
+                    }
+                }
+            });
+        }
+    }
+    function newTravelSet(){
+        let flag = checkSubmit();
+        if(flag){
+            $.get({
+                url:"${pageContext.servletContext.contextPath}/TravelSetServlet",
+                data:{"method":"newTravelSet", "travelSetName":$("#travelSetName").val(), "travelSetDescription":$("#travelSetDescription").val()},
+                success:function (data){
+                    let json=JSON.parse(data);
+                    if(json.status){
+                        if(!alert("新建成功")) {
+                            document.location.href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp";
+                        }else{
+                            alert("新建失敗");
+                        }
+                    }else{
+                        alert("新建失敗");
+                    }
+                }
+            })
+        }
+    }
+</script>
 </body>
 </html>

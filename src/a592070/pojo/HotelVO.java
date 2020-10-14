@@ -1,9 +1,11 @@
 package a592070.pojo;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import utils.StringUtil;
 
 import java.math.BigDecimal;
 
+@JsonDeserialize(using = HotelVOJsonDeserializer.class)
 public class HotelVO {
     private int sn;
     private String name;

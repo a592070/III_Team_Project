@@ -43,15 +43,13 @@ public class RestaurantServlet extends HttpServlet {
 		if (request.getParameter("QUERY") != null) {
 
 			System.out.println("1" + request.getParameter("restaurant_name") + request.getParameter("region_name"));
-			if (request.getParameter("restaurant_name") != "" && request.getParameter("region_name") != "") {
+			if (!StringUtil.isEmpty(request.getParameter("restaurant_name")) && !StringUtil.isEmpty(request.getParameter("region_name"))) {
 				try {
 					processMultiQuery(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-
-			else if (request.getParameter("restaurant_name") != "") {
+			} else if (request.getParameter("restaurant_name") != "") {
 				try {
 					processQueryRestaurant(request, response);
 				} catch (Exception e) {

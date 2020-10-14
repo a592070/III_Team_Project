@@ -2,6 +2,7 @@ package iring29.bean;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 //小訂單的Bean (R_OrderBean)
 public class R_OrderBean {
@@ -9,7 +10,7 @@ public class R_OrderBean {
 	BigDecimal r_sn_order;
 	BigDecimal order_id;
 	Timestamp booking_date; //訂位時間(前往用餐時間)
-
+	String getBooking_dateString;
 	BigDecimal customerNum;  //訂位人數
 	BigDecimal deposit = BigDecimal.valueOf(500); //固定每筆訂餐廳的訂金為500
 	RestaurantBean restaurantBean;
@@ -34,7 +35,12 @@ public class R_OrderBean {
 		this.customerName = customerName;
 		this.customerPhone = customerPhone;
 	}
-
+	public String getBooking_dateString() {
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		sdf.setLenient(false);
+		String bookdate = sdf.format(booking_date);
+		return bookdate;
+	}
 
 	public String getCustomerName() {
 		return customerName;

@@ -113,11 +113,11 @@
     }
 
 
-    const url = "ws://localhost:8080${pageContext.servletContext.contextPath}/chat";
-    websocket = new WebSocket(url);
+    const url = "ws://172.16.39.63:8080${pageContext.servletContext.contextPath}/chat";
+    var websocket = new WebSocket(url);
 
     websocket.onopen = function (event){
-
+        console.log("websocket connect");
     }
     websocket.onmessage = function (event){
         let value = event.data;
@@ -146,7 +146,11 @@
         }
     }
     websocket.onclose = function (event){
+        console.log("websocket close")
         websocket.close();
+    }
+    websocket.onerror = function (event){
+        console.log("websocket error")
     }
     window.onbeforeunload = function (event){
         websocket.close();
