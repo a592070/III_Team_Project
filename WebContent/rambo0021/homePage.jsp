@@ -160,8 +160,13 @@ if (session.getAttribute("Login") == null) {
 			$.ajax(
                     {
                         type: 'POST',
+<<<<<<< HEAD
                         url: '../OrderAjaxController',
 						dataType: "json", 
+=======
+                        url: '${pageContext.servletContext.contextPath}/OrderAjaxController',
+						dataType: "json",
+>>>>>>> branch 'master' of https://github.com/a592070/III_Team_Project.git
                         success:function(response){
 						  buildOrderTable(response);
                         }
