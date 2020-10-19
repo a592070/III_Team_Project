@@ -2,7 +2,7 @@ package a592070.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import globalinit.Constant;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

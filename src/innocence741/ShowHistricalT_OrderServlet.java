@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.ConnectionPool;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 /**
  * Servlet implementation class ShowHistricalT_Order

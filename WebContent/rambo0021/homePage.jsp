@@ -1,5 +1,5 @@
-<%@page import="rambo0021.AccountBean"%>
-<%@page import="rambo0021.RegisterDAO"%>
+<%@page import="rambo0021.model.AccountBean"%>
+<%@page import="rambo0021.model.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -160,13 +160,8 @@ if (session.getAttribute("Login") == null) {
 			$.ajax(
                     {
                         type: 'POST',
-<<<<<<< HEAD
-                        url: '../OrderAjaxController',
-						dataType: "json", 
-=======
                         url: '${pageContext.servletContext.contextPath}/OrderAjaxController',
 						dataType: "json",
->>>>>>> branch 'master' of https://github.com/a592070/III_Team_Project.git
                         success:function(response){
 						  buildOrderTable(response);
                         }

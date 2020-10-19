@@ -16,7 +16,7 @@ import controller.ConnectionPool;
 import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
 import pojo.OrderTableBean;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 /**
  * Servlet implementation class OrderListServlet

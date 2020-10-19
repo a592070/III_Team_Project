@@ -19,7 +19,7 @@ import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
 import oracle.security.o3logon.b;
 import pojo.OrderTableBean;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 @WebServlet("/Restaurant_HPServlet")
 public class Restaurant_HPServlet extends HttpServlet {

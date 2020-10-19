@@ -19,7 +19,7 @@ import iring29.bean.R_OrderBean;
 import iring29.bean.RestaurantBean;
 import pojo.AccountDO;
 import pojo.OrderTableBean;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 public class Test_iring29 {
 	public static void main(String[] args) throws IOException, SQLException {

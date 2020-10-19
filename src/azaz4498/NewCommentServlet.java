@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 /**
  * Servlet implementation class NewComment

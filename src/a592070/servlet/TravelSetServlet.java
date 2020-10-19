@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import globalinit.Constant;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 import utils.PageSupport;
 import utils.StringUtil;
 

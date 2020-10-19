@@ -23,7 +23,7 @@ import iring29.R_Order_ListDAO;
 import iring29.bean.RestaurantBean;
 import pojo.AccountDO;
 import pojo.OrderTableBean;
-import rambo0021.AccountBean;
+import rambo0021.model.AccountBean;
 
 public class Test_innocence741 {
 	
