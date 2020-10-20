@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
 import iring29.bean.RestaurantBean;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 import utils.StringUtil;
 
 @WebServlet("/RestaurantServlet")

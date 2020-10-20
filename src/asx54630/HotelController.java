@@ -10,8 +10,6 @@ import java.util.List;
 import javax.naming.*;
 import javax.sql.*;
 
-import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
-
 import controller.ConnectionPool;
 
 import javax.servlet.ServletException;
