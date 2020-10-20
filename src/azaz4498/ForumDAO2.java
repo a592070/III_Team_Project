@@ -9,14 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.sql.DataSource;
 
 //import org.apache.naming.java.javaURLContextFactory;
 
 import controller.ConnectionPool;
-import globalinit.Constant;
 
 public class ForumDAO2 {
 	private Connection conn;

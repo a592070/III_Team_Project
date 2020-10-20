@@ -2,8 +2,10 @@ package a592070.dao;
 
 import a592070.pojo.AttractionDO;
 import controller.ConnectionPool;
+import org.hibernate.Session;
 import utils.StringUtil;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
@@ -18,29 +20,18 @@ public class AttractionDAO {
     private ResultSet rs;
     private int size;
 
-    public AttractionDAO(int connType) throws IOException {
-        ds = ConnectionPool.getDataSource(connType);
+    private Session session;
+
+    public AttractionDAO(Session session) throws IOException {
+        this.session = session;
     }
 
     public int getSize() throws SQLException {
-        sql = "select count(1) from attraction";
-        try {
-            conn = ds.getConnection();
-            predStmt = conn.prepareStatement(sql);
-            rs = predStmt.executeQuery();
-            if(rs.next()){
-                size = rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return size;
+        return session.createQuery("select count(sn) from AttractionDO", Integer.class).uniqueResult();
     }
 
     public AttractionDO getAttraction(int id) throws SQLException {
-        return getAttraction("a_sn", id);
+        return session.get(AttractionDO.class, id);
     }
     public AttractionDO getAttraction(String columnName, Object columnValue) throws SQLException {
         sql = "select * from attraction where \""+columnName.toUpperCase()+"\"=? ";

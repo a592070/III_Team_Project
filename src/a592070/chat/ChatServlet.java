@@ -1,7 +1,7 @@
 package a592070.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import globalinit.Constant;
+import global.Constant;
 import rambo0021.model.AccountBean;
 
 import javax.servlet.ServletException;
@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 
 @WebServlet(name = "ChatServlet" , urlPatterns = "/ChatServlet")

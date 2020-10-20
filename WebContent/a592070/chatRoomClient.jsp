@@ -1,4 +1,4 @@
-<%@ page import="globalinit.Constant" %>
+<%@ page import="global.Constant" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.

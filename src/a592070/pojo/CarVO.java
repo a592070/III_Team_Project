@@ -3,10 +3,17 @@ package a592070.pojo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.persistence.*;
+
 @JsonSerialize(using = CarVOJsonSerializer.class)
 @JsonDeserialize(using = CarVOJsonDeserializer.class)
+@Entity
+@Table(name = "CARTYPE")
 public class CarVO {
+    @Id@Column(name = "sn_cartype")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
+    @Column(name = "cartype")
     private String carType;
     private int price;
     private String company;

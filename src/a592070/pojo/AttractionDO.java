@@ -5,12 +5,18 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import utils.StringUtil;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @JsonDeserialize(using = AttractionJsonDeserializer.class)
 @JsonSerialize(using = AttractionJsonSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Table(name = "ATTRACTION")
 public class AttractionDO {
+    @Id
+    @Column(name = "A_SN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
     private String name;
     private String toldescribe;
@@ -19,9 +25,12 @@ public class AttractionDO {
     private String address;
     private BigDecimal px;
     private BigDecimal py;
+    @Column(name = "opentime")
     private String openTime;
     private String picture;
+    @Column(name = "ticketinfo")
     private String ticketInfo;
+    @Column(name = "travellinginfo")
     private String travellingInfo;
     private String keywords;
     private String remarks;

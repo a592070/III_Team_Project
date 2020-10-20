@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="globalinit.Constant" %><%--
+<%@ page import="global.Constant" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 2020/10/12

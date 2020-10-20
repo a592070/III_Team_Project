@@ -1,26 +1,18 @@
 package a592070.chat;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import globalinit.Constant;
+import global.Constant;
 import rambo0021.model.AccountBean;
-
-import org.apache.tomcat.websocket.WsSession;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint(value = "/chat", configurator = HttpSessionConfigurator.class)
 public class ChatWebSocket {

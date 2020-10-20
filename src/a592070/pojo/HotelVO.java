@@ -3,14 +3,21 @@ package a592070.pojo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import utils.StringUtil;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @JsonDeserialize(using = HotelVOJsonDeserializer.class)
+@Entity
+@Table(name = "HOTEL")
 public class HotelVO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
     private String name;
     private String address;
+    @Column(name = "double_room")
     private int doubleRoomPrice;
+    @Column(name = "quadruple_room")
     private int quadrupleRoomPrice;
     private BigDecimal rating;
     private String description;

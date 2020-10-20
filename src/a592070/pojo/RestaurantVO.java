@@ -3,9 +3,14 @@ package a592070.pojo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import utils.StringUtil;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 @JsonDeserialize(using = RestaurantVOJsonDeserializer.class)
+@Entity
+@Table(name = "RESTAURANT")
 public class RestaurantVO {
+    @Id@Column(name = "r_sn")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
     private String name;
     private String type;
