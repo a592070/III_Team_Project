@@ -22,11 +22,14 @@ public class AttractionDAO {
 
     private Session session;
 
-    public AttractionDAO(Session session) throws IOException {
+    public AttractionDAO(Session session) {
         this.session = session;
     }
+    public AttractionDAO(int type) throws IOException {
+        this.ds = ConnectionPool.getDataSource(type);
+    }
 
-    public int getSize() throws SQLException {
+    public int getSize() {
         return session.createQuery("select count(sn) from AttractionDO", Integer.class).uniqueResult();
     }
 

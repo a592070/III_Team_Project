@@ -22,6 +22,7 @@
 
     <!--映射文件配置 bean mapping xml-->
 
+    <mapping package="a592070.pojo"/>
 
   </session-factory>
 </hibernate-configuration>
