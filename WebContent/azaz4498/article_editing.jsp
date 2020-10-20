@@ -3,7 +3,7 @@
  <%@ page import="azaz4498.ArticleDO"%>
 <%@ page import="azaz4498.CommentDO"%>
 <%@ page import="azaz4498.ArticleTypeDO"%>
-<%@ page import="azaz4498.ForumDAO"%>
+<%@ page import="azaz4498.ForumDAO2"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">

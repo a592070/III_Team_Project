@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 import controller.ConnectionPool;
 import globalinit.Constant;
 
-public class ForumDAO {
+public class ForumDAO2 {
 	private Connection conn;
 	private DataSource ds;
 	private String sql;
@@ -33,7 +33,7 @@ public class ForumDAO {
 //		ds = ConnectionPool.getDataSource(ConnectionPool.LOADING_WITHOUT_SERVER);
 //
 //	}
-	public ForumDAO(int dataSourceType) throws IOException, SQLException {
+	public ForumDAO2(int dataSourceType) throws IOException, SQLException {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 		articleListInit();
 		if(artTypeList == null) artTypeListInit();

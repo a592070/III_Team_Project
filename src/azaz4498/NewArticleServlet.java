@@ -50,9 +50,9 @@ public class NewArticleServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		ForumDAO forumDAO;
+		ForumDAO2 forumDAO;
 		try {
-			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
+			forumDAO = new ForumDAO2(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session = request.getSession(false);
 			String articleTitle = request.getParameter("article_title");
 			int articleTypeSelect = Integer.parseInt(request.getParameter("article_type_select"));

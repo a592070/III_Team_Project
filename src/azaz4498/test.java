@@ -9,7 +9,7 @@ import controller.ConnectionPool;
 public class test {
 
 	public static void main(String[] args) throws IOException, SQLException{
-		ForumDAO forumDAO = new ForumDAO(ConnectionPool.LOADING_WITHOUT_SERVER);
+		ForumDAO2 forumDAO = new ForumDAO2(ConnectionPool.LOADING_WITHOUT_SERVER);
 		
 		
 		

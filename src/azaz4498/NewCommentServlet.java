@@ -46,9 +46,9 @@ public class NewCommentServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		ForumDAO forumDAO;
+		ForumDAO2 forumDAO;
 		try {
-			forumDAO = new ForumDAO(ConnectionPool.LOADING_WITH_SERVER);
+			forumDAO = new ForumDAO2(ConnectionPool.LOADING_WITH_SERVER);
 			HttpSession session =request.getSession();
 			AccountBean account = (AccountBean) session.getAttribute("Login");
 			int currArticleid = (int) session.getAttribute("currArticle");
