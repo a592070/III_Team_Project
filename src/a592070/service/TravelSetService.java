@@ -32,7 +32,7 @@ public class TravelSetService {
         List<CarVO> list = null;
         try {
             list = carViewDAO.listEle();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("carViewDAO listEle()錯誤\n"+e).printStackTrace();
         }
         return list;
@@ -41,7 +41,7 @@ public class TravelSetService {
         List<HotelVO> list = null;
         try {
             list = hotelViewDAO.listEle();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("hotelViewDAO listEle()錯誤\n"+e).printStackTrace();
         }
         return list;
@@ -52,7 +52,7 @@ public class TravelSetService {
         List<RestaurantVO> list = null;
         try {
             list = restaurantViewDAO.listEle(region);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("restaurantViewDAO listEle()錯誤\n"+e).printStackTrace();
         }
         return list;
@@ -81,7 +81,7 @@ public class TravelSetService {
                 vo.setTicketInfo(ele.getTicketInfo());
                 list.add(vo);
             });
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO listAttractionByRownum()錯誤\n"+e).printStackTrace();
         }
         return list;
@@ -99,7 +99,7 @@ public class TravelSetService {
         int size = 0;
         try {
             size = attractionDAO.getAttractionRegionSize(region);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getAttractionRegionSize()錯誤\n"+e).printStackTrace();
         }
         return size;
@@ -110,7 +110,7 @@ public class TravelSetService {
         try {
             list = travelSetDAO.listTravelSet(username);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("travelSetDAO listTravelSet()錯誤\n"+e).printStackTrace();
         }
         return list;
@@ -119,7 +119,7 @@ public class TravelSetService {
         TravelSetDO travelSet = null;
         try {
             travelSet = travelSetDAO.getTravelSetByID(sn);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return travelSet;

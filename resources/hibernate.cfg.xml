@@ -7,7 +7,7 @@
     <!--產生適合特定資料庫的sql指令-->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
     <!--配置datasource-->
-<!--    <property name="hibernate.connection.datasource">java:comp/env/HibernateService</property> -->
+<!--    <property name="hibernate.connection.datasource">java:comp/env/HibernateService</property>-->
     <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/XEPDB1</property>
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
     <property name="hibernate.connection.username">iii_team_dba</property>
@@ -27,11 +27,25 @@
 
     <!--映射文件配置 bean mapping xml-->
 
+    <mapping class="a592070.pojo.AttractionDO"/>
     <mapping class="a592070.pojo.CarVO"/>
+    <mapping class="a592070.pojo.HotelVO"/>
+    <mapping class="a592070.pojo.RestaurantVO"/>
+    <mapping class="a592070.pojo.RegionDO"/>
+    <mapping class="a592070.pojo.TravelEleAttractionDO"/>
+    <mapping class="a592070.pojo.TravelEleRestaurantDO"/>
+    <mapping class="a592070.pojo.TravelEleHotelDO"/>
+    <mapping class="a592070.pojo.TravelEleCarDO"/>
+    <mapping class="a592070.pojo.TravelSetDO"/>
+
+    <mapping class="azaz4498.model.Article"/>
+    <mapping class="azaz4498.model.ArticleType"/>
+    <mapping class="azaz4498.model.Comment"/>
 
 
 	<mapping class="iring29.model.R_OrderBean"/>
 	<mapping class="iring29.model.RestaurantBean"/>
 	
+
   </session-factory>
 </hibernate-configuration>

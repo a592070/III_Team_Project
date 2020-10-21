@@ -2,24 +2,37 @@ package a592070.pojo;
 
 import utils.StringUtil;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "TRAVEL_SET")
 public class TravelSetDO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
+    @Column(name = "CREATED")
     private String createdUser;
     private String description;
     private int priority;
+    @Column(name = "CREATED_TIME")
     private Timestamp createdTime;
+    @Column(name = "UPDATE_TIME")
     private Timestamp updateTime;
     private String name;
     private int available;
 
-    private List<TravelEleCarDO> listTravelCar;
-    private List<TravelEleHotelDO> listTravelHotel;
-    private List<TravelEleRestaurantDO> listTravelRestaurant;
-    private List<TravelEleAttractionDO> listTravelAttraction;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
+    private List<TravelEleCarDO> listTravelCar = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
+    private List<TravelEleHotelDO> listTravelHotel = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
+    private List<TravelEleRestaurantDO> listTravelRestaurant = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
+    private List<TravelEleAttractionDO> listTravelAttraction = new ArrayList<>();
 
     public TravelSetDO() {
     }

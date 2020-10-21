@@ -1,12 +1,23 @@
 package a592070.pojo;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "TRAVEL_ELE_C")
 public class TravelEleCarDO {
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
+    @Column(name = "TRAVEL_ID")
     private int travelId;
     private Timestamp time;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "C_ID", referencedColumnName = "SN_CARTYPE")
     private CarVO car;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name = "TRAVEL_ID")
+    private TravelSetDO travelSetDO;
 
     public TravelEleCarDO() {
     }
@@ -41,6 +52,14 @@ public class TravelEleCarDO {
 
     public void setCar(CarVO car) {
         this.car = car;
+    }
+
+    public TravelSetDO getTravelSetDO() {
+        return travelSetDO;
+    }
+
+    public void setTravelSetDO(TravelSetDO travelSetDO) {
+        this.travelSetDO = travelSetDO;
     }
 
     @Override

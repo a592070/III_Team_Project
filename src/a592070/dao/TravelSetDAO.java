@@ -2,14 +2,14 @@ package a592070.dao;
 
 import a592070.pojo.*;
 import controller.ConnectionPool;
-import utils.CollectionUtils;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import utils.StringUtil;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TravelSetDAO {
@@ -18,125 +18,40 @@ public class TravelSetDAO {
     private String sql;
     private PreparedStatement predStmt;
     private ResultSet rs;
+    private Session session;
 
     public TravelSetDAO(int connType) throws IOException {
         this.ds = ConnectionPool.getDataSource(connType);
     }
-
-    public List<TravelSetDO> listTravelSet() throws SQLException {
-//        List<TravelSetDO> list = new ArrayList<>();
-//        Connection conn = null;
-//        PreparedStatement predStmt = null;
-//        Statement stmt = null;
-//        ResultSet rs = null;
-//        try {
-//            sql = "select * from travel_set order by sn";
-//            conn = ds.getConnection();
-//            stmt = conn.createStatement();
-//            rs = stmt.executeQuery(sql);
-//
-//            while (rs.next()) {
-//                TravelSetDO travelSetDO = new TravelSetDO();
-//                travelSetDO.setSn(rs.getInt("sn"));
-//                travelSetDO.setCreatedUser(rs.getString("created"));
-//                list.add(travelSetDO);
-//            }
-//
-//            for (TravelSetDO travelSetDO : list) {
-//                int id = travelSetDO.getSn();
-//                travelSetDO.setListTravelAttraction(getAttractionSetByID(id));
-//                travelSetDO.setListTravelCar(getCarSetByID(id));
-//                travelSetDO.setListTravelHotel(getHotelSetByID(id));
-//                travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
-//            }
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }finally {
-//            if(stmt != null) stmt.close();
-//            ConnectionPool.closeResources(conn, predStmt, rs);
-//        }
-//        return list;
-        return listTravelSet(null);
-    }
-    public List<TravelSetDO> listTravelSet(String created) throws SQLException {
-        List<TravelSetDO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement predStmt = null;
-        ResultSet rs = null;
-
-        StringBuffer sqlBuffer = new StringBuffer();
-        Object[] params = null;
-        sqlBuffer.append("select * from travel_set ");
-        if(!StringUtil.isEmpty(created)){
-            sqlBuffer.append("where created=? and available=1 ");
-            params = new Object[]{created};
-        }
-        sqlBuffer.append("order by priority desc");
-        try{
-            sql = sqlBuffer.toString();
-            conn = ds.getConnection();
-            predStmt = conn.prepareStatement(sql);
-            predStmt = ConnectionPool.setParams(predStmt, params);
-            rs = predStmt.executeQuery();
-            while(rs.next()){
-                TravelSetDO travelSetDO = new TravelSetDO();
-                travelSetDO.setSn(rs.getInt("sn"));
-                travelSetDO.setCreatedUser(rs.getString("created"));
-                travelSetDO.setDescription(rs.getString("description"));
-                travelSetDO.setPriority(rs.getInt("priority"));
-                travelSetDO.setCreatedTime(rs.getTimestamp("created_time"));
-                travelSetDO.setUpdateTime(rs.getTimestamp("update_time"));
-                travelSetDO.setName(rs.getString("name"));
-
-                list.add(travelSetDO);
-            }
-            for (TravelSetDO travelSetDO : list) {
-                int id = travelSetDO.getSn();
-                travelSetDO.setListTravelAttraction(getAttractionSetByID(id));
-                travelSetDO.setListTravelCar(getCarSetByID(id));
-                travelSetDO.setListTravelHotel(getHotelSetByID(id));
-                travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
-            }
-        } catch (SQLException e) {
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return list;
+    public TravelSetDAO(Session session) {
+        this.session = session;
     }
 
-    public TravelSetDO getTravelSetByID(int id) throws SQLException {
-        TravelSetDO travelSetDO = null;
-        Connection conn = null;
-        PreparedStatement predStmt = null;
-        ResultSet rs = null;
-        try{
-            sql = "select * from travel_set where sn=? and available=1 order by sn";
-            conn = ds.getConnection();
-            predStmt = conn.prepareStatement(sql);
-            predStmt.setInt(1, id);
-            rs = predStmt.executeQuery();
+    public List<TravelSetDO> listTravelSet() {
+        return listTravelSet("", 1);
+    }
+    public List<TravelSetDO> listTravelSet(String created) {
+        return listTravelSet(created, 1);
+    }
+    public List<TravelSetDO> listTravelSet(String created, int available){
+        String hql = "from TravelSetDO where createdUser=? and available=? order by priority desc ";
+        Query<TravelSetDO> query = session.createQuery(hql, TravelSetDO.class);
+        query.setParameter(0, created);
+        query.setParameter(1, available);
 
-            if(rs.next()) {
-                travelSetDO = new TravelSetDO();
-                travelSetDO.setSn(rs.getInt("sn"));
-                travelSetDO.setCreatedUser(rs.getString("created"));
-                travelSetDO.setName(rs.getString("name"));
-                travelSetDO.setDescription(rs.getString("description"));
-                travelSetDO.setPriority(rs.getInt("priority"));
-                travelSetDO.setCreatedTime(rs.getTimestamp("created_time"));
-                travelSetDO.setUpdateTime(rs.getTimestamp("update_time"));
-                travelSetDO.setListTravelAttraction(getAttractionSetByID(id));
-                travelSetDO.setListTravelCar(getCarSetByID(id));
-                travelSetDO.setListTravelHotel(getHotelSetByID(id));
-                travelSetDO.setListTravelRestaurant(getRestaurantSetByID(id));
-            }
-        } catch (SQLException e) {
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return travelSetDO;
+        return query.list();
+    }
+
+    public TravelSetDO getTravelSetByID(int id) {
+        return getTravelSetByID(id, 1);
+    }
+    public TravelSetDO getTravelSetByID(int id, int available){
+        String hql = "from TravelSetDO where sn=? and available=? order by sn";
+        Query<TravelSetDO> query = session.createQuery(hql, TravelSetDO.class);
+        query.setParameter(0, id);
+        query.setParameter(1, available);
+
+        return query.uniqueResultOptional().orElse(null);
     }
     public List<TravelEleAttractionDO> getAttractionSetByID(int id) throws SQLException {
         List<TravelEleAttractionDO> listAttraction = new ArrayList<>();
@@ -181,7 +96,7 @@ public class TravelSetDAO {
                 attractionVO.setTicketInfo(rs.getString("ticketinfo"));
                 attractionVO.setAddress(rs.getString("address"));
                 attractionVO.setDescription(rs.getString("description"));
-                travelEleAttractionDO.setAttraction(attractionVO);
+//                travelEleAttractionDO.setAttraction(attractionVO);
 
 
                 travelEleAttractionDO.setSn(rs.getInt("sn"));

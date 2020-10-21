@@ -15,9 +15,9 @@ public class HotelVO {
     private int sn;
     private String name;
     private String address;
-    @Column(name = "double_room")
+    @Column(name = "DOUBLE_ROOM")
     private int doubleRoomPrice;
-    @Column(name = "quadruple_room")
+    @Column(name = "QUADRUPLE_ROOM")
     private int quadrupleRoomPrice;
     private BigDecimal rating;
     private String description;

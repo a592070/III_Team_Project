@@ -326,7 +326,7 @@ public class TravelSetServlet extends HttpServlet {
             for (AttractionVO ele : selectList) {
                 TravelEleAttractionDO travelEleDO = new TravelEleAttractionDO();
                 travelEleDO.setTravelId(travelSet.getSn());
-                travelEleDO.setAttraction(ele);
+//                travelEleDO.setAttraction(ele);
                 travelEleList.add(travelEleDO);
             }
             travelSet.setListTravelAttraction(travelEleList);

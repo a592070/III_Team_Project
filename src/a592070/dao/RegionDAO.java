@@ -2,6 +2,7 @@ package a592070.dao;
 
 import a592070.pojo.RegionDO;
 import controller.ConnectionPool;
+import org.hibernate.Session;
 import utils.StringUtil;
 
 import javax.sql.DataSource;
@@ -19,32 +20,16 @@ public class RegionDAO {
     private String sql;
     private PreparedStatement predStmt;
     private ResultSet rs;
+    private Session session;
 
     public RegionDAO(int connType) throws IOException {
         ds = ConnectionPool.getDataSource(connType);
     }
-    public List<RegionDO> listRegion() throws SQLException {
-        List<RegionDO> list = new ArrayList<>();
-        try{
-            conn = ds.getConnection();
-            sql = "select * from region";
-            predStmt = conn.prepareStatement(sql);
-            rs = predStmt.executeQuery();
-            while(rs.next()){
-                RegionDO region = new RegionDO();
-                String region_name = rs.getString("region_name");
-                if(StringUtil.isEmpty(region_name)) continue;
-                region.setRegion(region_name);
-                region.setArea(rs.getString("area"));
-
-                list.add(region);
-            }
-        } catch (SQLException e) {
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return list;
+    public RegionDAO(Session session){
+        this.session = session;
+    }
+    public List<RegionDO> listRegion(){
+        return session.createQuery("from RegionDO order by area", RegionDO.class).list();
     }
 
 }
