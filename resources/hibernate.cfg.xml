@@ -30,8 +30,8 @@
     <mapping class="a592070.pojo.CarVO"/>
 
 
-	<mapping class="iring29.bean.R_OrderBean"/>
-	<mapping class="iring29.bean.RestaurantBean"/>
+	<mapping class="iring29.model.R_OrderBean"/>
+	<mapping class="iring29.model.RestaurantBean"/>
 	
   </session-factory>
 </hibernate-configuration>

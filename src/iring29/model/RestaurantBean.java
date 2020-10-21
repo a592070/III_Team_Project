@@ -1,6 +1,8 @@
 package iring29.model;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -34,6 +37,7 @@ public class RestaurantBean {
 	private String booking_id;
 	private String account;
 	private AccountBean accountBean;
+	private Set<R_OrderBean> r_OrderBeans = new HashSet<R_OrderBean>();
 
 	// constructor
 	public RestaurantBean() {
@@ -183,12 +187,21 @@ public class RestaurantBean {
 	
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERNAME")
+	@JoinColumn(name = "ACCOUNT", referencedColumnName="USERNAME")
 	public AccountBean getAccountBean() {
 		return accountBean;
 	}
 	public void setAccountBean(AccountBean accountBean) {
 		this.accountBean = accountBean;
+	}
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantBean", cascade = CascadeType.ALL)
+	public Set<R_OrderBean> getR_OrderBeans() {
+		return r_OrderBeans;
+	}
+	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
+		this.r_OrderBeans = r_OrderBeans;
 	}
 	@Override
 	public String toString() {
