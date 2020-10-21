@@ -13,10 +13,10 @@ public class RestaurantDAO {
 	
 	// find specific restaurant by restaurant name
 		public RestaurantBean findRestaurant(String name) {
-			 Query query = session.createQuery("from restaurant where name =" + name);
+			 Query query = session.createQuery("from restaurant where name ?");
+			 query.setParameter(0, name);
 			 RestaurantBean obj = (RestaurantBean)query.uniqueResult();
 			 return obj;
-			
 		}
 
 }
