@@ -2,21 +2,38 @@ package iring29.bean;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import rambo0021.model.AccountBean;
+
+@Entity
+@Table(name = "RESTAURANT")
 public class RestaurantBean {
 
-	BigDecimal r_sn;
-	String name;
-	String address;
-	String opentime;
-	String description;
-	String transportation;
-	String type;
-	BigDecimal rating;
-	String region;
-	String picture; 
-	String serviceinfo;
-	String booking_id;
-	String account;
+	private BigDecimal r_sn;
+	private String name;
+	private String address;
+	private String opentime;
+	private String description;
+	private String transportation;
+	private String type;
+	private BigDecimal rating;
+	private String region;
+	private String picture; 
+	private String serviceinfo;
+	private String booking_id;
+	private String account;
+	private AccountBean accountBean;
 
 	// constructor
 	public RestaurantBean() {
@@ -30,7 +47,8 @@ public class RestaurantBean {
 		}
 	// constructor
 
-
+	@Id @Column(name = "R_SN")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public BigDecimal getR_sn() {
 		return r_sn;
 	}
@@ -55,6 +73,8 @@ public class RestaurantBean {
 	public void setR_sn(BigDecimal r_sn) {
 		this.r_sn = r_sn;
 	}
+	
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
@@ -63,6 +83,7 @@ public class RestaurantBean {
 		this.name = name;
 	}
 
+	@Column(name = "ADDRESS")
 	public String getAddress() {
 		return address;
 	}
@@ -71,6 +92,7 @@ public class RestaurantBean {
 		this.address = address;
 	}
 
+	@Column(name = "OPENTIME")
 	public String getOpentime() {
 		return opentime;
 	}
@@ -79,6 +101,7 @@ public class RestaurantBean {
 		this.opentime = opentime;
 	}
 
+	@Column(name = "DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}
@@ -87,6 +110,7 @@ public class RestaurantBean {
 		this.description = description;
 	}
 
+	@Column(name = "TRANSPORTATION")
 	public String getTransportation() {
 		return transportation;
 	}
@@ -95,6 +119,7 @@ public class RestaurantBean {
 		this.transportation = transportation;
 	}
 
+	@Column(name = "TYPE")
 	public String getType() {
 		return type;
 	}
@@ -103,6 +128,7 @@ public class RestaurantBean {
 		this.type = type;
 	}
 
+	@Column(name = "RATING")
 	public BigDecimal getRating() {
 		return rating;
 	}
@@ -111,6 +137,7 @@ public class RestaurantBean {
 		this.rating = rating;
 	}
 
+	@Column(name = "REGION")
 	public String getRegion() {
 		return region;
 	}
@@ -119,6 +146,7 @@ public class RestaurantBean {
 		this.region = region;
 	}
 
+	@Column(name = "PICTURE")
 	public String getPicture() {
 		return picture;
 	}
@@ -127,6 +155,7 @@ public class RestaurantBean {
 		this.picture = picture;
 	}
 
+	@Column(name = "SERVICEINFO")
 	public String getServiceinfo() {
 		return serviceinfo;
 	}
@@ -135,6 +164,7 @@ public class RestaurantBean {
 		this.serviceinfo = serviceinfo;
 	}
 
+	@Column(name = "BOOKING_ID")
 	public String getBooking_id() {
 		return booking_id;
 	}
@@ -143,6 +173,7 @@ public class RestaurantBean {
 		this.booking_id = booking_id;
 	}
 	
+	@Transient
 	public String getAccount() {
 		return account;
 	}
@@ -150,6 +181,15 @@ public class RestaurantBean {
 		this.account = account;
 	}
 	
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USERNAME")
+	public AccountBean getAccountBean() {
+		return accountBean;
+	}
+	public void setAccountBean(AccountBean accountBean) {
+		this.accountBean = accountBean;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
