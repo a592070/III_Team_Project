@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package azaz4498.model;
 
 import java.io.Serializable;
@@ -50,35 +49,4 @@ public class ArticleType implements Serializable{
 	}
 	
 }
-=======
-package azaz4498.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "F_ART_TYPE")
-public class ArticleType {
-	private int typeId;
-	private String typeName;
-	@Id@Column(name = "TYPE_ID")
-	public int getTypeId() {
-		return typeId;
-	}
-
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
-	}
-	@Column(name = "TYPE_NAME")
-	public String getTypeName() {
-		return typeName;
-	}
-
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
-
-}
->>>>>>> 2b1bf865b46b8e73922c24c8f7bd130c264cae46
