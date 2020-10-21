@@ -25,7 +25,7 @@ public class AttractionService {
     public int getTotalSize(){
         try {
             size = attractionDAO.getSize();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getSize()錯誤\n"+e).printStackTrace();
         }
         return size;
@@ -34,7 +34,7 @@ public class AttractionService {
         int size = 0;
         try {
             size = attractionDAO.getAttractionRegionSize(region);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getAttractionRegionSize()錯誤\n"+e).printStackTrace();
         }
         return size;
@@ -43,7 +43,7 @@ public class AttractionService {
         int size = 0;
         try {
             size = attractionDAO.getAttractionKeyWordsSize(keyword);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getAttractionKeyWordsSize()錯誤\n"+e).printStackTrace();
         }
         return size;
@@ -53,7 +53,7 @@ public class AttractionService {
         AttractionDO attraction = null;
         try {
             attraction = attractionDAO.getAttraction(id);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getAttraction()錯誤\n"+e).printStackTrace();
         }
         return attraction;
@@ -62,7 +62,7 @@ public class AttractionService {
         AttractionDO attraction = null;
         try {
             attraction = attractionDAO.getAttraction(column, value);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getAttraction()錯誤\n"+e).printStackTrace();
         }
         return attraction;
@@ -77,7 +77,7 @@ public class AttractionService {
         List<AttractionDO> list = null;
         try {
             list = attractionDAO.listAttractionByRownum(start, end, region);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO listAttractionByRownum()錯誤\n"+e).printStackTrace();
         }
         return list;
@@ -89,7 +89,7 @@ public class AttractionService {
         List<AttractionDO> list = null;
         try {
             list = attractionDAO.listAttractionLike(start, end, keywords);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO listAttractionLike()錯誤\n"+e).printStackTrace();
         }
         return list;

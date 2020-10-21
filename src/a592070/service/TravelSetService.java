@@ -90,7 +90,7 @@ public class TravelSetService {
         int size=0;
         try {
             size = attractionDAO.getSize();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             new RuntimeException("AttractionDAO getSize()錯誤\n"+e).printStackTrace();
         }
         return size;

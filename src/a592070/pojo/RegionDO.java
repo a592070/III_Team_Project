@@ -2,6 +2,11 @@ package a592070.pojo;
 
 import utils.StringUtil;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "REGION")
 public class RegionDO {
     private String region;
     private String area;

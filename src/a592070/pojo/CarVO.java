@@ -9,6 +9,8 @@ import javax.persistence.*;
 @JsonDeserialize(using = CarVOJsonDeserializer.class)
 @Entity
 @Table(name = "CARTYPE")
+@SecondaryTable(name = "CARRENTALCOMPANY",
+        pkJoinColumns = {@PrimaryKeyJoinColumn(name = "sn_rentalcompany")})
 public class CarVO {
     @Id@Column(name = "sn_cartype")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +18,7 @@ public class CarVO {
     @Column(name = "cartype")
     private String carType;
     private int price;
+    @Column(name = "name_company", table = "CARRENTALCOMPANY")
     private String company;
 
     public CarVO() {

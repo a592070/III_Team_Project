@@ -113,7 +113,7 @@
     }
 
 
-    const url = "ws://172.16.39.63:8080${pageContext.servletContext.contextPath}/chat";
+    const url = "ws://<%=request.getLocalAddr()%>:8080${pageContext.servletContext.contextPath}/chat";
     var websocket = new WebSocket(url);
 
     websocket.onopen = function (event){
