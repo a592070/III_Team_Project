@@ -24,6 +24,10 @@ public class HighSpeedRailDAO {
 		if (hsrlist == null || hsrlist.size() == 0) {
 			hsrInit();
 		}
+		
+//		for(HighSpeedRail hBean:hsrlist) {
+//			System.out.println(hBean.getSnSchedule() + ":" + hBean.getIdHSR());
+//		}
 	}
 	
 	public void hsrInit() throws SQLException {
