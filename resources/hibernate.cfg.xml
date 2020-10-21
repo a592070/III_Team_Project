@@ -7,11 +7,7 @@
     <!--產生適合特定資料庫的sql指令-->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
     <!--配置datasource-->
-   <property name="hibernate.connection.datasource">java:comp/env/HibernateService</property>
-     <!--  <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/XEPDB1</property>--> 
-     <!--<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
-     <!--<property name="hibernate.connection.username">iii_team_dba</property> -->
-   <!-- <property name="hibernate.connection.password">iiidba</property> -->
+
 
 
     <!--currentSession-->
@@ -32,5 +28,9 @@
     <mapping class="azaz4498.model.ArticleType"/>
     <mapping class="azaz4498.model.Comment"/>
 
+
+	<mapping class="iring29.bean.R_OrderBean"/>
+	<mapping class="iring29.bean.RestaurantBean"/>
+	
   </session-factory>
 </hibernate-configuration>

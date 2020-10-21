@@ -18,8 +18,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.bean.R_OrderBean;
-import iring29.bean.RestaurantBean;
+import iring29.model.R_OrderBean;
+import iring29.model.RestaurantBean;
 import pojo.OrderTableBean;
 
 public class RestaurantDAO {

@@ -8,7 +8,7 @@ import java.util.Set;
 
 import asx54630.H_OrderBean;
 import innocence741.T_OrderBean;
-import iring29.bean.R_OrderBean;
+import iring29.model.R_OrderBean;
 import rambo0021.model.AccountBean;
 
 //大訂單的Bean
