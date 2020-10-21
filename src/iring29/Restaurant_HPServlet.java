@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.ConnectionPool;
-import iring29.bean.R_OrderBean;
-import iring29.bean.RestaurantBean;
+import iring29.model.R_OrderBean;
+import iring29.model.RestaurantBean;
 import oracle.security.o3logon.b;
 import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;

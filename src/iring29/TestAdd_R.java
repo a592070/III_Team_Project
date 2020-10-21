@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import controller.ConnectionPool;
-import iring29.bean.RestaurantBean;
+import iring29.model.RestaurantBean;
 
 public class TestAdd_R {
 

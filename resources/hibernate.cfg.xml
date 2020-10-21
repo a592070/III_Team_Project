@@ -38,6 +38,13 @@
     <mapping class="a592070.pojo.TravelEleCarDO"/>
     <mapping class="a592070.pojo.TravelSetDO"/>
 
+    <mapping class="azaz4498.model.Article"/>
+    <mapping class="azaz4498.model.ArticleType"/>
+    <mapping class="azaz4498.model.Comment"/>
+
+
+	<mapping class="iring29.bean.R_OrderBean"/>
+	<mapping class="iring29.bean.RestaurantBean"/>
 
   </session-factory>
 </hibernate-configuration>

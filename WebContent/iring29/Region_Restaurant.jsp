@@ -1,4 +1,4 @@
-<%@ page import="iring29.bean.RestaurantBean"%>
+<%@ page import="iring29.model.RestaurantBean"%>
 <%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

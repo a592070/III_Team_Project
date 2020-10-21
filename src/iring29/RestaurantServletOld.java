@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ConnectionPool;
-import iring29.bean.RestaurantBean;
+import iring29.model.RestaurantBean;
 
 @WebServlet("/RestaurantServletOld")
 public class RestaurantServletOld extends HttpServlet {
