@@ -24,20 +24,12 @@ public class HighSpeedRailDAO {
 		if (hsrlist == null || hsrlist.size() == 0) {
 			hsrInit();
 		}
-		
-//		for(HighSpeedRail hBean:hsrlist) {
-//			System.out.println(hBean.getSnSchedule() + ":" + hBean.getIdHSR());
-//		}
 	}
 	
 	public void hsrInit() throws SQLException {
-		hsrlist = new ArrayList<>();
+//		hsrlist = new ArrayList<>();
 		Query<HighSpeedRail> query = session.createQuery("From HighSpeedRail",HighSpeedRail.class);
-		ArrayList<HighSpeedRail> hsrlist = (ArrayList<HighSpeedRail>)query.list();
-		
-		for(HighSpeedRail hBean:hsrlist) {
-			System.out.println(hBean.getSnSchedule() + ":" + hBean.getIdHSR());
-		}
+		hsrlist = query.list();
 	}
 	
 	
@@ -90,6 +82,7 @@ public class HighSpeedRailDAO {
     
     public void searchHSR(String startPoint, String destination, String departureTime) {
     	String direction = getDirection(startPoint, destination);
+
     	for (int i = 0;  i <hsrlist.size(); i++) {
     		if( Objects.equals(direction,hsrlist.get(i).getDirection()) && hsrlist.get(i).getArriveTime(startPoint)!=null && hsrlist.get(i).getArriveTime(destination)!=null ) {
     			hsrList2user.add(hsrlist.get(i));

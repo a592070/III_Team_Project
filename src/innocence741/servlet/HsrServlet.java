@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import controller.ConnectionPool;
-import hibernateproject.util.HibernateUtil;
+import utils.HibernateUtil;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
 import innocence741.hsrDAO;
@@ -72,6 +72,7 @@ public class HsrServlet extends HttpServlet {
         
 		session2.getTransaction().commit();
 		HibernateUtil.closeSessionFactory();
+		
         System.out.println(ujson+"\n");
         PrintWriter out = response.getWriter();
         out.println(ujson.toString());
