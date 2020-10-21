@@ -62,7 +62,7 @@
     </style>
 </head>
 <body>
-<jsp:useBean id="res_data" class="iring29.bean.RestaurantBean" scope="session"></jsp:useBean>
+<jsp:useBean id="res_data" class="iring29.model.RestaurantBean" scope="session"></jsp:useBean>
 <div class="box">
         <div>
             <h3>Welcome Homepage</h3>

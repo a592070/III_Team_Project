@@ -15,8 +15,8 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.bean.R_OrderBean;
-import iring29.bean.RestaurantBean;
+import iring29.model.R_OrderBean;
+import iring29.model.RestaurantBean;
 import pojo.AccountDO;
 import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;

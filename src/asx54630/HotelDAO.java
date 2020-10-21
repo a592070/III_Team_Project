@@ -14,7 +14,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import a592070.pojo.AttractionDO;
 import controller.ConnectionPool;
-import iring29.bean.RestaurantBean;
+import iring29.model.RestaurantBean;
 
 public class HotelDAO {
 

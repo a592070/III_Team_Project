@@ -23,7 +23,7 @@ import innocence741.CarRentalCompanyBean;
 import innocence741.CarRentalCompanyDAO;
 import innocence741.CarTypeBean;
 import iring29.RestaurantDAO;
-import iring29.bean.RestaurantBean;
+import iring29.model.RestaurantBean;
 import rambo0021.model.AccountBean;
 import rambo0021.model.RegisterDAO;
 import rambo0021.model.SHA2DAO;
