@@ -12,13 +12,13 @@ import javax.persistence.*;
 @SecondaryTable(name = "CARRENTALCOMPANY",
         pkJoinColumns = {@PrimaryKeyJoinColumn(name = "sn_rentalcompany")})
 public class CarVO {
-    @Id@Column(name = "sn_cartype")
+    @Id@Column(name = "SN_CARTYPE")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
-    @Column(name = "cartype")
+    @Column(name = "CARTYPE")
     private String carType;
     private int price;
-    @Column(name = "name_company", table = "CARRENTALCOMPANY")
+    @Column(name = "NAME_COMPANY", table = "CARRENTALCOMPANY")
     private String company;
 
     public CarVO() {

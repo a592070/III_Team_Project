@@ -3,6 +3,8 @@ package a592070.dao;
 import a592070.pojo.HotelVO;
 import a592070.pojo.RestaurantVO;
 import controller.ConnectionPool;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import utils.StringUtil;
 
 import javax.sql.DataSource;
@@ -20,117 +22,49 @@ public class RestaurantViewDAO {
     private String sql;
     private PreparedStatement predStmt;
     private ResultSet rs;
+    private Session session;
+
+    public RestaurantViewDAO(Session session) {
+        this.session = session;
+    }
 
     public RestaurantViewDAO(int connType) throws IOException {
         ds = ConnectionPool.getDataSource(connType);
     }
 
-    public RestaurantVO getEle(int id) throws IOException, SQLException {
-        return getEle("r_sn", id);
+    public RestaurantVO getEle(int id) {
+        return session.get(RestaurantVO.class, id);
     }
-    public RestaurantVO getEle(String columnName, Object columnValue) throws SQLException {
-        sql = "select * " +
-                "from restaurant " +
-                "where \""+columnName.toUpperCase()+"\"=? " +
-                "order by r_sn";
-        Object[] params = {columnValue};
-        RestaurantVO restaurantVO  = null;
-        try {
-            conn = ds.getConnection();
-            predStmt = conn.prepareStatement(sql);
-            predStmt = ConnectionPool.setParams(predStmt, params);
-            rs = predStmt.executeQuery();
-            if (rs.next()) {
-                restaurantVO = new RestaurantVO();
-                restaurantVO.setSn(rs.getInt("r_sn"));
-                restaurantVO.setName(rs.getString("name"));
-                restaurantVO.setAddress(rs.getString("address"));
-                restaurantVO.setPicture(rs.getString("picture"));
-                restaurantVO.setDescription(rs.getString("description"));
-                restaurantVO.setType(rs.getString("type"));
-                restaurantVO.setRating(rs.getBigDecimal("rating"));
-            }
-        }catch (SQLException e){
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return restaurantVO;
+    public RestaurantVO getEle(String fieldName, Object fieldValue){
+        fieldValue = "%"+fieldValue+"%";
+        String hql = "from RestaurantVO where "+fieldName+" like ?";
+        Query<RestaurantVO> query = session.createQuery(hql, RestaurantVO.class);
+        query.setParameter(0, fieldValue);
+
+        return query.uniqueResultOptional().orElse(null);
     }
 
-    public List<RestaurantVO> listEle(String region) throws SQLException {
-        Object[] params = null;
+    public List<RestaurantVO> listEle(String region) {
+        region = "%"+region+"%";
+        String hql = "from RestaurantVO where address like ? or region like ? order by sn";
+        Query<RestaurantVO> query = session.createQuery(hql, RestaurantVO.class);
+        query.setParameter(0, region);
+        query.setParameter(1, region);
 
-        StringBuffer sqlBuffer = new StringBuffer();
-        sqlBuffer.append("select * from restaurant ");
-        if(!StringUtil.isEmpty(region)) {
-            sqlBuffer.append("where address like ? or region like ? ");
-            params = new Object[]{"%"+region+"%", "%"+region+"%"};
-        }
-        sqlBuffer.append("order by r_sn");
-
-        sql = sqlBuffer.toString();
-        List<RestaurantVO> list = new ArrayList<>();
-        try {
-            conn = ds.getConnection();
-            predStmt = conn.prepareStatement(sql);
-            predStmt = ConnectionPool.setParams(predStmt, params);
-            rs = predStmt.executeQuery();
-            while (rs.next()) {
-                RestaurantVO restaurantVO = new RestaurantVO();
-                restaurantVO.setSn(rs.getInt("r_sn"));
-                restaurantVO.setName(rs.getString("name"));
-                restaurantVO.setAddress(rs.getString("address"));
-                restaurantVO.setPicture(rs.getString("picture"));
-                restaurantVO.setDescription(rs.getString("description"));
-                restaurantVO.setType(rs.getString("type"));
-                restaurantVO.setRating(rs.getBigDecimal("rating"));
-                restaurantVO.setRegion(rs.getString("region"));
-
-                list.add(restaurantVO);
-            }
-        }catch (SQLException e){
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return list;
+        return query.list();
     }
 
-
-    public List<RestaurantVO> listEle() throws SQLException {
-        return listEle(null);
+    public List<RestaurantVO> listEle() {
+        return listEle("");
     }
 
-    public List<RestaurantVO> listEleByRownum(int startIndex, int endIndex) throws SQLException {
-        sql = "select rownum, t.* " +
-                "from (select rownum rn, restaurant.* " +
-                "from restaurant " +
-                "order by r_sn) t " +
-                "where rn between ? and ?";
-        List<RestaurantVO> list = new ArrayList<>();
-        try {
-            conn = ds.getConnection();
-            predStmt = conn.prepareStatement(sql);
-            predStmt = ConnectionPool.setParams(predStmt, new Object[]{startIndex, endIndex});
-            rs = predStmt.executeQuery();
-            while (rs.next()) {
-                RestaurantVO restaurantVO = new RestaurantVO();
-                restaurantVO.setSn(rs.getInt("r_sn"));
-                restaurantVO.setName(rs.getString("name"));
-                restaurantVO.setAddress(rs.getString("address"));
-                restaurantVO.setPicture(rs.getString("picture"));
-                restaurantVO.setDescription(rs.getString("description"));
-                restaurantVO.setType(rs.getString("type"));
-                restaurantVO.setRating(rs.getBigDecimal("rating"));
+    public List<RestaurantVO> listEleByRownum(int startIndex, int endIndex) {
+        String hql = "from RestaurantVO order by sn";
+        Query<RestaurantVO> query = session.createQuery(hql, RestaurantVO.class);
 
-                list.add(restaurantVO);
-            }
-        }catch (SQLException e){
-            throw e;
-        }finally {
-            ConnectionPool.closeResources(conn, predStmt, rs);
-        }
-        return list;
+        query.setFirstResult(startIndex);
+        query.setMaxResults(endIndex);
+
+        return query.list();
     }
 }

@@ -40,20 +40,18 @@ public class AttractionDAO {
         return session.get(AttractionDO.class, id);
     }
 
-    @Deprecated
-    public AttractionDO getAttraction(String columnName, Object columnValue){
-        String hql = "from AttractionDO where \""+columnName.toUpperCase()+"\"= ? ";
-        Query query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(0, columnValue);
-        Optional<AttractionDO> optional = query.uniqueResultOptional();
+    public AttractionDO getAttraction(String fieldName, Object fieldValue){
+        String hql = "from AttractionDO where "+fieldName+" = ? ";
+        Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
+        query.setParameter(0, fieldValue);
 
-        return optional.get();
+        return query.uniqueResultOptional().orElse(null);
     }
-    public List<AttractionDO> listAttractionLike(String columnName, String columnValue) {
-        columnValue = "%"+columnValue+"%";
-        String hql = "from AttractionDO where \""+columnName.toUpperCase()+"\" like ?";
-        Query query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(0, columnValue);
+    public List<AttractionDO> listAttractionLike(String fieldName, String fieldValue) {
+        fieldValue = "%"+fieldValue+"%";
+        String hql = "from AttractionDO where "+fieldName+" like ?";
+        Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
+        query.setParameter(0, fieldValue);
 
         return query.list();
     }
@@ -72,7 +70,7 @@ public class AttractionDAO {
         query.setParameter(3, keyWords);
         query.setParameter(4, keyWords);
 
-        return query.uniqueResult();
+        return query.uniqueResultOptional().orElse(0);
     }
     public List<AttractionDO> listAttractionLike(int startIndex, int endIndex, String keyWords) {
         if(StringUtil.isEmpty(keyWords)) {
@@ -104,7 +102,7 @@ public class AttractionDAO {
         Query<Integer> query = session.createQuery(hql, Integer.class);
         query.setParameter(0, region);
 
-        return query.uniqueResult();
+        return query.uniqueResultOptional().orElse(0);
     }
     public List<AttractionDO> listAttractionByRownum(int startIndex, int endIndex, String region){
         if(StringUtil.isEmpty(region)){

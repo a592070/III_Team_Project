@@ -2,6 +2,7 @@ package a592070.pojo;
 
 import utils.StringUtil;
 
+
 public class AttractionVO {
     private int sn;
     private String name;
