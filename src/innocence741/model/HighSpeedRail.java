@@ -1,10 +1,16 @@
 package innocence741.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -56,6 +62,12 @@ public class HighSpeedRail {
 	
 	@Column(name = "ZUOYING")
 	private String zuoying;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "highSpeedRail", cascade = CascadeType.ALL)
+	private Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
+
+	
+
 
 	public int getSnSchedule() {
 		return snSchedule;
@@ -175,6 +187,14 @@ public class HighSpeedRail {
 
 	public void setZuoying(String zuoying) {
 		this.zuoying = zuoying;
+	}
+	
+	public Set<T_Order_List> getT_Order_Lists() {
+		return t_Order_Lists;
+	}
+
+	public void setT_Order_Lists(Set<T_Order_List> t_Order_Lists) {
+		this.t_Order_Lists = t_Order_Lists;
 	}
 	
 	

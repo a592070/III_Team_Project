@@ -30,6 +30,9 @@ public class HighSpeedRailDAO {
 //		hsrlist = new ArrayList<>();
 		Query<HighSpeedRail> query = session.createQuery("From HighSpeedRail",HighSpeedRail.class);
 		hsrlist = query.list();
+//		for(HighSpeedRail hBean:hsrlist) {
+//			System.out.println(hBean.getSnSchedule() + ":" + hBean.getIdHSR());
+//		}
 	}
 	
 	
