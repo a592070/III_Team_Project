@@ -1,4 +1,4 @@
-package iring29;
+package iring29.model;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,8 +14,6 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.model.R_OrderBean;
-import iring29.model.RestaurantBean;
 import pojo.OrderTableBean;
 
 public class R_Order_ListDAO {

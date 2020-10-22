@@ -1,4 +1,4 @@
-package iring29;
+package iring29.model;
 
 import java.io.IOException;
 import java.math.BigDecimal;

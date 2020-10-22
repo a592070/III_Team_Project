@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import controller.ConnectionPool;
 import iring29.model.RestaurantBean;
+import iring29.model.RestaurantDAO;
 
 public class TestAdd_R {
 

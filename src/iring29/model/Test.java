@@ -1,7 +1,5 @@
 package iring29.model;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -11,22 +9,41 @@ public class Test {
 
 	public static void main(String[] args) {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
-		
+
 		Session session = factory.getCurrentSession();
-		
+
 		session.beginTransaction();
-		
-		
+
 		RestaurantDAO rDAO = new RestaurantDAO(session);
+
+//		Long count = rDAO.numRestaurant("牛");
+//		System.out.println(count);
+
+//		List<RestaurantBean> rBeans = rDAO.findMulti_R("牛");
+//		for(RestaurantBean r : rBeans) {
+//			System.out.println(r.getName());
+//		}
+
 //		RestaurantBean rBean = rDAO.findRestaurant("山鯨燒肉");
 //		System.out.println(rBean.getAddress());
+
+//		List<RestaurantBean> rBeans = rDAO.findMulti_Name_Region("牛", "台南");
+//		for (RestaurantBean r : rBeans) {
+//			System.out.println(r.getName());
+//		}
+
+//		List<RestaurantBean> rBeans = rDAO.findRegion("台中");
+//		for(RestaurantBean r : rBeans) {
+//			System.out.println(r.getName());
+//			System.out.println(r.getRegion());
+//			System.out.println(r.getType());
+//		}
 		
-		
-		//fail
-		List<RestaurantBean> rBeans = rDAO.findRegion("台中");
-		for(RestaurantBean r : rBeans) {
-			System.out.println(r.getName());
-		}
+//		RestaurantBean rBean = new RestaurantBean();
+//		rBean.setName("Test");
+//		rBean.setAddress("Test Address");
+//		rDAO.createRestauran(rBean); //java.lang.IllegalArgumentException: id to load is required for loading
+
 		
 		
 		session.getTransaction().commit();
