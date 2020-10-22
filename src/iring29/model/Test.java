@@ -1,5 +1,7 @@
 package iring29.model;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -14,9 +16,17 @@ public class Test {
 		
 		session.beginTransaction();
 		
+		
 		RestaurantDAO rDAO = new RestaurantDAO(session);
-		RestaurantBean rBean = rDAO.findRestaurant("山鯨燒肉");
-		System.out.println(rBean.getAddress());
+//		RestaurantBean rBean = rDAO.findRestaurant("山鯨燒肉");
+//		System.out.println(rBean.getAddress());
+		
+		
+		//fail
+		List<RestaurantBean> rBeans = rDAO.findRegion("台中");
+		for(RestaurantBean r : rBeans) {
+			System.out.println(r.getName());
+		}
 		
 		
 		session.getTransaction().commit();

@@ -34,8 +34,10 @@ public class RestaurantDAO {
 	
 	// find specific region
 		public List<RestaurantBean> findRegion(String region){
-			session.createQuery("");
-			return null;
+			Query<RestaurantBean> query = session.createQuery("select name, region, type from RestaurantBean where region = ?0", RestaurantBean.class);
+			query.setParameter(0, region);
+			List<RestaurantBean> rBeans = query.list();
+			return rBeans;
 			
 		}
 	
