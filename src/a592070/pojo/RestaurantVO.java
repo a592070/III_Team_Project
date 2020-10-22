@@ -1,6 +1,7 @@
 package a592070.pojo;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.hibernate.annotations.Immutable;
 import utils.StringUtil;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 @JsonDeserialize(using = RestaurantVOJsonDeserializer.class)
 @Entity
 @Table(name = "RESTAURANT")
+@Immutable
 public class RestaurantVO {
     @Id@Column(name = "r_sn")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

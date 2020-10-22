@@ -16,7 +16,7 @@ public class TravelEleRestaurantDO {
     @JoinColumn(name = "R_ID", referencedColumnName = "R_SN")
     private RestaurantVO restaurant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRAVEL_ID")
     private TravelSetDO travelSetDO;
 

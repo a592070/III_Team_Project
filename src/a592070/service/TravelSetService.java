@@ -2,11 +2,8 @@ package a592070.service;
 
 import a592070.dao.*;
 import a592070.pojo.*;
-import controller.ConnectionPool;
 import org.hibernate.Session;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +16,9 @@ public class TravelSetService {
 
     private Session session;
 
+    public TravelSetService() {
+    }
+
     public TravelSetService(Session session) {
         carViewDAO = new CarViewDAO(session);
         hotelViewDAO = new HotelViewDAO(session);
@@ -26,17 +26,12 @@ public class TravelSetService {
         attractionDAO = new AttractionDAO(session);
         travelSetDAO = new TravelSetDAO(session);
     }
-
-    public TravelSetService() {
-        try {
-            carViewDAO = new CarViewDAO(ConnectionPool.LOADING_WITH_SERVER);
-            hotelViewDAO = new HotelViewDAO(ConnectionPool.LOADING_WITH_SERVER);
-            restaurantViewDAO = new RestaurantViewDAO(ConnectionPool.LOADING_WITH_SERVER);
-            attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITH_SERVER);
-            travelSetDAO = new TravelSetDAO(ConnectionPool.LOADING_WITH_SERVER);
-        } catch (IOException e) {
-            new RuntimeException("DAO 初始化錯誤\n"+e).printStackTrace();
-        }
+    public void setSession(Session session){
+        carViewDAO = new CarViewDAO(session);
+        hotelViewDAO = new HotelViewDAO(session);
+        restaurantViewDAO = new RestaurantViewDAO(session);
+        attractionDAO = new AttractionDAO(session);
+        travelSetDAO = new TravelSetDAO(session);
     }
 
     public List<CarVO> listCarVO() {
@@ -55,27 +50,16 @@ public class TravelSetService {
         return listRestaurant(null);
     }
 
-    public List<AttractionVO> listAttraction(int currentPage, int pageSize){
+    public List<AttractionDO> listAttraction(int currentPage, int pageSize){
         return listAttraction(currentPage, pageSize, null);
     }
 
-    public List<AttractionVO> listAttraction(int currentPage, int pageSize, String region){
+    public List<AttractionDO> listAttraction(int currentPage, int pageSize, String region){
         int start = pageSize*(currentPage-1)+1;
         int end = pageSize*currentPage;
-        List<AttractionVO> list = new ArrayList<>();
 
         List<AttractionDO> listDO = attractionDAO.listAttractionByRownum(start, end, region);
-        listDO.forEach(ele ->{
-            AttractionVO vo = new AttractionVO();
-            vo.setSn(ele.getSn());
-            vo.setName(ele.getName());
-            vo.setPicture(ele.getPicture());
-            vo.setAddress(ele.getAddress());
-            vo.setTicketInfo(ele.getTicketInfo());
-            list.add(vo);
-        });
-
-        return list;
+        return listDO;
     }
     public int getTotalSize(){
         return attractionDAO.getSize();

@@ -26,7 +26,7 @@ public class TravelSetSelectServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        service = new TravelSetService(HibernateUtil.getSessionFactory().getCurrentSession());
+        service = new TravelSetService();
     }
 
     @Override
@@ -36,6 +36,7 @@ public class TravelSetSelectServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        service.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
 
         HttpSession session = req.getSession();
         String username;

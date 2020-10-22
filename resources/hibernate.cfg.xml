@@ -25,7 +25,7 @@
 
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
 
-<!--
+
     <mapping class="a592070.pojo.AttractionDO"/>
     <mapping class="a592070.pojo.CarVO"/>
     <mapping class="a592070.pojo.HotelVO"/>
@@ -37,20 +37,20 @@
     <mapping class="a592070.pojo.TravelEleCarDO"/>
     <mapping class="a592070.pojo.TravelSetDO"/>
 
-    <mapping class="azaz4498.model.Article"/>
-    <mapping class="azaz4498.model.ArticleType"/>
-    <mapping class="azaz4498.model.Comment"/>
+<!--    <mapping class="azaz4498.model.Article"/>-->
+<!--    <mapping class="azaz4498.model.ArticleType"/>-->
+<!--    <mapping class="azaz4498.model.Comment"/>-->
 
- 
-	<mapping class="iring29.model.R_OrderBean"/>  -->
-	<mapping class="iring29.model.RestaurantBean"/>
-	
-	
-	<mapping class="innocence741.model.HighSpeedRail"/>
-	<mapping class="innocence741.model.T_Order_List"/>
-	<mapping class="innocence741.model.CarType"/>
-	<mapping class="innocence741.model.Order_table"/>
-	<mapping class="innocence741.model.CarRentalCompany"/>
+<!-- -->
+<!--	<mapping class="iring29.model.R_OrderBean"/> -->
+<!--	<mapping class="iring29.model.RestaurantBean"/>-->
+<!--	-->
+<!--	-->
+<!--	<mapping class="innocence741.model.HighSpeedRail"/>-->
+<!--	<mapping class="innocence741.model.T_Order_List"/>-->
+<!--	<mapping class="innocence741.model.CarType"/>-->
+<!--	<mapping class="innocence741.model.Order_table"/>-->
+<!--	<mapping class="innocence741.model.CarRentalCompany"/>-->
 	
 	
     </session-factory>

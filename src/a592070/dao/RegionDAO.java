@@ -15,16 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegionDAO {
-    private DataSource ds;
-    private Connection conn;
-    private String sql;
-    private PreparedStatement predStmt;
-    private ResultSet rs;
     private Session session;
 
-    public RegionDAO(int connType) throws IOException {
-        ds = ConnectionPool.getDataSource(connType);
-    }
     public RegionDAO(Session session){
         this.session = session;
     }

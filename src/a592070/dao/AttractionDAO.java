@@ -1,35 +1,17 @@
 package a592070.dao;
 
 import a592070.pojo.AttractionDO;
-import controller.ConnectionPool;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import utils.StringUtil;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 public class AttractionDAO {
-    private DataSource ds;
-    private Connection conn;
-    private String sql;
-    private PreparedStatement predStmt;
-    private ResultSet rs;
-    private int size;
-
     private Session session;
 
     public AttractionDAO(Session session) {
         this.session = session;
-    }
-    public AttractionDAO(int type) throws IOException {
-        this.ds = ConnectionPool.getDataSource(type);
     }
 
     public int getSize() {
@@ -41,17 +23,17 @@ public class AttractionDAO {
     }
 
     public AttractionDO getAttraction(String fieldName, Object fieldValue){
-        String hql = "from AttractionDO where "+fieldName+" = ? ";
+        String hql = "from AttractionDO where "+fieldName+" = ?1 ";
         Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(0, fieldValue);
+        query.setParameter(1, fieldValue);
 
         return query.uniqueResultOptional().orElse(null);
     }
     public List<AttractionDO> listAttractionLike(String fieldName, String fieldValue) {
         fieldValue = "%"+fieldValue+"%";
-        String hql = "from AttractionDO where "+fieldName+" like ?";
+        String hql = "from AttractionDO where "+fieldName+" like ?1";
         Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(0, fieldValue);
+        query.setParameter(1, fieldValue);
 
         return query.list();
     }
@@ -62,13 +44,13 @@ public class AttractionDAO {
         }else {
             keyWords = "%"+keyWords+"%";
         }
-        String hql = "select count(sn) from AttractionDO where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ? ";
+        String hql = "select count(sn) from AttractionDO where name like ?1 or toldescribe like ?2 or description like ?3 or address like ?4 or keywords like ?5 ";
         Query<Integer> query = session.createQuery(hql, Integer.class);
-        query.setParameter(0, keyWords);
         query.setParameter(1, keyWords);
         query.setParameter(2, keyWords);
         query.setParameter(3, keyWords);
         query.setParameter(4, keyWords);
+        query.setParameter(5, keyWords);
 
         return query.uniqueResultOptional().orElse(0);
     }
@@ -78,14 +60,14 @@ public class AttractionDAO {
         }else {
             keyWords = "%"+keyWords+"%";
         }
-        String hql = "from AttractionDO where name like ? or toldescribe like ? or description like ? or address like ? or keywords like ? ";
+        String hql = "from AttractionDO where name like ?1 or toldescribe like ?2 or description like ?3 or address like ?4 or keywords like ?5 ";
 
         Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(0, keyWords);
         query.setParameter(1, keyWords);
         query.setParameter(2, keyWords);
         query.setParameter(3, keyWords);
         query.setParameter(4, keyWords);
+        query.setParameter(5, keyWords);
         query.setFirstResult(startIndex);
         query.setMaxResults(endIndex);
 
@@ -98,9 +80,9 @@ public class AttractionDAO {
         }else {
             region = "%" + region + "%";
         }
-        String hql = "select count(sn) from AttractionDO where region like ? ";
+        String hql = "select count(sn) from AttractionDO where region like ?1 ";
         Query<Integer> query = session.createQuery(hql, Integer.class);
-        query.setParameter(0, region);
+        query.setParameter(1, region);
 
         return query.uniqueResultOptional().orElse(0);
     }
@@ -111,9 +93,9 @@ public class AttractionDAO {
             region = "%" + region + "%";
         }
 
-        String hql = "from AttractionDO where region like ? ";
+        String hql = "from AttractionDO where region like ?1 ";
         Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(0, region);
+        query.setParameter(1, region);
 
         query.setFirstResult(startIndex);
         query.setMaxResults(endIndex);

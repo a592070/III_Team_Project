@@ -4,7 +4,6 @@ import a592070.pojo.AttractionDO;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import pojo.AttractionsDO;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;

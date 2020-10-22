@@ -4,11 +4,8 @@ import a592070.dao.AttractionDAO;
 import a592070.dao.RegionDAO;
 import a592070.pojo.AttractionDO;
 import a592070.pojo.RegionDO;
-import controller.ConnectionPool;
 import org.hibernate.Session;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AttractionService {
@@ -17,15 +14,14 @@ public class AttractionService {
     private RegionDAO regionDAO;
 
     public AttractionService() {
-        try{
-            this.attractionDAO = new AttractionDAO(ConnectionPool.LOADING_WITH_SERVER);
-            this.regionDAO = new RegionDAO(ConnectionPool.LOADING_WITH_SERVER);
-
-        }catch (IOException e) {
-            new RuntimeException("AttractionDAO 初始化錯誤\n"+e).printStackTrace();
-        }
     }
+
     public AttractionService(Session session){
+        attractionDAO = new AttractionDAO(session);
+        regionDAO = new RegionDAO(session);
+    }
+
+    public void setSession(Session session){
         attractionDAO = new AttractionDAO(session);
         regionDAO = new RegionDAO(session);
     }

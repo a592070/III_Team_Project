@@ -16,7 +16,7 @@ public class TravelEleHotelDO {
     @JoinColumn(name = "H_ID", referencedColumnName = "SN")
     private HotelVO hotel;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "TRAVEL_ID")
     private TravelSetDO travelSetDO;
 

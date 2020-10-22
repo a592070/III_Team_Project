@@ -1,7 +1,5 @@
 package a592070.pojo;
 
-import org.junit.Ignore;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -17,8 +15,8 @@ public class TravelEleAttractionDO {
     @JoinColumn(name = "A_ID", referencedColumnName = "A_SN")
     private AttractionDO attraction;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TRAVEL_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TRAVEL_ID", referencedColumnName = "SN")
     private TravelSetDO travelSetDO;
 
     public TravelEleAttractionDO() {
@@ -51,6 +49,7 @@ public class TravelEleAttractionDO {
     public TravelSetDO getTravelSetDO() {
         return travelSetDO;
     }
+
 
     public void setTravelSetDO(TravelSetDO travelSetDO) {
         this.travelSetDO = travelSetDO;

@@ -6,6 +6,7 @@ import a592070.pojo.RegionDO;
 import a592070.service.AttractionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import utils.HibernateUtil;
 import utils.PageSupport;
 import utils.StringUtil;
 
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "AttractionsInfoServlet", urlPatterns = "/AttractionsInfoServlet")
@@ -37,6 +37,8 @@ public class AttractionsInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        attractionService.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+
         String method = req.getParameter("method");
         if("initPageRegion".equals(method)){
             initPageRegion(req, resp);

@@ -1,5 +1,7 @@
 package a592070.pojo;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import utils.StringUtil;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "TRAVEL_SET")
+@DynamicInsert@DynamicUpdate
 public class TravelSetDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

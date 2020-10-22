@@ -15,7 +15,7 @@ public class TravelEleCarDO {
     @JoinColumn(name = "C_ID", referencedColumnName = "SN_CARTYPE")
     private CarVO car;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRAVEL_ID")
     private TravelSetDO travelSetDO;
 

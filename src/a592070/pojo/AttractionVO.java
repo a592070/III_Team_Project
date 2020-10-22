@@ -1,13 +1,22 @@
 package a592070.pojo;
 
+import org.hibernate.annotations.Immutable;
 import utils.StringUtil;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "ATTRACTION")
+@Immutable
 public class AttractionVO {
+    @Id
+    @Column(name = "A_SN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
     private String name;
     private String picture;
     private String address;
+    @Column(name = "TICKETINFO")
     private String ticketInfo;
     private String description;
 
