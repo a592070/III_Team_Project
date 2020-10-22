@@ -1,4 +1,4 @@
-package iring29;
+package iring29.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,18 +18,16 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import controller.ConnectionPool;
-import iring29.model.R_OrderBean;
-import iring29.model.RestaurantBean;
 import pojo.OrderTableBean;
 
-public class RestaurantDAO {
+public class RestaurantDAO_Original {
 	private Connection conn;
 	private DataSource ds;
 	private String sql;
 	private PreparedStatement pstmt;
 
 	// constructor
-	public RestaurantDAO(int dataSourceType) throws IOException {
+	public RestaurantDAO_Original(int dataSourceType) throws IOException {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
 

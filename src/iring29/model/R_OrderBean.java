@@ -1,3 +1,4 @@
+
 package iring29.model;
 
 import java.math.BigDecimal;
@@ -127,8 +128,8 @@ public class R_OrderBean {
 		this.deposit = deposit;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@Column(name = "R_SN")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "R_SN")
 	public RestaurantBean getRestaurantBean() {
 		return restaurantBean;
 	}

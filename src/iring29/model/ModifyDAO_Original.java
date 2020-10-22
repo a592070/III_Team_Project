@@ -1,4 +1,4 @@
-package iring29;
+package iring29.model;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -10,14 +10,14 @@ import javax.sql.DataSource;
 
 import controller.ConnectionPool;
 
-public class ModifyDAO {
+public class ModifyDAO_Original {
 	private Connection conn;
 	private DataSource ds;
 	private PreparedStatement pstmt;
 	private String sql;
 	
 	// constructor
-	public ModifyDAO(int dataSourceType) throws IOException {
+	public ModifyDAO_Original(int dataSourceType) throws IOException {
 		ds = ConnectionPool.getDataSource(dataSourceType);
 	}
 	
