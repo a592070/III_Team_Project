@@ -35,9 +35,9 @@ public class RestaurantBean {
 	private String picture; 
 	private String serviceinfo;
 	private String booking_id;
-	private String account;
-	private AccountBean accountBean;
-	private Set<R_OrderBean> r_OrderBeans = new HashSet<R_OrderBean>();
+//	private String account;
+//	private AccountBean accountBean;
+//	private Set<R_OrderBean> r_OrderBeans = new HashSet<R_OrderBean>();
 
 	// constructor
 	public RestaurantBean() {
@@ -72,7 +72,7 @@ public class RestaurantBean {
 		this.picture = picture;
 		this.serviceinfo = serviceinfo;
 		this.booking_id = booking_id;
-		this.account = account;
+//		this.account = account;
 	}
 	public void setR_sn(BigDecimal r_sn) {
 		this.r_sn = r_sn;
@@ -177,32 +177,32 @@ public class RestaurantBean {
 		this.booking_id = booking_id;
 	}
 	
-	@Transient
-	public String getAccount() {
-		return account;
-	}
-	public void setAccount(String account) {
-		this.account = account;
-	}
-	
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ACCOUNT", referencedColumnName="USERNAME")
-	public AccountBean getAccountBean() {
-		return accountBean;
-	}
-	public void setAccountBean(AccountBean accountBean) {
-		this.accountBean = accountBean;
-	}
-	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantBean", cascade = CascadeType.ALL)
-	public Set<R_OrderBean> getR_OrderBeans() {
-		return r_OrderBeans;
-	}
-	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
-		this.r_OrderBeans = r_OrderBeans;
-	}
+//	@Transient
+//	public String getAccount() {
+//		return account;
+//	}
+//	public void setAccount(String account) {
+//		this.account = account;
+//	}
+//	
+//	
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "ACCOUNT", referencedColumnName="USERNAME")
+//	public AccountBean getAccountBean() {
+//		return accountBean;
+//	}
+//	public void setAccountBean(AccountBean accountBean) {
+//		this.accountBean = accountBean;
+//	}
+//	
+//	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantBean", cascade = CascadeType.ALL)
+//	public Set<R_OrderBean> getR_OrderBeans() {
+//		return r_OrderBeans;
+//	}
+//	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
+//		this.r_OrderBeans = r_OrderBeans;
+//	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -229,7 +229,7 @@ public class RestaurantBean {
 		builder.append(", booking_id=");
 		builder.append(booking_id);
 		builder.append(", account=");
-		builder.append(account);
+//		builder.append(account);
 		builder.append("]");
 		return builder.toString();
 	}
