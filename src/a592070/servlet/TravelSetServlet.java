@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import global.Constant;
 import rambo0021.model.AccountBean;
+import utils.HibernateUtil;
 import utils.PageSupport;
 import utils.StringUtil;
 
@@ -33,7 +34,7 @@ public class TravelSetServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        service = new TravelSetService();
+        service = new TravelSetService(HibernateUtil.getSessionFactory().getCurrentSession());
     }
 
     @Override
@@ -68,8 +69,6 @@ public class TravelSetServlet extends HttpServlet {
     private void initTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession session = req.getSession();
 
-
-
         String sSn = req.getParameter("sn");
         int sn = 0;
         TravelSetDO travelSet;
@@ -81,20 +80,9 @@ public class TravelSetServlet extends HttpServlet {
             travelSet = (TravelSetDO) session.getAttribute(Constant.TravelSetEdit_session);
         }else{
             travelSet = new TravelSetDO();
-//            travelSet.setCreatedUser();
             session.setAttribute(Constant.TravelSetEdit_session, travelSet);
             return;
         }
-
-//        System.out.println("TravelSetServlet\t"+session.getId());
-//        List<TravelSetDO> list = (List<TravelSetDO>) session.getAttribute(Constant.TravelSetList_session);
-//        TravelSetDO travelSet = null;
-//        for (TravelSetDO ele : list) {
-//            if(ele.getSn() == sn) {
-//                travelSet = ele;
-//                break;
-//            }
-//        }
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -102,78 +90,70 @@ public class TravelSetServlet extends HttpServlet {
         ObjectNode jsonObj = mapper.createObjectNode();;
         ArrayNode arrayNode = mapper.createArrayNode();
 
-        List<TravelEleCarDO> listEleCar = travelSet.getListTravelCar();
-        for (TravelEleCarDO ele : listEleCar) {
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("sn", ele.getCar().getSn());
-            objectNode.put("name", ele.getCar().getCarType());
-            objectNode.put("price", ele.getCar().getPrice());
-            objectNode.put("company", ele.getCar().getCompany());
-            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
-
-//            String sJson = mapper.writeValueAsString(ele.getCar());
-//            arrayNode.add(sJson);
-            arrayNode.add(objectNode);
-        }
+//        Set<TravelEleCarDO> eleCars = travelSet.getTravelCars();
+//        for (TravelEleCarDO ele : eleCars) {
+//            ObjectNode objectNode = mapper.createObjectNode();
+//            objectNode.put("sn", ele.getCar().getSn());
+//            objectNode.put("name", ele.getCar().getCarType());
+//            objectNode.put("price", ele.getCar().getPrice());
+//            objectNode.put("company", ele.getCar().getCompany());
+//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
+//
+//            arrayNode.add(objectNode);
+//        }
 
         jsonObj.set("listEleCar", arrayNode);
         arrayNode = mapper.createArrayNode();
 
-        List<TravelEleHotelDO> listEleHotel = travelSet.getListTravelHotel();
-        for (TravelEleHotelDO ele : listEleHotel) {
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("sn", ele.getHotel().getSn());
-            objectNode.put("name", ele.getHotel().getName());
-            objectNode.put("doubleRoomPrice", ele.getHotel().getDoubleRoomPrice());
-            objectNode.put("quadrupleRoomPrice", ele.getHotel().getQuadrupleRoomPrice());
-            objectNode.put("address", ele.getHotel().getAddress());
-            objectNode.put("rating", ele.getHotel().getRating());
-            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
-            arrayNode.add(objectNode);
-//            String sJson = mapper.writeValueAsString(ele.getHotel());
-//            arrayNode.add(sJson);
-        }
+//        Set<TravelEleHotelDO> eleHotels = travelSet.getTravelHotels();
+//        for (TravelEleHotelDO ele : eleHotels) {
+//            ObjectNode objectNode = mapper.createObjectNode();
+//            objectNode.put("sn", ele.getHotel().getSn());
+//            objectNode.put("name", ele.getHotel().getName());
+//            objectNode.put("doubleRoomPrice", ele.getHotel().getDoubleRoomPrice());
+//            objectNode.put("quadrupleRoomPrice", ele.getHotel().getQuadrupleRoomPrice());
+//            objectNode.put("address", ele.getHotel().getAddress());
+//            objectNode.put("rating", ele.getHotel().getRating());
+//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
+//            arrayNode.add(objectNode);
+//        }
 
         jsonObj.set("listEleHotel", arrayNode);
         arrayNode = mapper.createArrayNode();
 
-        List<TravelEleRestaurantDO> listEleRestaurant = travelSet.getListTravelRestaurant();
-        for (TravelEleRestaurantDO ele : listEleRestaurant) {
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("sn", ele.getRestaurant().getSn());
-            objectNode.put("name", ele.getRestaurant().getName());
-            objectNode.put("type", ele.getRestaurant().getType());
-            objectNode.put("address", ele.getRestaurant().getAddress());
-            objectNode.put("description", ele.getRestaurant().getDescription());
-            objectNode.put("region", ele.getRestaurant().getRating());
-            objectNode.put("rating", ele.getRestaurant().getRating());
-            if(ele.getTime() != null) {
-                objectNode.put("time", ele.getTime().getTime());
-            }else{
-                objectNode.put("time", System.currentTimeMillis());
-            }
-            arrayNode.add(objectNode);
-//            String sJson = mapper.writeValueAsString(ele.getRestaurant());
-//            arrayNode.add(sJson);
-        }
+//        Set<TravelEleRestaurantDO> eleRestaurants = travelSet.getTravelRestaurants();
+//        for (TravelEleRestaurantDO ele : eleRestaurants) {
+//            ObjectNode objectNode = mapper.createObjectNode();
+//            objectNode.put("sn", ele.getRestaurant().getSn());
+//            objectNode.put("name", ele.getRestaurant().getName());
+//            objectNode.put("type", ele.getRestaurant().getType());
+//            objectNode.put("address", ele.getRestaurant().getAddress());
+//            objectNode.put("description", ele.getRestaurant().getDescription());
+//            objectNode.put("region", ele.getRestaurant().getRating());
+//            objectNode.put("rating", ele.getRestaurant().getRating());
+//            if(ele.getTime() != null) {
+//                objectNode.put("time", ele.getTime().getTime());
+//            }else{
+//                objectNode.put("time", System.currentTimeMillis());
+//            }
+//            arrayNode.add(objectNode);
+//        }
 
         jsonObj.set("listEleRestaurant", arrayNode);
         arrayNode = mapper.createArrayNode();
 
-        List<TravelEleAttractionDO> listEleAttraction = travelSet.getListTravelAttraction();
-        for (TravelEleAttractionDO ele : listEleAttraction) {
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("sn", ele.getAttraction().getSn());
-            objectNode.put("name", ele.getAttraction().getName());
-            objectNode.put("address", ele.getAttraction().getAddress());
-            objectNode.put("picture", ele.getAttraction().getPicture());
-            objectNode.put("ticketInfo", ele.getAttraction().getTicketInfo());
-            objectNode.put("description", ele.getAttraction().getDescription());
-            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
-            arrayNode.add(objectNode);
-//            String sJson = mapper.writeValueAsString(ele.getAttraction());
-//            arrayNode.add(sJson);
-        }
+//        Set<TravelEleAttractionDO> eleAttractions = travelSet.getTravelAttractions();
+//        for (TravelEleAttractionDO ele : eleAttractions) {
+//            ObjectNode objectNode = mapper.createObjectNode();
+//            objectNode.put("sn", ele.getAttraction().getSn());
+//            objectNode.put("name", ele.getAttraction().getName());
+//            objectNode.put("address", ele.getAttraction().getAddress());
+//            objectNode.put("picture", ele.getAttraction().getPicture());
+//            objectNode.put("ticketInfo", ele.getAttraction().getTicketInfo());
+//            objectNode.put("description", ele.getAttraction().getDescription());
+//            if(ele.getTime() != null) objectNode.put("time", ele.getTime().getTime());
+//            arrayNode.add(objectNode);
+//        }
 
         jsonObj.set("listEleAttraction", arrayNode);
         jsonObj.put("travelSetName", travelSet.getName());
@@ -247,14 +227,16 @@ public class TravelSetServlet extends HttpServlet {
 
         TravelSetDO travelSet = (TravelSetDO) session.getAttribute(Constant.TravelSetEdit_session);
 
+
+
         if(OPTION_C.equals(selectType)){
-            travelSet.getListTravelCar().get(index).setTime(time);
+            travelSet.getTravelCars().get(index).setTime(time);
         }else if(OPTION_H.equals(selectType)){
-            travelSet.getListTravelHotel().get(index).setTime(time);
+            travelSet.getTravelHotels().get(index).setTime(time);
         }else if(OPTION_R.equals(selectType)){
-            travelSet.getListTravelRestaurant().get(index).setTime(time);
+            travelSet.getTravelRestaurants().get(index).setTime(time);
         }else if(OPTION_A.equals(selectType)){
-            travelSet.getListTravelAttraction().get(index).setTime(time);
+            travelSet.getTravelAttractions().get(index).setTime(time);
         }
 //        System.out.println((TravelSetDO) session.getAttribute(Constant.TravelSetEdit_session));
     }
@@ -283,11 +265,11 @@ public class TravelSetServlet extends HttpServlet {
             List<TravelEleCarDO>  travelEleList = new ArrayList<>();
             for (CarVO ele : selectList) {
                 TravelEleCarDO travelEleDO = new TravelEleCarDO();
-                travelEleDO.setTravelId(travelSet.getSn());
+                travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setCar(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setListTravelCar(travelEleList);
+            travelSet.setTravelCars(travelEleList);
 
         }else if(OPTION_H.equals(selectType)){
             List<HotelVO> selectList = new ArrayList<>();
@@ -297,11 +279,11 @@ public class TravelSetServlet extends HttpServlet {
             List<TravelEleHotelDO>  travelEleList = new ArrayList<>();
             for (HotelVO ele : selectList) {
                 TravelEleHotelDO travelEleDO = new TravelEleHotelDO();
-                travelEleDO.setTravelId(travelSet.getSn());
+                travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setHotel(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setListTravelHotel(travelEleList);
+            travelSet.setTravelHotels(travelEleList);
 
         }else if(OPTION_R.equals(selectType)){
             List<RestaurantVO> selectList = new ArrayList<>();
@@ -311,11 +293,11 @@ public class TravelSetServlet extends HttpServlet {
             List<TravelEleRestaurantDO>  travelEleList = new ArrayList<>();
             for (RestaurantVO ele : selectList) {
                 TravelEleRestaurantDO travelEleDO = new TravelEleRestaurantDO();
-                travelEleDO.setTravelId(travelSet.getSn());
+                travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setRestaurant(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setListTravelRestaurant(travelEleList);
+            travelSet.setTravelRestaurants(travelEleList);
 
         }else if(OPTION_A.equals(selectType)){
             List<AttractionVO> selectList = new ArrayList<>();
@@ -325,11 +307,11 @@ public class TravelSetServlet extends HttpServlet {
             List<TravelEleAttractionDO>  travelEleList = new ArrayList<>();
             for (AttractionVO ele : selectList) {
                 TravelEleAttractionDO travelEleDO = new TravelEleAttractionDO();
-                travelEleDO.setTravelId(travelSet.getSn());
+                travelEleDO.setTravelSetDO(travelSet);
 //                travelEleDO.setAttraction(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setListTravelAttraction(travelEleList);
+            travelSet.setTravelAttractions(travelEleList);
         }
         session.setAttribute(Constant.TravelSetEdit_session, travelSet);
 

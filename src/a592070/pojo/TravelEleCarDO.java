@@ -8,14 +8,14 @@ import java.sql.Timestamp;
 public class TravelEleCarDO {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
-    @Column(name = "TRAVEL_ID")
-    private int travelId;
+
     private Timestamp time;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "C_ID", referencedColumnName = "SN_CARTYPE")
     private CarVO car;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRAVEL_ID")
     private TravelSetDO travelSetDO;
 
@@ -28,14 +28,6 @@ public class TravelEleCarDO {
 
     public void setSn(int sn) {
         this.sn = sn;
-    }
-
-    public int getTravelId() {
-        return travelId;
-    }
-
-    public void setTravelId(int travelId) {
-        this.travelId = travelId;
     }
 
     public Timestamp getTime() {
@@ -66,7 +58,6 @@ public class TravelEleCarDO {
     public String toString() {
         return "TravelEleCarDO{" +
                 "sn=" + sn +
-                ", travelId=" + travelId +
                 ", time=" + time +
                 ", car=" + car +
                 '}';

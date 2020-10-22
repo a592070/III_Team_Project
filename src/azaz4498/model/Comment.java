@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package azaz4498.model;
 
 import java.io.Serializable;

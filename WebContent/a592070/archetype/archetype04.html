@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>景點頁面</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>名稱</h1>
+        <img src="../../static/nopic.jpg">
+        <p>詳細介紹</p>
+        <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
+    </div>
+    <p>This is some text.</p>
+    <p>This is another text.</p>
+
+    <div  class="container">
+        <ul class="list-group list-group-flush">地址
+            <li class="list-group-item">xxx</li>
+            <li class="list-group-item">map</li>
+            <li class="list-group-item">
+<!--
+width = 寬度
+height = 高度
+q = 地址或經緯度，如果需要標明可在結尾加上()，於()中輸入表示名稱
+z = 地圖比例大小，可輸入數值為 1-18，值愈大地圖顯示比例愈大
+t = 地圖顯示模式，沒輸入值時為預設地圖；h為衛星圖加路線；p為地形圖
+hl = 地圖語系，語言代碼參考 https://developers.google.com/maps/faq?hl=zh-tw#languagesupport
+output=embed 指定Google Map為崁入模式
+-->
+                <iframe
+                        width="100%"
+                        height="300"
+                        frameborder="0"
+                        src="https://www.google.com/maps?q=24.2813000,120.7695200&mrt=all&hl=zh-TW&z=15&output=embed ">
+                </iframe>
+            </li>
+        </ul>
+        <ul class="list-group list-group-flush">電話
+            <li class="list-group-item">xxx</li>
+            <li class="list-group-item"></li>
+        </ul>
+        <ul class="list-group list-group-flush">門票
+            <li class="list-group-item">xxx</li>
+            <li class="list-group-item"></li>
+        </ul>
+        <ul class="list-group list-group-flush">開放時間
+            <li class="list-group-item">xxx</li>
+            <li class="list-group-item"></li>
+        </ul>
+        <ul class="list-group list-group-flush">旅遊資訊
+            <li class="list-group-item">xxx</li>
+            <li class="list-group-item"></li>
+        </ul>
+        <ul class="list-group list-group-flush">備註
+            <li class="list-group-item">xxx</li>
+            <li class="list-group-item"></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

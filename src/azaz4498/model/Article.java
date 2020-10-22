@@ -1,5 +1,7 @@
 package azaz4498.model;
 
+import org.junit.Ignore;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -120,7 +122,7 @@ public class Article implements Serializable {
 		this.artPic = artPic;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ART_ID")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "article")
 	public List<Comment> getComments() {
 		return comments;
 	}
@@ -129,11 +131,11 @@ public class Article implements Serializable {
 		this.comments = comments;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TYPE_ID")
-	public ArticleType getArticleType() {
-		return articleType;
-	}
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "ART_TYPE_ID")
+//	public ArticleType getArticleType() {
+//		return articleType;
+//	}
 
 	public void setArticleType(ArticleType articleType) {
 		this.articleType = articleType;

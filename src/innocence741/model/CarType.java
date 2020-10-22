@@ -35,20 +35,20 @@ public class CarType {
 	@JoinColumn(name = "SN_RENTCARCOMPANY")
 	private CarRentalCompany carRentalCompany;
 	
-	@Column(name = "PIC_CARTYPE")
-	private String pic_cartype;
+//	@Column(name = "PIC_CARTYPE")
+//	private String pic_cartype;
 	
-	@Column(name = "ACCESSIBLE_CARTYPE")
-	private int accessible_cartype;
+//	@Column(name = "ACCESSIBLE_CARTYPE")
+//	private int accessible_cartype;
 	
-	@Column(name = "REMAINING")
-	private BigDecimal remaining;
+//	@Column(name = "REMAINING")
+//	private BigDecimal remaining;
 	
-	@Column(name = "CARTYPE_VERSION")
-	private int cartype_ver;
+//	@Column(name = "CARTYPE_VERSION")
+//	private int cartype_ver;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carType", cascade = CascadeType.ALL)
-	private Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carType", cascade = CascadeType.ALL)
+//	private Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
 	
 	
 
@@ -76,35 +76,35 @@ public class CarType {
 	public void setCarRentalCompany(CarRentalCompany carRentalCompany) {
 		this.carRentalCompany = carRentalCompany;
 	}
-	public String getPic_cartype() {
-		return pic_cartype;
-	}
-	public void setPic_cartype(String pic_cartype) {
-		this.pic_cartype = pic_cartype;
-	}
-	public int getAccessible_cartype() {
-		return accessible_cartype;
-	}
-	public void setAccessible_cartype(int accessible_cartype) {
-		this.accessible_cartype = accessible_cartype;
-	}
-	public BigDecimal getRemaining() {
-		return remaining;
-	}
-	public void setRemaining(BigDecimal remaining) {
-		this.remaining = remaining;
-	}
-	public int getCartype_ver() {
-		return cartype_ver;
-	}
-	public void setCartype_ver(int cartype_ver) {
-		this.cartype_ver = cartype_ver;
-	}
-	public Set<T_Order_List> getT_Order_Lists() {
-		return t_Order_Lists;
-	}
-	public void setT_Order_Lists(Set<T_Order_List> t_Order_Lists) {
-		this.t_Order_Lists = t_Order_Lists;
-	}
+//	public String getPic_cartype() {
+//		return pic_cartype;
+//	}
+//	public void setPic_cartype(String pic_cartype) {
+//		this.pic_cartype = pic_cartype;
+//	}
+//	public int getAccessible_cartype() {
+//		return accessible_cartype;
+//	}
+//	public void setAccessible_cartype(int accessible_cartype) {
+//		this.accessible_cartype = accessible_cartype;
+//	}
+//	public BigDecimal getRemaining() {
+//		return remaining;
+//	}
+//	public void setRemaining(BigDecimal remaining) {
+//		this.remaining = remaining;
+//	}
+//	public int getCartype_ver() {
+//		return cartype_ver;
+//	}
+//	public void setCartype_ver(int cartype_ver) {
+//		this.cartype_ver = cartype_ver;
+//	}
+//	public Set<T_Order_List> getT_Order_Lists() {
+//		return t_Order_Lists;
+//	}
+//	public void setT_Order_Lists(Set<T_Order_List> t_Order_Lists) {
+//		this.t_Order_Lists = t_Order_Lists;
+//	}
 	
 }

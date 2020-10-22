@@ -3,6 +3,7 @@ package a592070.service;
 import a592070.dao.*;
 import a592070.pojo.*;
 import controller.ConnectionPool;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,6 +16,16 @@ public class TravelSetService {
     private RestaurantViewDAO restaurantViewDAO;
     private AttractionDAO attractionDAO;
     private TravelSetDAO travelSetDAO;
+
+    private Session session;
+
+    public TravelSetService(Session session) {
+        carViewDAO = new CarViewDAO(session);
+        hotelViewDAO = new HotelViewDAO(session);
+        restaurantViewDAO = new RestaurantViewDAO(session);
+        attractionDAO = new AttractionDAO(session);
+        travelSetDAO = new TravelSetDAO(session);
+    }
 
     public TravelSetService() {
         try {
@@ -29,33 +40,15 @@ public class TravelSetService {
     }
 
     public List<CarVO> listCarVO() {
-        List<CarVO> list = null;
-        try {
-            list = carViewDAO.listEle();
-        } catch (Exception e) {
-            new RuntimeException("carViewDAO listEle()錯誤\n"+e).printStackTrace();
-        }
-        return list;
+        return carViewDAO.listEle();
     }
     public List<HotelVO> listHotel() {
-        List<HotelVO> list = null;
-        try {
-            list = hotelViewDAO.listEle();
-        } catch (Exception e) {
-            new RuntimeException("hotelViewDAO listEle()錯誤\n"+e).printStackTrace();
-        }
-        return list;
+        return hotelViewDAO.listEle();
     }
 
 
     public List<RestaurantVO> listRestaurant(String region){
-        List<RestaurantVO> list = null;
-        try {
-            list = restaurantViewDAO.listEle(region);
-        } catch (Exception e) {
-            new RuntimeException("restaurantViewDAO listEle()錯誤\n"+e).printStackTrace();
-        }
-        return list;
+        return restaurantViewDAO.listEle(region);
     }
 
     public List<RestaurantVO> listRestaurant() {
@@ -70,91 +63,50 @@ public class TravelSetService {
         int start = pageSize*(currentPage-1)+1;
         int end = pageSize*currentPage;
         List<AttractionVO> list = new ArrayList<>();
-        try {
-            List<AttractionDO> listDO = attractionDAO.listAttractionByRownum(start, end, region);
-            listDO.forEach(ele ->{
-                AttractionVO vo = new AttractionVO();
-                vo.setSn(ele.getSn());
-                vo.setName(ele.getName());
-                vo.setPicture(ele.getPicture());
-                vo.setAddress(ele.getAddress());
-                vo.setTicketInfo(ele.getTicketInfo());
-                list.add(vo);
-            });
-        } catch (Exception e) {
-            new RuntimeException("AttractionDAO listAttractionByRownum()錯誤\n"+e).printStackTrace();
-        }
+
+        List<AttractionDO> listDO = attractionDAO.listAttractionByRownum(start, end, region);
+        listDO.forEach(ele ->{
+            AttractionVO vo = new AttractionVO();
+            vo.setSn(ele.getSn());
+            vo.setName(ele.getName());
+            vo.setPicture(ele.getPicture());
+            vo.setAddress(ele.getAddress());
+            vo.setTicketInfo(ele.getTicketInfo());
+            list.add(vo);
+        });
+
         return list;
     }
     public int getTotalSize(){
-        int size=0;
-        try {
-            size = attractionDAO.getSize();
-        } catch (Exception e) {
-            new RuntimeException("AttractionDAO getSize()錯誤\n"+e).printStackTrace();
-        }
-        return size;
+        return attractionDAO.getSize();
     }
     public int getRegionLimitSize(String region){
-        int size = 0;
-        try {
-            size = attractionDAO.getAttractionRegionSize(region);
-        } catch (Exception e) {
-            new RuntimeException("AttractionDAO getAttractionRegionSize()錯誤\n"+e).printStackTrace();
-        }
-        return size;
+        return attractionDAO.getAttractionRegionSize(region);
     }
 
     public List<TravelSetDO> listTravelSet(String username){
-        List<TravelSetDO> list = new ArrayList<>();
-        try {
-            list = travelSetDAO.listTravelSet(username);
-
-        } catch (Exception e) {
-            new RuntimeException("travelSetDAO listTravelSet()錯誤\n"+e).printStackTrace();
-        }
-        return list;
+        return travelSetDAO.listTravelSet(username);
     }
     public TravelSetDO getTravelSet(int sn){
-        TravelSetDO travelSet = null;
-        try {
-            travelSet = travelSetDAO.getTravelSetByID(sn);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return travelSet;
+        return travelSetDAO.getTravelSetByID(sn);
     }
 
     public boolean addTravelSet(TravelSetDO travelSetDO){
-        boolean flag = false;
-        try {
-            flag = travelSetDAO.addTravelSet(travelSetDO);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return flag;
+        return travelSetDAO.addTravelSet(travelSetDO);
     }
     public boolean updateTravelSet(TravelSetDO travelSetDO){
         boolean flag = false;
-        try {
-            if(travelSetDAO.getTravelSetByID(travelSetDO.getSn()) == null){
-                flag = travelSetDAO.addTravelSet(travelSetDO);
-            }else{
-                flag = travelSetDAO.updateTravelSet(travelSetDO);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        if(travelSetDAO.getTravelSetByID(travelSetDO.getSn()) == null){
+            flag = travelSetDAO.addTravelSet(travelSetDO);
+        }else{
+            flag = travelSetDAO.updateTravelSet(travelSetDO);
         }
+
         return flag;
     }
 
     public boolean removeTravelSet(int sn){
-        boolean flag = false;
-        try{
-            flag = travelSetDAO.setTravelSetUnavailable(sn);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return flag;
+        return travelSetDAO.setTravelSetUnavailable(sn);
     }
 }

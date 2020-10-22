@@ -5,7 +5,9 @@ import utils.StringUtil;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "TRAVEL_SET")
@@ -24,15 +26,32 @@ public class TravelSetDO {
     private String name;
     private int available;
 
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @Transient
+//    private Set<TravelEleCarDO> travelCars = new LinkedHashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @Transient
+//    private Set<TravelEleHotelDO> travelHotels = new LinkedHashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @Transient
+//    private Set<TravelEleRestaurantDO> travelRestaurants = new LinkedHashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @Transient
+//    private Set<TravelEleAttractionDO> travelAttractions = new LinkedHashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
-    private List<TravelEleCarDO> listTravelCar = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
-    private List<TravelEleHotelDO> listTravelHotel = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
-    private List<TravelEleRestaurantDO> listTravelRestaurant = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "travelSetDO", cascade = CascadeType.ALL)
-    private List<TravelEleAttractionDO> listTravelAttraction = new ArrayList<>();
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Transient
+    private List<TravelEleCarDO> travelCars = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Transient
+    private List<TravelEleHotelDO> travelHotels = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Transient
+    private List<TravelEleRestaurantDO> travelRestaurants = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Transient
+    private List<TravelEleAttractionDO> travelAttractions = new ArrayList<>();
 
     public TravelSetDO() {
     }
@@ -106,53 +125,36 @@ public class TravelSetDO {
         this.available = available;
     }
 
-    public List<TravelEleCarDO> getListTravelCar() {
-        if(listTravelCar == null) listTravelCar = new ArrayList<>();
-        return listTravelCar;
+    public List<TravelEleCarDO> getTravelCars() {
+        return travelCars;
     }
 
-    public void setListTravelCar(List<TravelEleCarDO> listTravelCar) {
-        this.listTravelCar = listTravelCar;
+    public void setTravelCars(List<TravelEleCarDO> travelCars) {
+        this.travelCars = travelCars;
     }
 
-    public List<TravelEleHotelDO> getListTravelHotel() {
-        if(listTravelHotel == null) listTravelHotel = new ArrayList<>();
-        return listTravelHotel;
+    public List<TravelEleHotelDO> getTravelHotels() {
+        return travelHotels;
     }
 
-    public void setListTravelHotel(List<TravelEleHotelDO> listTravelHotel) {
-        this.listTravelHotel = listTravelHotel;
+    public void setTravelHotels(List<TravelEleHotelDO> travelHotels) {
+        this.travelHotels = travelHotels;
     }
 
-    public List<TravelEleRestaurantDO> getListTravelRestaurant() {
-        if(listTravelRestaurant == null) listTravelRestaurant = new ArrayList<>();
-        return listTravelRestaurant;
+    public List<TravelEleRestaurantDO> getTravelRestaurants() {
+        return travelRestaurants;
     }
 
-    public void setListTravelRestaurant(List<TravelEleRestaurantDO> listTravelRestaurant) {
-        this.listTravelRestaurant = listTravelRestaurant;
+    public void setTravelRestaurants(List<TravelEleRestaurantDO> travelRestaurants) {
+        this.travelRestaurants = travelRestaurants;
     }
 
-    public List<TravelEleAttractionDO> getListTravelAttraction() {
-        if(listTravelAttraction == null) listTravelAttraction = new ArrayList<>();
-        return listTravelAttraction;
+    public List<TravelEleAttractionDO> getTravelAttractions() {
+        return travelAttractions;
     }
 
-    public void setListTravelAttraction(List<TravelEleAttractionDO> listTravelAttraction) {
-        this.listTravelAttraction = listTravelAttraction;
-    }
-
-    public void addAttraction(TravelEleAttractionDO travelEleAttractionDO){
-        getListTravelAttraction().add(travelEleAttractionDO);
-    }
-    public void addCar(TravelEleCarDO travelEleCarDO){
-        getListTravelCar().add(travelEleCarDO);
-    }
-    public void addHotel(TravelEleHotelDO travelEleHotelDO){
-        getListTravelHotel().add(travelEleHotelDO);
-    }
-    public void addRestaurant(TravelEleRestaurantDO travelEleRestaurantDO){
-        getListTravelRestaurant().add(travelEleRestaurantDO);
+    public void setTravelAttractions(List<TravelEleAttractionDO> travelAttractions) {
+        this.travelAttractions = travelAttractions;
     }
 
     @Override
@@ -162,10 +164,14 @@ public class TravelSetDO {
                 ", createdUser='" + createdUser + '\'' +
                 ", description='" + description + '\'' +
                 ", priority=" + priority +
-                ", listTravelCar=" + listTravelCar +
-                ", listTravelHotel=" + listTravelHotel +
-                ", listTravelRestaurant=" + listTravelRestaurant +
-                ", listTravelAttraction=" + listTravelAttraction +
+                ", createdTime=" + createdTime +
+                ", updateTime=" + updateTime +
+                ", name='" + name + '\'' +
+                ", available=" + available +
+                ", travelCars=" + travelCars +
+                ", travelHotels=" + travelHotels +
+                ", travelRestaurants=" + travelRestaurants +
+                ", travelAttractions=" + travelAttractions +
                 '}';
     }
 }
