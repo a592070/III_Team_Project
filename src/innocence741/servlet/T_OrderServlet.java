@@ -21,12 +21,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import controller.ConnectionPool;
-import hibernateproject.model.HighSpeedRail;
-import hibernateproject.model.HighSpeedRailDAO;
-import hibernateproject.model.Order_table;
-import hibernateproject.model.T_Order_List;
-import hibernateproject.model.T_Order_ListDAO;
-import hibernateproject.util.HibernateUtil;
+import innocence741.model.HighSpeedRail;
+import innocence741.model.HighSpeedRailDAO;
+import innocence741.model.Order_table;
+import innocence741.model.T_Order_List;
+import innocence741.model.T_Order_ListDAO;
+import utils.HibernateUtil;
 //import oracle.net.aso.a;
 import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;
@@ -88,7 +88,7 @@ public class T_OrderServlet extends HttpServlet {
 
 //        AccountBean user = (AccountBean) session.getAttribute("Login");	//之後要換的User
         
-		HighSpeedRail highSpeedRail = session.get(HighSpeedRail.class, Integer.parseInt(snSchedule)); //之後要換Integer.parseInt(snSchedule)
+		HighSpeedRail highSpeedRail = session2.get(HighSpeedRail.class, Integer.parseInt(snSchedule)); //之後要換Integer.parseInt(snSchedule)
 		order_table.setUser("ipip");	//假裝user是ipip
 		order_table.setOrder_date(ts);
 		t_Order_List.setHighSpeedRail(highSpeedRail);
@@ -117,7 +117,7 @@ public class T_OrderServlet extends HttpServlet {
 		printJSON(request,response,flag);
     }
     
-    public void printJSON(HttpServletRequest request, HttpServletResponse response, boolean flag) throws IOException {
+    public void printJSON(HttpServletRequest request, HttpServletResponse response, boolean flag) throws IOException, SQLException {
 //    	System.out.println("rcd_printJSON" + rcd[0]);
     	String str = "";
     	if(flag == true) {
