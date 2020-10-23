@@ -98,6 +98,7 @@ public class T_OrderServlet extends HttpServlet {
 		t_Order_List.setDestination(destination);	//之後要換destination
 		t_Order_List.setDeparatureDate(Timestamp.valueOf(LocalDate.of(departureDate[0], departureDate[1], departureDate[2]).atStartOfDay()));	//之後要換Timestamp.valueOf(LocalDate.of(departureDate[0], departureDate[1], departureDate[2]).atStartOfDay())
 		t_Order_List.setOrderType(orderType);	//之後要換orderType
+		t_Order_List.setOrder_table(order_table);
 		t_Order_List.setCustomerName(customerName);	//之後要換customerName
 		t_Order_List.setCustomerPhone(customerPhone);	//之後要換customerPhone
 		
