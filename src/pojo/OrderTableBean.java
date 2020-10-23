@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
 import asx54630.H_OrderBean;
@@ -31,7 +33,8 @@ public class OrderTableBean {
 	@Column(name = "ORDER_DATE")
 	Timestamp order_date; // 下訂單時間，default
 
-//	@						//還沒註冊
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn//還沒註冊
 	AccountBean user; // Account資料
 
 
