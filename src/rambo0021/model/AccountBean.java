@@ -178,7 +178,7 @@ public class AccountBean {
 		this.identityBean = identityBean;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY,mappedBy = "orderTableBean",cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
 	public OrderTableBean getOrderTableBean() {
 		return orderTableBean;
 	}

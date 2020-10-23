@@ -9,8 +9,8 @@ public class HomePage {
 		this.session = session;
 	}
 	
-	public void selectUserData(String username) {
-		
+	public AccountBean selectUserData(String username) {
+		return session.get(AccountBean.class,username);
 	}
 
 }
