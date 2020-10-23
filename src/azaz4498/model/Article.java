@@ -1,7 +1,5 @@
 package azaz4498.model;
 
-import org.junit.Ignore;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -19,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+
 
 @Entity
 @Table(name = "F_ARTICLE")
@@ -38,7 +39,10 @@ public class Article implements Serializable {
 	private String artPic;
 	private List<Comment> comments = new ArrayList<Comment>();
 	private ArticleType articleType;
+	public Article() {
+	}
 
+	@Column(name = "ART_CONTENT")
 	public String getArtContent() {
 		return artContent;
 	}
@@ -95,7 +99,7 @@ public class Article implements Serializable {
 		this.artId = artId;
 	}
 
-	@Column(name = "ART_TYPE_ID")
+	@Transient
 	public int getArtTypeId() {
 		return artTypeId;
 	}
@@ -131,14 +135,16 @@ public class Article implements Serializable {
 		this.comments = comments;
 	}
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ART_TYPE_ID")
-//	public ArticleType getArticleType() {
-//		return articleType;
-//	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ART_TYPE_ID")
+	public ArticleType getArticleType() {
+		return articleType;
+	}
 
 	public void setArticleType(ArticleType articleType) {
 		this.articleType = articleType;
 	}
+	
+	
 
 }

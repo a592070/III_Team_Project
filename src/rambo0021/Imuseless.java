@@ -1,16 +1,28 @@
 package rambo0021;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
+import rambo0021.model.AccountBean;
 import rambo0021.model.SHA2DAO;
+import utils.HibernateUtil;
 
 public class Imuseless {
 
 	public static void main(String[] args) {
-	SHA2DAO sha2 = new SHA2DAO();
-System.out.println(sha2.getSHA256("rambo007asdasd"));	 
+          SessionFactory factory = HibernateUtil.getSessionFactory();
+		
+          Session session = factory.getCurrentSession();
+          session.beginTransaction();
+          
+          AccountBean aBean = new AccountBean();
+          
+          aBean.setUserName("rambo0010");
+          aBean.setPassword(SHA2DAO.getSHA256("rambo0010"));
+          session.save(aBean);
+          
+          
+        session.getTransaction().commit();  
+		HibernateUtil.closeSessionFactory();;
 	}
 }

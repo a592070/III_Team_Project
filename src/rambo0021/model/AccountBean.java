@@ -6,8 +6,19 @@ import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionId;
+
 import oracle.sql.DATE;
 
+@Entity
+@Table(name="account")
 public class AccountBean {
 
 	private String userName;
@@ -21,12 +32,13 @@ public class AccountBean {
 	private String identityString;
 	private String getModify_DateString;
 	private String getRegisterString;
+	private IdentityBean identityBean;
 	
 	public AccountBean() {
 		
 	}
 	
-
+    @Id @Column(name="USERNAME")
 	public String getUserName() {
 		return userName;
 	}
@@ -36,7 +48,7 @@ public class AccountBean {
 		this.userName = userName;
 	}
 
-
+	@Column(name="PASSWORD")
 	public String getPassword() {
 		return password;
 	}
@@ -46,7 +58,7 @@ public class AccountBean {
 		this.password = password;
 	}
 
-
+	@Column(name="IDENTITY")
 	public int getIdentity() {
 		return identity;
 	}
@@ -56,7 +68,7 @@ public class AccountBean {
 		this.identity = identity;
 	}
 
-
+	@Column(name="EMAIL")
 	public String getEmail() {
 		return email;
 	}
@@ -68,10 +80,7 @@ public class AccountBean {
 
 
 
-
-//	public Date getModify_Date() {
-//		return modify_Date;
-//	}
+    @Transient
 	public String getModify_DateString() {
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sdf.setLenient(false);
@@ -84,7 +93,7 @@ public class AccountBean {
 		this.modify_Date = modify_Date;
 	}
 
-
+	@Column(name="NICKNAME")
 	public String getNickName() {
 		return nickName;
 	}
@@ -94,10 +103,7 @@ public class AccountBean {
 		this.nickName = nickName;
 	}
 
-
-//	public Date getRegister() {
-//		return register;
-//	}
+	@Transient
 	public String getRegisterString() {
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sdf.setLenient(false);
@@ -117,7 +123,7 @@ public class AccountBean {
 				+ ", register=" + register + ", identityString=" + identityString + "]";
 	}
 
-
+	@Column(name="PICTURE")
 	public Blob getPicture() {
 		return picture;
 	}
@@ -125,12 +131,12 @@ public class AccountBean {
 
 
 
-
+	@Column(name="MODIFY_DATE")
 	public Date getModify_Date() {
 		return modify_Date;
 	}
 
-
+	@Column(name="REGISTER")
 	public Date getRegister() {
 		return register;
 	}
@@ -140,12 +146,12 @@ public class AccountBean {
 		this.picture =  picture;
 	}
 
-
+	@Transient
 	public String getIdentityString() {
 		return identityString;
 	}
 
-
+	
 	public void setIdentityString(String identityString) {
 		this.identityString = identityString;
 	}
