@@ -65,9 +65,9 @@ git config --global user.email "a592070@gmail.com"
 
 
 ## daily report 
-第二次
+- 第二次
 https://docs.google.com/spreadsheets/d/1egigzOKLIRzai1F34R0_k81WJGZqktPArumL7VikPXI/edit?usp=sharing
-第三次
+- 第三次
 https://docs.google.com/spreadsheets/d/1RvMbWgQkpJ-2rP8BFTdLKKVvNaT41qPTu8sAaTGMPyA/edit#gid=0
 ## web concept
 https://docs.google.com/presentation/d/1bpWz1AS-grcitMZ5UtEGaHH5Zuwsy8VLRYjBXPJAsJI/edit?usp=sharing
