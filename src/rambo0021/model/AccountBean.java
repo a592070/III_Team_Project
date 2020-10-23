@@ -6,36 +6,26 @@ import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import oracle.sql.DATE;
-import pojo.OrderTableBean;
 
 @Entity
 @Table(name="account")
-@DynamicInsert
-@DynamicUpdate
 public class AccountBean {
 
 	private String userName;
 	private String password;
 	private int identity;
 	private String email;
-	private byte[] picture;
+	private Blob picture;
 	private Date modify_Date;
 	private String nickName;
 	private Date register;
@@ -43,13 +33,11 @@ public class AccountBean {
 	private String getModify_DateString;
 	private String getRegisterString;
 	private IdentityBean identityBean;
-	
-	private OrderTableBean orderTableBean;
-	
+
 	public AccountBean() {
 
 	}
-	
+
     @Id @Column(name="USERNAME")
 	public String getUserName() {
 		return userName;
@@ -70,7 +58,7 @@ public class AccountBean {
 		this.password = password;
 	}
 
-	@Transient
+	@Column(name="IDENTITY")
 	public int getIdentity() {
 		return identity;
 	}
@@ -136,7 +124,7 @@ public class AccountBean {
 	}
 
 	@Column(name="PICTURE")
-	public byte[] getPicture() {
+	public Blob getPicture() {
 		return picture;
 	}
 
@@ -154,7 +142,7 @@ public class AccountBean {
 	}
 
 
-	public void setPicture(byte[] picture) {
+	public void setPicture(Blob picture) {
 		this.picture =  picture;
 	}
 
@@ -163,31 +151,10 @@ public class AccountBean {
 		return identityString;
 	}
 
-	
+
 	public void setIdentityString(String identityString) {
 		this.identityString = identityString;
 	}
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "IDENTITY")
-	public IdentityBean getIdentityBean() {
-		return identityBean;
-	}
-
-	public void setIdentityBean(IdentityBean identityBean) {
-		this.identityBean = identityBean;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY,mappedBy = "orderTableBean",cascade = CascadeType.ALL)
-	public OrderTableBean getOrderTableBean() {
-		return orderTableBean;
-	}
-
-	public void setOrderTableBean(OrderTableBean orderTableBean) {
-		this.orderTableBean = orderTableBean;
-	}
-
-	
 	
 	
 }
