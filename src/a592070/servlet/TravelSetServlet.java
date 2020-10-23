@@ -50,9 +50,9 @@ public class TravelSetServlet extends HttpServlet {
         if("initTravelSet".equals(method)){
             initTravelSet(req,resp);
         }else if("saveTravelSet".equals(method)){
-            saveTravelSet(req,resp);
+            updateTravelSet(req,resp);
         }else if("newTravelSet".equals(method)){
-            newTravelSet(req,resp);
+            saveTravelSet(req,resp);
         }else if("setItems".equals(method)){
             setItems(req, resp);
         }else if("setItemsTime".equals(method)){
@@ -86,7 +86,6 @@ public class TravelSetServlet extends HttpServlet {
             return;
         }
 
-
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode jsonObj = mapper.createObjectNode();;
@@ -95,6 +94,7 @@ public class TravelSetServlet extends HttpServlet {
         List<TravelEleCarDO> eleCars = travelSet.getTravelCars();
         for (TravelEleCarDO ele : eleCars) {
             ObjectNode objectNode = mapper.createObjectNode();
+
             objectNode.put("sn", ele.getCar().getSn());
             objectNode.put("name", ele.getCar().getCarType());
             objectNode.put("price", ele.getCar().getPrice());
@@ -166,49 +166,60 @@ public class TravelSetServlet extends HttpServlet {
 
         mapper.writeValue(resp.getWriter(), jsonObj);
     }
-    private void newTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        HttpSession session = req.getSession();
-
-        String name = req.getParameter("travelSetName");
-        String description = req.getParameter("travelSetDescription");
-
-
-        TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
-        travelSet.setName(name);
-        travelSet.setDescription(description);
-        AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
-        travelSet.setCreatedUser(user.getUserName());
-
-        boolean flag = service.addTravelSet(travelSet);
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode objectNode = mapper.createObjectNode();
-
-        objectNode.put("status", flag);
-        mapper.writeValue(resp.getWriter(), objectNode);
-    }
-
     private void saveTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession session = req.getSession();
 
         String name = req.getParameter("travelSetName");
         String description = req.getParameter("travelSetDescription");
 
-
         TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
-        travelSet.setName(name);
-        travelSet.setDescription(description);
-        AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
-        travelSet.setCreatedUser(user.getUserName());
-
-        boolean flag = service.updateTravelSet(travelSet);
-
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode = mapper.createObjectNode();
 
-        objectNode.put("status", flag);
-        mapper.writeValue(resp.getWriter(), objectNode);
+        boolean flag = false;
+        try {
+            travelSet.setName(name);
+            travelSet.setDescription(description);
+            AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+            travelSet.setCreatedUser(user.getUserName());
+
+            flag = service.addTravelSet(travelSet);
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+        }catch (Exception e){
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+            throw e;
+        }
+    }
+
+    private void updateTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession session = req.getSession();
+
+        String name = req.getParameter("travelSetName");
+        String description = req.getParameter("travelSetDescription");
+
+
+        TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+
+        boolean flag = false;
+        try {
+            travelSet.setName(name);
+            travelSet.setDescription(description);
+            AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+            travelSet.setCreatedUser(user.getUserName());
+
+
+            flag = service.updateTravelSet(travelSet);
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+        }catch (Exception e){
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+            throw e;
+        }
     }
 
     private void setItemsTime(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -297,12 +308,12 @@ public class TravelSetServlet extends HttpServlet {
             travelSet.setTravelRestaurants(travelEleList);
 
         }else if(OPTION_A.equals(selectType)){
-            List<AttractionDO> selectList = new ArrayList<>();
+            List<AttractionVO> selectList = new ArrayList<>();
             if(!StringUtil.isEmpty(sList)){
-                selectList = mapper.readValue(sList, new TypeReference<List<AttractionDO>>() {});
+                selectList = mapper.readValue(sList, new TypeReference<List<AttractionVO>>() {});
             }
             List<TravelEleAttractionDO>  travelEleList = new ArrayList<>();
-            for (AttractionDO ele : selectList) {
+            for (AttractionVO ele : selectList) {
                 TravelEleAttractionDO travelEleDO = new TravelEleAttractionDO();
                 travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setAttraction(ele);
@@ -320,7 +331,7 @@ public class TravelSetServlet extends HttpServlet {
         String currentPage = req.getParameter("nowPage");
         String area = req.getParameter("area");
 
-        List<AttractionDO> list;
+        List<AttractionVO> list;
 
         PageSupport pageSupport = new PageSupport();
         pageSupport.setPageSize(pageSize);

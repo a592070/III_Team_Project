@@ -92,13 +92,20 @@ public class TravelSetDAO {
 
 
     public boolean addTravelSet(TravelSetDO travelSetDO){
-        travelSetDO.setAvailable(1);
-        session.save(travelSetDO);
-        addTravelEleA(travelSetDO);
-        addTravelEleC(travelSetDO);
-        addTravelEleH(travelSetDO);
-        addTravelEleR(travelSetDO);
-        return true;
+        boolean flag = false;
+        try {
+            travelSetDO.setAvailable(1);
+            session.save(travelSetDO);
+            addTravelEleA(travelSetDO);
+            addTravelEleC(travelSetDO);
+            addTravelEleH(travelSetDO);
+            addTravelEleR(travelSetDO);
+
+            flag = true;
+        }catch (Exception e){
+            throw e;
+        }
+        return flag;
     }
 
     private void addTravelEleA(TravelSetDO travelSetDO) {
@@ -165,25 +172,37 @@ public class TravelSetDAO {
     }
 
     public boolean updateTravelSet(TravelSetDO travelSetDO) {
-        travelSetDO.setAvailable(1);
-        session.merge(travelSetDO);
+        boolean flag = false;
+        try {
+            travelSetDO.setAvailable(1);
+            session.merge(travelSetDO);
 
-        delTravelEleA(travelSetDO);
-        delTravelEleC(travelSetDO);
-        delTravelEleH(travelSetDO);
-        delTravelEleR(travelSetDO);
+            delTravelEleA(travelSetDO);
+            delTravelEleC(travelSetDO);
+            delTravelEleH(travelSetDO);
+            delTravelEleR(travelSetDO);
 
-        addTravelEleA(travelSetDO);
-        addTravelEleC(travelSetDO);
-        addTravelEleH(travelSetDO);
-        addTravelEleR(travelSetDO);
-        return true;
+            addTravelEleA(travelSetDO);
+            addTravelEleC(travelSetDO);
+            addTravelEleH(travelSetDO);
+            addTravelEleR(travelSetDO);
+            flag = true;
+        }catch (Exception e){
+            throw e;
+        }
+        return flag;
     }
 
     public boolean setTravelSetUnavailable(int sn) {
-        TravelSetDO travelSetDO = session.get(TravelSetDO.class, sn);
-        travelSetDO.setAvailable(0);
-        return true;
-    }
+        boolean flag = false;
+        try {
+            TravelSetDO travelSetDO = session.get(TravelSetDO.class, sn);
+            travelSetDO.setAvailable(0);
 
+            flag = true;
+        }catch (Exception e){
+            throw e;
+        }
+        return flag;
+    }
 }

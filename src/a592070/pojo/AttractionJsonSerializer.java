@@ -28,8 +28,6 @@ public class AttractionJsonSerializer extends JsonSerializer<AttractionDO> {
         gen.writeNumberField("rating", value.getRating());
         gen.writeStringField("region", value.getRegion());
 
-
-
         gen.writeEndObject();
     }
 }

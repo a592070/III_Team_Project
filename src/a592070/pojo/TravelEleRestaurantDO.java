@@ -8,26 +8,26 @@ import java.sql.Timestamp;
 public class TravelEleRestaurantDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sn;
+    private Integer sn;
 
     private Timestamp time;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "R_ID", referencedColumnName = "R_SN")
+    @JoinColumn(name = "R_ID", referencedColumnName = "SN")
     private RestaurantVO restaurant;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TRAVEL_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TRAVEL_ID", referencedColumnName = "SN")
     private TravelSetDO travelSetDO;
 
     public TravelEleRestaurantDO() {
     }
 
-    public int getSn() {
+    public Integer getSn() {
         return sn;
     }
 
-    public void setSn(int sn) {
+    public void setSn(Integer sn) {
         this.sn = sn;
     }
 
