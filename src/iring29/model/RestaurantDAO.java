@@ -13,10 +13,10 @@ public class RestaurantDAO {
 	}
 
 	// search how many Restaurant
-	public Long numRestaurant(String name) {
-		Query query = session.createQuery("select count(*) from RestaurantBean where name like ?0");
+	public int numRestaurant(String name) {
+		Query<Integer> query = session.createQuery("select count(*) from RestaurantBean where name like ?0", Integer.class);
 		query.setParameter(0, "%" + name + "%");
-		Long count = (Long)query.getSingleResult(); //得到Long
+		Integer count = query.uniqueResult(); //得到Long
 		return count;
 		
 	}

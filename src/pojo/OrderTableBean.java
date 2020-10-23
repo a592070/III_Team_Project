@@ -34,9 +34,9 @@ public class OrderTableBean {
 //	@						//還沒註冊
 	AccountBean user; // Account資料
 
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderTableBean", cascade = CascadeType.ALL)
 	Set<R_OrderBean> r_OrderBeans;
-	R_OrderBean r_OdrerBean; // 小訂單的Bean (Restaurant)
+//	R_OrderBean r_OrdrerBean; // 小訂單的Bean (Restaurant)
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
 	Set<T_Order_List> t_OrderBeans;
@@ -93,17 +93,17 @@ public class OrderTableBean {
 //		this.customerPhone = customerPhone;
 //	}
 
-	public Set<R_OrderBean> getR_OderBeans() {
+	public Set<R_OrderBean> getR_OrderBeans() {
 		return r_OrderBeans;
 	}
 	
 
 
-	public void setR_OderBeans(Set<R_OrderBean> r_OderBeans) {
-		this.r_OrderBeans = r_OderBeans;
+	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
+		this.r_OrderBeans = r_OrderBeans;
 	}
 
-	public void addR_OderBean(R_OrderBean rBean) {
+	public void addR_OrderBean(R_OrderBean rBean) {
 		this.r_OrderBeans.add(rBean);
 	}
 

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -52,7 +53,8 @@ public class RestaurantBean {
 	// constructor
 
 	@Id @Column(name = "R_SN")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@SequenceGenerator(name = "seq", sequenceName = "RESTAURANT_SEQ", allocationSize = 1)
 	public BigDecimal getR_sn() {
 		return r_sn;
 	}
