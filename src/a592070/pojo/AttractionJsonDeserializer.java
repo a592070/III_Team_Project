@@ -34,26 +34,26 @@ public class AttractionJsonDeserializer extends JsonDeserializer<AttractionDO> {
 
         AttractionDO attractionDO = new AttractionDO();
 
-//        attractionDO.setId(node.get("Id").textValue());
+        attractionDO.setSn(node.get("sn").intValue());
 
-        attractionDO.setName(node.get("Name").textValue());
-        attractionDO.setToldescribe(node.get("Toldescribe").textValue());
-        attractionDO.setDescription(node.get("Description").textValue());
-        attractionDO.setTel(node.get("Tel").textValue());
-        attractionDO.setAddress(node.get("Add").textValue());
+        attractionDO.setName(node.get("name").textValue());
+        attractionDO.setToldescribe(node.get("toldescribe").textValue());
+        attractionDO.setDescription(node.get("description").textValue());
+        attractionDO.setTel(node.get("tel").textValue());
+        attractionDO.setAddress(node.get("address").textValue());
 
-        attractionDO.setPx(node.get("Px").decimalValue());
-        attractionDO.setPy(node.get("Py").decimalValue());
+        attractionDO.setPx(node.get("px").decimalValue());
+        attractionDO.setPy(node.get("py").decimalValue());
 
 
-        attractionDO.setOpenTime(node.get("Opentime").textValue());
-        attractionDO.setPicture(node.get("Picture").textValue());
-        attractionDO.setTravellingInfo(node.get("Travellinginfo").textValue());
-        attractionDO.setTicketInfo(node.get("Ticketinfo").textValue());
-        attractionDO.setKeywords(node.get("Keyword").textValue());
-        attractionDO.setRemarks(node.get("Remarks").textValue());
-        attractionDO.setRegion(node.get("Region").textValue());
-        attractionDO.setPicture(node.get("Picture1").textValue());
+        attractionDO.setOpenTime(node.get("openTime").textValue());
+        attractionDO.setPicture(node.get("picture").textValue());
+        attractionDO.setTravellingInfo(node.get("travellingInfo").textValue());
+        attractionDO.setTicketInfo(node.get("ticketInfo").textValue());
+        attractionDO.setKeywords(node.get("keywords").textValue());
+        attractionDO.setRemarks(node.get("remarks").textValue());
+        attractionDO.setRegion(node.get("region").textValue());
+        attractionDO.setRating(node.get("rating").decimalValue());
 
         return attractionDO;
     }

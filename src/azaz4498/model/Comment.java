@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package azaz4498.model;
 
 import java.io.Serializable;
@@ -29,6 +28,9 @@ public class Comment implements Serializable{
 	private Date comDate;
 	private String comPic;
 	private Article article;
+	public Comment() {
+		
+	}
 	
 	@Id@Column(name = "COM_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMID_SEQUENCE")

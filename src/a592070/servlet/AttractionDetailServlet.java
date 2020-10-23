@@ -2,8 +2,7 @@ package a592070.servlet;
 
 import a592070.pojo.AttractionDO;
 import a592070.service.AttractionService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import utils.HibernateUtil;
 import utils.StringUtil;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(name = "AttractionDetailServlet", urlPatterns = "/AttractionDetailServlet")
 public class AttractionDetailServlet extends HttpServlet {
@@ -29,6 +27,7 @@ public class AttractionDetailServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        attractionService.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
         String attractionSn = req.getParameter("attractionSn");
 
         if(!StringUtil.isEmpty(attractionSn)){

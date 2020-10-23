@@ -2,6 +2,7 @@ package a592070.pojo;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "CARTYPE")
 @SecondaryTable(name = "CARRENTALCOMPANY",
         pkJoinColumns = {@PrimaryKeyJoinColumn(name = "sn_rentalcompany")})
+@Immutable
 public class CarVO {
     @Id@Column(name = "SN_CARTYPE")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

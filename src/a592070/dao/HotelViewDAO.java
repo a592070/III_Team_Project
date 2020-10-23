@@ -16,16 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelViewDAO {
-    private DataSource ds;
-    private Connection conn;
-    private String sql;
-    private PreparedStatement predStmt;
-    private ResultSet rs;
     private Session session;
 
-    public HotelViewDAO(int connType) throws IOException {
-        ds = ConnectionPool.getDataSource(connType);
-    }
     public HotelViewDAO(Session session) {
         this.session = session;
     }
@@ -35,9 +27,9 @@ public class HotelViewDAO {
     }
     public HotelVO getEle(String fieldName, Object fieldValue){
         fieldValue = "%"+fieldValue+"%";
-        String hql = "from HotelVO where "+fieldName+" like ?";
+        String hql = "from HotelVO where "+fieldName+" like ?1";
         Query<HotelVO> query = session.createQuery(hql, HotelVO.class);
-        query.setParameter(0, fieldValue);
+        query.setParameter(1, fieldValue);
 
         return query.uniqueResultOptional().orElse(null);
     }

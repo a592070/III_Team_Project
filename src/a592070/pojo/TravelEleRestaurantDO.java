@@ -9,14 +9,14 @@ public class TravelEleRestaurantDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
-    @Column(name = "TRAVEL_ID")
-    private int travelId;
+
     private Timestamp time;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "R_ID", referencedColumnName = "R_SN")
     private RestaurantVO restaurant;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRAVEL_ID")
     private TravelSetDO travelSetDO;
 
@@ -29,14 +29,6 @@ public class TravelEleRestaurantDO {
 
     public void setSn(int sn) {
         this.sn = sn;
-    }
-
-    public int getTravelId() {
-        return travelId;
-    }
-
-    public void setTravelId(int travelId) {
-        this.travelId = travelId;
     }
 
     public Timestamp getTime() {
@@ -67,7 +59,6 @@ public class TravelEleRestaurantDO {
     public String toString() {
         return "TravelEleRestaurantDO{" +
                 "sn=" + sn +
-                ", travelId=" + travelId +
                 ", time=" + time +
                 ", restaurant=" + restaurant +
                 '}';

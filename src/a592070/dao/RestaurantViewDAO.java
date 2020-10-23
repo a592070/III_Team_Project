@@ -17,19 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantViewDAO {
-    private DataSource ds;
-    private Connection conn;
-    private String sql;
-    private PreparedStatement predStmt;
-    private ResultSet rs;
     private Session session;
 
     public RestaurantViewDAO(Session session) {
         this.session = session;
-    }
-
-    public RestaurantViewDAO(int connType) throws IOException {
-        ds = ConnectionPool.getDataSource(connType);
     }
 
     public RestaurantVO getEle(int id) {
@@ -37,19 +28,19 @@ public class RestaurantViewDAO {
     }
     public RestaurantVO getEle(String fieldName, Object fieldValue){
         fieldValue = "%"+fieldValue+"%";
-        String hql = "from RestaurantVO where "+fieldName+" like ?";
+        String hql = "from RestaurantVO where "+fieldName+" like ?1";
         Query<RestaurantVO> query = session.createQuery(hql, RestaurantVO.class);
-        query.setParameter(0, fieldValue);
+        query.setParameter(1, fieldValue);
 
         return query.uniqueResultOptional().orElse(null);
     }
 
     public List<RestaurantVO> listEle(String region) {
         region = "%"+region+"%";
-        String hql = "from RestaurantVO where address like ? or region like ? order by sn";
+        String hql = "from RestaurantVO where address like ?1 or region like ?2 order by sn";
         Query<RestaurantVO> query = session.createQuery(hql, RestaurantVO.class);
-        query.setParameter(0, region);
         query.setParameter(1, region);
+        query.setParameter(2, region);
 
         return query.list();
     }

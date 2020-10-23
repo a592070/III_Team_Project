@@ -39,7 +39,7 @@ public class ArticleType implements Serializable{
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
-	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL ,mappedBy = "ArticleType")
+	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL ,mappedBy = "articleType")
 	public List<Article> getArticles() {
 		return articles;
 	}

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import global.Constant;
 import rambo0021.model.AccountBean;
+import utils.HibernateUtil;
 import utils.StringUtil;
 
 import javax.servlet.ServletException;
@@ -35,6 +36,8 @@ public class TravelSetSelectServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        service.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+
         HttpSession session = req.getSession();
         String username;
         if(!StringUtil.isEmpty(req.getParameter("system_travelset"))){
@@ -44,7 +47,6 @@ public class TravelSetSelectServlet extends HttpServlet {
             username = user.getUserName();
         }else{
             username = "guest"+session.getId();
-//            username = "null";
         }
 
         String method = req.getParameter("method");
@@ -92,8 +94,6 @@ public class TravelSetSelectServlet extends HttpServlet {
     private void initCurrentTravelSet(String username, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession session = req.getSession();
         ObjectMapper mapper = new ObjectMapper();
-
-//        System.out.println("TravelSetSelectServlet\t"+session.getId());
 
         TravelSetDO travelSetDO = new TravelSetDO();
         travelSetDO.setCreatedUser(username);

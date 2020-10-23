@@ -6,15 +6,11 @@ import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
 import a592070.pojo.AttractionDO;
 import controller.ConnectionPool;
-import iring29.model.RestaurantBean;
 
 public class HotelDAO {
 

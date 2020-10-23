@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+
 
 @Entity
 @Table(name = "F_ARTICLE")
@@ -36,7 +39,10 @@ public class Article implements Serializable {
 	private String artPic;
 	private List<Comment> comments = new ArrayList<Comment>();
 	private ArticleType articleType;
+	public Article() {
+	}
 
+	@Column(name = "ART_CONTENT")
 	public String getArtContent() {
 		return artContent;
 	}
@@ -93,7 +99,7 @@ public class Article implements Serializable {
 		this.artId = artId;
 	}
 
-	@Column(name = "ART_TYPE_ID")
+	@Transient
 	public int getArtTypeId() {
 		return artTypeId;
 	}
@@ -120,7 +126,7 @@ public class Article implements Serializable {
 		this.artPic = artPic;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ART_ID")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "article")
 	public List<Comment> getComments() {
 		return comments;
 	}
@@ -130,7 +136,7 @@ public class Article implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TYPE_ID")
+	@JoinColumn(name = "ART_TYPE_ID")
 	public ArticleType getArticleType() {
 		return articleType;
 	}
@@ -138,5 +144,7 @@ public class Article implements Serializable {
 	public void setArticleType(ArticleType articleType) {
 		this.articleType = articleType;
 	}
+	
+	
 
 }
