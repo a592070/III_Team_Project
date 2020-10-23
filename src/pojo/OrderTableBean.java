@@ -41,7 +41,7 @@ public class OrderTableBean {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
 	Set<T_Order_List> t_OrderBeans;
 	@Transient
-	T_OrderBean T_OderBean;  //小訂單的Bean (Traffic)
+	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
 	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
 	Set<H_OrderBean> h_OrderBeans;
 
