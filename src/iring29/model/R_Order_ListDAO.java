@@ -39,12 +39,12 @@ public class R_Order_ListDAO {
 
 	// find r_order
 	public R_OrderBean findR_order_List(BigDecimal r_sn)  {
-		String sql1 = "select max(order_id) order_id from r_order_list where r_sn = ?";
-		String sql2 = "select * from r_order_list where order_id = ?";
-
 		
+		Query<R_OrderBean> query = session.createQuery("select * from R_OrderBean where order_id = (select max(order_id) from R_OrderBean where r_sn = ?0)", R_OrderBean.class);
+		query.setParameter(0, r_sn);
+		R_OrderBean rBean = query.uniqueResult();
+		return rBean;
 		
-
 	}
 
 	// Delete Order
@@ -69,17 +69,17 @@ public class R_Order_ListDAO {
 
 	// user find order info
 	public R_OrderBean UserOrderList(BigDecimal r_sn_order) {
-		String sql = "select * from r_order_list where r_sn_order = ?";
-		String sql2 = "select * from restaurant where r_sn = ?";
-
 		
+		Query<R_OrderBean> query = session.createQuery("select * from restaurant where r_sn = (select r_sn from r_order_list where r_sn_order = ?0)", R_OrderBean.class);
+		query.setParameter(0, r_sn_order);
+		R_OrderBean rBean = query.uniqueResult();
+		return rBean;
 
 	}
 
 	// find booking name, phone
 //	public OrderTableBean BookData(BigDecimal order_id) {
 //		String sql = "select name, phone from order_data where sn = (select sn_no from order_table where order_id = ?)";
-//
 //
 //	}
 }
