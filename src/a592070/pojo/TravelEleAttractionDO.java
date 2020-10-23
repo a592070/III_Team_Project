@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Table(name = "TRAVEL_ELE_A")
 public class TravelEleAttractionDO {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sn;
+    private Integer sn;
 
     private Timestamp time;
 
@@ -15,18 +15,18 @@ public class TravelEleAttractionDO {
     @JoinColumn(name = "A_ID", referencedColumnName = "A_SN")
     private AttractionDO attraction;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRAVEL_ID", referencedColumnName = "SN")
     private TravelSetDO travelSetDO;
 
     public TravelEleAttractionDO() {
     }
 
-    public int getSn() {
+    public Integer getSn() {
         return sn;
     }
 
-    public void setSn(int sn) {
+    public void setSn(Integer sn) {
         this.sn = sn;
     }
 

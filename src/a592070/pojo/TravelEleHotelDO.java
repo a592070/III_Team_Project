@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class TravelEleHotelDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sn;
+    private Integer sn;
 
     private Timestamp time;
 
@@ -16,18 +16,18 @@ public class TravelEleHotelDO {
     @JoinColumn(name = "H_ID", referencedColumnName = "SN")
     private HotelVO hotel;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "TRAVEL_ID")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "TRAVEL_ID", referencedColumnName = "SN")
     private TravelSetDO travelSetDO;
 
     public TravelEleHotelDO() {
     }
 
-    public int getSn() {
+    public Integer getSn() {
         return sn;
     }
 
-    public void setSn(int sn) {
+    public void setSn(Integer sn) {
         this.sn = sn;
     }
 

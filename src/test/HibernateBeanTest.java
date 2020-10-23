@@ -7,6 +7,8 @@ import org.hibernate.query.Query;
 import org.junit.Test;
 import utils.HibernateUtil;
 
+import javax.persistence.EntityManager;
+
 public class HibernateBeanTest {
 
     @Test
@@ -41,13 +43,13 @@ public class HibernateBeanTest {
         try {
             session.beginTransaction();
 
-//            TravelSetDO travelSetDO = currentSession.get(TravelSetDO.class, 142);
-            TravelSetDO travelSet = new TravelSetDAO(session).getTravelSetByID(21);
-            System.out.println(travelSet.getSn());
-            travelSet.getTravelAttractions().forEach(ele -> System.out.println(ele));
-            travelSet.getTravelRestaurants().forEach(ele -> System.out.println(ele));
-            travelSet.getTravelCars().forEach(ele -> System.out.println(ele));
-            travelSet.getTravelHotels().forEach(ele -> System.out.println(ele));
+            TravelSetDO travelSet = session.get(TravelSetDO.class, 21);
+//            TravelSetDO travelSet = new TravelSetDAO(session).getTravelSetByID(21);
+            System.out.println(travelSet);
+//            travelSet.getTravelAttractions2().forEach(ele -> System.out.println(ele));
+//            travelSet.getTravelRestaurants2().forEach(ele -> System.out.println(ele));
+//            travelSet.getTravelCars2().forEach(ele -> System.out.println(ele));
+//            travelSet.getTravelHotels2().forEach(ele -> System.out.println(ele));
 
             session.getTransaction().commit();
         }catch (Exception e){
@@ -66,21 +68,22 @@ public class HibernateBeanTest {
             TravelSetDO travelSetDO = currentSession.get(TravelSetDO.class, 204);
             System.out.println(travelSetDO);
 
-            travelSetDO.getTravelCars().clear();
+            travelSetDO.getTravelCars2().clear();
 
             TravelEleCarDO eleC = new TravelEleCarDO();
-            eleC.setCar(currentSession.get(CarVO.class, 3));
+            eleC.setCar(currentSession.get(CarVO.class, 5));
             eleC.setTravelSetDO(travelSetDO);
-            travelSetDO.getTravelCars().add(eleC);
+            travelSetDO.getTravelCars2().add(eleC);
 
             TravelEleHotelDO eleH = new TravelEleHotelDO();
-            eleH.setHotel(currentSession.get(HotelVO.class, 3));
+            eleH.setHotel(currentSession.get(HotelVO.class, 2));
             eleH.setTravelSetDO(travelSetDO);
 
-            travelSetDO.getTravelHotels().add(eleH);
+            travelSetDO.getTravelHotels2().add(eleH);
 
             currentSession.getTransaction().commit();
         }catch (Exception e){
+            e.printStackTrace();
             currentSession.getTransaction().rollback();
         }
         currentSession.close();
@@ -100,13 +103,13 @@ public class HibernateBeanTest {
             TravelEleCarDO eleC = new TravelEleCarDO();
             eleC.setCar(currentSession.get(CarVO.class, 1));
 //            eleC.setTravelId(travelSetDO.getSn());
-            travelSetDO.getTravelCars().add(eleC);
+            travelSetDO.getTravelCars2().add(eleC);
             eleC.setTravelSetDO(travelSetDO);
 
             TravelEleAttractionDO eleA = new TravelEleAttractionDO();
             eleA.setAttraction(currentSession.get(AttractionDO.class, 999));
 //            eleA.setTravelId(travelSetDO.getSn());
-            travelSetDO.getTravelAttractions().add(eleA);
+            travelSetDO.getTravelAttractions2().add(eleA);
             eleA.setTravelSetDO(travelSetDO);
 
             System.out.println(travelSetDO);
@@ -114,6 +117,7 @@ public class HibernateBeanTest {
 
             currentSession.getTransaction().commit();
         }catch (Exception e){
+            e.printStackTrace();
             currentSession.getTransaction().rollback();
         }
         currentSession.close();
@@ -167,6 +171,73 @@ public class HibernateBeanTest {
             TravelSetDAO travelSetDAO = new TravelSetDAO(session);
 
             TravelSetDO travelSet = travelSetDAO.getTravelSetByID(61);
+
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.closeSessionFactory();
+    }
+
+    @Test
+    public void testMultipleBag(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            String hql = "select\n" +
+                    "        travelsetd0_.sn as sn1_10_0_,\n" +
+                    "        travelsetd0_.available as available2_10_0_,\n" +
+                    "        travelsetd0_.CREATED_TIME as created_time3_10_0_,\n" +
+                    "        travelsetd0_.CREATED as created4_10_0_,\n" +
+                    "        travelsetd0_.description as description5_10_0_,\n" +
+                    "        travelsetd0_.name as name6_10_0_,\n" +
+                    "        travelsetd0_.priority as priority7_10_0_,\n" +
+                    "        travelsetd0_.UPDATE_TIME as update_time8_10_0_,\n" +
+                    "        travelattr1_.TRAVEL_ID as travel_id4_6_1_,\n" +
+                    "        travelattr1_.sn as sn1_6_1_,\n" +
+                    "        travelattr1_.sn as sn1_6_2_,\n" +
+                    "        travelattr1_.A_ID as a_id3_6_2_,\n" +
+                    "        travelattr1_.time as time2_6_2_,\n" +
+                    "        travelattr1_.TRAVEL_ID as travel_id4_6_2_,\n" +
+                    "        travelcars2_.TRAVEL_ID as travel_id4_7_3_,\n" +
+                    "        travelcars2_.sn as sn1_7_3_,\n" +
+                    "        travelcars2_.sn as sn1_7_4_,\n" +
+                    "        travelcars2_.C_ID as c_id3_7_4_,\n" +
+                    "        travelcars2_.time as time2_7_4_,\n" +
+                    "        travelcars2_.TRAVEL_ID as travel_id4_7_4_,\n" +
+                    "        travelhote3_.TRAVEL_ID as travel_id4_8_5_,\n" +
+                    "        travelhote3_.sn as sn1_8_5_,\n" +
+                    "        travelhote3_.sn as sn1_8_6_,\n" +
+                    "        travelhote3_.H_ID as h_id3_8_6_,\n" +
+                    "        travelhote3_.time as time2_8_6_,\n" +
+                    "        travelhote3_.TRAVEL_ID as travel_id4_8_6_,\n" +
+                    "        travelrest4_.TRAVEL_ID as travel_id4_9_7_,\n" +
+                    "        travelrest4_.sn as sn1_9_7_,\n" +
+                    "        travelrest4_.sn as sn1_9_8_,\n" +
+                    "        travelrest4_.R_ID as r_id3_9_8_,\n" +
+                    "        travelrest4_.time as time2_9_8_,\n" +
+                    "        travelrest4_.TRAVEL_ID as travel_id4_9_8_ \n" +
+                    "    from\n" +
+                    "        TRAVEL_SET travelsetd0_ \n" +
+                    "    left outer join\n" +
+                    "        TRAVEL_ELE_A travelattr1_ \n" +
+                    "            on travelsetd0_.sn=travelattr1_.TRAVEL_ID \n" +
+                    "    left outer join\n" +
+                    "        TRAVEL_ELE_C travelcars2_ \n" +
+                    "            on travelsetd0_.sn=travelcars2_.TRAVEL_ID \n" +
+                    "    left outer join\n" +
+                    "        TRAVEL_ELE_H travelhote3_ \n" +
+                    "            on travelsetd0_.sn=travelhote3_.TRAVEL_ID \n" +
+                    "    left outer join\n" +
+                    "        TRAVEL_ELE_R travelrest4_ \n" +
+                    "            on travelsetd0_.sn=travelrest4_.TRAVEL_ID \n" +
+                    "    where\n" +
+                    "        travelsetd0_.sn=21 or travelsetd0_.sn=41";
+
+            System.out.println(session.createSQLQuery(hql).getResultList().size());
 
 
             session.getTransaction().commit();

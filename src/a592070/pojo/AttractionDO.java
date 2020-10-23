@@ -19,7 +19,7 @@ public class AttractionDO {
     @Id
     @Column(name = "A_SN")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sn;
+    private Integer sn;
     private String name;
     private String toldescribe;
     private String description;
@@ -66,11 +66,11 @@ public class AttractionDO {
                 '}';
     }
 
-    public int getSn() {
+    public Integer getSn() {
         return sn;
     }
 
-    public void setSn(int sn) {
+    public void setSn(Integer sn) {
         this.sn = sn;
     }
 
