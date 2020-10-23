@@ -12,8 +12,8 @@ public class TravelEleAttractionDO {
     private Timestamp time;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "A_ID", referencedColumnName = "A_SN")
-    private AttractionDO attraction;
+    @JoinColumn(name = "A_ID", referencedColumnName = "SN")
+    private AttractionVO attraction;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRAVEL_ID", referencedColumnName = "SN")
@@ -38,11 +38,11 @@ public class TravelEleAttractionDO {
         this.time = time;
     }
 
-    public AttractionDO getAttraction() {
+    public AttractionVO getAttraction() {
         return attraction;
     }
 
-    public void setAttraction(AttractionDO attraction) {
+    public void setAttraction(AttractionVO attraction) {
         this.attraction = attraction;
     }
 

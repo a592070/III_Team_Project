@@ -1,13 +1,19 @@
 package test;
 
+import a592070.dao.AttractionViewDAO;
 import a592070.dao.TravelSetDAO;
 import a592070.pojo.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.junit.Test;
+import rambo0021.model.AccountBean;
 import utils.HibernateUtil;
 
 import javax.persistence.EntityManager;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 public class HibernateBeanTest {
 
@@ -43,8 +49,8 @@ public class HibernateBeanTest {
         try {
             session.beginTransaction();
 
-            TravelSetDO travelSet = session.get(TravelSetDO.class, 21);
-//            TravelSetDO travelSet = new TravelSetDAO(session).getTravelSetByID(21);
+//            TravelSetDO travelSet = session.get(TravelSetDO.class, 21);
+            TravelSetDO travelSet = new TravelSetDAO(session).getTravelSetByID(21);
             System.out.println(travelSet);
 //            travelSet.getTravelAttractions2().forEach(ele -> System.out.println(ele));
 //            travelSet.getTravelRestaurants2().forEach(ele -> System.out.println(ele));
@@ -107,13 +113,13 @@ public class HibernateBeanTest {
             eleC.setTravelSetDO(travelSetDO);
 
             TravelEleAttractionDO eleA = new TravelEleAttractionDO();
-            eleA.setAttraction(currentSession.get(AttractionDO.class, 999));
+            eleA.setAttraction(currentSession.get(AttractionVO.class, 999));
 //            eleA.setTravelId(travelSetDO.getSn());
             travelSetDO.getTravelAttractions2().add(eleA);
             eleA.setTravelSetDO(travelSetDO);
 
             System.out.println(travelSetDO);
-            currentSession.save(travelSetDO);
+//            currentSession.save(travelSetDO);
 
             currentSession.getTransaction().commit();
         }catch (Exception e){
@@ -148,7 +154,7 @@ public class HibernateBeanTest {
             eleC2.setTravelSetDO(travelSetDO);
 
             TravelEleAttractionDO eleA = new TravelEleAttractionDO();
-            eleA.setAttraction(session.get(AttractionDO.class, 999));
+            eleA.setAttraction(session.get(AttractionVO.class, 999));
             travelSetDO.getTravelAttractions().add(eleA);
             eleA.setTravelSetDO(travelSetDO);
 
@@ -239,6 +245,52 @@ public class HibernateBeanTest {
 
             System.out.println(session.createSQLQuery(hql).getResultList().size());
 
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.closeSessionFactory();
+    }
+
+    @Test
+    public void testAccount(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            AccountBean rambo001 = session.get(AccountBean.class, "rambo001");
+            InputStream input = rambo001.getPicture().getBinaryStream();
+            OutputStream out = new FileOutputStream("resources/testPic.jpg");
+            byte[] buf = new byte[1024];
+            int len = 0;
+            while((len = input.read(buf)) != -1){
+                out.write(buf, 0 ,len);
+            }
+
+            input.close();
+            out.close();
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.closeSessionFactory();
+    }
+
+    @Test
+    public void  testAttrView(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            AttractionViewDAO dao = new AttractionViewDAO(session);
+            List<AttractionVO> list = dao.listAttractionLike(0, 100, "高雄");
+            System.out.println(list);
 
             session.getTransaction().commit();
         }catch (Exception e){

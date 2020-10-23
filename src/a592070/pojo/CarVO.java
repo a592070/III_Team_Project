@@ -9,18 +9,14 @@ import javax.persistence.*;
 @JsonSerialize(using = CarVOJsonSerializer.class)
 @JsonDeserialize(using = CarVOJsonDeserializer.class)
 @Entity
-@Table(name = "CARTYPE")
-@SecondaryTable(name = "CARRENTALCOMPANY",
-        pkJoinColumns = {@PrimaryKeyJoinColumn(name = "sn_rentalcompany")})
+@Table(name = "CARVIEW")
 @Immutable
 public class CarVO {
-    @Id@Column(name = "SN_CARTYPE")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
-    @Column(name = "CARTYPE")
     private String carType;
     private int price;
-    @Column(name = "NAME_COMPANY", table = "CARRENTALCOMPANY")
     private String company;
 
     public CarVO() {

@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="a592070.vo.AttractionsInfoVO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.OptionalInt" %>
 <%@ page import="java.util.Optional" %><%--

@@ -56,8 +56,6 @@ public class TravelSetSelectServlet extends HttpServlet {
             deleteTravelSet(req, resp);
         }
 
-
-
         ObjectMapper mapper = new ObjectMapper();
 
         List<TravelSetDO> list = service.listTravelSet(username);

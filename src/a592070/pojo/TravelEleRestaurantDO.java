@@ -13,7 +13,7 @@ public class TravelEleRestaurantDO {
     private Timestamp time;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "R_ID", referencedColumnName = "R_SN")
+    @JoinColumn(name = "R_ID", referencedColumnName = "SN")
     private RestaurantVO restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)

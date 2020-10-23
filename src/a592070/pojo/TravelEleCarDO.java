@@ -12,7 +12,7 @@ public class TravelEleCarDO {
     private Timestamp time;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "C_ID", referencedColumnName = "SN_CARTYPE")
+    @JoinColumn(name = "C_ID", referencedColumnName = "SN")
     private CarVO car;
 
     @ManyToOne(fetch = FetchType.LAZY)

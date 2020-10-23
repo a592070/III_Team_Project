@@ -1,22 +1,24 @@
 package a592070.pojo;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Immutable;
 import utils.StringUtil;
 
 import javax.persistence.*;
 
+@JsonDeserialize(using = AttractionVOJsonDeserializer.class)
+@JsonSerialize(using = AttractionVOJsonSerializer.class)
 @Entity
-@Table(name = "ATTRACTION")
+@Table(name = "AttractionView")
 @Immutable
 public class AttractionVO {
     @Id
-    @Column(name = "A_SN")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sn;
     private String name;
     private String picture;
     private String address;
-    @Column(name = "TICKETINFO")
     private String ticketInfo;
     private String description;
 
@@ -70,5 +72,17 @@ public class AttractionVO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "AttractionVO{" +
+                "sn=" + sn +
+                ", name='" + name + '\'' +
+                ", picture='" + picture + '\'' +
+                ", address='" + address + '\'' +
+                ", ticketInfo='" + ticketInfo + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
