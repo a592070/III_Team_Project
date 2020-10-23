@@ -39,7 +39,7 @@ public class OrderTableBean {
 	Timestamp order_date; // 下訂單時間，default
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn//還沒註冊
+	@JoinColumn(name = "USERNAME")//還沒註冊
 	AccountBean user; // Account資料
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderTableBean", cascade = CascadeType.ALL)
