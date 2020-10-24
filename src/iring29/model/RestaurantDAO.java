@@ -55,19 +55,24 @@ public class RestaurantDAO {
 		return rBeans;
 	}
 
-	// fail
+	// ok but not sure why
 	// insert data for Restaurant
 	public RestaurantBean createRestauran(RestaurantBean rBean) {
-		RestaurantBean result = session.get(RestaurantBean.class, rBean.getR_sn());
+//		RestaurantBean result = session.get(RestaurantBean.class, rBean.getR_sn());
 
-		if (result == null) {
+//		if (result == null) {
+//			session.save(rBean);
+//			return rBean;
+//		}
+		try {
 			session.save(rBean);
 			return rBean;
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 
-	// not yet try
 	// set RestaurantBean for display HP
 	public RestaurantBean Restaurant_HP(String username) {
 		Query query = session.createQuery("from RestaurantBean where account = ?0");

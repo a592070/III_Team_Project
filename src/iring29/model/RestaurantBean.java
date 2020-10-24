@@ -204,13 +204,15 @@ public class RestaurantBean {
 //	}
 //	
 //	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantBean", cascade = CascadeType.ALL)
-//	public Set<R_OrderBean> getR_OrderBeans() {
-//		return r_OrderBeans;
-//	}
-//	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
-//		this.r_OrderBeans = r_OrderBeans;
-//	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantBean", cascade = CascadeType.ALL)
+	public Set<R_OrderBean> getR_OrderBeans() {
+		return r_OrderBeans;
+	}
+	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
+		this.r_OrderBeans = r_OrderBeans;
+	}
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

@@ -26,12 +26,13 @@ public class R_OrderBean {
 
 	private BigDecimal r_sn_order;
 	private BigDecimal order_id;
-	private RestaurantBean restaurantBean;
+	private BigDecimal r_sn;
 	private BigDecimal customerNum; // 訂位人數
 	private Timestamp booking_date; // 訂位時間(前往用餐時間)
 	private BigDecimal deposit = BigDecimal.valueOf(500); // 固定每筆訂餐廳的訂金為500
 	private String customerName; // 下單時填入的姓名
 	private String customerPhone; // 下單時填入的電話
+	private RestaurantBean restaurantBean;
 	private String getBooking_dateString;
 	private OrderTableBean orderTableBean;
 
@@ -71,7 +72,7 @@ public class R_OrderBean {
 		return bookdate;
 	}
 
-	@Column(name = "CUSTOMER_NUM")
+	@Column(name = "CUS_NAME")
 	public String getCustomerName() {
 		return customerName;
 	}
@@ -146,6 +147,16 @@ public class R_OrderBean {
 
 	public void setOrderTableBean(OrderTableBean orderTableBean) {
 		this.orderTableBean = orderTableBean;
+	}
+
+	
+	@Transient
+	public BigDecimal getR_sn() {
+		return r_sn;
+	}
+
+	public void setR_sn(BigDecimal r_sn) {
+		this.r_sn = r_sn;
 	}
 
 	@Override

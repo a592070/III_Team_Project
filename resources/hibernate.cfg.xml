@@ -39,9 +39,9 @@
 			<mapping class="azaz4498.model.ArticleType"/> 
 			
 			<mapping class="azaz4498.model.Comment"/> 
-		
-			<mapping class="iring29.model.R_OrderBean"/> 
 		-->	
+			<mapping class="iring29.model.R_OrderBean"/> 
+		
 			<mapping class="iring29.model.RestaurantBean" />
 		<!-- 
 			<mapping class="rambo0021.model.AccountBean" />
@@ -52,9 +52,9 @@
 			<mapping class="innocence741.model.CarType" />
 			<mapping class="innocence741.model.HighSpeedRail" />
 			<mapping class="innocence741.model.T_Order_List" />
-		
+		-->
 
 			<mapping class="pojo.OrderTableBean" />
- 		-->
+ 		
 	</session-factory>
 </hibernate-configuration>
