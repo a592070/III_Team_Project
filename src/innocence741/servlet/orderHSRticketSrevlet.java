@@ -44,7 +44,6 @@ public class orderHSRticketSrevlet extends HttpServlet {
         HttpSession session2 = request.getSession(false);
         if (session2.getAttribute("Login") == null) {
             // 請使用者登入
-//        	System.out.println("hahahahaha");
         	String ujson1 = "{\"check\" : \"rederict\"}";
             PrintWriter out = response.getWriter();
             out.println(ujson1.toString());
@@ -57,7 +56,7 @@ public class orderHSRticketSrevlet extends HttpServlet {
 	//		System.out.println("idHSR= " + idHSR);
 	//		System.out.println("departureDate=" + departureDate);
 			
-			List<HighSpeedRail> list;
+			List<HighSpeedRail> list;	//創建一個List裝載列車資訊
 	    	int price = 0;
 			HighSpeedRailDAO hsrDAO = new HighSpeedRailDAO(session);
 			hsrDAO.getSN_Schedule(idHSR);
