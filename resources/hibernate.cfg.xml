@@ -41,7 +41,6 @@
 		<mapping class="innocence741.model.CarType" />
 		<mapping class="innocence741.model.HighSpeedRail" />
 		<mapping class="innocence741.model.T_Order_List" />
-		<mapping class="innocence741.model.Order_table" />
 
 
 		<mapping class="pojo.OrderTableBean" />

@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "HIGHSPEEDRAIL")
 public class HighSpeedRail {
@@ -64,6 +66,7 @@ public class HighSpeedRail {
 	@Column(name = "ZUOYING")
 	private String zuoying;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "highSpeedRail", cascade = CascadeType.ALL)
 	private Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
 
