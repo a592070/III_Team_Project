@@ -60,7 +60,7 @@
                             var div = $('<div></div>').addClass('T_OrderDiv');
                             var table = $('<table></table>').addClass('T_OrderTable');
                             for(let j=0; j<response[i].length; j++){
-                                let startPoint = response[i][j]["t_OderBeans"][0]["startPoint"];
+                                let startPoint = response[i][j]["t_Order_Lists"][0]["startPoint"];
                                 
                                 
                                 var date = new Date(response[i][j]["order_date"]);
@@ -74,7 +74,7 @@
                                 TMP = Y+M+D+h+m+s;
                                 console.log(TMP)
 
-                                var date2 = new Date(response[i][j]["t_OderBeans"][0]["deparatureDate"]);
+                                var date2 = new Date(response[i][j]["t_Order_Lists"][0]["deparatureDate"]);
                                 Y2 = date.getFullYear() + '-';
                                 M2 = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
                                 D2 = date.getDate() + ' ';
@@ -91,18 +91,18 @@
                                         // $("<td></td>").append(response[i][j]["order_date"]),
                                         $("<td></td>").append(TMP),
                                         //$("<td></td>").append(response[i][j]["user"]["userName"])
-                                        // $("<td></td>").append(response[i][j]["t_OderBeans"][0]["t_sn_order"])
-                                        // $("<td></td>").append(response[i][j]["t_OderBeans"][0]["orderType"]) //可抓到orderType
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"]["idHSR"]),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["startPoint"]),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["destination"]),
-                                        // $("<td></td>").append(response[i][j]["t_OderBeans"][0]["deparatureDate"]),
+                                        // $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["t_sn_order"])
+                                        // $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["orderType"]) //可抓到orderType
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["highSpeedRail"]["idHSR"]),
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["startPoint"]),
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["destination"]),
+                                        // $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["deparatureDate"]),
                                         $("<td></td>").append(TMP2),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["hsrDO"][startPoint]),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["trafficPrice"]),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["nums_days"]),
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["highSpeedRail"][startPoint]),
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["ticketPrice"]),
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["nums_days"]),
                                         $("<td></td>").append('<input type="button" class="cancelTicket" value="取消訂單">'),
-                                        $("<td></td>").append(response[i][j]["t_OderBeans"][0]["t_sn_order"]).addClass('snCol')
+                                        $("<td></td>").append(response[i][j]["t_Order_Lists"][0]["t_sn_order"]).addClass('snCol')
 
                                     )
                                 )

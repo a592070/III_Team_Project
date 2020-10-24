@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import controller.ConnectionPool;
 import utils.HibernateUtil;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
@@ -30,7 +29,6 @@ import innocence741.model.HighSpeedRailDAO;
 @WebServlet("/HsrServlet")
 public class HsrServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Session session;
 
        
     /**
@@ -42,8 +40,10 @@ public class HsrServlet extends HttpServlet {
     }
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
 		response.setContentType("text/html;charset=UTF-8");
-		 
-        request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+
+		
         String startPoint = request.getParameter("startPoint");
         String destination = request.getParameter("destination");
         String departureTime = request.getParameter("departureTime");
@@ -56,6 +56,9 @@ public class HsrServlet extends HttpServlet {
 //		session = factory.getCurrentSession();
 //		session.beginTransaction();
 
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
     	
 		List<HighSpeedRail> list;
     	int price = 0;
@@ -75,6 +78,9 @@ public class HsrServlet extends HttpServlet {
         System.out.println(ujson+"\n");
         PrintWriter out = response.getWriter();
         out.println(ujson.toString());
+        
+        session.getTransaction().commit();
+        System.out.println("session.getTransaction().commit()");
     }
     
 
