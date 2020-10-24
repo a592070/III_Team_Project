@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import rambo0021.model.AccountBean;
 
 @Entity
@@ -33,31 +35,26 @@ public class RestaurantBean {
 	private String type;
 	private BigDecimal rating;
 	private String region;
-	private String picture; 
+	private String picture;
 	private String serviceinfo;
 	private String booking_id;
-//	private String account;
-//	private AccountBean accountBean;
-//	private Set<R_OrderBean> r_OrderBeans = new HashSet<R_OrderBean>();
+	private String account;
+	private AccountBean accountBean;
+	private Set<R_OrderBean> r_OrderBeans = new HashSet<R_OrderBean>();
 
 	// constructor
 	public RestaurantBean() {
 
 	}
+
 	// constructor
-		public RestaurantBean(String name, String type, String region) {
-			this.name = name;
-			this.type = type;
-			this.region = region;
-		}
+	public RestaurantBean(String name, String type, String region) {
+		this.name = name;
+		this.type = type;
+		this.region = region;
+	}
 	// constructor
 
-	@Id @Column(name = "R_SN")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-	@SequenceGenerator(name = "seq", sequenceName = "RESTAURANT_SEQ", allocationSize = 1)
-	public BigDecimal getR_sn() {
-		return r_sn;
-	}
 	public RestaurantBean(BigDecimal r_sn, String name, String address, String opentime, String description,
 			String transportation, String type, BigDecimal rating, String region, String picture, String serviceinfo,
 			String booking_id, String account) {
@@ -74,12 +71,21 @@ public class RestaurantBean {
 		this.picture = picture;
 		this.serviceinfo = serviceinfo;
 		this.booking_id = booking_id;
-//		this.account = account;
+		this.account = account;
 	}
+
+	@Id
+	@Column(name = "R_SN")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESTAURANT_SEQ")
+	@SequenceGenerator(name = "RESTAURANT_SEQ", sequenceName = "RESTAURANT_SEQ", allocationSize = 1)
+	public BigDecimal getR_sn() {
+		return r_sn;
+	}
+
 	public void setR_sn(BigDecimal r_sn) {
 		this.r_sn = r_sn;
 	}
-	
+
 	@Column(name = "NAME")
 	public String getName() {
 		return name;
@@ -178,16 +184,16 @@ public class RestaurantBean {
 	public void setBooking_id(String booking_id) {
 		this.booking_id = booking_id;
 	}
+
+	@Transient
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
+	}
 	
-//	@Transient
-//	public String getAccount() {
-//		return account;
-//	}
-//	public void setAccount(String account) {
-//		this.account = account;
-//	}
-//	
-//	
+	
 //	@OneToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "ACCOUNT", referencedColumnName="USERNAME")
 //	public AccountBean getAccountBean() {
@@ -235,7 +241,5 @@ public class RestaurantBean {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-
 
 }

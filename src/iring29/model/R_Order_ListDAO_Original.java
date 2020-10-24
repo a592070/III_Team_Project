@@ -54,7 +54,7 @@ public class R_Order_ListDAO_Original {
 				throw new RuntimeException("無法取得新增之ORDER_TABLE表格的主鍵");
 			}
 
-			Set<R_OrderBean> oBean = otbean.getR_OderBeans();
+			Set<R_OrderBean> oBean = otbean.getR_OrderBeans();
 			try {
 				PreparedStatement pstmt2 = conn.prepareStatement(sqlR_Order_List);
 
@@ -127,7 +127,7 @@ public class R_Order_ListDAO_Original {
 					roBean.setBooking_date(b_time);
 					roBean.setCustomerName(cus_name);
 					roBean.setCustomerPhone(cus_phone);
-					otBean.addR_OderBean(roBean);
+					otBean.addR_OrderBean(roBean);
 				}
 				return roBean;
 
@@ -193,7 +193,7 @@ public class R_Order_ListDAO_Original {
 				String cus_phone = rs.getString("CUS_PHONE");
 				R_OrderBean roBean = new R_OrderBean(r_sn_order, orderID, ts, cus_num, deposit, null, cus_name,
 						cus_phone);
-				otBean.addR_OderBean(roBean);
+				otBean.addR_OrderBean(roBean);
 			}
 			rs.close();
 			pstmt.close();
