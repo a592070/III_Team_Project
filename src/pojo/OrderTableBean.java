@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import asx54630.H_OrderBean;
-import innocence741.T_OrderBean;
+//import innocence741.T_OrderBean;
 import innocence741.model.T_Order_List;
 import iring29.model.R_OrderBean;
 import rambo0021.model.AccountBean;
@@ -50,6 +50,7 @@ public class OrderTableBean {
 	Set<T_Order_List> t_Order_Lists;
 //	@Transient
 //	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
+	
 	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
 	Set<H_OrderBean> h_OrderBeans;
 

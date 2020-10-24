@@ -23,6 +23,7 @@ import iring29.model.RestaurantDAO;
 import oracle.security.o3logon.b;
 import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;
+import utils.HibernateUtil;
 
 @WebServlet("/Restaurant_HPServlet")
 public class Restaurant_HPServlet extends HttpServlet {
@@ -48,35 +49,6 @@ public class Restaurant_HPServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		AccountBean aBean = (AccountBean) session.getAttribute("Login");
 
-//		else if (request.getParameter("cancel") != null) {
-//			try {
-//				processCancelModify(request, response);
-//				System.out.println("go cancel");
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		} 
-//		else if (request.getParameter("confirm-location") != null) {
-//			try {
-//				processModifyLocation(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		else if (request.getParameter("confirm-type") != null) {
-//			try {
-//				processModifyType(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		else if (request.getParameter("confirm-info") != null) {
-//			try {
-//				processModifyInfo(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
 		if (request.getParameter("picture") != null) {
 			try {
 				processModifyImg(request, response);
@@ -129,13 +101,13 @@ public class Restaurant_HPServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		AccountBean aBean = (AccountBean) session.getAttribute("Login");
 		String name = aBean.getUserName();
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantDAO restaurantDAO = new RestaurantDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		RestaurantBean rBean = restaurantDAO.Restaurant_HP(name);
 		BigDecimal r_sn = rBean.getR_sn();
 		
-		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		OrderTableBean otBean = r_Order_ListDAO.findR_Order(r_sn); //多個
-		Set<R_OrderBean> roBean = otBean.getR_OderBeans();
+		Set<R_OrderBean> roBean = otBean.getR_OrderBeans();
 		
 		for(R_OrderBean bean : roBean) {
 			System.out.println(bean.getR_sn_order());
@@ -170,7 +142,7 @@ public class Restaurant_HPServlet extends HttpServlet {
 			trans = rBean.getTransportation();
 		}
 		
-		ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+		ModifyDAO modifyDAO = new ModifyDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		modifyDAO.R_Address(address, trans, rBean.getR_sn());
 		rBean.setAddress(address);
 		rBean.setTransportation(trans);
@@ -192,7 +164,7 @@ public class Restaurant_HPServlet extends HttpServlet {
 				type = rBean.getType();
 			}
 			
-			ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+			ModifyDAO modifyDAO = new ModifyDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 			modifyDAO.R_Type(serviceinfo, type, rBean.getR_sn());
 			rBean.setServiceinfo(serviceinfo);
 			rBean.setType(type);
@@ -214,7 +186,7 @@ public class Restaurant_HPServlet extends HttpServlet {
 						description = rBean.getDescription();
 					}
 					
-					ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+					ModifyDAO modifyDAO = new ModifyDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 					modifyDAO.R_Info(opentime, description, rBean.getR_sn());
 					rBean.setOpentime(opentime);
 					rBean.setDescription(description);
@@ -232,7 +204,7 @@ public class Restaurant_HPServlet extends HttpServlet {
 						picture= rBean.getPicture();
 					}
 					
-					ModifyDAO modifyDAO = new ModifyDAO(ConnectionPool.LOADING_WITH_SERVER);
+					ModifyDAO modifyDAO = new ModifyDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 					modifyDAO.R_Img(picture, rBean.getR_sn());
 					rBean.setPicture(picture);
 					request.getRequestDispatcher("iring29/RestaurantHP.jsp").forward(request, response);;
