@@ -44,9 +44,8 @@ public class T_OrderServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-//		SessionFactory factory = HibernateUtil.getSessionFactory();		
-//		session = factory.getCurrentSession();
-//		session.beginTransaction();
+    	SessionFactory factory = HibernateUtil.getSessionFactory();
+    	session = factory.getCurrentSession();
         
 
 		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session);
@@ -84,11 +83,9 @@ public class T_OrderServlet extends HttpServlet {
 		T_Order_List t_Order_List =new T_Order_List();
 		Timestamp ts = new Timestamp(System.currentTimeMillis()); //下訂單時間
 
-        
+		session.beginTransaction();
 
-        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User
-		
-		
+        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User 
         
 		HighSpeedRail highSpeedRail = session.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
 		order_table.setUser(user);	//假裝user是ipip
