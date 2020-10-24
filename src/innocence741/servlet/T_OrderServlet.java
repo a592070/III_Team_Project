@@ -23,7 +23,7 @@ import org.hibernate.SessionFactory;
 import controller.ConnectionPool;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
-import innocence741.model.Order_table;
+
 import innocence741.model.T_Order_List;
 import innocence741.model.T_Order_ListDAO;
 import utils.HibernateUtil;
@@ -91,7 +91,7 @@ public class T_OrderServlet extends HttpServlet {
 		
         
 		HighSpeedRail highSpeedRail = session2.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
-		order_table.setUser(user);	/假裝user是ipip
+		order_table.setUser(user);	//假裝user是ipip
 		order_table.setOrder_date(ts);
 		t_Order_List.setHighSpeedRail(highSpeedRail);
 		t_Order_List.setTicketPrice(BigDecimal.valueOf(trafficPrice));	//之後要換BigDecimal.valueOf(trafficPrice)
@@ -108,13 +108,12 @@ public class T_OrderServlet extends HttpServlet {
 		order_table.setT_Order_Lists(t_Order_Lists);	//one to many
 		
 
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(session);
+		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(session2);
 		boolean flag = t_Order_ListDAO.createOrderTable(order_table);
 		System.out.println(flag);
-//		if(flag == false) {
-//			session.getTransaction().rollback();
-//			throw new SQLException("就說你錯了吧");
-//		}
+		
+		
+
 
 		
 		printJSON(request,response,flag);
