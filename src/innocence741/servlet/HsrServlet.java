@@ -22,8 +22,7 @@ import controller.ConnectionPool;
 import utils.HibernateUtil;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
-import innocence741.hsrDAO;
-import innocence741.hsrDO;
+
 
 /**
  * Servlet implementation class HsrServlet
@@ -31,7 +30,7 @@ import innocence741.hsrDO;
 @WebServlet("/HsrServlet")
 public class HsrServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Session session2;
+	private static Session session;
 
        
     /**
@@ -52,15 +51,15 @@ public class HsrServlet extends HttpServlet {
         System.out.println("getParameter: destination= "+destination);
         System.out.println("getParameter: departureTime= "+departureTime);
         
-		SessionFactory factory = HibernateUtil.getSessionFactory();
-		
-		session2 = factory.getCurrentSession();
-		session2.beginTransaction();
+//		SessionFactory factory = HibernateUtil.getSessionFactory();
+//		
+//		session = factory.getCurrentSession();
+//		session.beginTransaction();
 
     	
 		List<HighSpeedRail> list;
     	int price = 0;
-		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session2);
+		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session);
     	highSpeedRailDAO.searchHSR(startPoint, destination, departureTime);
 		list = highSpeedRailDAO.listHsrDO();
 		System.out.println(list.size());
@@ -70,8 +69,8 @@ public class HsrServlet extends HttpServlet {
         String ujson = objectMapper.writeValueAsString(list);
         ujson = "[" + ujson + ",{\"price\" : " + price + "}]";
         
-		session2.getTransaction().commit();
-		HibernateUtil.closeSessionFactory();
+//		session.getTransaction().commit();
+//		HibernateUtil.closeSessionFactory();
 		
         System.out.println(ujson+"\n");
         PrintWriter out = response.getWriter();

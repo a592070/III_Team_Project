@@ -36,7 +36,7 @@ import rambo0021.model.AccountBean;
  */
 @WebServlet("/T_OrderServlet")
 public class T_OrderServlet extends HttpServlet {
-	private Session session2;
+	private Session session;
 
 
     
@@ -44,12 +44,12 @@ public class T_OrderServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-		SessionFactory factory = HibernateUtil.getSessionFactory();		
-		session2 = factory.getCurrentSession();
-		session2.beginTransaction();
+//		SessionFactory factory = HibernateUtil.getSessionFactory();		
+//		session = factory.getCurrentSession();
+//		session.beginTransaction();
         
 
-		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session2);
+		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session);
         
         String snSchedule = request.getParameter("snSchedule");
         
@@ -77,7 +77,7 @@ public class T_OrderServlet extends HttpServlet {
 //        System.out.println("departureDate_tmp= "+departureDate);
 //        System.out.println("departureDate= "+departureDate[0]+" "+departureDate[1]+" "+departureDate[2]);
 //        System.out.println("orderType= "+orderType);
-        HttpSession session = request.getSession(false);	//使用者的資訊SESSION
+        HttpSession session2 = request.getSession(false);	//使用者的資訊SESSION
         
 		Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
 		OrderTableBean order_table = new OrderTableBean();
@@ -86,11 +86,11 @@ public class T_OrderServlet extends HttpServlet {
 
         
 
-        AccountBean user = (AccountBean) session.getAttribute("Login");	//之後要換的User
+        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User
 		
 		
         
-		HighSpeedRail highSpeedRail = session2.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
+		HighSpeedRail highSpeedRail = session.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
 		order_table.setUser(user);	//假裝user是ipip
 		order_table.setOrder_date(ts);
 		t_Order_List.setHighSpeedRail(highSpeedRail);
@@ -108,7 +108,7 @@ public class T_OrderServlet extends HttpServlet {
 		order_table.setT_Order_Lists(t_Order_Lists);	//one to many
 		
 
-		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(session2);
+		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(session);
 		boolean flag = t_Order_ListDAO.createOrderTable(order_table);
 		System.out.println(flag);
 		
@@ -132,7 +132,7 @@ public class T_OrderServlet extends HttpServlet {
     	out.println(str);
     	
 		if(flag == false) {
-			session2.getTransaction().rollback();
+			session.getTransaction().rollback();
 			throw new SQLException("就說你錯了吧");
 		}
     }
