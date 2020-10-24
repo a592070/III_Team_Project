@@ -80,16 +80,18 @@ public class T_OrderServlet extends HttpServlet {
         HttpSession session = request.getSession(false);	//使用者的資訊SESSION
         
 		Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
-		Order_table order_table = new Order_table();
+		OrderTableBean order_table = new OrderTableBean();
 		T_Order_List t_Order_List =new T_Order_List();
 		Timestamp ts = new Timestamp(System.currentTimeMillis()); //下訂單時間
 
         
 
-//        AccountBean user = (AccountBean) session.getAttribute("Login");	//之後要換的User
+        AccountBean user = (AccountBean) session.getAttribute("Login");	//之後要換的User
+		
+		
         
-		HighSpeedRail highSpeedRail = session2.get(HighSpeedRail.class, Integer.parseInt(snSchedule)); //之後要換Integer.parseInt(snSchedule)
-		order_table.setUser("ipip");	//假裝user是ipip
+		HighSpeedRail highSpeedRail = session2.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
+		order_table.setUser(user);	/假裝user是ipip
 		order_table.setOrder_date(ts);
 		t_Order_List.setHighSpeedRail(highSpeedRail);
 		t_Order_List.setTicketPrice(BigDecimal.valueOf(trafficPrice));	//之後要換BigDecimal.valueOf(trafficPrice)
