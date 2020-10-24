@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import pojo.OrderTableBean;
@@ -20,7 +21,8 @@ import pojo.OrderTableBean;
 public class T_Order_List {
 	@Id
 	@Column(name = "SN_ORDER")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator = "sq_loginlog")
+	@SequenceGenerator(name = "sq_loginlog", sequenceName = "SEQ_T_ORDER_LIST", allocationSize = 1)
 	private BigDecimal t_sn_order;
 
 	@ManyToOne(fetch = FetchType.LAZY)
