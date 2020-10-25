@@ -20,7 +20,7 @@ public class Test {
 		session.beginTransaction();
 
 		RestaurantDAO rDAO = new RestaurantDAO(session);
-		//fail
+		
 		int count = rDAO.numRestaurant("牛");
 		System.out.println(count);
 

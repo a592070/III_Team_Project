@@ -194,16 +194,16 @@ public class RestaurantBean {
 	}
 	
 	
-//	@OneToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ACCOUNT", referencedColumnName="USERNAME")
-//	public AccountBean getAccountBean() {
-//		return accountBean;
-//	}
-//	public void setAccountBean(AccountBean accountBean) {
-//		this.accountBean = accountBean;
-//	}
-//	
-//	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ACCOUNT", referencedColumnName="USERNAME")
+	public AccountBean getAccountBean() {
+		return accountBean;
+	}
+	public void setAccountBean(AccountBean accountBean) {
+		this.accountBean = accountBean;
+	}
+	
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantBean", cascade = CascadeType.ALL)
 	public Set<R_OrderBean> getR_OrderBeans() {
 		return r_OrderBeans;
