@@ -7,8 +7,6 @@ import utils.StringUtil;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 @JsonDeserialize(using = AttractionJsonDeserializer.class)
 @JsonSerialize(using = AttractionJsonSerializer.class)

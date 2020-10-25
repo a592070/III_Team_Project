@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "REGION")
 public class RegionDO {
-    @Id@Column(name = "REGION_NAME")
+    @Id@Column(name = "REGION_NAME", nullable = false)
     private String region;
     private String area;
 

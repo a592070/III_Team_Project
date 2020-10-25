@@ -1,23 +1,11 @@
 package iring29.model;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.sql.DataSource;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-import controller.ConnectionPool;
 import pojo.OrderTableBean;
 
 public class R_Order_ListDAO {
@@ -37,14 +25,20 @@ public class R_Order_ListDAO {
 		}
 		
 	}
-	// fail
+
 	// find r_order
 	public R_OrderBean findR_order_List(BigDecimal r_sn)  {
 		//select * from r_order_list where order_id = (select max(order_id) from r_order_list where r_sn = (select r_sn from restaurant where r_sn = 93));
-		Query<R_OrderBean> query = session.createQuery("from R_OrderBean where order_id = (select max(order_id) from R_OrderBean where r_sn = (select r_sn from RestaurantBean where r_sn =?0))", R_OrderBean.class);
-		query.setParameter(0, r_sn);
-		R_OrderBean rBean = query.uniqueResult();
-		return rBean;
+		Query<BigDecimal> query1 = session.createQuery("select max(obean.r_sn_order) from R_OrderBean obean where restaurantBean = (select r_sn from RestaurantBean where r_sn =?0)", BigDecimal.class);
+		query1.setParameter(0, r_sn);
+		BigDecimal maxnum = query1.uniqueResult();
+		System.out.println(maxnum);
+		
+		Query<R_OrderBean> query2 = session.createQuery("from R_OrderBean where r_sn_order =?0",R_OrderBean.class);
+		query2.setParameter(0, maxnum);
+		R_OrderBean oBean = query2.uniqueResult();
+		
+		return oBean;
 		
 	}
 	//not yet try

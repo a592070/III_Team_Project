@@ -21,8 +21,8 @@ public class Test {
 
 		RestaurantDAO rDAO = new RestaurantDAO(session);
 		//fail
-//		int count = rDAO.numRestaurant("牛");
-//		System.out.println(count);
+		int count = rDAO.numRestaurant("牛");
+		System.out.println(count);
 
 //		List<RestaurantBean> rBeans = rDAO.findMulti_R("牛");
 //		for(RestaurantBean r : rBeans) {
@@ -57,8 +57,8 @@ public class Test {
 //		R_OrderBean rOrderBean = rOrderDAO.UserOrderList(BigDecimal.valueOf(3));
 //		System.out.println(rOrderBean.getCustomerName());
 //		
-		R_OrderBean test = rOrderDAO.findR_order_List(BigDecimal.valueOf(93)); //java.lang.IllegalArgumentException: org.hibernate.QueryException: 
-		System.out.println(test.getCustomerName());
+//		R_OrderBean test = rOrderDAO.findR_order_List(BigDecimal.valueOf(93)); //java.lang.IllegalArgumentException: org.hibernate.QueryException: 
+//		System.out.println(test.getCustomerName());
 		
 //		OrderTableBean rTBean = rOrderDAO.findR_Order(BigDecimal.valueOf(93));
 //		Set<R_OrderBean> rBeans = rTBean.getR_OrderBeans();
@@ -66,7 +66,7 @@ public class Test {
 //			System.out.println(rBean.getCustomerNum());
 //		}
 		
-//		ModifyDAO mDAO = new ModifyDAO(session);
+		ModifyDAO mDAO = new ModifyDAO(session);
 //		boolean rAdd = mDAO.R_Address("台中市", null, BigDecimal.valueOf(71));
 //		System.out.println(rAdd);
 		
