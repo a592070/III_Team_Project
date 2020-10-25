@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import innocence741.model.T_Order_ListDAO;
+import utils.HibernateUtil;
 
 /**
  * Servlet implementation class cancelT_Order_ListServlet
@@ -29,6 +31,10 @@ public class cancelT_Order_ListServlet extends HttpServlet {
     public void	processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+     	session = factory.getCurrentSession();
+     	session.beginTransaction();
         
         String t_sn_order_tmp = request.getParameter("t_sn_order");
         
@@ -51,6 +57,9 @@ public class cancelT_Order_ListServlet extends HttpServlet {
     	System.out.println("str= " + str);
     	PrintWriter out = response.getWriter();
     	out.println(str);
+    	
+        session.getTransaction().commit();
+
     }
 
 
