@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import controller.ConnectionPool;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
 
@@ -85,7 +84,8 @@ public class T_OrderServlet extends HttpServlet {
 
 		session.beginTransaction();
 
-        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User 
+//        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User
+		AccountBean user = session.get(AccountBean.class, "abab");
         
 		HighSpeedRail highSpeedRail = session.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
 		order_table.setUser(user);	//假裝user是ipip
@@ -131,6 +131,8 @@ public class T_OrderServlet extends HttpServlet {
 		if(flag == false) {
 			session.getTransaction().rollback();
 			throw new SQLException("就說你錯了吧");
+		}else {
+			session.getTransaction().commit();;
 		}
     }
     
