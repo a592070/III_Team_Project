@@ -11,11 +11,10 @@ public class RestaurantDAO {
 	public RestaurantDAO(Session session) {
 		this.session = session;
 	}
-	// fail: Type specified for TypedQuery [java.lang.Integer] is incompatible with query return type [class java.lang.Long]
+
 	// search how many Restaurant
 	public int numRestaurant(String name) {
-		Query<Integer> query = session.createQuery("select count(*) from RestaurantBean where name like ?0",
-				Integer.class);
+		Query<Integer> query = session.createQuery("select CAST(count(*) as int) from RestaurantBean where name like ?0", Integer.class);
 		query.setParameter(0, "%" + name + "%");
 		return query.uniqueResult().intValue();
 
