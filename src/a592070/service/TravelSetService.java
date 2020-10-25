@@ -40,30 +40,35 @@ public class TravelSetService {
         return hotelViewDAO.listEle();
     }
 
-
-    public List<RestaurantVO> listRestaurant(String region){
-        return restaurantViewDAO.listEle(region);
+    public int getRestaurantSize(){
+        return restaurantViewDAO.getSize();
+    }
+    public int getRestaurantSize(String region){
+        return restaurantViewDAO.getRestaurantRegionSize(region);
+    }
+    public List<RestaurantVO> listRestaurant(int currentPage, int pageSize, String region){
+        int start = pageSize*(currentPage-1)+1;
+        return restaurantViewDAO.listEleByRownum(start, pageSize, region);
     }
 
-    public List<RestaurantVO> listRestaurant() {
-        return listRestaurant(null);
+    public List<RestaurantVO> listRestaurant(int currentPage, int pageSize) {
+        return listRestaurant(currentPage, pageSize, "");
     }
 
     public List<AttractionVO> listAttraction(int currentPage, int pageSize){
-        return listAttraction(currentPage, pageSize, null);
+        return listAttraction(currentPage, pageSize, "");
     }
 
     public List<AttractionVO> listAttraction(int currentPage, int pageSize, String region){
         int start = pageSize*(currentPage-1)+1;
-        int end = pageSize*currentPage;
 
-        List<AttractionVO> listDO = attractionDAO.listAttractionByRownum(start, end, region);
+        List<AttractionVO> listDO = attractionDAO.listAttractionByRownum(start, pageSize, region);
         return listDO;
     }
-    public int getTotalSize(){
+    public int getAttractionSize(){
         return attractionDAO.getSize();
     }
-    public int getRegionLimitSize(String region){
+    public int getAttractionSize(String region){
         return attractionDAO.getAttractionRegionSize(region);
     }
 

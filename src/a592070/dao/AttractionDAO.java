@@ -15,7 +15,7 @@ public class AttractionDAO {
     }
 
     public int getSize() {
-        return session.createQuery("select count(sn) from AttractionDO", Integer.class).uniqueResult();
+        return session.createQuery("select count(*) from AttractionDO", Long.class).uniqueResult().intValue();
     }
 
     public AttractionDO getAttraction(int id) {
@@ -29,38 +29,30 @@ public class AttractionDAO {
 
         return query.uniqueResultOptional().orElse(null);
     }
-    public List<AttractionDO> listAttractionLike(String fieldName, String fieldValue) {
-        fieldValue = "%"+fieldValue+"%";
-        String hql = "from AttractionDO where "+fieldName+" like ?1";
-        Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
-        query.setParameter(1, fieldValue);
-
-        return query.list();
-    }
 
     public int getAttractionKeyWordsSize(String keyWords) {
         if(StringUtil.isEmpty(keyWords)) {
-            keyWords="";
+            keyWords="%%";
         }else {
             keyWords = "%"+keyWords+"%";
         }
-        String hql = "select count(sn) from AttractionDO where name like ?1 or toldescribe like ?2 or description like ?3 or address like ?4 or keywords like ?5 ";
-        Query<Integer> query = session.createQuery(hql, Integer.class);
+        String hql = "select count(*) from AttractionDO where name like ?1 or toldescribe like ?2 or description like ?3 or address like ?4 or keywords like ?5 ";
+        Query<Long> query = session.createQuery(hql, Long.class);
         query.setParameter(1, keyWords);
         query.setParameter(2, keyWords);
         query.setParameter(3, keyWords);
         query.setParameter(4, keyWords);
         query.setParameter(5, keyWords);
 
-        return query.uniqueResultOptional().orElse(0);
+        return query.uniqueResult().intValue();
     }
-    public List<AttractionDO> listAttractionLike(int startIndex, int endIndex, String keyWords) {
+    public List<AttractionDO> listAttractionLike(int startIndex, int size, String keyWords) {
         if(StringUtil.isEmpty(keyWords)) {
-            keyWords="";
+            keyWords="%%";
         }else {
             keyWords = "%"+keyWords+"%";
         }
-        String hql = "from AttractionDO where name like ?1 or toldescribe like ?2 or description like ?3 or address like ?4 or keywords like ?5 ";
+        String hql = "from AttractionDO where name like ?1 or toldescribe like ?2 or description like ?3 or address like ?4 or keywords like ?5 order by picture, sn";
 
         Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
         query.setParameter(1, keyWords);
@@ -69,7 +61,7 @@ public class AttractionDAO {
         query.setParameter(4, keyWords);
         query.setParameter(5, keyWords);
         query.setFirstResult(startIndex);
-        query.setMaxResults(endIndex);
+        query.setMaxResults(size);
 
         return query.list();
     }
@@ -80,25 +72,21 @@ public class AttractionDAO {
         }else {
             region = "%" + region + "%";
         }
-        String hql = "select count(sn) from AttractionDO where region like ?1 ";
-        Query<Integer> query = session.createQuery(hql, Integer.class);
+        String hql = "select count(*) from AttractionDO where region like ?1 ";
+        Query<Long> query = session.createQuery(hql, Long.class);
         query.setParameter(1, region);
 
-        return query.uniqueResultOptional().orElse(0);
+        return query.uniqueResult().intValue();
     }
-    public List<AttractionDO> listAttractionByRownum(int startIndex, int endIndex, String region){
-        if(StringUtil.isEmpty(region)){
-            region = "%%";
-        }else {
-            region = "%" + region + "%";
-        }
+    public List<AttractionDO> listAttractionByRownum(int startIndex, int size, String region){
+        region = "%" + region + "%";
 
-        String hql = "from AttractionDO where region like ?1 ";
+        String hql = "from AttractionDO where region like ?1  order by picture, sn ";
         Query<AttractionDO> query = session.createQuery(hql, AttractionDO.class);
         query.setParameter(1, region);
 
         query.setFirstResult(startIndex);
-        query.setMaxResults(endIndex);
+        query.setMaxResults(size);
 
         return query.list();
     }

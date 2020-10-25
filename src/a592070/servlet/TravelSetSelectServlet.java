@@ -42,12 +42,14 @@ public class TravelSetSelectServlet extends HttpServlet {
         String username;
         if(!StringUtil.isEmpty(req.getParameter("system_travelset"))){
             username = "system1";
-        } else if(session.getAttribute(Constant.LOGIN) != null){
+        }
+        else if(session.getAttribute(Constant.LOGIN) != null){
             AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
             username = user.getUserName();
         }else{
             username = "guest"+session.getId();
         }
+
 
         String method = req.getParameter("method");
         if("initCurrentTravelSet".equals(method)){

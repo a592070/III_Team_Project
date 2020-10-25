@@ -20,14 +20,14 @@ import java.util.List;
 
 @WebServlet(name = "AttractionsInfoServlet", urlPatterns = "/AttractionsInfoServlet")
 public class AttractionsInfoServlet extends HttpServlet {
-    private AttractionService attractionService;
-    private static final int pageSize = 50;
+    private AttractionService service;
+    private static final int pageSize = 30;
 
 
     @Override
     public void init() throws ServletException {
         super.init();
-        attractionService = new AttractionService();
+        service = new AttractionService();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AttractionsInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        attractionService.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+        service.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
 
         String method = req.getParameter("method");
         if("initPageRegion".equals(method)){
@@ -54,7 +54,7 @@ public class AttractionsInfoServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode = mapper.createObjectNode();
 
-        List<RegionDO> regions = attractionService.listRegion();
+        List<RegionDO> regions = service.listRegion();
 
         objectNode.put("regions", mapper.writeValueAsString(regions));
         mapper.writeValue(resp.getWriter(), objectNode);
@@ -81,14 +81,14 @@ public class AttractionsInfoServlet extends HttpServlet {
         currentPageNo = pageSupport.getCurrentPage();
 
         if(!StringUtil.isEmpty(keyword)){
-            pageSupport.setTotalCount(attractionService.getKeywordLimitSize(keyword));
-            list = attractionService.searchEle(currentPageNo, pageSupport.getPageSize(), keyword);
+            pageSupport.setTotalCount(service.getKeywordLimitSize(keyword));
+            list = service.searchEle(currentPageNo, pageSupport.getPageSize(), keyword);
         }else if(!StringUtil.isEmpty(area)){
-            pageSupport.setTotalCount(attractionService.getRegionLimitSize(area));
-            list = attractionService.listEle(currentPageNo, pageSupport.getPageSize(), area);
+            pageSupport.setTotalCount(service.getRegionLimitSize(area));
+            list = service.listEle(currentPageNo, pageSupport.getPageSize(), area);
         }else{
-            pageSupport.setTotalCount(attractionService.getTotalSize());
-            list = attractionService.listEle(currentPageNo, pageSupport.getPageSize());
+            pageSupport.setTotalCount(service.getTotalSize());
+            list = service.listEle(currentPageNo, pageSupport.getPageSize());
         }
 
         objectNode.put("currentPage", currentPageNo);

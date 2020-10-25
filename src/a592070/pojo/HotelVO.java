@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @JsonDeserialize(using = HotelVOJsonDeserializer.class)
 @Entity
-@Table(name = "HOTELVIEW")
+@Table(name = "HotelView")
 @Immutable
 public class HotelVO {
     @Id

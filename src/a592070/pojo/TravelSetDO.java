@@ -203,10 +203,10 @@ public class TravelSetDO {
                 ", updateTime=" + updateTime +
                 ", name='" + name + '\'' +
                 ", available=" + available +
-                ", travelCars=" + travelCars2 +
-                ", travelHotels=" + travelHotels2 +
-                ", travelRestaurants=" + travelRestaurants2 +
-                ", travelAttractions=" + travelAttractions2 +
+                ", travelCars=" + travelCars +
+                ", travelHotels=" + travelHotels +
+                ", travelRestaurants=" + travelRestaurants +
+                ", travelAttractions=" + travelAttractions +
                 '}';
     }
 }
