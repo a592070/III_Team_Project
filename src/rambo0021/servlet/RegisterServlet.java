@@ -29,40 +29,15 @@ import rambo0021.model.SHA2DAO;
 import rambo0021.old.RegisterDAO;
 import utils.IOUtils;
 
-
-/**
- * Servlet implementation class registerServlet
- */
 @MultipartConfig
 @WebServlet("/registerServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RegisterServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//		
-	//		 
-	//		
-	//	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//儲存會員基本資料
 		AccountBean account = new AccountBean();
-		SHA2DAO sha2 = new SHA2DAO();
 		RegisterDAO registerDAO = new RegisterDAO();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");   
@@ -70,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
 
 		String username = request.getParameter("username").trim();
 		account.setUserName(username);	
-		String password = sha2.getSHA256(request.getParameter("password").trim());
+		String password = SHA2DAO.getSHA256(request.getParameter("password").trim());
 		account.setPassword(password);	
 		int identity = Integer.parseInt(request.getParameter("identity").trim());
 		account.setIdentity(identity);
@@ -80,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
 		// TODO
 		try {
 
-			account.setPicture(new SerialBlob(IOUtils.toByteArray(pictrure)));
+			account.setPicture(pictrure.readAllBytes());
 
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();

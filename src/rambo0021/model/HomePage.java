@@ -5,6 +5,10 @@ import org.hibernate.Session;
 
 public class HomePage {
 	private Session session;
+	
+	public HomePage() {
+		
+	}
 
 	public HomePage(Session session) {
 		this.session = session;

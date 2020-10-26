@@ -16,6 +16,11 @@ public class RestaurantDAO {
 	public int numRestaurant(String name) {
 		Query<Integer> query = session.createQuery("select CAST(count(*) as int) from RestaurantBean where name like ?0", Integer.class);
 		query.setParameter(0, "%" + name + "%");
+
+		/** change by a592070
+		Query<Long> query = session.createQuery("select count(*) from RestaurantBean where name like ?1", Long.class);
+		query.setParameter(1, "%" + name + "%");
+		*/
 		return query.uniqueResult().intValue();
 
 	}
@@ -24,6 +29,12 @@ public class RestaurantDAO {
 	public List<RestaurantBean> findMulti_R(String name) {
 		Query query = session.createQuery("from RestaurantBean where name like ?0");
 		query.setParameter(0, "%" + name + "%");
+
+		/** change by a592070
+		Query<RestaurantBean> query = session.createQuery("from RestaurantBean where name like ?1", RestaurantBean.class);
+		query.setParameter(1, "%" + name + "%");
+		*/
+
 		List<RestaurantBean> rBeans = query.list();
 		return rBeans;
 	}
@@ -33,6 +44,13 @@ public class RestaurantDAO {
 		Query query = session.createQuery("from RestaurantBean where name like ?0 and region = ?1");
 		query.setParameter(0, "%" + name + "%");
 		query.setParameter(1, region);
+
+		/** change by a592070
+		Query<RestaurantBean> query = session.createQuery("from RestaurantBean where name like ?1 and region = ?2", RestaurantBean.class);
+		query.setParameter(1, "%" + name + "%");
+		query.setParameter(2, region);
+		 */
+
 		List<RestaurantBean> rBeans = query.getResultList();
 		return rBeans;
 
@@ -44,6 +62,11 @@ public class RestaurantDAO {
 		query.setParameter(0, name);
 		RestaurantBean obj = (RestaurantBean) query.uniqueResult();
 		return obj;
+		/** change by a592070
+		 Query<RestaurantBean> query = session.createQuery("from RestaurantBean where name = ?1", RestaurantBean.class);
+		 query.setParameter(1, name);
+		 return query.uniqueResult();
+		 */
 	}
 
 	// find specific region
@@ -52,6 +75,11 @@ public class RestaurantDAO {
 		query.setParameter(0, region);
 		List<RestaurantBean> rBeans = query.list();
 		return rBeans;
+		/** change by a592070
+		Query<RestaurantBean> query = session.createQuery("from RestaurantBean where region = ?1", RestaurantBean.class);
+		query.setParameter(1, region);
+		return query.list();
+		 */
 	}
 
 	// ok but not sure why
@@ -78,7 +106,11 @@ public class RestaurantDAO {
 		query.setParameter(0, username);
 		RestaurantBean rBean = (RestaurantBean) query.uniqueResult();
 		return rBean;
-
+		/** change by a592070
+		Query<RestaurantBean> query = session.createQuery("from RestaurantBean where accountBean.userName = ?1", RestaurantBean.class);
+		query.setParameter(1, username);
+		return query.uniqueResult();
+		*/
 	}
 
 }
