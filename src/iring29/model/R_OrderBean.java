@@ -93,14 +93,14 @@ public class R_OrderBean {
 		this.customerPhone = customerPhone;
 	}
 
-//	@Transient
-//	public BigDecimal getOrder_id() {
-//		return order_id;
-//	}
-//
-//	public void setOrder_id(BigDecimal order_id) {
-//		this.order_id = order_id;
-//	}
+	@Transient
+	public BigDecimal getOrder_id() {
+		return order_id;
+	}
+
+	public void setOrder_id(BigDecimal order_id) {
+		this.order_id = order_id;
+	}
 
 	@Column(name = "BOOK_TIME")
 	public Timestamp getBooking_date() {
