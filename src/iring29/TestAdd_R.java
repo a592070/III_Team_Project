@@ -3,8 +3,6 @@ package iring29;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-
-import controller.ConnectionPool;
 import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
 

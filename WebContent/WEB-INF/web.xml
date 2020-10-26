@@ -10,7 +10,7 @@
 		<listener-class>global.SessionFactoryListener</listener-class>
 	</listener>
 
-
+  
 	<filter>
 		<filter-name>OpenSessionViewFilter</filter-name>
 		<filter-class>global.OpenSessionViewFilter</filter-class>

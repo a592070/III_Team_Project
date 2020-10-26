@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import controller.ConnectionPool;
 import iring29.model.ModifyDAO;
 import iring29.model.R_OrderBean;
 import iring29.model.R_Order_ListDAO;

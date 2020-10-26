@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import controller.ConnectionPool;
 import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
 import utils.HibernateUtil;
