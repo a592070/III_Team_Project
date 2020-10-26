@@ -5,26 +5,36 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
-import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 public class ForumDAO {
 	private Session session;
+	
 
 	public ForumDAO(Session session) {
 		this.session = session;
 	}
+	public ForumDAO() {
+	}
 
 	// 顯示文章列表
 	public List<Article> showAllArticles() {
-		Query<Article> query = session.createQuery("From Article", Article.class);
+		Query<Article> query = session.createQuery("From Article Order by ART_CRE_TIME DESC", Article.class);
+		List<Article> list = query.list();
+		return list;
+	}
+	//顯示當前文章(by Id)
+	public List<Article> showArticleById(int articleId) throws SQLException{
+		Query<Article> query = session.createQuery("From Article where ART_ID=?1",Article.class);
+		query.setParameter(1, articleId);
 		List<Article> list = query.list();
 		return list;
 	}
 
 	// 依文章顯示評論
 	public List<Comment> showCommentsByArticle(int articleId) throws SQLException {
-		Query<Comment> query = session.createQuery("From Comment where COM_ART_ID=?1", Comment.class);
+		Query<Comment> query = session.createQuery("From Comment where COM_ART_ID=?1 Order by COM_DATE DESC", Comment.class);
 		query.setParameter(1, articleId);
 		List<Comment> list = query.list();
 		return list;
@@ -32,9 +42,16 @@ public class ForumDAO {
 
 	// 依類型顯示文章
 	public List<Article> showArticlesByType(int typeId) throws SQLException {
-		Query<Article> query = session.createQuery("From Article where ART_TYPE_ID=?1", Article.class);
+		Query<Article> query = session.createQuery("From Article where ART_TYPE_ID=?1 Order by ART_CRE_TIME DESC", Article.class);
 		query.setParameter(1, typeId);
 		List<Article> list = query.list();
+		return list;
+	}
+	//顯示類型依類型ID
+	public List<ArticleType> showArticleType(int typeId)throws SQLException{
+		Query<ArticleType> query = session.createQuery("From ArticleType Where TYPE_ID=?1",ArticleType.class);
+		query.setParameter(1, typeId);
+		List<ArticleType> list = query.list();
 		return list;
 	}
 
