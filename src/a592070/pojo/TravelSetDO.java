@@ -30,16 +30,12 @@ public class TravelSetDO {
     private Integer available;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @Transient
     private Set<TravelEleCarDO> travelCars2 = new LinkedHashSet<>();
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @Transient
     private Set<TravelEleHotelDO> travelHotels2 = new LinkedHashSet<>();
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @Transient
     private Set<TravelEleRestaurantDO> travelRestaurants2 = new LinkedHashSet<>();
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @Transient
     private Set<TravelEleAttractionDO> travelAttractions2 = new LinkedHashSet<>();
 
 

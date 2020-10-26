@@ -37,10 +37,10 @@ public class OrderTableBean {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
 	Set<T_Order_List> t_Order_Lists;
+
 	@Transient
 	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
-	
-	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
+	@Transient
 	Set<H_OrderBean> h_OrderBeans;
 
 	public OrderTableBean() {
@@ -74,22 +74,6 @@ public class OrderTableBean {
 	public void setUser(AccountBean user) {
 		this.user = user;
 	}
-
-//	public String getCustomerName() {
-//		return customerName;
-//	}
-//
-//	public void setCustomerName(String customerName) {
-//		this.customerName = customerName;
-//	}
-//
-//	public String getCustomerPhone() {
-//		return customerPhone;
-//	}
-//
-//	public void setCustomerPhone(String customerPhone) {
-//		this.customerPhone = customerPhone;
-//	}
 
 	public Set<R_OrderBean> getR_OrderBeans() {
 		return r_OrderBeans;

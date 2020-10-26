@@ -34,8 +34,8 @@ public class cancelT_Order_ListServlet extends HttpServlet {
         
         SessionFactory factory = HibernateUtil.getSessionFactory();
      	session = factory.getCurrentSession();
-     	session.beginTransaction();
-        
+//     	session.beginTransaction();
+
         String t_sn_order_tmp = request.getParameter("t_sn_order");
         
 		boolean flag = true;
@@ -58,7 +58,7 @@ public class cancelT_Order_ListServlet extends HttpServlet {
     	PrintWriter out = response.getWriter();
     	out.println(str);
     	
-        session.getTransaction().commit();
+//        session.getTransaction().commit();
 
     }
 
