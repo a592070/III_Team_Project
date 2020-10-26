@@ -23,7 +23,6 @@ public class OrderAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		OrderDAO orderDAO = new OrderDAO();
 		HttpSession session = request.getSession(false);
 		AccountBean account = (AccountBean)session.getAttribute("Login");
 		List<OrderBean> list = orderDAO.selectOrder(account);

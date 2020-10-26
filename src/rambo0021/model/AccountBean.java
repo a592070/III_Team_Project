@@ -1,12 +1,10 @@
 package rambo0021.model;
 
-import java.io.File;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,22 +12,21 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import oracle.sql.DATE;
+import asx54630.model.H_OrderBean;
+import innocence741.model.T_Order_List;
+import iring29.model.R_OrderBean;
 import pojo.OrderTableBean;
 
 @Entity
-@Table(name="account")
+@Table(name = "account")
 @DynamicInsert
 @DynamicUpdate
 public class AccountBean {
@@ -45,48 +42,29 @@ public class AccountBean {
 	private String getModify_DateString;
 	private String getRegisterString;
 	private IdentityBean identityBean;
-	
-	private Set<OrderTableBean> orderTableBeans;
-	
+
+	private List<OrderTableBean> orderTableBeans;// 大訂單
+	private List<R_OrderBean> r_OrderBean;// 餐廳訂單
+	private List<H_OrderBean> h_OrderBean;// 住宿訂單
+	private List<T_Order_List> t_Order_List;// 交通訂單
+
 	public AccountBean() {
 
 	}
-	
-	
-    public AccountBean(String userName, String password, int identity, String email, byte[] picture, Date modify_Date,
-			String nickName, Date register, String getModify_DateString, String getRegisterString,
-			IdentityBean identityBean, Set<OrderTableBean> orderTableBeans) {
-		super();
-		this.userName = userName;
-		this.password = password;
-		this.identity = identity;
-		this.email = email;
-		this.picture = picture;
-		this.modify_Date = modify_Date;
-		this.nickName = nickName;
-		this.register = register;
-		this.getModify_DateString = getModify_DateString;
-		this.getRegisterString = getRegisterString;
-		this.identityBean = identityBean;
-		this.orderTableBeans = orderTableBeans;
-	}
-
-
-	@Id @Column(name="USERNAME")
+	@Id
+	@Column(name = "USERNAME")
 	public String getUserName() {
 		return userName;
 	}
-
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	@Column(name="PASSWORD")
+	@Column(name = "PASSWORD")
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -97,41 +75,35 @@ public class AccountBean {
 		return identity;
 	}
 
-
 	public void setIdentity(int identity) {
 		this.identity = identity;
 	}
 
-	@Column(name="EMAIL")
+	@Column(name = "EMAIL")
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
-    @Transient
+	@Transient
 	public String getModify_DateString() {
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sdf.setLenient(false);
 		String Date = sdf.format(modify_Date);
 		return Date;
 	}
 
-
 	public void setModify_Date(Date modify_Date) {
 		this.modify_Date = modify_Date;
 	}
 
-	@Column(name="NICKNAME")
+	@Column(name = "NICKNAME")
 	public String getNickName() {
 		return nickName;
 	}
-
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
@@ -139,41 +111,35 @@ public class AccountBean {
 
 	@Transient
 	public String getRegisterString() {
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		sdf.setLenient(false);
 		String Date2 = sdf.format(register);
 		return Date2;
 	}
 
-
 	public void setRegister(Date register) {
 		this.register = register;
 	}
 
-	@Column(name="PICTURE")
+	@Column(name = "PICTURE")
 	public byte[] getPicture() {
 		return picture;
 	}
 
-
-
-
-	@Column(name="MODIFY_DATE")
+	@Column(name = "MODIFY_DATE")
 	public Date getModify_Date() {
 		return modify_Date;
 	}
 
-	@Column(name="REGISTER")
+	@Column(name = "REGISTER")
 	public Date getRegister() {
 		return register;
 	}
 
-
 	public void setPicture(byte[] picture) {
-		this.picture =  picture;
+		this.picture = picture;
 	}
 
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IDENTITY")
 	public IdentityBean getIdentityBean() {
@@ -184,13 +150,40 @@ public class AccountBean {
 		this.identityBean = identityBean;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
-	public Set<OrderTableBean> getOrderTableBeans() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	public List<OrderTableBean> getOrderTableBeans() {
 		return orderTableBeans;
 	}
 
-	public void setOrderTableBeans(Set<OrderTableBean> orderTableBeans) {
+	public void setOrderTableBeans(List<OrderTableBean> orderTableBeans) {
 		this.orderTableBeans = orderTableBeans;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+	public List<R_OrderBean> getR_OrderBean() {
+		return r_OrderBean;
+	}
+
+	public void setR_OrderBean(List<R_OrderBean> r_OrderBean) {
+		this.r_OrderBean = r_OrderBean;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+	public List<H_OrderBean> getH_OrderBean() {
+		return h_OrderBean;
+	}
+
+	public void setH_OrderBean(List<H_OrderBean> h_OrderBean) {
+		this.h_OrderBean = h_OrderBean;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+	public List<T_Order_List> getT_Order_List() {
+		return t_Order_List;
+	}
+
+	public void setT_Order_List(List<T_Order_List> t_Order_List) {
+		this.t_Order_List = t_Order_List;
 	}
 
 	@Override
@@ -202,8 +195,4 @@ public class AccountBean {
 				+ orderTableBeans + "]";
 	}
 
-
-	
-	
-	
 }

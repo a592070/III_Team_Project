@@ -24,10 +24,8 @@ public class ListAjaxController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		OrderDAO orderDAO = new OrderDAO();
-		OrderBean order = new OrderBean();
 		System.out.println(request.getParameter("orderid"));
-		order.setOrderId(Integer.valueOf(request.getParameter("orderid")));
+		Integer.valueOf(request.getParameter("orderid"));
 		order = orderDAO.selectOrderlist(order);
 		
 		ObjectMapper objectMapper = new ObjectMapper();

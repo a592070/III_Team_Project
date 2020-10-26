@@ -19,7 +19,13 @@ public class Register {
 	    }else {
 	    	return null;
 	    }
-	
-	
+	}
+	public boolean checkusr(String username) {
+		AccountBean accountBean = session.get(AccountBean.class,username);
+		if(accountBean!=null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

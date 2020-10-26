@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -25,7 +26,7 @@ public class Imuseless {
           session.beginTransaction();
      
           AccountBean aBean = session.get(AccountBean.class,"rambo005");
-          Set<OrderTableBean> orderTableBeans = aBean.getOrderTableBeans();
+          List<OrderTableBean> orderTableBeans = aBean.getOrderTableBeans();
           for (OrderTableBean order : orderTableBeans) {
   		    System.out.println(order.getOrder_id());
   	        System.out.println(order.getOrder_date());	
