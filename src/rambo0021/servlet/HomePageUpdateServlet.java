@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import rambo0021.model.AccountBean;
-import rambo0021.model.HomePageDAO;
 import rambo0021.model.SHA2DAO;
+import rambo0021.old.HomePageDAO;
 import utils.IOUtils;
 
 /**
@@ -28,17 +28,6 @@ import utils.IOUtils;
 public class HomePageUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public HomePageUpdateServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//update db,session
@@ -48,7 +37,7 @@ public class HomePageUpdateServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8"); 
 		HttpSession session = request.getSession(false);
 		HomePageDAO homePageDAO = new HomePageDAO();
-		SHA2DAO sha2 = new SHA2DAO();
+
 		
 		
 		if (session == null) {
@@ -63,15 +52,14 @@ public class HomePageUpdateServlet extends HttpServlet {
 		InputStream picture = request.getPart("picture").getInputStream();
 			
 				try {
-					account.setPicture(new SerialBlob(IOUtils.toByteArray(picture)));
-				} catch (SQLException | IOException e) {
-					// TODO Auto-generated catch block
+					account.setPicture(picture.readAllBytes());
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				
 				picture.close();
 	}
-	account.setPassword(sha2.getSHA256(request.getParameter("password")));
+	account.setPassword(SHA2DAO.getSHA256(request.getParameter("password")));
 	account.setNickName(request.getParameter("nickName"));
 	account.setEmail(request.getParameter("email"));
 	account.setModify_Date(new Date());

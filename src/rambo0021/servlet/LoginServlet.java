@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import rambo0021.model.AccountBean;
-import rambo0021.model.HomePageDAO;
 import rambo0021.model.SHA2DAO;
 import rambo0021.model.VerifyRecaptcha;
+import rambo0021.old.HomePageDAO;
 
 /**
  * Servlet implementation class LoginServlet

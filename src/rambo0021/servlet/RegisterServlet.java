@@ -25,8 +25,8 @@ import innocence741.CarTypeBean;
 import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
 import rambo0021.model.AccountBean;
-import rambo0021.model.RegisterDAO;
 import rambo0021.model.SHA2DAO;
+import rambo0021.old.RegisterDAO;
 import utils.IOUtils;
 
 
