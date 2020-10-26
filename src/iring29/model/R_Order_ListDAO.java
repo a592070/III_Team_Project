@@ -25,16 +25,14 @@ public class R_Order_ListDAO {
 //		if (result1 == null) {
 //			session.save(otbean);
 //		}
-		Set<R_OrderBean> roBeans = otbean.getR_OrderBeans();
-		for (R_OrderBean rBean : roBeans) {
-			try {
-				session.save(rBean);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("fail to create order.");
-			}
+		try {
+			session.save(otbean);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("fail to create order.");
 		}
+
 	}
 
 	// find r_order

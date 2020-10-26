@@ -71,7 +71,7 @@ public class Test {
 		R_OrderBean roBean = new R_OrderBean();
 		AccountBean aBean = new AccountBean();
 		aBean.setUserName("test1026");
-		roBean.setCustomerName("hi");
+		roBean.setCustomerName("hi1");
 		roBean.setCustomerNum(BigDecimal.valueOf(3));
 		roBean.setCustomerPhone("0919033123");
 		otBean.setUser(aBean);
