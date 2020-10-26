@@ -1,8 +1,13 @@
 package iring29.model;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import pojo.OrderTableBean;
 import utils.HibernateUtil;
 
 public class Test {
@@ -15,9 +20,9 @@ public class Test {
 		session.beginTransaction();
 
 		RestaurantDAO rDAO = new RestaurantDAO(session);
-
-//		Long count = rDAO.numRestaurant("牛");
-//		System.out.println(count);
+		
+		int count = rDAO.numRestaurant("牛");
+		System.out.println(count);
 
 //		List<RestaurantBean> rBeans = rDAO.findMulti_R("牛");
 //		for(RestaurantBean r : rBeans) {
@@ -44,6 +49,26 @@ public class Test {
 //		rBean.setAddress("Test Address");
 //		rDAO.createRestauran(rBean); //java.lang.IllegalArgumentException: id to load is required for loading
 
+//		RestaurantBean rBean = rDAO.Restaurant_HP("iii");
+//		System.out.println(rBean.getName());
+		
+		R_Order_ListDAO rOrderDAO = new R_Order_ListDAO(session);
+		
+//		R_OrderBean rOrderBean = rOrderDAO.UserOrderList(BigDecimal.valueOf(3));
+//		System.out.println(rOrderBean.getCustomerName());
+//		
+//		R_OrderBean test = rOrderDAO.findR_order_List(BigDecimal.valueOf(93)); //java.lang.IllegalArgumentException: org.hibernate.QueryException: 
+//		System.out.println(test.getCustomerName());
+		
+//		OrderTableBean rTBean = rOrderDAO.findR_Order(BigDecimal.valueOf(93));
+//		Set<R_OrderBean> rBeans = rTBean.getR_OrderBeans();
+//		for(R_OrderBean rBean : rBeans) {
+//			System.out.println(rBean.getCustomerNum());
+//		}
+		
+		ModifyDAO mDAO = new ModifyDAO(session);
+//		boolean rAdd = mDAO.R_Address("台中市", null, BigDecimal.valueOf(71));
+//		System.out.println(rAdd);
 		
 		
 		session.getTransaction().commit();

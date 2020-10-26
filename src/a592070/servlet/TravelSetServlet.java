@@ -50,9 +50,9 @@ public class TravelSetServlet extends HttpServlet {
         if("initTravelSet".equals(method)){
             initTravelSet(req,resp);
         }else if("saveTravelSet".equals(method)){
-            saveTravelSet(req,resp);
+            updateTravelSet(req,resp);
         }else if("newTravelSet".equals(method)){
-            newTravelSet(req,resp);
+            saveTravelSet(req,resp);
         }else if("setItems".equals(method)){
             setItems(req, resp);
         }else if("setItemsTime".equals(method)){
@@ -86,15 +86,15 @@ public class TravelSetServlet extends HttpServlet {
             return;
         }
 
-
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode jsonObj = mapper.createObjectNode();;
         ArrayNode arrayNode = mapper.createArrayNode();
 
-        List<TravelEleCarDO> eleCars = travelSet.getTravelCars();
+        Set<TravelEleCarDO> eleCars = travelSet.getTravelCars2();
         for (TravelEleCarDO ele : eleCars) {
             ObjectNode objectNode = mapper.createObjectNode();
+
             objectNode.put("sn", ele.getCar().getSn());
             objectNode.put("name", ele.getCar().getCarType());
             objectNode.put("price", ele.getCar().getPrice());
@@ -107,7 +107,7 @@ public class TravelSetServlet extends HttpServlet {
         jsonObj.set("listEleCar", arrayNode);
         arrayNode = mapper.createArrayNode();
 
-        List<TravelEleHotelDO> eleHotels = travelSet.getTravelHotels();
+        Set<TravelEleHotelDO> eleHotels = travelSet.getTravelHotels2();
         for (TravelEleHotelDO ele : eleHotels) {
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.put("sn", ele.getHotel().getSn());
@@ -123,7 +123,7 @@ public class TravelSetServlet extends HttpServlet {
         jsonObj.set("listEleHotel", arrayNode);
         arrayNode = mapper.createArrayNode();
 
-        List<TravelEleRestaurantDO> eleRestaurants = travelSet.getTravelRestaurants();
+        Set<TravelEleRestaurantDO> eleRestaurants = travelSet.getTravelRestaurants2();
         for (TravelEleRestaurantDO ele : eleRestaurants) {
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.put("sn", ele.getRestaurant().getSn());
@@ -144,7 +144,7 @@ public class TravelSetServlet extends HttpServlet {
         jsonObj.set("listEleRestaurant", arrayNode);
         arrayNode = mapper.createArrayNode();
 
-        List<TravelEleAttractionDO> eleAttractions = travelSet.getTravelAttractions();
+        Set<TravelEleAttractionDO> eleAttractions = travelSet.getTravelAttractions2();
         for (TravelEleAttractionDO ele : eleAttractions) {
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.put("sn", ele.getAttraction().getSn());
@@ -166,49 +166,60 @@ public class TravelSetServlet extends HttpServlet {
 
         mapper.writeValue(resp.getWriter(), jsonObj);
     }
-    private void newTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        HttpSession session = req.getSession();
-
-        String name = req.getParameter("travelSetName");
-        String description = req.getParameter("travelSetDescription");
-
-
-        TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
-        travelSet.setName(name);
-        travelSet.setDescription(description);
-        AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
-        travelSet.setCreatedUser(user.getUserName());
-
-        boolean flag = service.addTravelSet(travelSet);
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode objectNode = mapper.createObjectNode();
-
-        objectNode.put("status", flag);
-        mapper.writeValue(resp.getWriter(), objectNode);
-    }
-
     private void saveTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         HttpSession session = req.getSession();
 
         String name = req.getParameter("travelSetName");
         String description = req.getParameter("travelSetDescription");
 
-
         TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
-        travelSet.setName(name);
-        travelSet.setDescription(description);
-        AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
-        travelSet.setCreatedUser(user.getUserName());
-
-        boolean flag = service.updateTravelSet(travelSet);
-
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode = mapper.createObjectNode();
 
-        objectNode.put("status", flag);
-        mapper.writeValue(resp.getWriter(), objectNode);
+        boolean flag = false;
+        try {
+            travelSet.setName(name);
+            travelSet.setDescription(description);
+            AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+            travelSet.setCreatedUser(user.getUserName());
+
+            flag = service.addTravelSet(travelSet);
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+        }catch (Exception e){
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+            throw e;
+        }
+    }
+
+    private void updateTravelSet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession session = req.getSession();
+
+        String name = req.getParameter("travelSetName");
+        String description = req.getParameter("travelSetDescription");
+
+
+        TravelSetDO travelSet = (TravelSetDO)session.getAttribute(Constant.TravelSetEdit_session);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+
+        boolean flag = false;
+        try {
+            travelSet.setName(name);
+            travelSet.setDescription(description);
+            AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+            travelSet.setCreatedUser(user.getUserName());
+
+
+            flag = service.updateTravelSet(travelSet);
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+        }catch (Exception e){
+            objectNode.put("status", flag);
+            mapper.writeValue(resp.getWriter(), objectNode);
+            throw e;
+        }
     }
 
     private void setItemsTime(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -228,13 +239,53 @@ public class TravelSetServlet extends HttpServlet {
 
 
         if(OPTION_C.equals(selectType)){
-            travelSet.getTravelCars().get(index).setTime(time);
+//            travelSet.getTravelCars().get(index).setTime(time);
+            Iterator<TravelEleCarDO> iterator = travelSet.getTravelCars2().iterator();
+            int i = 0;
+            while(iterator.hasNext()){
+                TravelEleCarDO current = iterator.next();
+                if(i == index){
+                    current.setTime(time);
+                    break;
+                }
+                i++;
+            }
         }else if(OPTION_H.equals(selectType)){
-            travelSet.getTravelHotels().get(index).setTime(time);
+//            travelSet.getTravelHotels().get(index).setTime(time);
+            Iterator<TravelEleHotelDO> iterator = travelSet.getTravelHotels2().iterator();
+            int i = 0;
+            while(iterator.hasNext()){
+                TravelEleHotelDO current = iterator.next();
+                if(i == index){
+                    current.setTime(time);
+                    break;
+                }
+                i++;
+            }
         }else if(OPTION_R.equals(selectType)){
-            travelSet.getTravelRestaurants().get(index).setTime(time);
+//            travelSet.getTravelRestaurants().get(index).setTime(time);
+            Iterator<TravelEleRestaurantDO> iterator = travelSet.getTravelRestaurants2().iterator();
+            int i = 0;
+            while(iterator.hasNext()){
+                TravelEleRestaurantDO current = iterator.next();
+                if(i == index){
+                    current.setTime(time);
+                    break;
+                }
+                i++;
+            }
         }else if(OPTION_A.equals(selectType)){
-            travelSet.getTravelAttractions().get(index).setTime(time);
+//            travelSet.getTravelAttractions().get(index).setTime(time);
+            Iterator<TravelEleAttractionDO> iterator = travelSet.getTravelAttractions2().iterator();
+            int i = 0;
+            while(iterator.hasNext()){
+                TravelEleAttractionDO current = iterator.next();
+                if(i == index){
+                    current.setTime(time);
+                    break;
+                }
+                i++;
+            }
         }
     }
 
@@ -259,56 +310,60 @@ public class TravelSetServlet extends HttpServlet {
             if(!StringUtil.isEmpty(sList)){
                 selectList = mapper.readValue(sList, new TypeReference<List<CarVO>>() {});
             }
-            List<TravelEleCarDO>  travelEleList = new ArrayList<>();
+//            List<TravelEleCarDO>  travelEleList = new ArrayList<>();
+            Set<TravelEleCarDO>  travelEleList = new LinkedHashSet<>();
             for (CarVO ele : selectList) {
                 TravelEleCarDO travelEleDO = new TravelEleCarDO();
                 travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setCar(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setTravelCars(travelEleList);
+            travelSet.setTravelCars2(travelEleList);
 
         }else if(OPTION_H.equals(selectType)){
             List<HotelVO> selectList = new ArrayList<>();
             if(!StringUtil.isEmpty(sList)){
                 selectList = mapper.readValue(sList, new TypeReference<List<HotelVO>>() {});
             }
-            List<TravelEleHotelDO>  travelEleList = new ArrayList<>();
+//            List<TravelEleHotelDO>  travelEleList = new ArrayList<>();
+            Set<TravelEleHotelDO>  travelEleList = new LinkedHashSet<>();
             for (HotelVO ele : selectList) {
                 TravelEleHotelDO travelEleDO = new TravelEleHotelDO();
                 travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setHotel(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setTravelHotels(travelEleList);
+            travelSet.setTravelHotels2(travelEleList);
 
         }else if(OPTION_R.equals(selectType)){
             List<RestaurantVO> selectList = new ArrayList<>();
             if(!StringUtil.isEmpty(sList)){
                 selectList = mapper.readValue(sList, new TypeReference<List<RestaurantVO>>() {});
             }
-            List<TravelEleRestaurantDO>  travelEleList = new ArrayList<>();
+//            List<TravelEleRestaurantDO>  travelEleList = new ArrayList<>();
+            Set<TravelEleRestaurantDO>  travelEleList = new LinkedHashSet<>();
             for (RestaurantVO ele : selectList) {
                 TravelEleRestaurantDO travelEleDO = new TravelEleRestaurantDO();
                 travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setRestaurant(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setTravelRestaurants(travelEleList);
+            travelSet.setTravelRestaurants2(travelEleList);
 
         }else if(OPTION_A.equals(selectType)){
-            List<AttractionDO> selectList = new ArrayList<>();
+            List<AttractionVO> selectList = new ArrayList<>();
             if(!StringUtil.isEmpty(sList)){
-                selectList = mapper.readValue(sList, new TypeReference<List<AttractionDO>>() {});
+                selectList = mapper.readValue(sList, new TypeReference<List<AttractionVO>>() {});
             }
-            List<TravelEleAttractionDO>  travelEleList = new ArrayList<>();
-            for (AttractionDO ele : selectList) {
+//            List<TravelEleAttractionDO>  travelEleList = new ArrayList<>();
+            Set<TravelEleAttractionDO>  travelEleList = new LinkedHashSet<>();
+            for (AttractionVO ele : selectList) {
                 TravelEleAttractionDO travelEleDO = new TravelEleAttractionDO();
                 travelEleDO.setTravelSetDO(travelSet);
                 travelEleDO.setAttraction(ele);
                 travelEleList.add(travelEleDO);
             }
-            travelSet.setTravelAttractions(travelEleList);
+            travelSet.setTravelAttractions2(travelEleList);
         }
         session.setAttribute(Constant.TravelSetEdit_session, travelSet);
     }
@@ -320,7 +375,7 @@ public class TravelSetServlet extends HttpServlet {
         String currentPage = req.getParameter("nowPage");
         String area = req.getParameter("area");
 
-        List<AttractionDO> list;
+        List<AttractionVO> list;
 
         PageSupport pageSupport = new PageSupport();
         pageSupport.setPageSize(pageSize);
@@ -333,11 +388,12 @@ public class TravelSetServlet extends HttpServlet {
 
         if(!StringUtil.isEmpty(area)){
             list = service.listAttraction(currentPageNo, pageSupport.getPageSize(), area);
-            pageSupport.setTotalCount(service.getRegionLimitSize(area));
+            pageSupport.setTotalCount(service.getAttractionSize(area));
         }else{
-            pageSupport.setTotalCount(service.getTotalSize());
             list = service.listAttraction(currentPageNo, pageSupport.getPageSize());
+            pageSupport.setTotalCount(service.getAttractionSize());
         }
+        System.out.println(list);
 
         objectNode.put("currentPage", currentPageNo);
         objectNode.put("totalPage", pageSupport.getTotalPageCount());
@@ -413,19 +469,10 @@ public class TravelSetServlet extends HttpServlet {
         String currentPage = req.getParameter("nowPage");
         String area = req.getParameter("area");
 
-
         List<RestaurantVO> list;
-        if(!StringUtil.isEmpty(area)){
-            area = area.replace("臺", "台").substring(0,2);
-            list = service.listRestaurant(area);
-        }else{
-            list = service.listRestaurant();
-        }
-
 
         PageSupport pageSupport = new PageSupport();
         pageSupport.setPageSize(pageSize);
-        pageSupport.setTotalCount(list.size());
 
         int currentPageNo;
         if(!StringUtil.isEmpty(currentPage)) {
@@ -433,15 +480,22 @@ public class TravelSetServlet extends HttpServlet {
         }
         currentPageNo = pageSupport.getCurrentPage();
 
-        int start = pageSupport.getPageSize()*(currentPageNo-1);
-        int end = pageSupport.getPageSize()*currentPageNo;
+        if(!StringUtil.isEmpty(area)){
+            area = area.replace("臺", "台").substring(0,2);
+            list = service.listRestaurant(currentPageNo, pageSupport.getPageSize(), area);
+            pageSupport.setTotalCount(service.getRestaurantSize(area));
+        }else{
+            list = service.listRestaurant(currentPageNo, pageSupport.getPageSize());
+            pageSupport.setTotalCount(service.getRestaurantSize());
+        }
 
-        List<RestaurantVO> currentList = list.subList(start,Math.min(end,pageSupport.getTotalCount()));
+        System.out.println(list);
+
 
         objectNode.put("currentPage", currentPageNo);
         objectNode.put("totalPage", pageSupport.getTotalPageCount());
         objectNode.put("totalCount", pageSupport.getTotalCount());
-        objectNode.put("currentPageList", mapper.writeValueAsString(currentList));
+        objectNode.put("currentPageList", mapper.writeValueAsString(list));
         mapper.writeValue(resp.getWriter(), objectNode);
     }
 }

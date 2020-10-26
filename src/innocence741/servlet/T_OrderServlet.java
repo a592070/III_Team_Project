@@ -20,10 +20,9 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import controller.ConnectionPool;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
-import innocence741.model.Order_table;
+
 import innocence741.model.T_Order_List;
 import innocence741.model.T_Order_ListDAO;
 import utils.HibernateUtil;
@@ -36,7 +35,7 @@ import rambo0021.model.AccountBean;
  */
 @WebServlet("/T_OrderServlet")
 public class T_OrderServlet extends HttpServlet {
-	private Session session2;
+	private Session session;
 
 
     
@@ -44,12 +43,11 @@ public class T_OrderServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-		SessionFactory factory = HibernateUtil.getSessionFactory();		
-		session2 = factory.getCurrentSession();
-		session2.beginTransaction();
+    	SessionFactory factory = HibernateUtil.getSessionFactory();
+    	session = factory.getCurrentSession();
         
 
-		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session2);
+		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session);
         
         String snSchedule = request.getParameter("snSchedule");
         
@@ -77,19 +75,20 @@ public class T_OrderServlet extends HttpServlet {
 //        System.out.println("departureDate_tmp= "+departureDate);
 //        System.out.println("departureDate= "+departureDate[0]+" "+departureDate[1]+" "+departureDate[2]);
 //        System.out.println("orderType= "+orderType);
-        HttpSession session = request.getSession(false);	//使用者的資訊SESSION
+        HttpSession session2 = request.getSession(false);	//使用者的資訊SESSION
         
 		Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
-		Order_table order_table = new Order_table();
+		OrderTableBean order_table = new OrderTableBean();
 		T_Order_List t_Order_List =new T_Order_List();
 		Timestamp ts = new Timestamp(System.currentTimeMillis()); //下訂單時間
 
-        
+		session.beginTransaction();
 
-//        AccountBean user = (AccountBean) session.getAttribute("Login");	//之後要換的User
+//        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User
+		AccountBean user = session.get(AccountBean.class, "abab");
         
-		HighSpeedRail highSpeedRail = session2.get(HighSpeedRail.class, Integer.parseInt(snSchedule)); //之後要換Integer.parseInt(snSchedule)
-		order_table.setUser("ipip");	//假裝user是ipip
+		HighSpeedRail highSpeedRail = session.get(HighSpeedRail.class, BigDecimal.valueOf(Integer.parseInt(snSchedule))); //之後要換Integer.parseInt(snSchedule)
+		order_table.setUser(user);	//假裝user是ipip
 		order_table.setOrder_date(ts);
 		t_Order_List.setHighSpeedRail(highSpeedRail);
 		t_Order_List.setTicketPrice(BigDecimal.valueOf(trafficPrice));	//之後要換BigDecimal.valueOf(trafficPrice)
@@ -109,10 +108,9 @@ public class T_OrderServlet extends HttpServlet {
 		T_Order_ListDAO t_Order_ListDAO = new T_Order_ListDAO(session);
 		boolean flag = t_Order_ListDAO.createOrderTable(order_table);
 		System.out.println(flag);
-//		if(flag == false) {
-//			session.getTransaction().rollback();
-//			throw new SQLException("就說你錯了吧");
-//		}
+		
+		
+
 
 		
 		printJSON(request,response,flag);
@@ -131,8 +129,10 @@ public class T_OrderServlet extends HttpServlet {
     	out.println(str);
     	
 		if(flag == false) {
-			session2.getTransaction().rollback();
+			session.getTransaction().rollback();
 			throw new SQLException("就說你錯了吧");
+		}else {
+			session.getTransaction().commit();;
 		}
     }
     

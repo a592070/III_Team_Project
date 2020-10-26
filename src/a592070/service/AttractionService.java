@@ -30,7 +30,7 @@ public class AttractionService {
         try {
             size = attractionDAO.getSize();
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO getSize()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return size;
     }
@@ -39,7 +39,7 @@ public class AttractionService {
         try {
             size = attractionDAO.getAttractionRegionSize(region);
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO getAttractionRegionSize()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return size;
     }
@@ -48,7 +48,7 @@ public class AttractionService {
         try {
             size = attractionDAO.getAttractionKeyWordsSize(keyword);
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO getAttractionKeyWordsSize()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return size;
     }
@@ -58,7 +58,7 @@ public class AttractionService {
         try {
             attraction = attractionDAO.getAttraction(id);
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO getAttraction()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return attraction;
     }
@@ -67,34 +67,34 @@ public class AttractionService {
         try {
             attraction = attractionDAO.getAttraction(column, value);
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO getAttraction()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return attraction;
     }
     public List<AttractionDO> listEle(int currentPage, int pageSize){
-        return listEle(currentPage, pageSize, null);
+        return listEle(currentPage, pageSize, "");
     }
     public List<AttractionDO> listEle(int currentPage, int pageSize, String region){
         // 從0開始
         int start = pageSize*(currentPage-1)+1;
-        int end = pageSize*currentPage;
+
         List<AttractionDO> list = null;
         try {
-            list = attractionDAO.listAttractionByRownum(start, end, region);
+            list = attractionDAO.listAttractionByRownum(start, pageSize, region);
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO listAttractionByRownum()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return list;
     }
 
     public List<AttractionDO> searchEle(int currentPage, int pageSize, String keywords) {
         int start = pageSize*(currentPage-1)+1;
-        int end = pageSize*currentPage;
+
         List<AttractionDO> list = null;
         try {
-            list = attractionDAO.listAttractionLike(start, end, keywords);
+            list = attractionDAO.listAttractionLike(start, pageSize, keywords);
         } catch (Exception e) {
-            new RuntimeException("AttractionDAO listAttractionLike()錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return list;
     }
@@ -104,7 +104,7 @@ public class AttractionService {
         try {
             list = regionDAO.listRegion();
         } catch (Exception e) {
-            new RuntimeException("RegionDAO 錯誤\n"+e).printStackTrace();
+            e.printStackTrace();
         }
         return list;
     }

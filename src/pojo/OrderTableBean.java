@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import asx54630.H_OrderBean;
-import innocence741.T_OrderBean;
+//import innocence741.T_OrderBean;
 import innocence741.model.T_Order_List;
 import iring29.model.R_OrderBean;
 import rambo0021.model.AccountBean;
@@ -39,24 +39,25 @@ public class OrderTableBean {
 	Timestamp order_date; // 下訂單時間，default
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn//還沒註冊
+	@JoinColumn(name = "USERNAME")//還沒註冊
 	AccountBean user; // Account資料
 
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderTableBean", cascade = CascadeType.ALL)
 	Set<R_OrderBean> r_OrderBeans;
-	R_OrderBean r_OdrerBean; // 小訂單的Bean (Restaurant)
+//	R_OrderBean r_OrdrerBean; // 小訂單的Bean (Restaurant)
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
-	Set<T_Order_List> t_OrderBeans;
-//	@Transient
-//	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
+	Set<T_Order_List> t_Order_Lists;
+	@Transient
+	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
+	
 	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
 	Set<H_OrderBean> h_OrderBeans;
 
 	public OrderTableBean() {
 		super();
 		r_OrderBeans = new HashSet<R_OrderBean>();
-		t_OrderBeans = new HashSet<T_Order_List>();
+//		t_Order_Lists = new HashSet<T_Order_List>();
 
 	}
 	
@@ -101,17 +102,17 @@ public class OrderTableBean {
 //		this.customerPhone = customerPhone;
 //	}
 
-	public Set<R_OrderBean> getR_OderBeans() {
+	public Set<R_OrderBean> getR_OrderBeans() {
 		return r_OrderBeans;
 	}
 	
 
 
-	public void setR_OderBeans(Set<R_OrderBean> r_OderBeans) {
-		this.r_OrderBeans = r_OderBeans;
+	public void setR_OrderBeans(Set<R_OrderBean> r_OrderBeans) {
+		this.r_OrderBeans = r_OrderBeans;
 	}
 
-	public void addR_OderBean(R_OrderBean rBean) {
+	public void addR_OrderBean(R_OrderBean rBean) {
 		this.r_OrderBeans.add(rBean);
 	}
 
@@ -130,16 +131,16 @@ public class OrderTableBean {
 	}
 	
 
-	public Set<T_Order_List> getT_OrderBeans() {
-		return t_OrderBeans;
+	public Set<T_Order_List> getT_Order_Lists() {
+		return t_Order_Lists;
 	}
 
-	public void setT_OrderBeans(Set<T_Order_List> t_OrderBeans) {
-		this.t_OrderBeans = t_OrderBeans;
+	public void setT_Order_Lists(Set<T_Order_List> t_OrderBeans) {
+		this.t_Order_Lists = t_OrderBeans;
 	}
 
-	public void addT_OderBean(T_Order_List tBean) {
-		this.t_OrderBeans.add(tBean);
+	public void addT_Order_Lists(T_Order_List tBean) {
+		this.t_Order_Lists.add(tBean);
 	}
 
 }

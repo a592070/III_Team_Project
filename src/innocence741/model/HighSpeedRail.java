@@ -1,5 +1,6 @@
 package innocence741.model;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,13 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "HIGHSPEEDRAIL")
 public class HighSpeedRail {
 	@Id
 	@Column(name = "SN_SCHEDULE")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int snSchedule;
+	private BigDecimal snSchedule;
 	
 	@Column(name = "ID_HSR")
 	private String idHSR;
@@ -63,17 +66,18 @@ public class HighSpeedRail {
 	@Column(name = "ZUOYING")
 	private String zuoying;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "highSpeedRail", cascade = CascadeType.ALL)
 	private Set<T_Order_List> t_Order_Lists = new HashSet<T_Order_List>();
 
 	
-
-
-	public int getSnSchedule() {
+	
+	
+	public BigDecimal getSnSchedule() {
 		return snSchedule;
 	}
 
-	public void setSnSchedule(int snSchedule) {
+	public void setSnSchedule(BigDecimal snSchedule) {
 		this.snSchedule = snSchedule;
 	}
 
@@ -188,7 +192,7 @@ public class HighSpeedRail {
 	public void setZuoying(String zuoying) {
 		this.zuoying = zuoying;
 	}
-	
+
 	public Set<T_Order_List> getT_Order_Lists() {
 		return t_Order_Lists;
 	}
@@ -196,9 +200,7 @@ public class HighSpeedRail {
 	public void setT_Order_Lists(Set<T_Order_List> t_Order_Lists) {
 		this.t_Order_Lists = t_Order_Lists;
 	}
-	
-	
-	
+
 	public String getArriveTime(String location) {
 		if(location.equals("Nangang")) {
 			return getNangang();

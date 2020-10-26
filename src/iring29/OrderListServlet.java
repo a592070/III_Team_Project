@@ -19,10 +19,9 @@ import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
 import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;
+import utils.HibernateUtil;
 
-/**
- * Servlet implementation class OrderListServlet
- */
+
 @WebServlet("/OrderListServlet")
 public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -66,16 +65,6 @@ public class OrderListServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-//		else if(r_sn_order != null) { //使用者訂單
-//		try {
-//		user_OrderList(request, response);
-//		} catch (IOException | SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//		else if (request.getParameter("time") != null) {
-//			updateBookTime(request, response);
-//		}
 
 	}
 
@@ -111,12 +100,12 @@ public class OrderListServlet extends HttpServlet {
 		rBean.setCustomerName(request.getParameter("b-name"));
 		rBean.setCustomerPhone(request.getParameter("b-phone"));
 
-		bean.addR_OderBean(rBean);
+		bean.addR_OrderBean(rBean);
 
-		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		try {
 			r_Order_ListDAO.createOrder(bean);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -136,7 +125,7 @@ public class OrderListServlet extends HttpServlet {
 		String name = request.getParameter("res_name").trim();
 		String book_date = request.getParameter("book_date").trim();
 		String person_numer = request.getParameter("person_numer").trim();
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantDAO restaurantDAO = new RestaurantDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		RestaurantBean res_data = restaurantDAO.findRestaurant(name);
 		System.out.println(name);
 		request.getSession().setAttribute("res_data", res_data);
@@ -151,7 +140,7 @@ public class OrderListServlet extends HttpServlet {
 		System.out.println("in cancel");
 		BigDecimal r_sn_order= new BigDecimal(request.getParameter("r_sn_order"));
 		System.out.println(r_sn_order);
-		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		boolean cancelR_Order = r_Order_ListDAO.cancelR_Order(r_sn_order);
 		if(cancelR_Order == true) {
 			request.getRequestDispatcher("/iring29/bye.jsp").forward(request, response);
@@ -161,7 +150,7 @@ public class OrderListServlet extends HttpServlet {
 // user查詢訂單
 	public void user_OrderList(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		HttpSession session = request.getSession(false);
-		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(ConnectionPool.LOADING_WITH_SERVER);
+		R_Order_ListDAO r_Order_ListDAO = new R_Order_ListDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		//取得r_sn_order
 		BigDecimal r_sn_order = new BigDecimal(request.getParameter("r_sn_order"));
 		System.out.println(r_sn_order);
@@ -173,19 +162,5 @@ public class OrderListServlet extends HttpServlet {
 		
 	}
 
-//	public void updateBookTime(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String time = request.getParameter("time");
-//		String res_name = request.getParameter("res_name").trim();
-//		String book_date = request.getParameter("book_date").trim();
-//		String person_numer = request.getParameter("person_numer").trim();
-//		BigDecimal r_id = new BigDecimal(request.getParameter("r_id"));
-//		request.getSession().setAttribute("time", time);
-//		request.getSession().setAttribute("res_name", res_name);
-//		request.getSession().setAttribute("book_date", book_date);
-//		request.getSession().setAttribute("person_numer", person_numer);
-//		request.getSession().setAttribute("r_id", r_id);
-//		System.out.println(time);
-//		request.getRequestDispatcher("/iring29/OrderList.jsp").forward(request, response);
-//	}
 
 }

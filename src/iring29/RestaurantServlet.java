@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import controller.ConnectionPool;
 import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
+import utils.HibernateUtil;
 import utils.StringUtil;
 
 @WebServlet("/RestaurantServlet")
@@ -97,7 +101,7 @@ public class RestaurantServlet extends HttpServlet {
 		}
 		request.getSession().setAttribute("book_date", book_date);
 		request.getSession().setAttribute("person_numer", person_numer);
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantDAO restaurantDAO = new RestaurantDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 
 		if (name != "" && region != "") {
 			List<RestaurantBean> Multi_Rdata = restaurantDAO.findMulti_Name_Region(name, region);
@@ -127,7 +131,7 @@ public class RestaurantServlet extends HttpServlet {
 		}
 		request.getSession().setAttribute("book_date", book_date);
 		request.getSession().setAttribute("person_numer", person_numer);
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantDAO restaurantDAO = new RestaurantDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 
 		int numR = restaurantDAO.numRestaurant(name);
 		System.out.println(numR);
@@ -154,7 +158,7 @@ public class RestaurantServlet extends HttpServlet {
 		String region = request.getParameter("region_name").trim();
 		String book_date = request.getParameter("book_date").trim();
 		String person_numer = request.getParameter("person_numer").trim();
-		RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
+		RestaurantDAO restaurantDAO = new RestaurantDAO(HibernateUtil.getSessionFactory().getCurrentSession());
 		List<RestaurantBean> res_data_region = restaurantDAO.findRegion(region);
 		request.setAttribute("res_data_region", res_data_region);
 		request.getSession().setAttribute("book_date", book_date);

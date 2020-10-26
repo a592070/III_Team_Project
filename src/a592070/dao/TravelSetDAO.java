@@ -1,14 +1,9 @@
 package a592070.dao;
 
 import a592070.pojo.*;
-import controller.ConnectionPool;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TravelSetDAO {
@@ -31,12 +26,12 @@ public class TravelSetDAO {
         query.setParameter(2, available);
 
         List<TravelSetDO> list = query.list();
-        list.forEach(ele ->{
-            ele.setTravelAttractions(getAttractionSetByID(ele.getSn()));
-            ele.setTravelCars(getCarSetByID(ele.getSn()));
-            ele.setTravelHotels(getHotelSetByID(ele.getSn()));
-            ele.setTravelRestaurants(getRestaurantSetByID(ele.getSn()));
-        });
+//        list.forEach(ele ->{
+//            ele.setTravelAttractions(getAttractionSetByID(ele.getSn()));
+//            ele.setTravelCars(getCarSetByID(ele.getSn()));
+//            ele.setTravelHotels(getHotelSetByID(ele.getSn()));
+//            ele.setTravelRestaurants(getRestaurantSetByID(ele.getSn()));
+//        });
 
         return list;
     }
@@ -45,20 +40,18 @@ public class TravelSetDAO {
         return getTravelSetByID(id, 1);
     }
     public TravelSetDO getTravelSetByID(int id, int available){
-//        session.beginTransaction();
         String hql = "from TravelSetDO where sn=?1 and available=?2 order by sn";
         Query<TravelSetDO> query = session.createQuery(hql, TravelSetDO.class);
         query.setParameter(1, id);
         query.setParameter(2, available);
 
         TravelSetDO travelSetDO = query.uniqueResultOptional().orElse(null);
-        if(travelSetDO != null){
-            travelSetDO.setTravelAttractions(getAttractionSetByID(id));
-            travelSetDO.setTravelCars(getCarSetByID(id));
-            travelSetDO.setTravelHotels(getHotelSetByID(id));
-            travelSetDO.setTravelRestaurants(getRestaurantSetByID(id));
-        }
-//        session.getTransaction().commit();
+//        if(travelSetDO != null){
+//            travelSetDO.setTravelAttractions(getAttractionSetByID(id));
+//            travelSetDO.setTravelCars(getCarSetByID(id));
+//            travelSetDO.setTravelHotels(getHotelSetByID(id));
+//            travelSetDO.setTravelRestaurants(getRestaurantSetByID(id));
+//        }
         return travelSetDO;
     }
     public List<TravelEleAttractionDO> getAttractionSetByID(int id){
@@ -92,13 +85,20 @@ public class TravelSetDAO {
 
 
     public boolean addTravelSet(TravelSetDO travelSetDO){
-        travelSetDO.setAvailable(1);
-        session.save(travelSetDO);
-        addTravelEleA(travelSetDO);
-        addTravelEleC(travelSetDO);
-        addTravelEleH(travelSetDO);
-        addTravelEleR(travelSetDO);
-        return true;
+        boolean flag = false;
+        try {
+            travelSetDO.setAvailable(1);
+            session.save(travelSetDO);
+//            addTravelEleA(travelSetDO);
+//            addTravelEleC(travelSetDO);
+//            addTravelEleH(travelSetDO);
+//            addTravelEleR(travelSetDO);
+
+            flag = true;
+        }catch (Exception e){
+            throw e;
+        }
+        return flag;
     }
 
     private void addTravelEleA(TravelSetDO travelSetDO) {
@@ -165,25 +165,37 @@ public class TravelSetDAO {
     }
 
     public boolean updateTravelSet(TravelSetDO travelSetDO) {
-        travelSetDO.setAvailable(1);
-        session.merge(travelSetDO);
+        boolean flag = false;
+        try {
+            travelSetDO.setAvailable(1);
+            session.merge(travelSetDO);
 
-        delTravelEleA(travelSetDO);
-        delTravelEleC(travelSetDO);
-        delTravelEleH(travelSetDO);
-        delTravelEleR(travelSetDO);
-
-        addTravelEleA(travelSetDO);
-        addTravelEleC(travelSetDO);
-        addTravelEleH(travelSetDO);
-        addTravelEleR(travelSetDO);
-        return true;
+//            delTravelEleA(travelSetDO);
+//            delTravelEleC(travelSetDO);
+//            delTravelEleH(travelSetDO);
+//            delTravelEleR(travelSetDO);
+//
+//            addTravelEleA(travelSetDO);
+//            addTravelEleC(travelSetDO);
+//            addTravelEleH(travelSetDO);
+//            addTravelEleR(travelSetDO);
+            flag = true;
+        }catch (Exception e){
+            throw e;
+        }
+        return flag;
     }
 
     public boolean setTravelSetUnavailable(int sn) {
-        TravelSetDO travelSetDO = session.get(TravelSetDO.class, sn);
-        travelSetDO.setAvailable(0);
-        return true;
-    }
+        boolean flag = false;
+        try {
+            TravelSetDO travelSetDO = session.get(TravelSetDO.class, sn);
+            travelSetDO.setAvailable(0);
 
+            flag = true;
+        }catch (Exception e){
+            throw e;
+        }
+        return flag;
+    }
 }

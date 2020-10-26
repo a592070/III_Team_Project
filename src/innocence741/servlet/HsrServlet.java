@@ -18,12 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import controller.ConnectionPool;
 import utils.HibernateUtil;
 import innocence741.model.HighSpeedRail;
 import innocence741.model.HighSpeedRailDAO;
-import innocence741.hsrDAO;
-import innocence741.hsrDO;
+
 
 /**
  * Servlet implementation class HsrServlet
@@ -31,7 +29,6 @@ import innocence741.hsrDO;
 @WebServlet("/HsrServlet")
 public class HsrServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Session session2;
 
        
     /**
@@ -43,8 +40,10 @@ public class HsrServlet extends HttpServlet {
     }
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
 		response.setContentType("text/html;charset=UTF-8");
-		 
-        request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+
+		
         String startPoint = request.getParameter("startPoint");
         String destination = request.getParameter("destination");
         String departureTime = request.getParameter("departureTime");
@@ -52,15 +51,18 @@ public class HsrServlet extends HttpServlet {
         System.out.println("getParameter: destination= "+destination);
         System.out.println("getParameter: departureTime= "+departureTime);
         
-		SessionFactory factory = HibernateUtil.getSessionFactory();
-		
-		session2 = factory.getCurrentSession();
-		session2.beginTransaction();
+//		SessionFactory factory = HibernateUtil.getSessionFactory();
+//		
+//		session = factory.getCurrentSession();
+//		session.beginTransaction();
 
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
     	
 		List<HighSpeedRail> list;
     	int price = 0;
-		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session2);
+		HighSpeedRailDAO highSpeedRailDAO = new HighSpeedRailDAO(session);
     	highSpeedRailDAO.searchHSR(startPoint, destination, departureTime);
 		list = highSpeedRailDAO.listHsrDO();
 		System.out.println(list.size());
@@ -70,12 +72,15 @@ public class HsrServlet extends HttpServlet {
         String ujson = objectMapper.writeValueAsString(list);
         ujson = "[" + ujson + ",{\"price\" : " + price + "}]";
         
-		session2.getTransaction().commit();
-		HibernateUtil.closeSessionFactory();
+//		session.getTransaction().commit();
+//		HibernateUtil.closeSessionFactory();
 		
         System.out.println(ujson+"\n");
         PrintWriter out = response.getWriter();
         out.println(ujson.toString());
+        
+        session.getTransaction().commit();
+        System.out.println("session.getTransaction().commit()");
     }
     
 

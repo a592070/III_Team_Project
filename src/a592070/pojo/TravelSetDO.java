@@ -17,30 +17,30 @@ import java.util.Set;
 public class TravelSetDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sn;
+    private Integer sn;
     @Column(name = "CREATED")
     private String createdUser;
     private String description;
-    private int priority;
+    private Integer priority;
     @Column(name = "CREATED_TIME")
     private Timestamp createdTime;
     @Column(name = "UPDATE_TIME")
     private Timestamp updateTime;
     private String name;
-    private int available;
+    private Integer available;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @Transient
-//    private Set<TravelEleCarDO> travelCars = new LinkedHashSet<>();
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TravelEleCarDO> travelCars2 = new LinkedHashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @Transient
-//    private Set<TravelEleHotelDO> travelHotels = new LinkedHashSet<>();
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TravelEleHotelDO> travelHotels2 = new LinkedHashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @Transient
-//    private Set<TravelEleRestaurantDO> travelRestaurants = new LinkedHashSet<>();
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TravelEleRestaurantDO> travelRestaurants2 = new LinkedHashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @Transient
-//    private Set<TravelEleAttractionDO> travelAttractions = new LinkedHashSet<>();
+    private Set<TravelEleAttractionDO> travelAttractions2 = new LinkedHashSet<>();
 
 
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "travelSetDO", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -59,11 +59,11 @@ public class TravelSetDO {
     public TravelSetDO() {
     }
 
-    public int getSn() {
+    public Integer getSn() {
         return sn;
     }
 
-    public void setSn(int sn) {
+    public void setSn(Integer sn) {
         this.sn = sn;
     }
 
@@ -93,11 +93,11 @@ public class TravelSetDO {
         this.description = description;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
@@ -120,11 +120,11 @@ public class TravelSetDO {
         this.updateTime = updateTime;
     }
 
-    public int getAvailable() {
+    public Integer getAvailable() {
         return available;
     }
 
-    public void setAvailable(int available) {
+    public void setAvailable(Integer available) {
         this.available = available;
     }
 
@@ -158,6 +158,38 @@ public class TravelSetDO {
 
     public void setTravelAttractions(List<TravelEleAttractionDO> travelAttractions) {
         this.travelAttractions = travelAttractions;
+    }
+
+    public Set<TravelEleCarDO> getTravelCars2() {
+        return travelCars2;
+    }
+
+    public void setTravelCars2(Set<TravelEleCarDO> travelCars2) {
+        this.travelCars2 = travelCars2;
+    }
+
+    public Set<TravelEleHotelDO> getTravelHotels2() {
+        return travelHotels2;
+    }
+
+    public void setTravelHotels2(Set<TravelEleHotelDO> travelHotels2) {
+        this.travelHotels2 = travelHotels2;
+    }
+
+    public Set<TravelEleRestaurantDO> getTravelRestaurants2() {
+        return travelRestaurants2;
+    }
+
+    public void setTravelRestaurants2(Set<TravelEleRestaurantDO> travelRestaurants2) {
+        this.travelRestaurants2 = travelRestaurants2;
+    }
+
+    public Set<TravelEleAttractionDO> getTravelAttractions2() {
+        return travelAttractions2;
+    }
+
+    public void setTravelAttractions2(Set<TravelEleAttractionDO> travelAttractions2) {
+        this.travelAttractions2 = travelAttractions2;
     }
 
     @Override
