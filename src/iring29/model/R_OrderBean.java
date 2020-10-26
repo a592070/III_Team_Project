@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,7 +56,9 @@ public class R_OrderBean {
 
 	@Id
 	@Column(name = "R_SN_ORDER")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order")
+	@SequenceGenerator(name = "seq_order", sequenceName = "R_ORDER_LIST_SEQ", allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public BigDecimal getR_sn_order() {
 		return r_sn_order;
 	}
@@ -90,14 +93,14 @@ public class R_OrderBean {
 		this.customerPhone = customerPhone;
 	}
 
-	@Transient
-	public BigDecimal getOrder_id() {
-		return order_id;
-	}
-
-	public void setOrder_id(BigDecimal order_id) {
-		this.order_id = order_id;
-	}
+//	@Transient
+//	public BigDecimal getOrder_id() {
+//		return order_id;
+//	}
+//
+//	public void setOrder_id(BigDecimal order_id) {
+//		this.order_id = order_id;
+//	}
 
 	@Column(name = "BOOK_TIME")
 	public Timestamp getBooking_date() {

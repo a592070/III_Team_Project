@@ -1,9 +1,6 @@
 
 package controller.initTable;
 
-import pojo.AttractionsDO;
-import utils.StringUtil;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;

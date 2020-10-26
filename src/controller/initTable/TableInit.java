@@ -2,7 +2,6 @@ package controller.initTable;
 
 
 import controller.ConnectionPool;
-import pojo.AttractionsDO;
 
 import javax.sql.DataSource;
 import java.io.IOException;

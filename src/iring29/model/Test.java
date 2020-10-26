@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import pojo.OrderTableBean;
+import rambo0021.model.AccountBean;
 import utils.HibernateUtil;
 
 public class Test {
@@ -21,8 +22,8 @@ public class Test {
 
 		RestaurantDAO rDAO = new RestaurantDAO(session);
 		
-		int count = rDAO.numRestaurant("牛");
-		System.out.println(count);
+//		int count = rDAO.numRestaurant("牛");
+//		System.out.println(count);
 
 //		List<RestaurantBean> rBeans = rDAO.findMulti_R("牛");
 //		for(RestaurantBean r : rBeans) {
@@ -66,7 +67,18 @@ public class Test {
 //			System.out.println(rBean.getCustomerNum());
 //		}
 		
-		ModifyDAO mDAO = new ModifyDAO(session);
+		OrderTableBean otBean = new OrderTableBean();
+		R_OrderBean roBean = new R_OrderBean();
+		AccountBean aBean = new AccountBean();
+		aBean.setUserName("test1026");
+		roBean.setCustomerName("hi1");
+		roBean.setCustomerNum(BigDecimal.valueOf(3));
+		roBean.setCustomerPhone("0919033123");
+		otBean.setUser(aBean);
+		otBean.addR_OrderBean(roBean);
+		rOrderDAO.createOrder(otBean);
+		
+//		ModifyDAO mDAO = new ModifyDAO(session);
 //		boolean rAdd = mDAO.R_Address("台中市", null, BigDecimal.valueOf(71));
 //		System.out.println(rAdd);
 		
