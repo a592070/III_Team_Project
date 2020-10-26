@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="azaz4498.ArticleDO"%>
-<%@ page import="azaz4498.CommentDO"%>
-<%@ page import="azaz4498.ArticleTypeDO"%>
-<%@ page import="azaz4498.ForumDAO2"%>
+ <%@ page import="azaz4498.model.Article"%>
+<%@ page import="azaz4498.model.Comment"%>
+<%@ page import="azaz4498.model.ArticleType"%>
+<%@ page import="azaz4498.model.ForumDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
