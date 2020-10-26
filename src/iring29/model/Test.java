@@ -1,6 +1,7 @@
 package iring29.model;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -68,14 +69,19 @@ public class Test {
 //		}
 		
 		OrderTableBean otBean = new OrderTableBean();
+		HashSet<R_OrderBean> roBeans = new HashSet<R_OrderBean>();
 		R_OrderBean roBean = new R_OrderBean();
 		AccountBean aBean = new AccountBean();
-		aBean.setUserName("test1026");
-		roBean.setCustomerName("hi1");
+		aBean.setUserName("iii");
+		roBean.setCustomerName("hi2");
 		roBean.setCustomerNum(BigDecimal.valueOf(3));
 		roBean.setCustomerPhone("0919033123");
+		roBean.setOrderTableBean(otBean);
 		otBean.setUser(aBean);
-		otBean.addR_OrderBean(roBean);
+//		otBean.setOrder_id(otBean.getOrder_id());
+//		otBean.addR_OrderBean(roBean);
+		roBeans.add(roBean);
+		otBean.setR_OrderBeans(roBeans);
 		rOrderDAO.createOrder(otBean);
 		
 //		ModifyDAO mDAO = new ModifyDAO(session);

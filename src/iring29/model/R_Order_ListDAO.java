@@ -25,6 +25,7 @@ public class R_Order_ListDAO {
 //		if (result1 == null) {
 //			session.save(otbean);
 //		}
+		
 		try {
 			session.save(otbean);
 			

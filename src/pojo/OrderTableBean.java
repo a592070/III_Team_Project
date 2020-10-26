@@ -47,18 +47,18 @@ public class OrderTableBean {
 	@Transient
 	R_OrderBean r_OrdrerBean; // 小訂單的Bean (Restaurant)
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
-//	Set<T_Order_List> t_Order_Lists;
-//	@Transient
-//	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
+	Set<T_Order_List> t_Order_Lists;
+	@Transient
+	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
 	
-//	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
-//	Set<H_OrderBean> h_OrderBeans;
+	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
+	Set<H_OrderBean> h_OrderBeans;
 
 	public OrderTableBean() {
 		super();
 		r_OrderBeans = new HashSet<R_OrderBean>();
-//		t_Order_Lists = new HashSet<T_Order_List>();
+		t_Order_Lists = new HashSet<T_Order_List>();
 
 	}
 	
@@ -87,21 +87,21 @@ public class OrderTableBean {
 		this.user = user;
 	}
 
-//	public String getCustomerName() {
-//		return customerName;
-//	}
-//
-//	public void setCustomerName(String customerName) {
-//		this.customerName = customerName;
-//	}
-//
-//	public String getCustomerPhone() {
-//		return customerPhone;
-//	}
-//
-//	public void setCustomerPhone(String customerPhone) {
-//		this.customerPhone = customerPhone;
-//	}
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerPhone() {
+		return customerPhone;
+	}
+
+	public void setCustomerPhone(String customerPhone) {
+		this.customerPhone = customerPhone;
+	}
 
 	public Set<R_OrderBean> getR_OrderBeans() {
 		return r_OrderBeans;
