@@ -20,7 +20,7 @@
         <h2>飯店</h2>
         <br>
         <div class="mx-auto my-3" style="width: 1100px">
-            <form class="form-inline" action="<%=pageContext.getServletContext().getContextPath()%>/HotelController" method="POST">
+            <form class="form-inline" action="<%=pageContext.getServletContext().getContextPath()%>/HotelServlet" method="POST">
                 <div class="form-group mb-2">
                   <h5>輸入關鍵字:</h5>
                 </div>

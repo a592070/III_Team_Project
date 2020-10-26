@@ -1,6 +1,7 @@
-package asx54630;
+package asx54630.servlet;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -9,48 +10,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.ConnectionPool;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-/**
- * Servlet implementation class HotelDetailServlet
- */
+import asx54630.model.HotelBean;
+import asx54630.model.HotelBeanService;
+import utils.HibernateUtil;
+
 @WebServlet(name="HotelDetailServlet",urlPatterns ="/HotelDetailServlet")
 public class HotelDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public HotelDetailServlet() {
         super();
         
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String detailsn = request.getParameter("detailsn").trim();
 		System.out.print("("+detailsn+")");
-		int detsn = Integer.parseInt(detailsn);
-		HotelDAO hotelDAO = new HotelDAO(ConnectionPool.LOADING_WITH_SERVER);
-		HotelDO detaildata = null;
-		try {
-			detaildata = hotelDAO.DetailSearch(detsn);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		BigDecimal detsn = new BigDecimal(detailsn);
+		
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		
+		HotelBeanService hService = new HotelBeanService(session);
+		HotelBean detaildata = null;
+		detaildata = hService.hotelDetail(detsn);
 		request.setAttribute("detaildata", detaildata);
 		System.out.print(detaildata);
 		request.getRequestDispatcher("/asx54630/MoreDetail.jsp").forward(request,response);
 	}
 
 }
+

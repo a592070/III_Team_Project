@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import asx54630.H_OrderBean;
+import asx54630.model.H_OrderBean;
 //import innocence741.T_OrderBean;
 import innocence741.model.T_Order_List;
 import iring29.model.R_OrderBean;
@@ -40,14 +40,16 @@ public class OrderTableBean {
 
 	@Transient
 	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
-	@Transient
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	Set<H_OrderBean> h_OrderBeans;
+	@Transient
+	H_OrderBean h_OrderBean;
 
 	public OrderTableBean() {
 		super();
 		r_OrderBeans = new HashSet<R_OrderBean>();
 		t_Order_Lists = new HashSet<T_Order_List>();
-
+		h_OrderBeans = new HashSet<H_OrderBean>();
 	}
 	
 	public BigDecimal getOrder_id() {

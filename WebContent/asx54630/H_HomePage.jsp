@@ -22,43 +22,43 @@
             <thead>
             <tr>
                 <th>名稱</th>
-                <td>${hotelDO.NAME}</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.NAME})" >修改</button></td>
+                <td>${hoteldata.NAME}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.NAME})" >修改</button></td>
             </tr>
             <tr>
                 <th>地址</th>
-                <td>${hotelDO.ADDRESS}</td>
-				<td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.ADDRESS})">修改</button></td>
+                <td>${hoteldata.ADDRESS}</td>
+				<td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.ADDRESS})">修改</button></td>
           	</tr>
             <tr>
                 <th>電話</th>
-                <td>${hotelDO.TEL}</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.TEL})">修改</button></td>
+                <td>${hoteldata.TEL}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.TEL})">修改</button></td>
             </tr>
             <tr>
                 <th>房型:雙人房</th>
-                <td>${hotelDO.DOUBLE_ROOM}</td> 
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.DOUBLE_ROOM})">修改</button></td>
+                <td>${hoteldata.DOUBLE_ROOM}</td> 
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.DOUBLE_ROOM})">修改</button></td>
             </tr>
             <tr>
                 <th>房型:四人房</th>
-                 <td>${hotelDO.QUADRUPLE_ROOM}</td>
-                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.QUADRUPLE_ROOM})">修改</button></td>
+                 <td>${hoteldata.QUADRUPLE_ROOM}</td>
+                 <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.QUADRUPLE_ROOM})">修改</button></td>
             </tr>
             <tr>
                 <th>介紹</th>
-                <td>${hotelDO.DESCRIPTION}</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.DESCRIPTION})">修改</button></td>
+                <td>${hoteldata.DESCRIPTION}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${v.DESCRIPTION})">修改</button></td>
             </tr>
             <tr>
                 <th>營業時間</th>
-                <td>${hotelDO.OPENTIME}</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.OPENTIME})">修改</button></td>
+                <td>${hoteldata.OPENTIME}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.OPENTIME})">修改</button></td>
             </tr>
             <tr>
                 <th>住宿類型</th>
-                <td>${hotelDO.TYPE}</td>
-                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hotelDO.TYPE})">修改</button></td>
+                <td>${hoteldata.TYPE}</td>
+                <td><button type="submit" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal" onclick="clickdetail(${hoteldata.TYPE})">修改</button></td>
             </tr>
             </thead>
         </table>
