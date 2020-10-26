@@ -44,11 +44,11 @@
 			<mapping class="iring29.model.R_OrderBean"/> 
 		
 			<mapping class="iring29.model.RestaurantBean" />
-		<!-- 
+		
 			<mapping class="rambo0021.model.AccountBean" />
 		
 			<mapping class="rambo0021.model.IdentityBean" />
-
+	<!-- 
 			<mapping class="innocence741.model.CarRentalCompany" />
 			<mapping class="innocence741.model.CarType" />
 			<mapping class="innocence741.model.HighSpeedRail" />

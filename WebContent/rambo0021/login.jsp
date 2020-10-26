@@ -43,7 +43,7 @@
 					onblur="checkpwd()" />
 				<img class="img" id="idfimg2" src=""><span id="idsp2"></span><br />
 			</div>
-			<div class="g-recaptcha" data-sitekey="6LdOeNYZAAAAAPAEKRkJYgqKjU79n5B90Jnw2Q06"></div>
+			<!-- <div class="g-recaptcha" data-sitekey="6LdOeNYZAAAAAPAEKRkJYgqKjU79n5B90Jnw2Q06"></div> -->
 			<CENTER>
 				<INPUT TYPE="SUBMIT" id="submit" value="登入" disabled class="btn btn-primary">
 				<Font color='red' size="-1">
