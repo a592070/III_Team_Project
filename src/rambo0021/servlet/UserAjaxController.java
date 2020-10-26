@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import rambo0021.model.AccountBean;
-import rambo0021.model.RegisterDAO;
+import rambo0021.old.RegisterDAO;
 
 /**
  * Servlet implementation class UserAjaxController

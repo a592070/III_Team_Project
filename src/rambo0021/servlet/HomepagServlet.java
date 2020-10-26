@@ -53,7 +53,7 @@ public class HomepagServlet extends HttpServlet {
 		
 		AccountBean account = (AccountBean)session.getAttribute("Login");
 		try {if (account.getPicture() != null) {
-			is=account.getPicture().getBinaryStream();			
+			is=account.getPicture();			
 		}
 	 
 		} catch (SQLException e) {

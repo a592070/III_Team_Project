@@ -44,7 +44,7 @@ public class Imuseless {
 //         fis.close();
           
           HomePage hDao = new HomePage(session);
-          AccountBean aBean = hDao.selectUserData("rambo005");
+          AccountBean aBean = hDao.selectUser("rambo005");
           System.out.println(aBean.toString());
           
         session.getTransaction().commit();  

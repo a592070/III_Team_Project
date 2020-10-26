@@ -2,6 +2,7 @@ package rambo0021.model;
 
 import org.hibernate.Session;
 
+
 public class HomePage {
 	private Session session;
 
@@ -9,8 +10,14 @@ public class HomePage {
 		this.session = session;
 	}
 	
-	public AccountBean selectUserData(String username) {
+	public AccountBean selectUser(String username) {
 		return session.get(AccountBean.class,username);
 	}
-
+	public AccountBean update(AccountBean account) {
+		AccountBean result = session.get(AccountBean.class,account.getUserName());
+		if(result!=null) {
+			session.save(account);
+		}
+		return result;
+	}
 }

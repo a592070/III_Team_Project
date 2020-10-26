@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import rambo0021.model.AccountBean;
-import rambo0021.model.OrderBean;
-import rambo0021.model.OrderDAO;
+import rambo0021.old.OrderBean;
+import rambo0021.old.OrderDAO;
 
 /**
  * Servlet implementation class OrderAjaxController

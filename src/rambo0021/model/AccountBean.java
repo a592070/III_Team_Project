@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -39,18 +42,37 @@ public class AccountBean {
 	private Date modify_Date;
 	private String nickName;
 	private Date register;
-	private String identityString;
 	private String getModify_DateString;
 	private String getRegisterString;
 	private IdentityBean identityBean;
 	
-	private OrderTableBean orderTableBean;
+	private Set<OrderTableBean> orderTableBeans;
 	
 	public AccountBean() {
 
 	}
 	
-    @Id @Column(name="USERNAME")
+	
+    public AccountBean(String userName, String password, int identity, String email, byte[] picture, Date modify_Date,
+			String nickName, Date register, String getModify_DateString, String getRegisterString,
+			IdentityBean identityBean, Set<OrderTableBean> orderTableBeans) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.identity = identity;
+		this.email = email;
+		this.picture = picture;
+		this.modify_Date = modify_Date;
+		this.nickName = nickName;
+		this.register = register;
+		this.getModify_DateString = getModify_DateString;
+		this.getRegisterString = getRegisterString;
+		this.identityBean = identityBean;
+		this.orderTableBeans = orderTableBeans;
+	}
+
+
+	@Id @Column(name="USERNAME")
 	public String getUserName() {
 		return userName;
 	}
@@ -128,13 +150,6 @@ public class AccountBean {
 		this.register = register;
 	}
 
-	@Override
-	public String toString() {
-		return "AccountBean [userName=" + userName + ", password=" + password + ", identity=" + identity + ", email="
-				+ email + ", picture=" + picture + ", modify_Date=" + modify_Date + ", nickName=" + nickName
-				+ ", register=" + register + ", identityString=" + identityString + "]";
-	}
-
 	@Column(name="PICTURE")
 	public byte[] getPicture() {
 		return picture;
@@ -158,15 +173,6 @@ public class AccountBean {
 		this.picture =  picture;
 	}
 
-	@Transient
-	public String getIdentityString() {
-		return identityString;
-	}
-
-	
-	public void setIdentityString(String identityString) {
-		this.identityString = identityString;
-	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IDENTITY")
@@ -178,14 +184,24 @@ public class AccountBean {
 		this.identityBean = identityBean;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
-	public OrderTableBean getOrderTableBean() {
-		return orderTableBean;
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
+	public Set<OrderTableBean> getOrderTableBeans() {
+		return orderTableBeans;
 	}
 
-	public void setOrderTableBean(OrderTableBean orderTableBean) {
-		this.orderTableBean = orderTableBean;
+	public void setOrderTableBeans(Set<OrderTableBean> orderTableBeans) {
+		this.orderTableBeans = orderTableBeans;
 	}
+
+	@Override
+	public String toString() {
+		return "AccountBean [userName=" + userName + ", password=" + password + ", identity=" + identity + ", email="
+				+ email + ", picture=" + Arrays.toString(picture) + ", modify_Date=" + modify_Date + ", nickName="
+				+ nickName + ", register=" + register + ", getModify_DateString=" + getModify_DateString
+				+ ", getRegisterString=" + getRegisterString + ", identityBean=" + identityBean + ", orderTableBeans="
+				+ orderTableBeans + "]";
+	}
+
 
 	
 	
