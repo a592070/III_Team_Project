@@ -21,7 +21,6 @@ import org.hibernate.SessionFactory;
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
 import rambo0021.model.SHA2DAO;
-import rambo0021.old.HomePageDAO;
 import utils.HibernateUtil;
 import utils.IOUtils;
 

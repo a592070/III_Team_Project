@@ -17,24 +17,11 @@ import rambo0021.model.AccountBean;
 import rambo0021.old.OrderBean;
 import rambo0021.old.OrderDAO;
 
-/**
- * Servlet implementation class OrderAjaxController
- */
+
 @WebServlet("/OrderAjaxController")
 public class OrderAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderAjaxController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderDAO orderDAO = new OrderDAO();
 		HttpSession session = request.getSession(false);
@@ -44,8 +31,7 @@ public class OrderAjaxController extends HttpServlet {
 		    System.out.println(order.getOrderDateString());
 	        System.out.println(order.getOrderId());	
 		}
-//		session.setAttribute("Orderlist",list);
-//		System.out.println(list);
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		String ojson = objectMapper.writeValueAsString(list);
 		

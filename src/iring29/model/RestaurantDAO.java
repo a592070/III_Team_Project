@@ -15,6 +15,7 @@ public class RestaurantDAO {
 	// search how many Restaurant
 	public int numRestaurant(String name) {
 		Query<Integer> query = session.createQuery("select CAST(count(*) as int) from RestaurantBean where name like ?0", Integer.class);
+		System.out.println("start numRestaurant");
 		query.setParameter(0, "%" + name + "%");
 
 		/** change by a592070
@@ -28,6 +29,7 @@ public class RestaurantDAO {
 	// find multiple restaurant by restaurant name
 	public List<RestaurantBean> findMulti_R(String name) {
 		Query query = session.createQuery("from RestaurantBean where name like ?0");
+		System.out.println("start findMulti_R");
 		query.setParameter(0, "%" + name + "%");
 
 		/** change by a592070
@@ -42,6 +44,7 @@ public class RestaurantDAO {
 	// find multiple restaurant by restaurant name & region
 	public List<RestaurantBean> findMulti_Name_Region(String name, String region) {
 		Query query = session.createQuery("from RestaurantBean where name like ?0 and region = ?1");
+		System.out.println("findMulti_Name_Region");
 		query.setParameter(0, "%" + name + "%");
 		query.setParameter(1, region);
 
@@ -59,6 +62,7 @@ public class RestaurantDAO {
 	// find specific restaurant by restaurant name
 	public RestaurantBean findRestaurant(String name) {
 		Query query = session.createQuery("from RestaurantBean where name = ?0");
+		System.out.println("start findRestaurant");
 		query.setParameter(0, name);
 		RestaurantBean obj = (RestaurantBean) query.uniqueResult();
 		return obj;
@@ -72,6 +76,7 @@ public class RestaurantDAO {
 	// find specific region
 	public List<RestaurantBean> findRegion(String region) {
 		Query query = session.createQuery("from RestaurantBean where region = ?0");
+		System.out.println("start findRegion");
 		query.setParameter(0, region);
 		List<RestaurantBean> rBeans = query.list();
 		return rBeans;
@@ -93,6 +98,7 @@ public class RestaurantDAO {
 //		}
 		try {
 			session.save(rBean);
+			System.out.println("start createR");
 			return rBean;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -103,6 +109,7 @@ public class RestaurantDAO {
 	// set RestaurantBean for display HP
 	public RestaurantBean Restaurant_HP(String username) {
 		Query query = session.createQuery("from RestaurantBean where account = ?0");
+		System.out.println("start Restaurant_HP");
 		query.setParameter(0, username);
 		RestaurantBean rBean = (RestaurantBean) query.uniqueResult();
 		return rBean;

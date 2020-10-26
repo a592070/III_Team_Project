@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import controller.ConnectionPool;
 import iring29.model.R_OrderBean;
 import iring29.model.R_Order_ListDAO;
 import iring29.model.RestaurantBean;
@@ -86,9 +85,10 @@ public class OrderListServlet extends HttpServlet {
 		System.out.println("r_id =" + r_id);
 		System.out.println("r_name = " + res_name);
 		resBean.setR_sn(r_id);
+		resBean.setAccountBean(aBean);
 		resBean.setName(res_name);
-		
 		rBean.setRestaurantBean(resBean);
+		rBean.setOrderTableBean(bean);
 		String time = request.getParameter("time");
 		System.out.println("time=" + time);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());

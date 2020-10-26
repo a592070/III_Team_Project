@@ -28,24 +28,10 @@ import utils.HibernateUtil;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LoginServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		AccountBean account = new AccountBean();
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		HomePage homePage = new HomePage(session);
 		
 		HttpSession hsession = request.getSession();
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
@@ -54,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		account.setUserName(request.getParameter("userName").trim());
+		String userName = request.getParameter("userName").trim();
 		String password = SHA2DAO.getSHA256(request.getParameter("password").trim());
 
 		 
@@ -62,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 		boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 		// 查密碼
-		homePage.selectUser(account.getUserName());
+		AccountBean account = session.get(AccountBean.class,userName);
 		// 判斷帳密&驗證
 		if (password.equals(account.getPassword()) && verify) {
 			hsession.setAttribute("Login", account);

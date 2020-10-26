@@ -27,8 +27,8 @@ public class HotelBean {
 	private String ACCOUNT;
 	
 	
-	public HotelBean(BigDecimal id, String name, String region, String address, String tel, BigDecimal dbroom, BigDecimal quadroom, String description, String openTime, String type, BigDecimal rating, String account) {
-		this.SN = id;
+	public HotelBean(BigDecimal sn, String name, String region, String address, String tel, BigDecimal dbroom, BigDecimal quadroom, String description, String openTime, String type, BigDecimal rating, String account) {
+		this.SN = sn;
 		this.NAME = name;
 		this.REGION = region;
 		this.ADDRESS = address;
@@ -50,6 +50,7 @@ public class HotelBean {
 	@Id @Column(name="SN")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public BigDecimal getSN() {
+//		this.SN = SN;
 		return SN;
 	}
 

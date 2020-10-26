@@ -45,12 +45,12 @@ public class Test_iring29 {
 //		restaurantDAO.updateimg("宮原眼科醉月樓");
 		
 		//TEST6 DATE
-		Date date = new Date();
-		System.out.println(date);
-		Timestamp ts = new Timestamp(System.currentTimeMillis());  
+//		Date date = new Date();
+//		System.out.println(date);
+//		Timestamp ts = new Timestamp(System.currentTimeMillis());  
 //		//格式化日期
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		System.out.println(sdf.format(ts));
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//		System.out.println(sdf.format(ts));
 		
 		//TEST7 R_Order_ListDAO
 //		Order_DateBean order_DateBean = new Order_DateBean("Irene","Chung","123456");

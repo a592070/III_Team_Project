@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import asx54630.H_OrderBean;
+import asx54630.model.H_OrderBean;
 //import innocence741.T_OrderBean;
 import innocence741.model.T_Order_List;
 import iring29.model.R_OrderBean;
@@ -35,19 +35,21 @@ public class OrderTableBean {
 	@Transient
 	R_OrderBean r_OrdrerBean; // 小訂單的Bean (Restaurant)
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
-//	Set<T_Order_List> t_Order_Lists;
-//	@Transient
-//	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
-	
-//	H_OrderBean h_OderBean; // 小訂單的Bean (hotel)
-//	Set<H_OrderBean> h_OrderBeans;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
+	Set<T_Order_List> t_Order_Lists;
+
+	@Transient
+	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	Set<H_OrderBean> h_OrderBeans;
+	@Transient
+	H_OrderBean h_OrderBean;
 
 	public OrderTableBean() {
 		super();
 		r_OrderBeans = new HashSet<R_OrderBean>();
-//		t_Order_Lists = new HashSet<T_Order_List>();
-
+		t_Order_Lists = new HashSet<T_Order_List>();
+		h_OrderBeans = new HashSet<H_OrderBean>();
 	}
 	
 	public BigDecimal getOrder_id() {
@@ -75,22 +77,6 @@ public class OrderTableBean {
 		this.user = user;
 	}
 
-//	public String getCustomerName() {
-//		return customerName;
-//	}
-//
-//	public void setCustomerName(String customerName) {
-//		this.customerName = customerName;
-//	}
-//
-//	public String getCustomerPhone() {
-//		return customerPhone;
-//	}
-//
-//	public void setCustomerPhone(String customerPhone) {
-//		this.customerPhone = customerPhone;
-//	}
-
 	public Set<R_OrderBean> getR_OrderBeans() {
 		return r_OrderBeans;
 	}
@@ -107,29 +93,29 @@ public class OrderTableBean {
 
 	
 
-//	public Set<H_OrderBean> getH_OrderBeans() {
-//		return h_OrderBeans;
-//	}
-//
-//	public void setH_OrderBeans(Set<H_OrderBean> h_OrderBeans) {
-//		this.h_OrderBeans = h_OrderBeans;
-//	}
-//
-//	public void addH_OrderBean(H_OrderBean hBean) {
-//		this.h_OrderBeans.add(hBean);
-//	}
-//	
-//
-//	public Set<T_Order_List> getT_Order_Lists() {
-//		return t_Order_Lists;
-//	}
-//
-//	public void setT_Order_Lists(Set<T_Order_List> t_OrderBeans) {
-//		this.t_Order_Lists = t_OrderBeans;
-//	}
-//
-//	public void addT_Order_Lists(T_Order_List tBean) {
-//		this.t_Order_Lists.add(tBean);
-//	}
+	public Set<H_OrderBean> getH_OrderBeans() {
+		return h_OrderBeans;
+	}
+
+	public void setH_OrderBeans(Set<H_OrderBean> h_OrderBeans) {
+		this.h_OrderBeans = h_OrderBeans;
+	}
+
+	public void addH_OrderBean(H_OrderBean hBean) {
+		this.h_OrderBeans.add(hBean);
+	}
+	
+
+	public Set<T_Order_List> getT_Order_Lists() {
+		return t_Order_Lists;
+	}
+
+	public void setT_Order_Lists(Set<T_Order_List> t_OrderBeans) {
+		this.t_Order_Lists = t_OrderBeans;
+	}
+
+	public void addT_Order_Lists(T_Order_List tBean) {
+		this.t_Order_Lists.add(tBean);
+	}
 
 }
