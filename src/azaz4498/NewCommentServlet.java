@@ -22,9 +22,7 @@ import utils.HibernateUtil;
 @WebServlet("/NewCommentServlet")
 public class NewCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	SessionFactory factory = HibernateUtil.getSessionFactory();
-	Session session = factory.getCurrentSession();
-
+	
 	public NewCommentServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -38,14 +36,17 @@ public class NewCommentServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
+
 		response.setContentType("text/html");
 		ForumDAO forumDAO;
 		try {
 			forumDAO = new ForumDAO(session);
-			HttpSession session = request.getSession();
-			AccountBean account = (AccountBean) session.getAttribute("Login");
-			int currArticleid = (int) session.getAttribute("currArticle");
-			int currTypeid = (int) session.getAttribute("currTypeId");
+			HttpSession httpsession = request.getSession();
+			AccountBean account = (AccountBean) httpsession.getAttribute("Login");
+			int currArticleid = (int) httpsession.getAttribute("currArticle");
+			int currTypeid = (int) httpsession.getAttribute("currTypeId");
 //			int typeid=Integer.valueOf(request.getParameter("art_TypeId"));
 //			System.out.println("this is new comment servlet = "+typeid);
 			String commentString = request.getParameter("commentarea");

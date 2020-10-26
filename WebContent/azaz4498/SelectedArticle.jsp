@@ -34,7 +34,7 @@
 								comments ${art.artView} views </small>
 
 							<a
-								href="<c:url value='/ArticleServlet?artId=${art.artId}&art_TypeId=${art.artTypeId}'/>"
+								href="<c:url value='/ArticleServlet?artId=${art.artId}&art_TypeId=${art.articleType.typeId}'/>"
 								class="btn btn-primary float-right">閱讀文章</a> 
 						</p>
 

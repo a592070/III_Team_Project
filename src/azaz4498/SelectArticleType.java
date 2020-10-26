@@ -22,8 +22,7 @@ import utils.HibernateUtil;
 @WebServlet("/SelectArticleType")
 public class SelectArticleType extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	SessionFactory factory = HibernateUtil.getSessionFactory();
-	Session session = factory.getCurrentSession();
+	
 
 	public SelectArticleType() {
 		super();
@@ -37,6 +36,8 @@ public class SelectArticleType extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
 		response.setContentType("text/html");
 		ForumDAO forumDAO;
 		try {
