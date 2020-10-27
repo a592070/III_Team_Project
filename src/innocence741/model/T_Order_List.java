@@ -52,7 +52,7 @@ public class T_Order_List {
 	private String orderType;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ORDER_ID")
+	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
 	private OrderTableBean order_table; // 晚點改
 
 	@Column(name = "NAME")

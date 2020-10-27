@@ -153,7 +153,7 @@ public class AccountBean {
 		this.identityBean = identityBean;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	public List<OrderTableBean> getOrderTableBeans() {
 		return orderTableBeans;
 	}
@@ -161,6 +161,7 @@ public class AccountBean {
 	public void setOrderTableBeans(List<OrderTableBean> orderTableBeans) {
 		this.orderTableBeans = orderTableBeans;
 	}
+
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "accountBean", cascade = CascadeType.ALL)
 	public RestaurantBean getRestaurantBean() {
 		return restaurantBean;

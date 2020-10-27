@@ -61,7 +61,7 @@ public class T_Order_ListDAO {
 				ts2 = Timestamp.valueOf(list.get(i)[9].toString());
 
 			if (list.get(i)[1] != null)
-				oBean.setOrder_id(BigDecimal.valueOf(Integer.parseInt(list.get(i)[0].toString())));
+				oBean.setOrder_id(Integer.parseInt(list.get(i)[0].toString()));
 			
 			oBean.setOrder_date(ts);
 			

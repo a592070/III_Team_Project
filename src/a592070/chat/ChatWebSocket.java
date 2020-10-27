@@ -87,7 +87,7 @@ public class ChatWebSocket {
         String receive = messageJson.get("receive");
         String content = messageJson.get("content");
 
-        if(this.user.getIdentity() == 1){
+        if(this.user.getIdentityBean().getId() == 1){
             System.out.println("service");
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.put("method","toClientMsg");

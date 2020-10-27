@@ -142,7 +142,7 @@ public class R_OrderBean {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ORDER_ID")
+	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
 	public OrderTableBean getOrderTableBean() {
 		return orderTableBean;
 	}
