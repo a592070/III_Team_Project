@@ -44,7 +44,7 @@ if (session.getAttribute("Login") == null) {
 				<table class="table" border="1" width="300px">
 					<tr>
 						<td>
-							<c:out value="身分:${Login.identityBean.name}" />
+							<c:out value="身分:${Identity.id}" />
 						</td>
 					</tr>
 					<tr>

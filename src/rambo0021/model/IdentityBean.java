@@ -12,16 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="identity")
+@Table(name = "identity")
 public class IdentityBean {
 	private int id;
 	private String name;
-	private Set<AccountBean> accountBean=new HashSet<AccountBean>();
-	
+	private Set<AccountBean> accountBean = new HashSet<AccountBean>();
+
 	public IdentityBean() {
 	}
 
-	@Id @Column(name ="ID")
+	@Id
+	@Column(name = "ID")
 	public int getId() {
 		return id;
 	}
@@ -29,7 +30,8 @@ public class IdentityBean {
 	public void setId(int id) {
 		this.id = id;
 	}
- 
+
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
@@ -38,7 +40,7 @@ public class IdentityBean {
 		this.name = name;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "identityBean")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "identityBean")
 	public Set<AccountBean> getAccountBean() {
 		return accountBean;
 	}
@@ -47,5 +49,4 @@ public class IdentityBean {
 		this.accountBean = accountBean;
 	}
 
-	
 }

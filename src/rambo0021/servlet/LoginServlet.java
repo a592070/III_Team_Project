@@ -17,6 +17,7 @@ import org.hibernate.SessionFactory;
 
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
+import rambo0021.model.IdentityBean;
 import rambo0021.model.SHA2DAO;
 import rambo0021.model.VerifyRecaptcha;
 import utils.HibernateUtil;
@@ -49,11 +50,16 @@ public class LoginServlet extends HttpServlet {
 		boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 		// 查密碼
 		AccountBean account = session.get(AccountBean.class,userName);
+		IdentityBean identityBean = account.getIdentityBean();
+		
 		// 判斷帳密&驗證
 		if (password.equals(account.getPassword()) && verify) {
 			hsession.setAttribute("Login", account);
-//			response.sendRedirect(request.getContextPath() + "/index.jsp");
-			response.sendRedirect(request.getContextPath() + request.getRequestURI());
+			hsession.setAttribute("Identity", identityBean);
+//			String retUrl = request.getHeader("Referer");
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
+//			response.sendRedirect(request.getContextPath() + request.getRequestURI());
+//			System.out.println(retUrl);
 		} else if (!verify) {
 			errorMsgMap.put("LoginError", "驗證不通過");
 			RequestDispatcher rd = request.getRequestDispatcher("/rambo0021/login.jsp");
