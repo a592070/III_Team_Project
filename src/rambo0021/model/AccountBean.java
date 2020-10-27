@@ -44,9 +44,9 @@ public class AccountBean {
 	private IdentityBean identityBean;
 
 	private List<OrderTableBean> orderTableBeans;// 大訂單
-	private List<R_OrderBean> r_OrderBean;// 餐廳訂單
-	private List<H_OrderBean> h_OrderBean;// 住宿訂單
-	private List<T_Order_List> t_Order_List;// 交通訂單
+//	private List<R_OrderBean> r_OrderBean;// 餐廳訂單
+//	private List<H_OrderBean> h_OrderBean;// 住宿訂單
+//	private List<T_Order_List> t_Order_List;// 交通訂單
 
 	public AccountBean() {
 
@@ -159,32 +159,32 @@ public class AccountBean {
 		this.orderTableBeans = orderTableBeans;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
-	public List<R_OrderBean> getR_OrderBean() {
-		return r_OrderBean;
-	}
-
-	public void setR_OrderBean(List<R_OrderBean> r_OrderBean) {
-		this.r_OrderBean = r_OrderBean;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
-	public List<H_OrderBean> getH_OrderBean() {
-		return h_OrderBean;
-	}
-
-	public void setH_OrderBean(List<H_OrderBean> h_OrderBean) {
-		this.h_OrderBean = h_OrderBean;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
-	public List<T_Order_List> getT_Order_List() {
-		return t_Order_List;
-	}
-
-	public void setT_Order_List(List<T_Order_List> t_Order_List) {
-		this.t_Order_List = t_Order_List;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+//	public List<R_OrderBean> getR_OrderBean() {
+//		return r_OrderBean;
+//	}
+//
+//	public void setR_OrderBean(List<R_OrderBean> r_OrderBean) {
+//		this.r_OrderBean = r_OrderBean;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+//	public List<H_OrderBean> getH_OrderBean() {
+//		return h_OrderBean;
+//	}
+//
+//	public void setH_OrderBean(List<H_OrderBean> h_OrderBean) {
+//		this.h_OrderBean = h_OrderBean;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+//	public List<T_Order_List> getT_Order_List() {
+//		return t_Order_List;
+//	}
+//
+//	public void setT_Order_List(List<T_Order_List> t_Order_List) {
+//		this.t_Order_List = t_Order_List;
+//	}
 
 	@Override
 	public String toString() {
