@@ -41,7 +41,7 @@
 			
 <!-- 			<mapping class="azaz4498.model.Comment"/>  -->
 		
-<!-- 			<mapping class="iring29.model.R_OrderBean"/>  -->
+			<mapping class="iring29.model.R_OrderBean"/> 
 		
 <!-- 			<mapping class="iring29.model.RestaurantBean" /> -->
 		
@@ -52,7 +52,7 @@
 <!-- 			<mapping class="innocence741.model.CarRentalCompany" /> -->
 <!-- 			<mapping class="innocence741.model.CarType" /> -->
 <!-- 			<mapping class="innocence741.model.HighSpeedRail" /> -->
-<!-- 			<mapping class="innocence741.model.T_Order_List" /> -->
+ 			<mapping class="innocence741.model.T_Order_List" /> 
 
 
 			<mapping class="pojo.OrderTableBean" />
