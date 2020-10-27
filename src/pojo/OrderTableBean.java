@@ -40,7 +40,7 @@ public class OrderTableBean {
 
 	@Transient
 	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Transient
 	Set<H_OrderBean> h_OrderBeans;
 	@Transient
 	H_OrderBean h_OrderBean;
