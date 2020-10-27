@@ -35,7 +35,7 @@ public class OrderTableBean {
 	@Transient
 	R_OrderBean r_OrdrerBean; // 小訂單的Bean (Restaurant)
 
-@Transient//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
+	@Transient//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
 	Set<T_Order_List> t_Order_Lists;
 
 	@Transient

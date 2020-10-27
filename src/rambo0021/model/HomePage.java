@@ -19,8 +19,10 @@ public class HomePage {
 	}
 	public AccountBean update(AccountBean account) {
 		AccountBean result = session.get(AccountBean.class,account.getUserName());
-		if(result!=null) {
+		if(result==null) {
 			session.save(account);
+		}else{
+			session.merge(account);
 		}
 		return result;
 	}

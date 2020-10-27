@@ -85,12 +85,11 @@ public class TravelSetService {
     public boolean updateTravelSet(TravelSetDO travelSetDO){
         boolean flag = false;
 
-        if(travelSetDAO.getTravelSetByID(travelSetDO.getSn()) == null){
+        if(travelSetDO.getSn() == null){
             flag = travelSetDAO.addTravelSet(travelSetDO);
         }else{
             flag = travelSetDAO.updateTravelSet(travelSetDO);
         }
-
         return flag;
     }
 

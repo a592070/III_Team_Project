@@ -43,9 +43,8 @@ public class ChatWebSocket {
 
         if(httpSession.getAttribute(Constant.LOGIN) != null){
             AccountBean user = (AccountBean) httpSession.getAttribute(Constant.LOGIN);
-            System.out.println(user);
             this.user = user;
-            if(user.getIdentity() == 1){
+            if(user.getIdentityBean().getId() == 1){
                 webSocketService.put(httpSession.getId(), this);
                 System.out.println("webSocketService:"+webSocketService);
             }else{
