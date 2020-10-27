@@ -11,54 +11,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.ConnectionPool;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-/**
- * Servlet implementation class SelectArticleType
- */
+import azaz4498.model.Article;
+import azaz4498.model.ArticleType;
+import azaz4498.model.ForumDAO;
+import utils.HibernateUtil;
+
 @WebServlet("/SelectArticleType")
 public class SelectArticleType extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelectArticleType() {
-        super();
-       
-    }
+	
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SelectArticleType() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
 		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
-		ForumDAO2 forumDAO;
+		ForumDAO forumDAO;
 		try {
-			forumDAO=new ForumDAO2(ConnectionPool.LOADING_WITH_SERVER);
+			forumDAO = new ForumDAO(session);
 			int articleTypeId;
-			articleTypeId=Integer.valueOf(request.getParameter("typeId"));
-			List<ArticleDO> resultList=forumDAO.serchArticleByType(articleTypeId);
+			articleTypeId = Integer.valueOf(request.getParameter("typeId"));
+			List<Article> resultList = forumDAO.showArticlesByType(articleTypeId);
+			List<ArticleType> typelist = forumDAO.showArticleType(articleTypeId);
+			ArticleType type= typelist.get(0);
 			request.setAttribute("Article", resultList);
-			request.setAttribute("Type",forumDAO.showArtTypeByTypeId(articleTypeId));
-			RequestDispatcher rd =request.getRequestDispatcher("azaz4498/SelectedArticle.jsp");
+			request.setAttribute("Type", type);
+			RequestDispatcher rd = request.getRequestDispatcher("azaz4498/SelectedArticle.jsp");
 			rd.forward(request, response);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

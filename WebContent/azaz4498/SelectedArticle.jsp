@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="azaz4498.ArticleDO"%>
-<%@ page import="azaz4498.ForumDAO2"%>
+<%@ page import="azaz4498.model.Article"%>
+<%@ page import="azaz4498.model.ForumDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,7 @@
 								comments ${art.artView} views </small>
 
 							<a
-								href="<c:url value='/ArticleServlet?artId=${art.artId}&art_TypeId=${art.artTypeId}'/>"
+								href="<c:url value='/ArticleServlet?artId=${art.artId}&art_TypeId=${art.articleType.typeId}'/>"
 								class="btn btn-primary float-right">閱讀文章</a> 
 						</p>
 

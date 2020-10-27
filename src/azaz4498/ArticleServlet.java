@@ -1,6 +1,5 @@
 package azaz4498;
 
-import java.io.DataOutput;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,68 +12,68 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import controller.ConnectionPool;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-/**
- * Servlet implementation class ArticleServlet
- */
+import azaz4498.model.Article;
+import azaz4498.model.ArticleType;
+import azaz4498.model.Comment;
+import azaz4498.model.ForumDAO;
+import utils.HibernateUtil;
+
 @WebServlet("/ArticleServlet")
 public class ArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ArticleServlet() {
-        super();
-        
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+
+	public ArticleServlet() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
 		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
-		ForumDAO2 forumDAO;
+		ForumDAO forumDAO;
 		try {
-			forumDAO = new ForumDAO2(ConnectionPool.LOADING_WITH_SERVER);
-			HttpSession session =request.getSession();
+
+			forumDAO = new ForumDAO(session);
+			HttpSession httpsession = request.getSession();
 			int artid;
 			int typeid;
-			CommentDO commentDO = null;
-			artid=Integer.valueOf(request.getParameter("artId"));
-			typeid=Integer.valueOf(request.getParameter("art_TypeId"));
-			
-//			System.out.println("typeid 有沒有抓到 = "+typeid);
-			List<CommentDO> commentList=forumDAO.showCommentByArticleId(artid);
-			
-			request.setAttribute("Article", forumDAO.showArticleByArticleId(artid));
+			Comment comment = null;
+			artid = Integer.valueOf(request.getParameter("artId"));
+			typeid = Integer.valueOf(request.getParameter("art_TypeId"));
+
+//			System.out.println("typeid 有沒有抓到 = " + artid);
+			List<Comment> commentList = forumDAO.showCommentsByArticle(artid);
+			List<Article> articlelist = forumDAO.showArticleById(artid);
+			List<ArticleType> typelist = forumDAO.showArticleType(typeid);
+			ArticleType type = typelist.get(0);
+			Article article = articlelist.get(0);
+
+			request.setAttribute("Article", article);
 			request.setAttribute("Comment", commentList);
-			request.setAttribute("Type",forumDAO.showArtTypeByTypeId(typeid));
-			session.setAttribute("currArticle",artid);
-			session.setAttribute("currTypeId", typeid);
-			
+			request.setAttribute("Type", type);
+			httpsession.setAttribute("currArticle", artid);
+			httpsession.setAttribute("currTypeId", typeid);
+
 			RequestDispatcher rd = request.getRequestDispatcher("azaz4498/Article.jsp");
 			rd.forward(request, response);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
 }
