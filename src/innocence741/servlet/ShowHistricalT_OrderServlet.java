@@ -15,11 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import innocence741.model.T_Order_ListDAO;
 import rambo0021.model.AccountBean;
+import utils.HibernateUtil;
 
 /**
  * Servlet implementation class ShowHistricalT_Order
@@ -36,6 +38,10 @@ public class ShowHistricalT_OrderServlet extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ParseException {
 		response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+    	session = factory.getCurrentSession();
+    	session.beginTransaction();
         
         HttpSession session2 = request.getSession(false);
         if (session2.getAttribute("Login") == null) {
@@ -65,6 +71,8 @@ public class ShowHistricalT_OrderServlet extends HttpServlet {
 	        PrintWriter out = response.getWriter();
 	        out.println(ujson.toString());
 	    }
+        session.getTransaction().commit();
+
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
