@@ -13,22 +13,22 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;
-import rambo0021.old.OrderBean;
-import rambo0021.old.OrderDAO;
 
 
+//大訂單
 @WebServlet("/OrderAjaxController")
 public class OrderAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		AccountBean account = (AccountBean)session.getAttribute("Login");
-		List<OrderBean> list = orderDAO.selectOrder(account);
-		for (OrderBean order : list) {
-		    System.out.println(order.getOrderDateString());
-	        System.out.println(order.getOrderId());	
+		HttpSession hsession = request.getSession(false);
+		AccountBean account = (AccountBean)hsession.getAttribute("Login");
+		List<OrderTableBean> list = account.getOrderTableBeans();
+		for (OrderTableBean order : list) {
+		    System.out.println(order.getOrder_id());
+	        System.out.println(order.getOrder_date());	
 		}
 
 		ObjectMapper objectMapper = new ObjectMapper();

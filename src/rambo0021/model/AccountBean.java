@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,6 +24,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import asx54630.model.H_OrderBean;
 import innocence741.model.T_Order_List;
 import iring29.model.R_OrderBean;
+import iring29.model.RestaurantBean;
 import pojo.OrderTableBean;
 
 @Entity
@@ -39,14 +41,15 @@ public class AccountBean {
 	private Date modify_Date;
 	private String nickName;
 	private Date register;
-	private String getModify_DateString;
-	private String getRegisterString;
-	private IdentityBean identityBean;
 
+	
+	private IdentityBean identityBean;
+    private RestaurantBean restaurantBean;
+	
 	private List<OrderTableBean> orderTableBeans;// 大訂單
-	private List<R_OrderBean> r_OrderBean;// 餐廳訂單
-	private List<H_OrderBean> h_OrderBean;// 住宿訂單
-	private List<T_Order_List> t_Order_List;// 交通訂單
+//	private List<R_OrderBean> r_OrderBean;// 餐廳訂單
+//	private List<H_OrderBean> h_OrderBean;// 住宿訂單
+//	private List<T_Order_List> t_Order_List;// 交通訂單
 
 	public AccountBean() {
 
@@ -140,7 +143,7 @@ public class AccountBean {
 		this.picture = picture;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IDENTITY")
 	public IdentityBean getIdentityBean() {
 		return identityBean;
@@ -150,7 +153,7 @@ public class AccountBean {
 		this.identityBean = identityBean;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	public List<OrderTableBean> getOrderTableBeans() {
 		return orderTableBeans;
 	}
@@ -158,41 +161,42 @@ public class AccountBean {
 	public void setOrderTableBeans(List<OrderTableBean> orderTableBeans) {
 		this.orderTableBeans = orderTableBeans;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
-	public List<R_OrderBean> getR_OrderBean() {
-		return r_OrderBean;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "accountBean", cascade = CascadeType.ALL)
+	public RestaurantBean getRestaurantBean() {
+		return restaurantBean;
 	}
-
-	public void setR_OrderBean(List<R_OrderBean> r_OrderBean) {
-		this.r_OrderBean = r_OrderBean;
+	public void setRestaurantBean(RestaurantBean restaurantBean) {
+		this.restaurantBean = restaurantBean;
 	}
+    
+	
+	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+//	public List<R_OrderBean> getR_OrderBean() {
+//		return r_OrderBean;
+//	}
+//
+//	public void setR_OrderBean(List<R_OrderBean> r_OrderBean) {
+//		this.r_OrderBean = r_OrderBean;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+//	public List<H_OrderBean> getH_OrderBean() {
+//		return h_OrderBean;
+//	}
+//
+//	public void setH_OrderBean(List<H_OrderBean> h_OrderBean) {
+//		this.h_OrderBean = h_OrderBean;
+//	}
+//
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
+//	public List<T_Order_List> getT_Order_List() {
+//		return t_Order_List;
+//	}
+//
+//	public void setT_Order_List(List<T_Order_List> t_Order_List) {
+//		this.t_Order_List = t_Order_List;
+//	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
-	public List<H_OrderBean> getH_OrderBean() {
-		return h_OrderBean;
-	}
-
-	public void setH_OrderBean(List<H_OrderBean> h_OrderBean) {
-		this.h_OrderBean = h_OrderBean;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "", cascade = CascadeType.ALL)
-	public List<T_Order_List> getT_Order_List() {
-		return t_Order_List;
-	}
-
-	public void setT_Order_List(List<T_Order_List> t_Order_List) {
-		this.t_Order_List = t_Order_List;
-	}
-
-	@Override
-	public String toString() {
-		return "AccountBean [userName=" + userName + ", password=" + password + ", identity=" + identity + ", email="
-				+ email + ", picture=" + Arrays.toString(picture) + ", modify_Date=" + modify_Date + ", nickName="
-				+ nickName + ", register=" + register + ", getModify_DateString=" + getModify_DateString
-				+ ", getRegisterString=" + getRegisterString + ", identityBean=" + identityBean + ", orderTableBeans="
-				+ orderTableBeans + "]";
-	}
-
+	
 }

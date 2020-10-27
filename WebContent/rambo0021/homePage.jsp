@@ -1,5 +1,4 @@
 <%@page import="rambo0021.model.AccountBean"%>
-<%@page import="rambo0021.old.RegisterDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -45,7 +44,7 @@ if (session.getAttribute("Login") == null) {
 				<table class="table" border="1" width="300px">
 					<tr>
 						<td>
-							<c:out value="身分:${Login.identityString}" />
+							<c:out value="身分:${Login.identityBean.name}" />
 						</td>
 					</tr>
 					<tr>
@@ -60,7 +59,7 @@ if (session.getAttribute("Login") == null) {
 						</td>
 					</tr>
 					<tr>
-						<td>密碼:<input type="password" id="password" name="password" value="" disabled />
+						<td>密碼:<input type="password" id="password" name="password" value="${Login.password}" disabled />
 						</td>
 					</tr>
 					<tr>
@@ -192,7 +191,7 @@ if (session.getAttribute("Login") == null) {
 		$.ajax(
                     {
                         type: 'POST',
-                        url: '../ListAjaxController',
+                        url: '${pageContext.servletContext.contextPath}/ListAjaxController',
 						data:{"orderid":orderid},					    
 						dataType: "json", 
                         success:function(response){

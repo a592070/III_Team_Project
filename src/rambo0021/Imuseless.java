@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
+import rambo0021.model.IdentityBean;
 import rambo0021.model.Register;
 import rambo0021.model.SHA2DAO;
 import utils.HibernateUtil;
@@ -26,12 +27,13 @@ public class Imuseless {
           session.beginTransaction();
      
           AccountBean aBean = session.get(AccountBean.class,"rambo005");
-          List<OrderTableBean> orderTableBeans = aBean.getOrderTableBeans();
-          for (OrderTableBean order : orderTableBeans) {
-  		    System.out.println(order.getOrder_id());
-  	        System.out.println(order.getOrder_date());	
-  		}
-//          
+    System.out.println(aBean.getPassword());    
+//          List<OrderTableBean> orderTableBeans = aBean.getOrderTableBeans();
+//          for (OrderTableBean order : orderTableBeans) {
+//  		    System.out.println(order.getOrder_id());
+//  	        System.out.println(order.getOrder_date());	
+//  		}
+////          
 //          FileOutputStream fos = new FileOutputStream("D:\\test.png");
 //          fos.write(aBean.getPicture());
           

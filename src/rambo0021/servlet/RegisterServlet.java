@@ -2,8 +2,10 @@ package rambo0021.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,20 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.DataException;
 
-import asx54630.HotelDAO;
-import asx54630.HotelDO;
-import controller.ConnectionPool;
-import innocence741.CarRentalCompanyBean;
-import innocence741.CarRentalCompanyDAO;
-import innocence741.CarTypeBean;
 import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
+import oracle.security.o3logon.a;
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
 import rambo0021.model.Register;
 import rambo0021.model.SHA2DAO;
-import rambo0021.old.RegisterDAO;
 import utils.HibernateUtil;
 
 @MultipartConfig
@@ -36,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException {
+			throws ServletException, UnsupportedEncodingException {
 		// 儲存會員基本資料
 		AccountBean account = new AccountBean();
 		request.setCharacterEncoding("UTF-8");
@@ -59,23 +56,25 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email").trim();
 		account.setEmail(email);
 
-		InputStream pictrure = request.getPart("picture").getInputStream();
+		Date date = new Date();
+		account.setModify_Date(date);
+        account.setRegister(date);		
+		
+		
+		InputStream pictrure=null;
 
 		try {
+			pictrure = request.getPart("picture").getInputStream();
 			account.setPicture(pictrure.readAllBytes());
-		} catch (IOException | SQLException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		String nickname = request.getParameter("nickname").trim();
 		account.setNickName(nickname);
 		System.out.println("Servlet is on");
-		AccountBean rs = register.insertData(account);
-		if (rs!=null) {
-			System.out.println("會員新增成功");
-		}else {
-			System.out.println("會員新增失敗");
-		}
+		
+		
 		// 儲存店家基本資料
 		// 餐廳
 		if (identity == 3) {
@@ -89,18 +88,12 @@ public class RegisterServlet extends HttpServlet {
 			rBean.setRating(BigDecimal.ZERO); // rating初始值設為0
 			rBean.setPicture(request.getParameter("rpicture").trim()); // 餐廳照片，url格式
 			rBean.setServiceinfo(request.getParameter("serviceinfo").trim()); // 餐廳用餐訊息
-			rBean.setAccount(username); // session中的username(account)
+	        
+			account.setRestaurantBean(rBean);
 
-			RestaurantDAO restaurantDAO = new RestaurantDAO(ConnectionPool.LOADING_WITH_SERVER);
-			try {
-				restaurantDAO.createRestaurant(rBean);
-				System.out.println("餐廳新增成功");
-			} catch (SQLException e) {
-				System.out.println("餐廳新增失敗");
-				e.printStackTrace();
-			}
 		}
 		// 住宿
+		/*
 		else if (identity == 4) {
 
 			HotelDO hotDO = new HotelDO();
@@ -128,6 +121,7 @@ public class RegisterServlet extends HttpServlet {
 
 		}
 		// 交通
+		
 		else if (identity == 5) {
 			CarRentalCompanyBean carRentalCompanyBean = new CarRentalCompanyBean();
 			CarTypeBean carTypeBean = new CarTypeBean();
@@ -144,17 +138,17 @@ public class RegisterServlet extends HttpServlet {
 			carTypeBean.setCarRentalCompanyBean(carRentalCompanyBean);
 
 			CarRentalCompanyDAO carRentalCompanyDAO = new CarRentalCompanyDAO(ConnectionPool.LOADING_WITH_SERVER);
-			try {
-				carRentalCompanyDAO.signUPCarRentalCompany(carRentalCompanyBean);
-				System.out.println("交通新增成功");
-			} catch (SQLException e) {
-				System.out.println("交通新增失敗");
-				e.printStackTrace();
-			}
 		}
-
-		pictrure.close();
-		response.sendRedirect(request.getContextPath() + "/rambo0021/login.jsp");
+*/
+		register.insertData(account);
+		
+		try {
+			pictrure.close();
+			response.sendRedirect(request.getContextPath() + "/rambo0021/login.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		;
 
 	}
 

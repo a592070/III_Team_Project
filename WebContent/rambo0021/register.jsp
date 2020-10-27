@@ -255,7 +255,7 @@
                     {
                         type: 'POST',
                         data: { "username": username },
-                        url: '../UserAjaxController',
+                        url: '${pageContext.servletContext.contextPath}/UserAjaxController',
                         dataType: 'json',
                         success:function(response){
                             checkusr(response);                   
