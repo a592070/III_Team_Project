@@ -50,19 +50,19 @@
 					href="${pageContext.servletContext.contextPath}/a592070/travelSetSelect.jsp">我的行程</a>
 				</li>
                 <!--餐廳 -->
-				<c:if test="${Identity.id eq 3}">
+				<c:if test="${Login.identityBean.id eq 3}">
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.servletContext.contextPath}/Restaurant_HPServlet">店家頁面</a>
 				</li>
 				</c:if>
 				<!--住宿 -->
-				<c:if test="${Identity.id eq 4}">
+				<c:if test="${Login.identityBean.id eq 4}">
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.servletContext.contextPath}/H_HomepageServlet">店家頁面</a>
 				</li>
 				</c:if>
 				<!--交通 -->
-				<c:if test="${Identity.id eq 5}">
+				<c:if test="${Login.identityBean.id eq 5}">
 				<li class="nav-item"><a class="nav-link active"
 					href="${pageContext.servletContext.contextPath}/">店家頁面</a>
 				</li>

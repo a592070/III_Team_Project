@@ -40,7 +40,7 @@ public class IdentityBean {
 		this.name = name;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "identityBean")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "identityBean")
 	public Set<AccountBean> getAccountBean() {
 		return accountBean;
 	}

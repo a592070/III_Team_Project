@@ -44,7 +44,7 @@ if (session.getAttribute("Login") == null) {
 				<table class="table" border="1" width="300px">
 					<tr>
 						<td>
-							<c:out value="身分:${Identity.id}" />
+							<c:out value="身分:${Login.identityBean.name}" />
 						</td>
 					</tr>
 					<tr>
@@ -59,7 +59,7 @@ if (session.getAttribute("Login") == null) {
 						</td>
 					</tr>
 					<tr>
-						<td>密碼:<input type="password" id="password" name="password" value="" disabled />
+						<td>密碼:<input type="password" id="password" name="password" value="${Login.password}" disabled />
 						</td>
 					</tr>
 					<tr>

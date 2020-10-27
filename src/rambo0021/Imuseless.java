@@ -27,9 +27,7 @@ public class Imuseless {
           session.beginTransaction();
      
           AccountBean aBean = session.get(AccountBean.class,"rambo005");
-          IdentityBean identityBean = aBean.getIdentityBean();
-          System.out.println(identityBean.getName());
-          System.out.println(identityBean.getId());
+    System.out.println(aBean.getPassword());    
 //          List<OrderTableBean> orderTableBeans = aBean.getOrderTableBeans();
 //          for (OrderTableBean order : orderTableBeans) {
 //  		    System.out.println(order.getOrder_id());

@@ -41,8 +41,7 @@ public class AccountBean {
 	private Date modify_Date;
 	private String nickName;
 	private Date register;
-	private String getModify_DateString;
-	private String getRegisterString;
+
 	
 	private IdentityBean identityBean;
     private RestaurantBean restaurantBean;
@@ -144,7 +143,7 @@ public class AccountBean {
 		this.picture = picture;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IDENTITY")
 	public IdentityBean getIdentityBean() {
 		return identityBean;
@@ -154,7 +153,7 @@ public class AccountBean {
 		this.identityBean = identityBean;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	public List<OrderTableBean> getOrderTableBeans() {
 		return orderTableBeans;
 	}
@@ -162,7 +161,7 @@ public class AccountBean {
 	public void setOrderTableBeans(List<OrderTableBean> orderTableBeans) {
 		this.orderTableBeans = orderTableBeans;
 	}
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "accountBean", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "accountBean", cascade = CascadeType.ALL)
 	public RestaurantBean getRestaurantBean() {
 		return restaurantBean;
 	}

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,9 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.DataException;
 
 import iring29.model.RestaurantBean;
 import iring29.model.RestaurantDAO;
+import oracle.security.o3logon.a;
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
 import rambo0021.model.Register;
@@ -53,6 +56,11 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email").trim();
 		account.setEmail(email);
 
+		Date date = new Date();
+		account.setModify_Date(date);
+        account.setRegister(date);		
+		
+		
 		InputStream pictrure=null;
 
 		try {
