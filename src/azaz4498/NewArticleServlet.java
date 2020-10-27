@@ -23,8 +23,7 @@ import utils.HibernateUtil;
 @WebServlet("/NewArticleServlet")
 public class NewArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	SessionFactory factory = HibernateUtil.getSessionFactory();
-	Session session = factory.getCurrentSession();
+	
 	public NewArticleServlet() {
 
 		super();
@@ -40,16 +39,18 @@ public class NewArticleServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
 		response.setContentType("text/html");
 		ForumDAO forumDAO;
 		try {
 			forumDAO = new ForumDAO(session);
-			HttpSession session = request.getSession(false);
+			HttpSession httpsession = request.getSession(false);
 			String articleTitle = request.getParameter("article_title");
 			int articleTypeSelect = Integer.parseInt(request.getParameter("article_type_select"));
 			String articleContent = request.getParameter("article_content");
-			if (session.getAttribute("Login") != null) {
-				AccountBean account = (AccountBean) session.getAttribute("Login");
+			if (httpsession.getAttribute("Login") != null) {
+				AccountBean account = (AccountBean) httpsession.getAttribute("Login");
 				String userName = account.getUserName();
 				forumDAO.newArticle(articleTitle, articleTypeSelect, articleContent, userName);
 //				System.out.println("文章標題是  " + articleTitle + " 文章類型是" + articleTypeSelect + "文章內容" + articleContent

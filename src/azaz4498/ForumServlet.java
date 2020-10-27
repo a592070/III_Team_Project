@@ -24,8 +24,7 @@ import utils.HibernateUtil;
 @WebServlet("/ForumServlet")
 public class ForumServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	SessionFactory factory = HibernateUtil.getSessionFactory();
-	Session session = factory.getCurrentSession();
+	
 
 	
 	public ForumServlet() {
@@ -42,6 +41,8 @@ public class ForumServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.getCurrentSession();
 		response.setContentType("text/html");
 		ForumDAO forumDAO;
 		
