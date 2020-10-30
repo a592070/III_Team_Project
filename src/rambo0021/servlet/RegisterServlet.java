@@ -23,7 +23,7 @@ import iring29.model.RestaurantDAO;
 import oracle.security.o3logon.a;
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
-import rambo0021.model.Register;
+import rambo0021.model.RegisterDAO;
 import rambo0021.model.SHA2DAO;
 import utils.HibernateUtil;
 
@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		Register register = new Register(session);
+		RegisterDAO register = new RegisterDAO(session);
 
 		String username = request.getParameter("username").trim();
 		account.setUserName(username);
@@ -90,6 +90,7 @@ public class RegisterServlet extends HttpServlet {
 			rBean.setServiceinfo(request.getParameter("serviceinfo").trim()); // 餐廳用餐訊息
 	        
 			account.setRestaurantBean(rBean);
+			rBean.setAccountBean(account);
 
 		}
 		// 住宿

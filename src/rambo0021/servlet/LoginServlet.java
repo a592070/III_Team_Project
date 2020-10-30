@@ -55,7 +55,6 @@ public class LoginServlet extends HttpServlet {
 		// 判斷帳密&驗證
 		if (password.equals(account.getPassword()) && verify) {
 			hsession.setAttribute("Login", account);
-			hsession.setAttribute("Identity", identityBean);
 //			String retUrl = request.getHeader("Referer");
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 //			response.sendRedirect(request.getContextPath() + request.getRequestURI());

@@ -2,11 +2,11 @@ package rambo0021.model;
 
 import org.hibernate.Session;
 
-public class Register {
+public class RegisterDAO {
 	
 	private Session session;
 	
-	public Register(Session session) {
+	public RegisterDAO(Session session) {
 		this.session = session;
 	}
 	public AccountBean insertData(AccountBean account) {

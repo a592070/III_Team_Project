@@ -11,7 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import rambo0021.model.AccountBean;
-import rambo0021.model.Register;
+import rambo0021.model.RegisterDAO;
 import utils.HibernateUtil;
 
 
@@ -23,7 +23,7 @@ public class UserAjaxController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		Register register = new Register(session);
+		RegisterDAO register = new RegisterDAO(session);
 		
 		System.out.println(request.getParameter("username"));
 //		account.setUserName(request.getParameter("username"));

@@ -14,7 +14,7 @@ import pojo.OrderTableBean;
 import rambo0021.model.AccountBean;
 import rambo0021.model.HomePage;
 import rambo0021.model.IdentityBean;
-import rambo0021.model.Register;
+import rambo0021.model.RegisterDAO;
 import rambo0021.model.SHA2DAO;
 import utils.HibernateUtil;
 
