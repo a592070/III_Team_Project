@@ -75,7 +75,6 @@
 
 <script type="text/javascript">
 
-    // const url = ;
     var websocket = new WebSocket("ws://<%=request.getLocalAddr()%>:8080${pageContext.servletContext.contextPath}/chat");
     // console.log(websocket.);
 

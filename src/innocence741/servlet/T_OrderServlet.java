@@ -82,7 +82,7 @@ public class T_OrderServlet extends HttpServlet {
 		T_Order_List t_Order_List =new T_Order_List();
 		Timestamp ts = new Timestamp(System.currentTimeMillis()); //下訂單時間
 
-		session.beginTransaction();
+//		session.beginTransaction();
 
 //        AccountBean user = (AccountBean) session2.getAttribute("Login");	//之後要換的User
 		AccountBean user = session.get(AccountBean.class, "abab");
@@ -129,16 +129,16 @@ public class T_OrderServlet extends HttpServlet {
     	out.println(str);
     	
 		if(flag == false) {
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 			throw new SQLException("就說你錯了吧");
 		}else {
-			session.getTransaction().commit();;
+//			session.getTransaction().commit();;
 		}
     }
     
     public int[] spiltDate(String departureDate_tmp) {
-    	String[] tmp = new String[3];    	
-    	tmp = departureDate_tmp.split("-");
+		System.out.println(departureDate_tmp);
+    	String[] tmp = departureDate_tmp.split("-");
     	int[] departureDate = {Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])};
     	return departureDate; 
     }

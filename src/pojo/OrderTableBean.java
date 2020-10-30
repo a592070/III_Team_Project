@@ -21,25 +21,30 @@ public class OrderTableBean {
 	@Id
 	@Column(name = "ORDER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	BigDecimal order_id; // PK
+	Integer order_id; // PK
 
 	@Column(name = "ORDER_DATE")
 	Timestamp order_date; // 下訂單時間，default
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERNAME")//還沒註冊
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "USERNAME", referencedColumnName = "USERNAME")//還沒註冊
 	AccountBean user; // Account資料
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderTableBean", cascade = CascadeType.ALL)
 	Set<R_OrderBean> r_OrderBeans;
+
 	@Transient
 	R_OrderBean r_OrdrerBean; // 小訂單的Bean (Restaurant)
 
-@Transient//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order_table", cascade = CascadeType.ALL)
+//	@Transient
 	Set<T_Order_List> t_Order_Lists;
 
 	@Transient
 	T_Order_List t_Order_List;  //小訂單的Bean (Traffic)
+
+
 	@Transient
 	Set<H_OrderBean> h_OrderBeans;
 	@Transient
@@ -52,11 +57,11 @@ public class OrderTableBean {
 		h_OrderBeans = new HashSet<H_OrderBean>();
 	}
 	
-	public BigDecimal getOrder_id() {
+	public Integer getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(BigDecimal order_id) {
+	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
 	}
 
@@ -91,7 +96,7 @@ public class OrderTableBean {
 		this.r_OrderBeans.add(rBean);
 	}
 
-	
+
 
 	public Set<H_OrderBean> getH_OrderBeans() {
 		return h_OrderBeans;
@@ -104,7 +109,7 @@ public class OrderTableBean {
 	public void addH_OrderBean(H_OrderBean hBean) {
 		this.h_OrderBeans.add(hBean);
 	}
-	
+
 
 	public Set<T_Order_List> getT_Order_Lists() {
 		return t_Order_Lists;

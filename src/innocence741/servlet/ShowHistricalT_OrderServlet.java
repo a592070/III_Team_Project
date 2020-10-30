@@ -41,7 +41,7 @@ public class ShowHistricalT_OrderServlet extends HttpServlet {
         
         SessionFactory factory = HibernateUtil.getSessionFactory();
     	session = factory.getCurrentSession();
-    	session.beginTransaction();
+//    	session.beginTransaction();
         
         HttpSession session2 = request.getSession(false);
         if (session2.getAttribute("Login") == null) {
@@ -71,7 +71,7 @@ public class ShowHistricalT_OrderServlet extends HttpServlet {
 	        PrintWriter out = response.getWriter();
 	        out.println(ujson.toString());
 	    }
-        session.getTransaction().commit();
+//        session.getTransaction().commit();
 
     }
 	/**

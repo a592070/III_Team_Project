@@ -50,15 +50,10 @@ public class HsrServlet extends HttpServlet {
         System.out.println("getParameter: startPoint= "+startPoint);
         System.out.println("getParameter: destination= "+destination);
         System.out.println("getParameter: departureTime= "+departureTime);
-        
-//		SessionFactory factory = HibernateUtil.getSessionFactory();
-//		
-//		session = factory.getCurrentSession();
-//		session.beginTransaction();
 
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		session.beginTransaction();
+//		session.beginTransaction();
     	
 		List<HighSpeedRail> list;
     	int price = 0;
@@ -79,7 +74,7 @@ public class HsrServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(ujson.toString());
         
-        session.getTransaction().commit();
+//        session.getTransaction().commit();
         System.out.println("session.getTransaction().commit()");
     }
     

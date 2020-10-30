@@ -50,8 +50,16 @@ public class LoginServlet extends HttpServlet {
 		boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
 		// 查密碼
 		AccountBean account = session.get(AccountBean.class,userName);
+
+		if(account == null){
+			errorMsgMap.put("LoginError", "帳號或密碼錯誤");
+			RequestDispatcher rd = request.getRequestDispatcher("/rambo0021/login.jsp");
+			rd.forward(request, response);
+			return;
+		}
+
 		IdentityBean identityBean = account.getIdentityBean();
-		
+
 		// 判斷帳密&驗證
 		if (password.equals(account.getPassword()) && verify) {
 			hsession.setAttribute("Login", account);
@@ -64,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/rambo0021/login.jsp");
 			rd.forward(request, response);
 			return;
-		} else {
+		}else{
 			errorMsgMap.put("LoginError", "帳號或密碼錯誤");
 			RequestDispatcher rd = request.getRequestDispatcher("/rambo0021/login.jsp");
 			rd.forward(request, response);

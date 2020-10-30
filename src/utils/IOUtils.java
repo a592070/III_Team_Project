@@ -6,6 +6,7 @@ import java.io.*;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
+import java.util.Base64;
 
 public class IOUtils {
     public static byte[] toByteArray(InputStream in) throws IOException {

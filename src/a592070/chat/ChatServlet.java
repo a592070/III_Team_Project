@@ -30,8 +30,8 @@ public class ChatServlet extends HttpServlet {
             HttpSession session = req.getSession();
             String username;
             if (session.getAttribute("Login") != null) {
-                AccountBean user = (AccountBean) session.getAttribute("Login");
-                if (user.getIdentity() == 1) {
+                AccountBean user = (AccountBean) session.getAttribute(Constant.LOGIN);
+                if (user.getIdentityBean().getId() == 1) {
                     req.getRequestDispatcher("a592070/chatRoomService.jsp").forward(req, resp);
                     return;
                 }
