@@ -21,9 +21,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import asx54630.model.H_OrderBean;
-import innocence741.model.T_Order_List;
-import iring29.model.R_OrderBean;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import iring29.model.RestaurantBean;
 import pojo.OrderTableBean;
 
@@ -163,6 +162,7 @@ public class AccountBean {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "accountBean", cascade = CascadeType.ALL)
+	@JsonIgnore
 	public RestaurantBean getRestaurantBean() {
 		return restaurantBean;
 	}
