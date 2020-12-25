@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import asx54630.model.H_OrderBean;
 //import innocence741.T_OrderBean;
 import innocence741.model.T_Order_List;
@@ -26,8 +28,9 @@ public class OrderTableBean {
 	@Column(name = "ORDER_DATE")
 	Timestamp order_date; // 下訂單時間，default
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "USERNAME", referencedColumnName = "USERNAME")//還沒註冊
+	@JsonIgnore
 	AccountBean user; // Account資料
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderTableBean", cascade = CascadeType.ALL)
